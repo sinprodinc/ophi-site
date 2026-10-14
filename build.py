@@ -26,6 +26,8 @@ PAGES = {
                                'Meet Yourself, Quickie and Here To Help: one-on-one virtual astrology readings with Bri Godard.'),
     'this-season/index.html': ('this-season.html', 'This Season | Ophi by Bri',
                                'The current astrological weather and how it lands for each rising sign, by Bri Godard.'),
+    'candles/index.html':     ('candles.html',     'Candles & Rituals | Ophi by Bri',
+                               'Hand-poured pocket candles for every Moon element, each with its own ritual.'),
 }
 
 HEAD = '''<!DOCTYPE html>
@@ -54,14 +56,14 @@ TAIL = '''<script src="/assets/ophi.js?v={v}"></script>
 '''
 
 def main():
-    css = rd('src/ophi.base.css') + rd('src/site.css')
+    css = rd('src/ophi.base.css') + rd('src/site.css') + rd('src/soft.css')
     js = rd('src/ophi.base.js')
     menu = rd('assets/menu.js')
     import hashlib
     v = hashlib.sha1((css + js + menu).encode()).hexdigest()[:8]   # cache-buster: changes whenever the shared files do
     wr('assets/ophi.css', css)
     wr('assets/ophi.js', js)
-    parts = {k: rd('src/partials/%s.html' % k) for k in ('top', 'nav', 'footer')}
+    parts = {k: rd('src/partials/%s.html' % k) for k in ('top', 'nav', 'footer', 'readings')}
     for out, (src, title, desc) in PAGES.items():
         body = rd('src/pages/' + src)
         for k, val in parts.items(): body = body.replace('{{%s}}' % k, val)

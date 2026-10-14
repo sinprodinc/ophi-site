@@ -13,16 +13,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/ophi.css?v=710f0651">
-<script src="/assets/menu.js?v=710f0651" defer></script>
+<link rel="stylesheet" href="/assets/ophi.css?v=c7d1ef37">
+<script src="/assets/menu.js?v=c7d1ef37" defer></script>
 </head>
 <body>
 
 <div class="cursor-orb"></div>
-<div class="cursor-dot"><svg viewBox="0 0 24 24"><path d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
+<div class="cursor-dot"><svg viewBox="0 0 17 23" aria-hidden="true"><path d="M1.3 1.3v17.6l4.5-4.3 2.9 6.8 3-1.3-2.9-6.7 6.3-.2z"/></svg></div>
 <div class="page-bg"></div>
 <div class="page-beams"></div>
 <section class="hero">
+  <canvas class="stars" aria-hidden="true"></canvas>
   <div class="deco float d1 hs1" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24"><path class="star-c" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
   <div class="deco float d2 hs2" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24"><path class="star-i" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
   <div class="deco float d3 hs3" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24"><path class="star-i" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
@@ -88,7 +89,8 @@
         <path class="glyph" transform="translate(66,66)" d="M0 -12C0.7 -6.9 5.1 -2.5 12 -2 5.1 -1.5 0.7 2.9 0 8 -0.7 2.9 -5.1 -1.5 -12 -2 -5.1 -2.5 -0.7 -6.9 0 -12Z"/>
       </svg>
     </div>
-    <p class="sub">You are written in the stars. Ophi is applicable astrology for the curious, the questioning, the daring, and anyone standing at the edge of a new chapter. Get curious about yourself. You might be surprised by what's been there all along.</p>
+    <p class="hand-line">you are written in the stars</p>
+    <p class="sub">Ophi is applicable astrology for the curious, the questioning, the daring, and anyone standing at the edge of a new chapter. Get curious about yourself. You might be surprised by what's been there all along.</p>
     <div class="cta-row">
       <a class="cta" href="#readings">
         Meet Yourself
@@ -100,13 +102,7 @@
     <p class="trust">Ophi offers reflective, spiritual guidance. It is not a substitute for clinical therapy, mental-health treatment, or medical advice.</p>
   </div>
 </section>
-
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span class="marquee-item">You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b></span>
-    <span class="marquee-item">You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b>You are written in the stars<b>✦</b></span>
-  </div>
-</div>
+<div class="lace-edge" aria-hidden="true"></div>
 
 <section class="why" id="why">
   <div class="relic r-snake slow" data-depth="48" aria-hidden="true"><i></i></div>
@@ -157,11 +153,12 @@
     <div class="tq-carousel" role="region" aria-roledescription="carousel" aria-label="Client testimonials">
       <div class="relic r-moth tuck" data-depth="10" aria-hidden="true"><i></i></div>
       <div class="tq-track" tabindex="0">
-        <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="Testimonial 1 of 3">
+        <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="Testimonial 1">
           <figure class="tq tq-1">
             <span class="tape t-a" aria-hidden="true"></span><span class="tape t-b" aria-hidden="true"></span>
             <div class="paper">
               <svg class="tq-mark" viewBox="0 0 40 32" aria-hidden="true"><path d="M2 30V18C2 8 7 3 16 1l2 4c-5 2-8 5-8 10h7v15zm21 0V18c0-10 5-15 14-17l2 4c-5 2-8 5-8 10h7v15z"/></svg>
+              <p class="tq-pull" aria-hidden="true">how did you know that</p>
               <blockquote>
                 <p>Got my first ever birth chart reading from Bri! I had a great experience. I was genuinely amazed by how accurately my chart reflected experiences and patterns in my life, there were a lot of moments where I thought "How did you know that?!" 😂</p>
                 <p>I really appreciated how thoughtfully she explained both the challenges and strengths in my chart and how she framed everything as something that can evolve rather than something permanent. The reading gave me a lot to reflect on and helped me see some familiar patterns from a completely different perspective. It was insightful, encouraging, and mind-blowing. I'm so glad I booked with her and would absolutely recommend her!</p>
@@ -170,6 +167,8 @@
             </div>
           </figure>
         </div>
+<!-- Testimonials 2 and 3 are hidden until real ones arrive. To add one: copy the slide above, change the words,
+             and add one more dot button below.
         <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="Testimonial 2 of 3">
           <figure class="tq tq-2">
             <svg class="stk" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg>
@@ -191,6 +190,7 @@
             </div>
           </figure>
         </div>
+        -->
       </div>
       <div class="tq-foot">
         <div class="relic r-moth" data-depth="12" aria-hidden="true"><i></i></div>
@@ -198,8 +198,6 @@
           <button type="button" class="tq-btn prev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
           <div class="tq-dots">
             <button type="button" aria-label="Show testimonial 1" aria-current="true"><svg viewBox="-2 -2 28 28" aria-hidden="true"><path d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></button>
-            <button type="button" aria-label="Show testimonial 2"><svg viewBox="-2 -2 28 28" aria-hidden="true"><path d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></button>
-            <button type="button" aria-label="Show testimonial 3"><svg viewBox="-2 -2 28 28" aria-hidden="true"><path d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></button>
           </div>
           <button type="button" class="tq-btn next" aria-label="Next testimonial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
@@ -217,75 +215,55 @@
 </div>
 
 <section class="price" id="readings">
-  <div class="relic r-hourglass slow" data-depth="52" aria-hidden="true"><i></i></div>
-  <div class="deco bg float d3 sf1" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24"><path class="star-c" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
-  <div class="deco bg float d1 sf2" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24"><path class="star-i" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
-  <div class="deco bg float d4 sf3" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24"><path class="star-i" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
-  <div class="deco bg float d2 sf4" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24"><path class="star-c" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
-  <div class="deco bg float d3 sf5" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24"><path class="star-i" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
-  <div class="deco bg float d1 sf6" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24"><path class="star-c" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
-  <div class="deco bg float d2 sf7" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24"><path class="star-i" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
-  <div class="beams"></div>
   <div class="headline sec-head has-lede" style="--r:7.4">
     <h2>Choose your <em>reading.</em></h2>
     <p class="byline">Meet Yourself<b>✦</b>Quickie<b>✦</b>Here To Help</p>
-    <div class="relic r-hourglass slow" data-depth="12" aria-hidden="true"><i></i></div>
   </div>
-  <div class="price-inner">
-    <p class="price-sub">Every session is one-on-one and virtual. Pick the depth that fits where you are right now.</p>
-
-    <article class="price-card rd-hero">
-      <div class="relic r-pegasus tuck" data-depth="10" aria-hidden="true"><i></i></div>
-      <span class="sticker">✦ Start here</span>
-      <div class="rd-buy">
-        <div class="plan">Meet Yourself</div>
-        <div class="price-amount"><span class="cur">$</span><span class="val">129</span><span class="cents">.00</span></div>
-        <div class="per">+ GST ($135.45 total)</div>
-        <div class="rd-len"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>50-min reading + 10-min Q&amp;A</div>
-        <a class="price-cta" href="https://cal.com/sin-prod-entertainment-inc-djqrpb/meet-yourself" target="_blank" rel="noopener noreferrer">Meet Yourself <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
-      <div class="rd-body">
-        <h3>Your foundational <em>chart reading.</em></h3>
-        <p>A deep dive into your Sun, Moon, and Rising, plus your Ascendant ruler and supporting placements. We'll explore your major aspects and the patterns woven throughout your chart, giving you a clear, grounded map to return to.</p>
-        <ul class="price-list">
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sun, Moon, Rising and Ascendant ruler</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Major aspects and chart patterns</li>
-          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Digital takeaways to keep for reflection</li>
-        </ul>
-      </div>
+    <div class="tickets">
+    <article class="tk t1">
+      <div class="relic r-pegasus" data-depth="10" aria-hidden="true"><i></i></div>
+      <div class="tk-no"><span>Admit one ✦ No. Ol</span><span>Start here</span></div>
+      <h3>Meet <em>Yourself</em></h3>
+      <span class="hand-note" aria-hidden="true">the full map</span>
+      <div class="price-amount"><span class="cur">$</span><span class="val">129</span><span class="cents">.00</span></div>
+      <div class="per">+ GST ($135.45 total)</div>
+      <span class="len">50-min reading + 10-min Q&amp;A</span>
+      <p>A deep dive into your Sun, Moon, and Rising, plus your Ascendant ruler and supporting placements. We'll explore your major aspects and the patterns woven throughout your chart, giving you a clear, grounded map to return to.</p>
+      <ul aria-label="What you leave with">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13c3 2 5 5 6 7 3-7 7-12 12-16"/></svg>Sun, Moon, Rising and Ascendant ruler</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13c3 2 5 5 6 7 3-7 7-12 12-16"/></svg>Major aspects and chart patterns</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13c3 2 5 5 6 7 3-7 7-12 12-16"/></svg>Digital takeaways to keep for reflection</li>
+      </ul>
+      <div class="stub"><span>Virtual · one-on-one</span><a class="book" href="https://cal.com/sin-prod-entertainment-inc-djqrpb/meet-yourself" target="_blank" rel="noopener noreferrer" aria-label="Book Meet Yourself">Book <span aria-hidden="true">→</span></a></div>
     </article>
-
-    <div class="rd-pair">
-      <div class="deco bg float d4 sf8" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path class="star-c" d="M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z"/></svg></div>
-      <article class="price-card rd-card">
-        <div class="relic r-hourglass tuck" data-depth="10" aria-hidden="true"><i></i></div>
-        <div class="relic r-potion corner" data-depth="14" aria-hidden="true"><i></i></div>
-        <div class="plan">Quickie</div>
-        <div class="price-amount"><span class="cur">$</span><span class="val">69</span><span class="cents">.00</span></div>
-        <div class="per">+ GST ($72.45 total)</div>
-        <div class="rd-len"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>25-min reading + 5-min Q&amp;A</div>
-        <p class="rd-tag">Fast. Focused. Satisfying.</p>
-        <p>Sometimes you just need a quickie. No shame in the game. A focused reading that gets straight to the good stuff, followed by five minutes for your questions, so you leave with clarity, direction, and a little refresh.</p>
-        <a class="price-cta" href="https://cal.com/sin-prod-entertainment-inc-djqrpb/quickie" target="_blank" rel="noopener noreferrer">Quickie <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </article>
-
-      <article class="price-card rd-card">
-        <div class="relic r-potion tuck" data-depth="10" aria-hidden="true"><i></i></div>
-        <div class="plan">Here To Help</div>
-        <div class="price-amount"><span class="cur">$</span><span class="val">89</span><span class="cents">.00</span></div>
-        <div class="per">+ GST ($93.45 total)</div>
-        <div class="rd-len"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>45-min session</div>
-        <p class="rd-tag">Part counsel, part cosmic clarity.</p>
-        <p>A focused session for whatever's weighing on you right now. Bring one or two specific challenges and we'll work through them together. Less full-chart deep dive, more direct, solutions-oriented guidance when you need it most.</p>
-        <a class="price-cta" href="https://cal.com/sin-prod-entertainment-inc-djqrpb/here-to-help" target="_blank" rel="noopener noreferrer">Here To Help <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </article>
-    </div>
-
-    <p class="promo-memo">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-      Pick your time, share your birth details, and pay securely through Stripe, all in one step.
-    </p>
+    <article class="tk t2">
+      <div class="relic r-hourglass" data-depth="10" aria-hidden="true"><i></i></div>
+      <div class="tk-no"><span>Admit one ✦ No. O2</span><span>Fast</span></div>
+      <h3>Quickie</h3>
+      <div class="price-amount"><span class="cur">$</span><span class="val">69</span><span class="cents">.00</span></div>
+      <div class="per">+ GST ($72.45 total)</div>
+      <span class="len">25-min reading + 5-min Q&amp;A</span>
+      <p class="tag">Fast. Focused. Satisfying.</p>
+      <p>Sometimes you just need a quickie. No shame in the game. A focused reading that gets straight to the good stuff, followed by five minutes for your questions, so you leave with clarity, direction, and a little refresh.</p>
+      <div class="stub"><span>Virtual</span><a class="book" href="https://cal.com/sin-prod-entertainment-inc-djqrpb/quickie" target="_blank" rel="noopener noreferrer" aria-label="Book Quickie">Book <span aria-hidden="true">→</span></a></div>
+    </article>
+    <article class="tk t3">
+      <div class="relic r-potion" data-depth="10" aria-hidden="true"><i></i></div>
+      <div class="tk-no"><span>Admit one ✦ No. O3</span><span>Focused</span></div>
+      <h3>Here To <em>Help</em></h3>
+      <div class="price-amount"><span class="cur">$</span><span class="val">89</span><span class="cents">.00</span></div>
+      <div class="per">+ GST ($93.45 total)</div>
+      <span class="len">45-min session</span>
+      <p class="tag">Part counsel, part cosmic clarity.</p>
+      <p>A focused session for whatever's weighing on you right now. Bring one or two specific challenges and we'll work through them together. Less full-chart deep dive, more direct, solutions-oriented guidance when you need it most.</p>
+      <div class="stub"><span>Virtual</span><a class="book" href="https://cal.com/sin-prod-entertainment-inc-djqrpb/here-to-help" target="_blank" rel="noopener noreferrer" aria-label="Book Here To Help">Book <span aria-hidden="true">→</span></a></div>
+    </article>
   </div>
+  <div class="tk-foot">
+    <div><span class="k">How booking works</span><p>Each ticket opens its booking page. Pick your time, share your birth details and pay securely through Stripe, all in one step. Every session is one-on-one and virtual.</p></div>
+    <div><span class="k">Not sure which one?</span><p>New to your chart, start with Meet Yourself. Know your chart and want a quick check-in, choose the Quickie. Something specific weighing on you, book Here To Help.</p></div>
+  </div>
+
 </section>
 
 <section class="cta-final">
@@ -336,6 +314,7 @@
           <a class="foot-page" href="/readings/">Readings</a>
           <a class="foot-page" href="/chart/">Your Chart</a>
           <a class="foot-page" href="/this-season/">This Season</a>
+          <a class="foot-page" href="/candles/">Candles &amp; Rituals</a>
         </div>
         <div class="foot-col">
           <div class="foot-h">Say hello</div>
@@ -360,6 +339,6 @@
   <svg class="sound-play" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 3.5v17l14-8.5z"/></svg>
   <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i></span>
 </button>
-<script src="/assets/ophi.js?v=710f0651"></script>
+<script src="/assets/ophi.js?v=c7d1ef37"></script>
 </body>
 </html>

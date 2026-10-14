@@ -7,7 +7,8 @@
     { href: '/', title: 'Home', note: 'Start here' },
     { href: '/readings/', title: 'Readings', note: 'Meet Yourself, Quickie, Here To Help' },
     { href: '/chart/', title: 'Your Chart', note: 'Cast your natal chart, free' },
-    { href: '/this-season/', title: 'This Season', note: 'The sky right now, rising sign by rising sign' }
+    { href: '/this-season/', title: 'This Season', note: 'The sky right now, rising sign by rising sign' },
+    { href: '/candles/', title: 'Candles & Rituals', note: 'Pocket candles for your Moon sign' }
   ];
   var BOOK = '/readings/';
   var IG = 'https://www.instagram.com/brigodard/';

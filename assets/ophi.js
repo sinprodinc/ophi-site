@@ -15,9 +15,9 @@
           el.addEventListener('mouseleave',function(){document.body.classList.remove('cur-hover');});
         });
         (function loop(){
-          dx+=(mx-dx)*0.35; dy+=(my-dy)*0.35;
+          dx=mx; dy=my;
           ox+=(mx-ox)*0.12; oy+=(my-oy)*0.12;
-          dot.style.transform='translate('+dx+'px,'+dy+'px) translate(-50%,-50%)';
+          dot.style.transform='translate('+dx+'px,'+dy+'px)';
           orb.style.transform='translate('+ox+'px,'+oy+'px) translate(-50%,-50%)';
           requestAnimationFrame(loop);
         })();
@@ -280,8 +280,87 @@
       if('IntersectionObserver' in window){
         new IntersectionObserver(function(en){ onScreen=en[0].isIntersecting; plan(); },{threshold:.45}).observe(car);
       }
+      if(slides.length<2) car.classList.add('single');
       car.classList.add('is-ready');
       go(0,true);
     }
+  }catch(e){}
+
+  /* masthead star field: a grid of Bri's four-point stars, faint until the cursor passes near them.
+     Near the pointer they brighten and grow (a few turn coral), then fade back over about a second.
+     Touch screens get a slow random twinkle instead; "reduce motion" gets still stars. */
+  try{
+    var STAR=new Path2D('M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z');
+    var calmStars=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var finePtr=window.matchMedia('(pointer:fine)').matches;
+    Array.prototype.forEach.call(document.querySelectorAll('canvas.stars'),function(cv){
+      var host=cv.parentNode, ctx=cv.getContext('2d'), stars=[], W=0, H=0, dpr=1, px=-9999, py=-9999, inside=false, running=false, last=0;
+      var seed=7; var rnd=function(){ seed=(seed*16807)%2147483647; return seed/2147483647; };
+      var layout=function(){
+        var r=host.getBoundingClientRect(); dpr=Math.min(2,window.devicePixelRatio||1);
+        W=r.width; H=r.height; cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+        stars=[]; seed=7;
+        var step=W<600?30:36;
+        for(var y=step*.45;y<H;y+=step){ for(var x=(Math.round(y/step)%2)*step/2+step*.4;x<W;x+=step){
+          stars.push({x:x+(rnd()-.5)*12,y:y+(rnd()-.5)*12,s:5+rnd()*5,coral:rnd()<.16,glow:0,tw:rnd()*6.28});
+        }}
+        draw(0);
+      };
+      var draw=function(t){
+        ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
+        for(var i=0;i<stars.length;i++){
+          var st=stars[i], g=st.glow;
+          if(!finePtr && !calmStars) g=Math.max(g,Math.pow(Math.max(0,Math.sin(t/1400+st.tw)),18)*.75);
+          var size=st.s*(1+g*.9), a=.11+g*.84;
+          ctx.save(); ctx.translate(st.x-size/2,st.y-size/2); ctx.scale(size/24,size/24);
+          ctx.fillStyle=(st.coral&&g>.35)?'rgba(239,83,52,'+a+')':'rgba(236,231,220,'+a+')';
+          ctx.fill(STAR); ctx.restore();
+        }
+      };
+      var tick=function(t){
+        var dt=Math.min(64,t-(last||t)); last=t; var busy=false, R=Math.min(230,Math.max(150,W*.16));
+        for(var i=0;i<stars.length;i++){
+          var st=stars[i], d=inside?Math.hypot(st.x-px,st.y-py):9999, target=d<R?Math.pow(1-d/R,1.6):0;
+          if(target>st.glow) st.glow+= (target-st.glow)*Math.min(1,dt/70); else st.glow=Math.max(target,st.glow-dt/1100);
+          if(st.glow>.002) busy=true;
+        }
+        draw(t);
+        if(busy||inside||(!finePtr&&!calmStars)){ requestAnimationFrame(tick); } else { running=false; last=0; }
+      };
+      var wake=function(){ if(!running && !calmStars){ running=true; requestAnimationFrame(tick); } };
+      if(finePtr){
+        host.addEventListener('pointermove',function(e){ var r=host.getBoundingClientRect(); px=e.clientX-r.left; py=e.clientY-r.top; inside=true; wake(); },{passive:true});
+        host.addEventListener('pointerleave',function(){ inside=false; wake(); });
+      }else if(!calmStars){
+        /* twinkle only while the masthead is on screen */
+        if('IntersectionObserver' in window) new IntersectionObserver(function(en){ if(en[0].isIntersecting) wake(); else running=false; }).observe(host);
+        else wake();
+      }
+      if(window.ResizeObserver) new ResizeObserver(layout).observe(host); else addEventListener('resize',layout);
+      layout();
+    });
+  }catch(e){}
+
+  /* This Season: each rising card opens in place to show its chapter; one open at a time */
+  try{
+    var cards=Array.prototype.slice.call(document.querySelectorAll('.rising'));
+    var shut=function(li){ li.classList.remove('open'); li.querySelector('button').setAttribute('aria-expanded','false'); };
+    cards.forEach(function(li){
+      var b=li.querySelector('button'), x=li.querySelector('.close');
+      b.addEventListener('click',function(){
+        var was=li.classList.contains('open');
+        cards.forEach(shut);
+        if(!was){
+          li.classList.add('open'); b.setAttribute('aria-expanded','true');
+          if(history.replaceState) history.replaceState(null,'','#'+li.id);
+          var top=li.getBoundingClientRect().top;
+          if(top<70||top>innerHeight*.6) li.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'});
+        }
+      });
+      if(x) x.addEventListener('click',function(){ shut(li); b.focus(); });
+    });
+    /* a link straight to a sign (ophibybri.com/this-season/#leo-rising) opens that card */
+    var h=location.hash && document.getElementById(location.hash.slice(1));
+    if(h && h.classList.contains('rising')) h.querySelector('button').click();
   }catch(e){}
 })();
