@@ -302,17 +302,11 @@
         W=r.width; H=r.height; cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
         stars=[]; seed=7;
         var i, n;
-        /* far layer: scattered dust */
-        n=Math.round(W*H/1500);
-        for(i=0;i<n;i++) stars.push({x:rnd()*W,y:rnd()*H,s:1.4+rnd()*2.2,a:.05+rnd()*.12,depth:.55,coral:false,glow:0,tw:rnd()*6.28,sp:.4+rnd()*.8});
-        /* middle layer: the grid */
+        /* one even grid of stars */
         var step=W<600?30:36;
         for(var y=step*.45;y<H;y+=step){ for(var x=(Math.round(y/step)%2)*step/2+step*.4;x<W;x+=step){
-          stars.push({x:x+(rnd()-.5)*12,y:y+(rnd()-.5)*12,s:4.5+rnd()*4.5,a:.1+rnd()*.05,depth:1,coral:rnd()<.16,glow:0,tw:rnd()*6.28,sp:.25+rnd()*.4});
+          stars.push({x:x+(rnd()-.5)*12,y:y+(rnd()-.5)*12,s:5+rnd()*5,a:.11,depth:1,coral:rnd()<.16,glow:0,tw:rnd()*6.28,sp:.25+rnd()*.4});
         }}
-        /* near layer: a few larger stars */
-        n=Math.max(6,Math.round(W*H/26000));
-        for(i=0;i<n;i++) stars.push({x:rnd()*W,y:rnd()*H,s:10+rnd()*6,a:.13+rnd()*.06,depth:1.15,coral:rnd()<.25,glow:0,tw:rnd()*6.28,sp:.15+rnd()*.25});
         draw(performance.now());
       };
       var draw=function(t){
@@ -320,7 +314,7 @@
         var still=calmStars;
         for(var i=0;i<stars.length;i++){
           var st=stars[i], g=st.glow;
-          var tw=still?0:Math.pow(Math.max(0,Math.sin(t/1000*st.sp+st.tw)),6);   /* gentle twinkle */
+          var tw=0;
           if(!finePtr && !still) g=Math.max(g,Math.pow(Math.max(0,Math.sin(t/1700*st.sp+st.tw)),22)*.7);
           var size=st.s*(1+g*.95*st.depth), al=Math.min(1,st.a*(1+tw*1.4)+g*.86*st.depth);
           ctx.save(); ctx.translate(st.x-size/2,st.y-size/2); ctx.scale(size/24,size/24);
@@ -337,7 +331,8 @@
           else st.glow=Math.max(target,st.glow-dt/2300*(.3+st.glow));     /* slow tail: eases out at the end */
         }
         draw(t);
-        if(!calmStars) requestAnimationFrame(tick); else { running=false; last=0; }
+        var busy=false; for(var k=0;k<stars.length;k++){ if(stars[k].glow>.002){ busy=true; break; } }
+        if(!calmStars && (busy||inside||!finePtr)) requestAnimationFrame(tick); else { running=false; last=0; }
       };
       var wake=function(){ if(!running && onScreen){ running=true; requestAnimationFrame(tick); } };
       if(finePtr){

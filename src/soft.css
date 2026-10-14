@@ -262,3 +262,80 @@
   .price .eph.lace-fly{width:clamp(120px,10vw,170px);right:2vw;top:clamp(40px,6vh,80px);transform:rotate(12deg)}
   .lace-rule{display:block;height:28px;max-width:1240px;margin:0 auto;background:url(eph/lace-trim-ink.webp) center/auto 100% repeat-x;opacity:.22}
   .price,.season,.season-sec,.candles,.rituals,.tq-sec{overflow-x:clip}
+
+  /* =====================================================================================
+     ROUND 3 (14 Oct): one card language everywhere, a shorter home masthead,
+     Why Ophiuchus as a newspaper article
+     ===================================================================================== */
+
+  /* ---------- home masthead: shorter ---------- */
+  .hero:not(.mini){min-height:0}
+  .hero:not(.mini) .wrap{padding-top:clamp(40px,6vh,64px);padding-bottom:clamp(40px,6vh,64px)}
+  .hero .headline::after{display:none}
+  .hero .headline .r-hourglass{--w:calc(var(--hg) * .8)}
+  .hero .sub{margin-bottom:26px}
+  .hero .trust{margin-top:18px}
+
+  /* ---------- Why Ophiuchus: a two-column article, the plate set into the right column ---------- */
+  .story{position:relative;padding:calc(clamp(48px,7vh,88px) + var(--lace-h) * .4) var(--pad) clamp(56px,8vh,96px)}
+  .story-cols{max-width:var(--banner);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(26px,3.6vw,48px);
+    padding-top:4px;text-align:left;position:relative}
+  .story-cols::before{content:"";position:absolute;left:50%;top:4px;bottom:0;border-left:1px solid rgba(22,19,16,.3)}
+  .story-col p{font-size:15px;line-height:1.7;color:var(--ink);margin:0 0 .8em;hyphens:manual;text-wrap:pretty}
+  .story .pron{white-space:nowrap}
+  .story .pron i{display:inline-block;width:.24em;height:.24em;border-radius:50%;background:currentColor;margin:0 .2em;vertical-align:.3em}
+  .story .drop::first-letter{font-family:var(--font-title);float:left;font-size:4.4em;line-height:.82;padding:.08em .08em 0 0;color:var(--ink)}
+  .story-fig{float:right;width:min(50%,280px);margin:5px 0 12px 20px;border:2px solid var(--ink);background:var(--ink);
+    box-shadow:6px 6px 0 var(--lilac),0 18px 34px -22px rgba(22,19,16,.55)}
+  .story-fig img{display:block;width:100%;height:auto}
+  .story-fig figcaption{background:var(--paper);border-top:2px solid var(--ink);padding:7px 9px 6px;font-family:var(--font-button);font-size:9.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+  .story-fig figcaption b{color:var(--coral);font-weight:400;margin:0 .5em}
+  @media(max-width:760px){
+    .story-cols{grid-template-columns:1fr}
+    .story-cols::before{display:none}
+    .story-fig{width:min(50%,240px);margin-left:16px}
+  }
+
+  /* ---------- one card language: paper, a 2px ink edge, a hard offset shadow, a soft lift behind it.
+                 On hover the card rises toward you a little. Pastel tints stay on the real objects only (pins, tape). ---------- */
+  :root{--lift:0 20px 36px -22px rgba(22,19,16,.5)}
+  .price-card,.tq .paper,.rising,.season-now,.candle,.ritual{
+    transition:translate .22s cubic-bezier(.2,.8,.2,1),scale .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease}
+  @media(hover:hover) and (prefers-reduced-motion:no-preference){
+    .price-card:hover,.tq .paper:hover,.rising:not(.open):hover,.season-now:hover,.candle:hover,.ritual:hover{translate:-3px -4px;scale:1.015}
+  }
+  .price-card{box-shadow:9px 9px 0 var(--lilac),var(--lift)}
+  .price-card.rd-card{box-shadow:7px 7px 0 var(--ink),var(--lift)}
+  .price-card:hover{box-shadow:12px 12px 0 var(--lilac),0 28px 44px -22px rgba(22,19,16,.5)}
+  .price-card.rd-card:hover{box-shadow:10px 10px 0 var(--ink),0 28px 44px -22px rgba(22,19,16,.5)}
+
+  /* testimonial: the same outlined note as the reading cards */
+  .tq .paper{background:var(--paper)!important;border:2px solid var(--ink)!important;box-shadow:8px 8px 0 var(--lilac),var(--lift)!important}
+  .tq-2 .paper{box-shadow:8px 8px 0 var(--coral),var(--lift)!important}
+  .tq-3 .paper{box-shadow:8px 8px 0 var(--ink),var(--lift)!important}
+  .tq .paper:hover{box-shadow:11px 11px 0 var(--lilac),0 28px 44px -22px rgba(22,19,16,.5)!important}
+
+  /* This Season: post card and rising cards in the same boxes as the chart page and the readings */
+  .season-now{border:2px solid var(--ink);background:var(--paper);box-shadow:8px 8px 0 var(--lilac),var(--lift)}
+  .rising,.rising.fire,.rising.earth,.rising.air,.rising.water{background:var(--paper);border:2px solid var(--ink)}
+  .rising{box-shadow:6px 6px 0 var(--ink),var(--lift)!important}
+  .rising:nth-child(3n+2){box-shadow:6px 6px 0 var(--lilac),var(--lift)!important}
+  .rising:nth-child(3n+3){box-shadow:6px 6px 0 var(--coral),var(--lift)!important}
+  .rising:hover{transform:none}
+  .rising:nth-child(odd){rotate:-.6deg} .rising:nth-child(even){rotate:.6deg}
+  .rising:nth-child(odd),.rising:nth-child(even){transform:none}
+  .rising.open{rotate:0deg}
+  .rising .open-hint{border-top-color:rgba(22,19,16,.35)}
+  .rising.open .chapter{border-top:1px solid rgba(22,19,16,.35)}
+  @media(max-width:599px){ .rising,.rising:nth-child(3n+2),.rising:nth-child(3n+3){box-shadow:4px 4px 0 var(--ink),var(--lift)!important} }
+
+  /* Candles & Rituals: same boxes; the element colour lives in the pin and a thin rule */
+  .candle,.candle.fire,.candle.earth,.candle.air,.candle.water{background:var(--paper);border:2px solid var(--ink);box-shadow:7px 7px 0 var(--ink),var(--lift)}
+  .candle:nth-child(odd),.candle:nth-child(even){transform:none}
+  .candle:nth-child(2){box-shadow:7px 7px 0 var(--lilac),var(--lift)} .candle:nth-child(3){box-shadow:7px 7px 0 var(--coral),var(--lift)}
+  .candle .el{border-bottom-width:1px}
+  .ritual{border:2px solid var(--ink);background:var(--paper);box-shadow:7px 7px 0 var(--ink),var(--lift)}
+  .ritual:nth-child(2){box-shadow:7px 7px 0 var(--lilac),var(--lift)} .ritual:nth-child(3){box-shadow:7px 7px 0 var(--coral),var(--lift)}
+  .ritual::after{width:5px}
+  .care{background:var(--paper);border:2px solid var(--ink);border-left:5px solid var(--coral)}
