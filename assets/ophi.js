@@ -286,61 +286,70 @@
     }
   }catch(e){}
 
-  /* masthead star field: a grid of Bri's four-point stars, faint until the cursor passes near them.
-     Near the pointer they brighten and grow (a few turn coral), then fade back over about a second.
-     Touch screens get a slow random twinkle instead; "reduce motion" gets still stars. */
+  /* masthead star field: three layers of Bri's four-point stars for depth.
+     Far: many tiny, faint stars that twinkle slowly. Middle: the even grid. Near: a few larger ones.
+     Near the pointer they brighten and grow (a few turn coral); behind it they leave a soft trail that eases out slowly.
+     Touch screens get the twinkle only; "reduce motion" gets still stars. */
   try{
     var STAR=new Path2D('M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z');
     var calmStars=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     var finePtr=window.matchMedia('(pointer:fine)').matches;
     Array.prototype.forEach.call(document.querySelectorAll('canvas.stars'),function(cv){
-      var host=cv.parentNode, ctx=cv.getContext('2d'), stars=[], W=0, H=0, dpr=1, px=-9999, py=-9999, inside=false, running=false, last=0;
+      var host=cv.parentNode, ctx=cv.getContext('2d'), stars=[], W=0, H=0, dpr=1, px=-9999, py=-9999, inside=false, running=false, onScreen=true, last=0;
       var seed=7; var rnd=function(){ seed=(seed*16807)%2147483647; return seed/2147483647; };
       var layout=function(){
         var r=host.getBoundingClientRect(); dpr=Math.min(2,window.devicePixelRatio||1);
         W=r.width; H=r.height; cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
         stars=[]; seed=7;
+        var i, n;
+        /* far layer: scattered dust */
+        n=Math.round(W*H/1500);
+        for(i=0;i<n;i++) stars.push({x:rnd()*W,y:rnd()*H,s:1.4+rnd()*2.2,a:.05+rnd()*.12,depth:.55,coral:false,glow:0,tw:rnd()*6.28,sp:.4+rnd()*.8});
+        /* middle layer: the grid */
         var step=W<600?30:36;
         for(var y=step*.45;y<H;y+=step){ for(var x=(Math.round(y/step)%2)*step/2+step*.4;x<W;x+=step){
-          stars.push({x:x+(rnd()-.5)*12,y:y+(rnd()-.5)*12,s:5+rnd()*5,coral:rnd()<.16,glow:0,tw:rnd()*6.28});
+          stars.push({x:x+(rnd()-.5)*12,y:y+(rnd()-.5)*12,s:4.5+rnd()*4.5,a:.1+rnd()*.05,depth:1,coral:rnd()<.16,glow:0,tw:rnd()*6.28,sp:.25+rnd()*.4});
         }}
-        draw(0);
+        /* near layer: a few larger stars */
+        n=Math.max(6,Math.round(W*H/26000));
+        for(i=0;i<n;i++) stars.push({x:rnd()*W,y:rnd()*H,s:10+rnd()*6,a:.13+rnd()*.06,depth:1.15,coral:rnd()<.25,glow:0,tw:rnd()*6.28,sp:.15+rnd()*.25});
+        draw(performance.now());
       };
       var draw=function(t){
         ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
+        var still=calmStars;
         for(var i=0;i<stars.length;i++){
           var st=stars[i], g=st.glow;
-          if(!finePtr && !calmStars) g=Math.max(g,Math.pow(Math.max(0,Math.sin(t/1400+st.tw)),18)*.75);
-          var size=st.s*(1+g*.9), a=.11+g*.84;
+          var tw=still?0:Math.pow(Math.max(0,Math.sin(t/1000*st.sp+st.tw)),6);   /* gentle twinkle */
+          if(!finePtr && !still) g=Math.max(g,Math.pow(Math.max(0,Math.sin(t/1700*st.sp+st.tw)),22)*.7);
+          var size=st.s*(1+g*.95*st.depth), al=Math.min(1,st.a*(1+tw*1.4)+g*.86*st.depth);
           ctx.save(); ctx.translate(st.x-size/2,st.y-size/2); ctx.scale(size/24,size/24);
-          ctx.fillStyle=(st.coral&&g>.35)?'rgba(239,83,52,'+a+')':'rgba(236,231,220,'+a+')';
+          ctx.fillStyle=(st.coral&&g>.3)?'rgba(239,83,52,'+al+')':'rgba(236,231,220,'+al+')';
           ctx.fill(STAR); ctx.restore();
         }
       };
       var tick=function(t){
-        var dt=Math.min(64,t-(last||t)); last=t; var busy=false, R=Math.min(230,Math.max(150,W*.16));
+        if(!onScreen){ running=false; last=0; return; }
+        var dt=Math.min(64,t-(last||t)); last=t; var R=Math.min(250,Math.max(160,W*.17));
         for(var i=0;i<stars.length;i++){
-          var st=stars[i], d=inside?Math.hypot(st.x-px,st.y-py):9999, target=d<R?Math.pow(1-d/R,1.6):0;
-          if(target>st.glow) st.glow+= (target-st.glow)*Math.min(1,dt/70); else st.glow=Math.max(target,st.glow-dt/1100);
-          if(st.glow>.002) busy=true;
+          var st=stars[i], d=inside?Math.hypot(st.x-px,st.y-py):9999, target=d<R?Math.pow(1-d/R,1.5):0;
+          if(target>st.glow) st.glow+=(target-st.glow)*Math.min(1,dt/60);
+          else st.glow=Math.max(target,st.glow-dt/2300*(.3+st.glow));     /* slow tail: eases out at the end */
         }
         draw(t);
-        if(busy||inside||(!finePtr&&!calmStars)){ requestAnimationFrame(tick); } else { running=false; last=0; }
+        if(!calmStars) requestAnimationFrame(tick); else { running=false; last=0; }
       };
-      var wake=function(){ if(!running && !calmStars){ running=true; requestAnimationFrame(tick); } };
+      var wake=function(){ if(!running && onScreen){ running=true; requestAnimationFrame(tick); } };
       if(finePtr){
         host.addEventListener('pointermove',function(e){ var r=host.getBoundingClientRect(); px=e.clientX-r.left; py=e.clientY-r.top; inside=true; wake(); },{passive:true});
         host.addEventListener('pointerleave',function(){ inside=false; wake(); });
-      }else if(!calmStars){
-        /* twinkle only while the masthead is on screen */
-        if('IntersectionObserver' in window) new IntersectionObserver(function(en){ if(en[0].isIntersecting) wake(); else running=false; }).observe(host);
-        else wake();
       }
+      /* only animate while the masthead is on screen */
+      if('IntersectionObserver' in window) new IntersectionObserver(function(en){ onScreen=en[0].isIntersecting; if(onScreen) wake(); }).observe(host);
       if(window.ResizeObserver) new ResizeObserver(layout).observe(host); else addEventListener('resize',layout);
-      layout();
+      layout(); wake();
     });
   }catch(e){}
-
 
   /* This Season: fill the page from assets/season-data.js for the current month (Pacific time) */
   try{

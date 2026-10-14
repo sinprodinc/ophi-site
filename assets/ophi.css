@@ -905,3 +905,47 @@
   @media(max-width:1100px){ .candle-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
   @media(max-width:700px){ .ritual-grid{grid-template-columns:1fr} }
   @media(max-width:520px){ .candle-grid{grid-template-columns:1fr;max-width:420px} }
+
+  /* =====================================================================================
+     EPHEMERA: Bri's cut-out graphics (lace, tape, pins, clips, seals, postmarks, stickers).
+     Always decorative, never over text: they sit on card edges or in the page margins,
+     and the margin ones step aside on narrow screens.
+     ===================================================================================== */
+  .eph{position:absolute;pointer-events:none;user-select:none;height:auto;z-index:2}
+  .eph.faint{opacity:.16;z-index:0}
+  .eph.wide-only{display:none}
+  @media(min-width:1100px){ .eph.wide-only{display:block} }
+
+  /* testimonials: real tape and a pin replace the drawn tape */
+  .tq .tape{display:none}
+  .tq .eph.tq-tape-a{width:150px;left:8%;top:-22px;transform:rotate(-6deg)}
+  .tq .eph.tq-tape-b{width:130px;right:6%;bottom:-20px;transform:rotate(4deg)}
+  .tq-sec .eph.tq-stars{width:clamp(70px,8vw,110px);right:calc(50% - min(46vw,560px));top:clamp(40px,6vh,70px)}
+
+  /* tickets: clipped, sealed and taped */
+  .tk .eph.binder{width:96px;left:50%;top:-34px;margin-left:-48px;z-index:3}
+  .tk .eph.seal{width:78px;right:-34px;top:132px;transform:rotate(-12deg);z-index:3}
+  .tk .eph.clip{width:30px;left:-12px;top:34px;transform:rotate(-14deg);z-index:3}
+  .tk .eph.tapex{width:96px;left:-22px;top:-14px;transform:rotate(-24deg);z-index:3}
+
+  /* This Season */
+  .season .eph.doily-bg{opacity:.09;width:min(300px,34vw);left:calc(50% - 470px);top:calc(var(--sw,120px) * .6 + 120px);transform:rotate(-8deg)}
+  .season-now .eph.pin{width:34px;left:50%;top:-20px;margin-left:-17px;z-index:3}
+  .rising .eph.pin{width:22px;left:50%;top:-13px;margin-left:-11px;z-index:3;transition:transform .2s}
+  .rising:hover .eph.pin{transform:translateY(-2px) rotate(-6deg)}
+  .rising.open .eph.pin{display:none}
+  .season-sec .eph.wave{width:clamp(120px,14vw,190px);left:calc(50% - min(48vw,600px));top:clamp(40px,6vh,70px);opacity:.75}
+
+  /* Candles & Rituals */
+  .candle .eph.pin{width:30px;left:50%;top:-18px;margin-left:-15px;z-index:3}
+  .candles .eph.flower{width:clamp(80px,8vw,116px);right:calc(50% - min(47vw,600px));top:clamp(30px,5vh,60px);transform:rotate(10deg)}
+  .rituals .eph.swan{width:clamp(110px,11vw,160px);right:calc(50% - min(48vw,620px));top:clamp(20px,4vh,50px)}
+  .rituals .eph.seal{width:70px;left:calc(50% - min(46vw,590px));top:clamp(50px,7vh,90px);transform:rotate(-14deg)}
+  .care{position:relative}
+  .care .eph.tape{width:96px;left:-46px;top:-24px;transform:rotate(-14deg)}
+
+  /* faint lace in the margins */
+  .why .eph.lace-bow{width:clamp(150px,13vw,220px);left:-30px;top:clamp(30px,5vh,60px);transform:rotate(-10deg)}
+  .price .eph.lace-fly{width:clamp(120px,10vw,170px);right:2vw;top:clamp(40px,6vh,80px);transform:rotate(12deg)}
+  .lace-rule{display:block;height:28px;max-width:1240px;margin:0 auto;background:url(eph/lace-trim-ink.webp) center/auto 100% repeat-x;opacity:.22}
+  .price,.season,.season-sec,.candles,.rituals,.tq-sec{overflow-x:clip}
