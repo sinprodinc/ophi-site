@@ -1,0 +1,4 @@
+# Pre-launch: keep search engines out until Bri says the site is ready.
+# Delete these two lines at launch.
+/*
+  X-Robots-Tag: noindex
