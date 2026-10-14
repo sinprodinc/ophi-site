@@ -1,0 +1,287 @@
+
+(function(){
+  /* custom cursor + trailing orb (desktop, motion-ok only) */
+  try{
+    if(window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      var dot=document.querySelector('.cursor-dot'), orb=document.querySelector('.cursor-orb');
+      if(dot&&orb){
+        document.body.classList.add('custom-cursor');
+        var mx=innerWidth/2,my=innerHeight/2,dx=mx,dy=my,ox=mx,oy=my,ready=false;
+        dot.style.opacity='0';orb.style.opacity='0';
+        addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;
+          if(!ready){ready=true;dot.style.opacity='1';orb.style.opacity='.85';}},{passive:true});
+        Array.prototype.forEach.call(document.querySelectorAll('a,button,[role=button]'),function(el){
+          el.addEventListener('mouseenter',function(){document.body.classList.add('cur-hover');});
+          el.addEventListener('mouseleave',function(){document.body.classList.remove('cur-hover');});
+        });
+        (function loop(){
+          dx+=(mx-dx)*0.35; dy+=(my-dy)*0.35;
+          ox+=(mx-ox)*0.12; oy+=(my-oy)*0.12;
+          dot.style.transform='translate('+dx+'px,'+dy+'px) translate(-50%,-50%)';
+          orb.style.transform='translate('+ox+'px,'+oy+'px) translate(-50%,-50%)';
+          requestAnimationFrame(loop);
+        })();
+      }
+    }
+  }catch(e){}
+
+  /* scroll reveal */
+  try{
+    if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches && 'IntersectionObserver' in window){
+      var sel='.sec-head,.why-spread,.tq-carousel,.price-inner,.cta-final > p,.cta-final .cta,.marquee';
+      var els=Array.prototype.slice.call(document.querySelectorAll(sel));
+      els.forEach(function(el){el.classList.add('reveal');});
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+      },{threshold:0.1, rootMargin:'0px 0px -6% 0px'});
+      els.forEach(function(el){io.observe(el);});
+    }
+  }catch(e){}
+
+  /* floating relics.
+     Scrolling down, each stamp swells (and thins out) as it leaves by the top of the screen; scrolling back up it shrinks
+     to its resting size and spot. Stamps on the first screen start growing with the very first scroll; the rest hold their
+     size while their section is being read and only start once they pass the upper part of the screen.
+     Each also slides and tips a little on the way through. */
+  try{
+    var relics=Array.prototype.slice.call(document.querySelectorAll('.relic'));
+    if(relics.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      relics.forEach(function(el){
+        if(el.classList.contains('set')) return;
+        el.style.setProperty('--rs',(0.8+Math.random()*0.2).toFixed(2));
+        el.style.setProperty('--rt',((Math.random()*2-1)*6).toFixed(1)+'deg');
+      });
+      var queued=false, vh=0, GROW=1.7;
+      var measure=function(){
+        vh=window.innerHeight;
+        var sy=window.pageYOffset;
+        relics.forEach(function(el){ el._t=el.style.transform; el.style.transform='none'; });
+        relics.forEach(function(el){
+          if(!el.offsetParent){ el._m=null; return; }
+          var r=el.getBoundingClientRect();
+          el._m={cy:r.top+sy+r.height/2, h:r.height};
+        });
+        relics.forEach(function(el){ el.style.transform=el._t; });
+      };
+      var drift=function(){
+        queued=false;
+        var sy=window.pageYOffset, small=window.innerWidth<700;
+        relics.forEach(function(el){
+          var m=el._m; if(!m) return;
+          var mid=m.cy-sy;
+          var first=m.cy<vh,                                  /* on the first screen */
+              start=first?m.cy:vh*.36, end=-(vh*.16+m.h*.5),
+              p=Math.max(0,Math.min(1,(start-mid)/(start-end))),
+              d=first?Math.max(-.7,-sy/vh):Math.max(-.7,Math.min(.7,(mid-vh/2)/vh)),
+              depth=(+el.getAttribute('data-depth')||40)*(small?.5:1);
+          el.style.transform='translate3d(0,'+(-d*depth).toFixed(1)+'px,0) rotate('+(d*-9).toFixed(2)+'deg) scale('+(1+p*p*(small?GROW*.7:GROW)+p*.25).toFixed(3)+')';
+          el.style.opacity=(1-Math.pow(p,1.5)).toFixed(3);
+        });
+      };
+      var ask=function(){ if(!queued){ queued=true; requestAnimationFrame(drift); } };
+      addEventListener('scroll',ask,{passive:true});
+      addEventListener('resize',function(){ measure(); ask(); });
+      addEventListener('load',function(){ measure(); ask(); });
+      if(window.ResizeObserver) new ResizeObserver(function(){ measure(); ask(); }).observe(document.body);
+      measure(); drift();
+    }
+  }catch(e){}
+
+  try{
+    var navEl=document.querySelector('.hero nav'), heroEl=document.querySelector('.hero');
+    var setNav=function(){ heroEl.style.setProperty('--nav-b',(navEl.offsetTop+navEl.offsetHeight-6)+'px'); };
+    setNav(); addEventListener('resize',setNav);
+  }catch(e){}
+
+  /* music: nothing plays until the visitor presses the button.
+     The track is a separate file (/assets/ophi-music.mp3) that streams when the button is pressed; nothing is saved to
+     the visitor's device. Playback tries three routes in turn, because some embedded viewers block one or another:
+     1) an audio element pointed at the file, 2) the same element fed from memory, 3) the Web Audio engine.
+     Moving to another page of the site: if the music was playing, the next page picks it up where it left off
+     (browsers allow this after the visitor has pressed play once; if one refuses, the button simply waits). */
+  try{ (function(){
+    var sBtn=document.querySelector('nav .sound'), sFab=document.querySelector('.sound-fab'), sTxt=sBtn&&sBtn.querySelector('.sound-txt');
+    if(sBtn && sFab){
+      var SRC='/assets/ophi-music.mp3', KEY='ophi-music', VOL=.75, on=false, started=false, navSeen=true, stage=0, token=0,
+          bytes=null, el=null, fadeT=null, watch=null,
+          AC=window.AudioContext||window.webkitAudioContext, elOK=false, ctx=null, gain=null, node=null, pcm=null, offset=0, t0=0, failT=null;
+      var store=function(v){ try{ if(v===null) sessionStorage.removeItem(KEY); else sessionStorage.setItem(KEY,v); }catch(e){} };
+      var stored=function(){ try{ return sessionStorage.getItem(KEY); }catch(e){ return null; } };
+      var paint=function(){
+        [sBtn,sFab].forEach(function(b){ b.setAttribute('aria-pressed',on?'true':'false'); b.setAttribute('aria-label',on?'Pause music':'Play music'); });
+        sFab.hidden=!(started && !navSeen);
+      };
+      var load=function(cb,bad){
+        if(bytes){ cb(); return; }
+        fetch(SRC).then(function(r){ if(!r.ok) throw 0; return r.arrayBuffer(); })
+          .then(function(b){ bytes=new Uint8Array(b); cb(); }).catch(bad);
+      };
+      var fadeEl=function(to,ms,done){
+        clearInterval(fadeT);
+        var from=el.volume, s0=Date.now();
+        fadeT=setInterval(function(){
+          var k=Math.min(1,(Date.now()-s0)/ms);
+          try{ el.volume=from+(to-from)*k; }catch(e){}
+          if(k>=1){ clearInterval(fadeT); if(done) done(); }
+        },40);
+      };
+      var fail=function(){
+        on=false; store(null); paint();
+        sBtn.setAttribute('aria-label','Music could not play in this window');
+        if(sTxt){ sTxt.textContent='No sound here'; clearTimeout(failT); failT=setTimeout(function(){ sTxt.textContent='Music'; },4500); }
+      };
+      /* route 3: Web Audio */
+      var ctxPlay=function(my){
+        if(my!==token || !on) return;
+        try{
+          node=ctx.createBufferSource(); node.buffer=pcm; node.loop=true; node.connect(gain);
+          gain.gain.cancelScheduledValues(ctx.currentTime); gain.gain.setValueAtTime(0,ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(VOL,ctx.currentTime+.7);
+          node.start(0,offset%pcm.duration); t0=ctx.currentTime-offset;
+        }catch(e){ fail(); }
+      };
+      var viaCtx=function(my){
+        stage=2;
+        if(!ctx || !AC){ fail(); return; }
+        if(pcm){ ctxPlay(my); return; }
+        load(function(){
+          try{ ctx.decodeAudioData(bytes.buffer.slice(0),function(buf){ pcm=buf; ctxPlay(my); },function(){ if(my===token) fail(); }); }
+          catch(e){ fail(); }
+        },function(){ if(my===token) fail(); });
+      };
+      /* routes 1 and 2: audio element */
+      var mkEl=function(){
+        if(el) return;
+        el=new Audio(); el.loop=true; el.preload='auto';
+        el.addEventListener('error',function(){ next(token,el._try); });
+      };
+      var playEl=function(my,at){
+        el.volume=0; el._try=at;
+        var p=el.play();
+        if(p && p.catch) p.catch(function(){ next(my,at); });
+        fadeEl(VOL,700);
+        clearTimeout(watch);
+        watch=setTimeout(function(){
+          if(my!==token || !on || stage>=2) return;
+          if(el.paused || el.error || el.currentTime<.05) next(my,at);
+          else{ elOK=true; try{ if(ctx) ctx.suspend(); }catch(e){} }      /* the simple route works here: stand the spare engine down */
+        },3500);
+      };
+      var viaEl=function(my){
+        try{
+          mkEl();
+          if(stage===0){ if(!el._src){ el._src=1; el.src=SRC; } playEl(my,0); return; }
+          var at=stage;
+          load(function(){
+            if(my!==token || !on) return;
+            if(!el._blob){ el._blob=URL.createObjectURL(new Blob([bytes],{type:'audio/mpeg'})); el.src=el._blob; }
+            playEl(my,at);
+          },function(){ next(my,at); });
+        }catch(e){ next(my,stage); }
+      };
+      var next=function(my,from){
+        if(my!==token || !on || stage>=2 || from!==stage) return;   /* one failure moves on one route, however many ways it is reported */
+        clearTimeout(watch); clearInterval(fadeT);
+        try{ el.pause(); }catch(e){}
+        stage++;
+        if(stage===1) viaEl(my); else viaCtx(my);
+      };
+      var start=function(){
+        on=true; started=true; token++; store('0');
+        /* created inside the tap so the browser lets it sound later if route 3 is needed */
+        if(!elOK){ try{ if(AC && !ctx){ ctx=new AC(); gain=ctx.createGain(); gain.gain.value=0; gain.connect(ctx.destination); } if(ctx && ctx.state==='suspended') ctx.resume(); }catch(e){} }
+        if(stage>=2) viaCtx(token); else viaEl(token);
+        paint();
+      };
+      var stop=function(){
+        on=false; token++; clearTimeout(watch); store(null);
+        if(stage>=2){
+          try{
+            offset=(ctx.currentTime-t0)%pcm.duration;
+            gain.gain.cancelScheduledValues(ctx.currentTime); gain.gain.setValueAtTime(gain.gain.value,ctx.currentTime);
+            gain.gain.linearRampToValueAtTime(0,ctx.currentTime+.28);
+            var old=node; setTimeout(function(){ try{ old.stop(); }catch(e){} },320);
+          }catch(e){}
+        }else if(el){
+          fadeEl(0,280,function(){ try{ el.pause(); }catch(e){} });
+        }
+        paint();
+      };
+      var toggle=function(){ if(on) stop(); else start(); };
+      sBtn.addEventListener('click',toggle); sFab.addEventListener('click',toggle);
+      /* remember where the track was, so the next page can carry on from there */
+      addEventListener('pagehide',function(){
+        if(!on) return;
+        var t=0; try{ t=stage>=2?(ctx.currentTime-t0)%pcm.duration:el.currentTime; }catch(e){}
+        store(String(t||0));
+      });
+      /* arriving with the music on: try to carry on quietly; if the browser wants a tap first, just wait for one */
+      var was=stored();
+      if(was!==null){
+        mkEl(); el._src=1; el.src=SRC; el.volume=0;
+        try{ el.currentTime=parseFloat(was)||0; }catch(e){}
+        el.addEventListener('loadedmetadata',function(){ try{ if(el.currentTime<1) el.currentTime=parseFloat(was)||0; }catch(e){} },{once:true});
+        var p=el.play();
+        var ok=function(){ on=true; started=true; elOK=true; token++; fadeEl(VOL,900); paint(); };
+        if(p && p.then) p.then(ok,function(){ store(null); paint(); }); else ok();
+      }
+      var navEl2=document.querySelector('.hero nav');
+      if(window.IntersectionObserver && navEl2) new IntersectionObserver(function(en){ navSeen=en[0].isIntersecting; paint(); },{threshold:.2}).observe(navEl2);
+      sBtn.hidden=false;
+      paint();
+    }
+  })(); }catch(e){}
+
+  /* testimonial carousel */
+  try{
+    var car=document.querySelector('.tq-carousel');
+    if(car){
+      var track=car.querySelector('.tq-track'),
+          slides=Array.prototype.slice.call(track.children),
+          dots=Array.prototype.slice.call(car.querySelectorAll('.tq-dots button')),
+          calm=window.matchMedia('(prefers-reduced-motion:reduce)').matches,
+          cur=0, timer=null, auto=!calm, onScreen=false, held=false, settle=null;
+      var mark=function(){
+        dots.forEach(function(d,k){ if(k===cur){d.setAttribute('aria-current','true');}else{d.removeAttribute('aria-current');} });
+      };
+      var go=function(n,jump){
+        cur=(n+slides.length)%slides.length;
+        track.scrollTo({left:slides[cur].offsetLeft,behavior:(jump||calm)?'auto':'smooth'});
+        mark();
+      };
+      /* turn by itself, giving each testimonial as long as it takes to read */
+      var plan=function(){
+        clearTimeout(timer);
+        if(!auto||!onScreen||held||slides.length<2) return;
+        var words=slides[cur].textContent.trim().split(/\s+/).length;
+        timer=setTimeout(function(){ go(cur+1); plan(); }, Math.min(40000,Math.max(6500,words*330)));
+      };
+      var quit=function(){ auto=false; clearTimeout(timer); };
+      car.querySelector('.prev').addEventListener('click',function(){ quit(); go(cur-1); });
+      car.querySelector('.next').addEventListener('click',function(){ quit(); go(cur+1); });
+      dots.forEach(function(d,k){ d.addEventListener('click',function(){ quit(); go(k); }); });
+      track.addEventListener('keydown',function(e){
+        if(e.key==='ArrowLeft'){ e.preventDefault(); quit(); go(cur-1); }
+        if(e.key==='ArrowRight'){ e.preventDefault(); quit(); go(cur+1); }
+      });
+      ['pointerdown','touchstart','wheel'].forEach(function(ev){ track.addEventListener(ev,quit,{passive:true}); });
+      track.addEventListener('scroll',function(){
+        clearTimeout(settle);
+        settle=setTimeout(function(){
+          var k=Math.round(track.scrollLeft/track.clientWidth);
+          if(k!==cur&&k>=0&&k<slides.length){ cur=k; mark(); }
+        },110);
+      },{passive:true});
+      car.addEventListener('mouseenter',function(){ held=true; clearTimeout(timer); });
+      car.addEventListener('mouseleave',function(){ held=false; plan(); });
+      car.addEventListener('focusin',function(){ held=true; clearTimeout(timer); });
+      car.addEventListener('focusout',function(){ held=false; plan(); });
+      addEventListener('resize',function(){ go(cur,true); });
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(function(en){ onScreen=en[0].isIntersecting; plan(); },{threshold:.45}).observe(car);
+      }
+      car.classList.add('is-ready');
+      go(0,true);
+    }
+  }catch(e){}
+})();
