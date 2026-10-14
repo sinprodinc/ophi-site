@@ -26,6 +26,8 @@ PAGES = {
                                'Meet Yourself, Quickie and Here To Help: one-on-one virtual astrology readings with Bri Godard.'),
     'this-season/index.html': ('this-season.html', 'This Season | Ophi by Bri',
                                'The current astrological weather and how it lands for each rising sign, by Bri Godard.'),
+    'home-b/index.html':      ('home-b.html',      'Ophi by Bri | Awakening Astrology (flow draft)',
+                               'Draft of a flowing home page.'),
     'candles/index.html':     ('candles.html',     'Candles & Rituals | Ophi by Bri',
                                'Hand-poured pocket candles for every Moon element, each with its own ritual.'),
 }
@@ -48,7 +50,7 @@ HEAD = '''<!DOCTYPE html>
 <link rel="stylesheet" href="/assets/ophi.css?v={v}">
 <script src="/assets/menu.js?v={v}" defer></script>
 </head>
-<body>
+<body{bodyclass}>
 '''
 TAIL = '''<script src="/assets/ophi.js?v={v}"></script>
 </body>
@@ -56,19 +58,20 @@ TAIL = '''<script src="/assets/ophi.js?v={v}"></script>
 '''
 
 def main():
-    css = rd('src/ophi.base.css') + rd('src/site.css') + rd('src/soft.css')
+    css = rd('src/ophi.base.css') + rd('src/site.css') + rd('src/soft.css') + rd('src/flow.css')
     js = rd('src/ophi.base.js')
     menu = rd('assets/menu.js')
     import hashlib
     v = hashlib.sha1((css + js + menu).encode()).hexdigest()[:8]   # cache-buster: changes whenever the shared files do
     wr('assets/ophi.css', css)
     wr('assets/ophi.js', js)
-    parts = {k: rd('src/partials/%s.html' % k) for k in ('top', 'nav', 'footer', 'readings')}
+    parts = {k: rd('src/partials/%s.html' % k) for k in ('top', 'nav', 'footer', 'footer-lite', 'readings')}
     for out, (src, title, desc) in PAGES.items():
         body = rd('src/pages/' + src)
         for k, val in parts.items(): body = body.replace('{{%s}}' % k, val)
         assert '{{' not in body, (src, re.findall(r'\{\{\w+\}\}', body))
-        wr(out, HEAD.format(title=title, desc=desc, v=v) + body + TAIL.format(v=v))
+        bc = ' class="flow"' if src == 'home-b.html' else ''
+        wr(out, HEAD.format(title=title, desc=desc, v=v, bodyclass=bc) + body + TAIL.format(v=v))
     # chart page: add the shared menu once
     ch = rd('chart/index.html')
     ch = re.sub(r'<script src="/assets/menu\.js[^"]*" defer></script>\n?', '', ch)

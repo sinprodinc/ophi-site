@@ -1,0 +1,99 @@
+
+  /* =====================================================================================
+     FLOW DRAFT (home-b): one continuous broadsheet instead of stacked blocks.
+     - Light masthead; the only dark band is the "See your sky" invitation to cast a chart.
+     - One spacing scale: 8 / 16 / 24 / 48 / 96 (section gaps clamp from 56 on phones to 96 on desktop).
+     - Every section opens the same way: a typewriter folio ("No. O2 ✦ ...") over a left-aligned title,
+       so the eye follows one left edge down the page. Hand-drawn arrows carry you to the next section.
+     - Small light footer.
+     ===================================================================================== */
+  body.flow{--s1:8px;--s2:16px;--s3:24px;--s4:48px;--sec:clamp(56px,8vw,96px)}
+  body.flow .lace-edge{display:none}
+
+  /* light masthead */
+  body.flow .hero.light{background:transparent;color:var(--ink);border-top:7px solid var(--ink);min-height:0}
+  body.flow .hero.light nav{border-bottom:1px solid var(--ink)}
+  body.flow .hero.light .brand,body.flow .hero.light .logo,body.flow .hero.light .nav-links{color:var(--ink)}
+  body.flow .hero.light nav .sound{background:var(--bone);color:var(--ink);border-color:var(--ink)}
+  body.flow .hero.light .nav-links a.nav-cta{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  body.flow .hero.light .om-btn{background:var(--bone);color:var(--ink);border-color:var(--ink)}
+  body.flow .hero.light .relic i{filter:none}
+  .mb-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:var(--s4);align-items:end;
+    max-width:1240px;margin:0 auto;padding:var(--s4) var(--pad) var(--sec)}
+  .folio{font-family:var(--font-button);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin:0 0 var(--s2)}
+  .folio b{color:var(--coral);font-weight:400;margin:0 .7em}
+  .mb-title h1{font-family:var(--font-title);font-weight:400;font-size:clamp(58px,9.4vw,138px);line-height:.9;letter-spacing:-.025em;color:var(--ink);margin:0}
+  .mb-title h1 em{font-style:italic}
+  body.flow .mb-title .hand-line{color:var(--pen);margin:var(--s3) 0 0;font-size:clamp(26px,3vw,36px)}
+  .mb-side{position:relative;padding-top:var(--s3);border-top:3px double var(--ink)}
+  .mb-side .sub{font-size:15px;line-height:1.65;color:var(--ink-2);margin:0 0 var(--s3);max-width:44ch;text-align:left}
+  .mb-side .relic{display:block;--w:clamp(90px,10vw,140px);--tilt:10deg;right:0;top:calc(var(--w) * -.95);z-index:0}
+  body.flow .mb-side .cta{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:5px 5px 0 var(--coral)}
+  @media(max-width:860px){
+    .mb-grid{grid-template-columns:1fr;gap:var(--s3);padding-top:var(--s3)}
+    .mb-side .relic{--w:84px;top:calc(var(--w) * -.85)}
+  }
+
+  /* section openings: folio + left-aligned title, small gap to content (proximity) */
+  .flow-sec{position:relative;padding:var(--sec) var(--pad) 0;border-top:0}
+  body.flow .story{padding:0 var(--pad)}
+  body.flow .price{padding:var(--sec) var(--pad) var(--sec);border-top:0}
+  .sec-row{max-width:var(--banner);margin:0 auto var(--s3)}
+  .sec-row.center{text-align:center}
+  .flow-h{font-family:var(--font-title);font-weight:400;font-size:clamp(40px,6vw,76px);line-height:.98;letter-spacing:-.02em;color:var(--ink);margin:0}
+  .flow-h em{font-style:italic;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%239a7fd0' fill-opacity='.34' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E") 0 70%/100% 58% no-repeat;padding:0 .06em}
+  body.flow .story .story-cols{padding-top:var(--s3);border-top:1px solid var(--ink)}
+
+  /* the hand-drawn arrow that leads to the next section */
+  .flow-next{display:flex;align-items:center;gap:6px;width:max-content;margin:var(--s4) auto 0;text-decoration:none}
+  .flow-next .hand{font-size:24px}
+  .flow-next svg{width:44px;height:34px;fill:none;stroke:var(--coral);stroke-width:2;stroke-linecap:round;transform:rotate(-20deg)}
+
+  /* testimonial: title on the left, the note on the right, one band */
+  .words-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:var(--s4);align-items:center;max-width:var(--banner);margin:0 auto}
+  .words-grid .sec-row{margin:0}
+  .words-note{font-size:14px;line-height:1.6;color:var(--ink-2);margin-top:var(--s2);max-width:30ch}
+  .note-card{position:relative;margin:0;background:var(--blush);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:var(--s4) var(--s4) var(--s3);transform:rotate(1deg)}
+  .note-card .tape-a{position:absolute;width:140px;left:12%;top:-22px;transform:rotate(-6deg)}
+  .note-card blockquote{margin:0;font-size:13.5px;line-height:1.65;color:var(--ink)}
+  .note-card blockquote p + p{margin-top:.8em}
+  .note-card figcaption{display:flex;justify-content:space-between;align-items:baseline;margin-top:var(--s3);padding-top:var(--s2);border-top:1px dashed rgba(22,19,16,.45)}
+  .note-card figcaption b{font-family:var(--font-title);font-style:italic;font-weight:400;font-size:24px}
+  .note-card figcaption span{font-family:var(--font-button);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+  @media(max-width:860px){ .words-grid{grid-template-columns:1fr;gap:var(--s3)} .note-card{padding:var(--s4) var(--s3) var(--s3)} }
+
+  /* the one dark band: an invitation, sized to its content */
+  body.flow .hero.night{min-height:0;background:var(--ink);color:var(--paper);border-top:0;overflow:clip}
+  .night-inner{position:relative;z-index:1;max-width:var(--banner);margin:0 auto;padding:clamp(48px,7vw,80px) var(--pad);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s2) var(--s4);align-items:end}
+  .night-inner .folio{color:var(--paper);grid-column:1/-1;margin:0}
+  .night-inner .flow-h{color:var(--paper)}
+  .night-sub{grid-column:1;font-size:15px;line-height:1.6;color:rgba(236,231,220,.8);max-width:46ch}
+  .night-inner .cta{grid-column:2;grid-row:2/4;align-self:center;background:var(--coral);color:var(--ink);border-color:var(--coral);box-shadow:5px 5px 0 var(--paper)}
+  @media(max-width:700px){ .night-inner{grid-template-columns:1fr} .night-inner .cta{grid-column:1;grid-row:auto;justify-self:start} }
+
+  /* two small doors to the other pages */
+  .more{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);max-width:var(--banner);margin:0 auto;padding-bottom:var(--sec)}
+  .more-card{position:relative;display:block;text-decoration:none;color:var(--ink);background:var(--paper);border:2px solid var(--ink);padding:var(--s3);
+    box-shadow:6px 6px 0 var(--lilac);transition:top .4s cubic-bezier(.2,.8,.2,1),left .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s;top:0;left:0}
+  .more-card + .more-card{box-shadow:6px 6px 0 var(--coral)}
+  .more-card h3{font-family:var(--font-title);font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.05;margin:0 0 var(--s1)}
+  .more-card h3 em{font-style:italic}
+  .more-card .hand{font-size:22px}
+  @media(hover:hover){ .more-card:hover{top:-3px;left:-2px} }
+  @media(max-width:700px){ .more{grid-template-columns:1fr} }
+
+  /* small light footer */
+  .foot-lite{border-top:3px double var(--ink);padding:var(--s3) var(--pad) var(--s2);max-width:1240px;margin:0 auto}
+  .fl-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s2) var(--s4)}
+  .fl-brand{font-family:var(--font-title);font-size:26px;line-height:1;color:var(--ink);text-decoration:none}
+  .fl-brand small{font-style:italic;font-size:.5em}
+  .fl-links,.fl-social{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3)}
+  .fl-links a,.fl-social a{font-family:var(--font-button);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+  .fl-links a:hover,.fl-social a:hover{color:var(--coral)}
+  .fl-small{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s1) var(--s3);margin-top:var(--s3);padding-top:var(--s2);border-top:1px solid rgba(22,19,16,.25);
+    font-size:11.5px;color:var(--ink-2)}
+  .fl-small a{color:var(--ink-2)}
+  @media(max-width:700px){ .fl-row{flex-direction:column;align-items:flex-start} }
+  footer.foot-lite{background:transparent;color:var(--ink)}
+  .foot-lite .logo{color:var(--ink)}
+  @media(max-width:860px){ .mb-side .relic{display:none} }
