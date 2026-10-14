@@ -72,6 +72,8 @@ def main():
     # chart page: add the shared menu once
     ch = rd('chart/index.html')
     ch = re.sub(r'<script src="/assets/menu\.js[^"]*" defer></script>\n?', '', ch)
+    ch = re.sub(r'<link rel="stylesheet" href="/assets/chart-fixes\.css[^"]*">\n?', '', ch)
+    ch = ch.replace('</head>', '<link rel="stylesheet" href="/assets/chart-fixes.css?v=%s">\n</head>' % v, 1)
     ch = ch.replace('</head>', '<link rel="icon" type="image/png" href="/assets/favicon.png">\n<script src="/assets/menu.js?v=%s" defer></script>\n</head>' % v, 1) \
         if '/assets/favicon.png' not in ch else ch.replace('</head>', '<script src="/assets/menu.js?v=%s" defer></script>\n</head>' % v, 1)
     wr('chart/index.html', ch)

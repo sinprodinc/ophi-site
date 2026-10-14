@@ -1,0 +1,12 @@
+/* Fixes layered over the built chart page (keep in sync with the chart source on its next rebuild). */
+/* The close X belongs to the expanded chart only */
+.zoom-x[hidden]{display:none!important}
+.wheel-stage:not(.zoomed) .zoom-x{display:none!important}
+/* Serpent Bearer: wider text and less height on desktop */
+#serpent{padding-block:clamp(1.8rem,4vw,3rem)}
+#serpent .serpent{max-width:min(72rem,100%);grid-template-columns:auto minmax(0,1fr);gap:clamp(1.2rem,3vw,2.4rem)}
+#serpent .serpent p{max-width:none}
+@media(min-width:900px){
+  #serpent .serpent > div{columns:2;column-gap:2.4rem}
+  #serpent .serpent .verdict{column-span:all}
+}

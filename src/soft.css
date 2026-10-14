@@ -339,3 +339,78 @@
   .ritual:nth-child(2){box-shadow:7px 7px 0 var(--lilac),var(--lift)} .ritual:nth-child(3){box-shadow:7px 7px 0 var(--coral),var(--lift)}
   .ritual::after{width:5px}
   .care{background:var(--paper);border:2px solid var(--ink);border-left:5px solid var(--coral)}
+
+  /* =====================================================================================
+     ROUND 4 (14 Oct)
+     ===================================================================================== */
+  /* Why Ophiuchus: three newspaper columns, each with a small typewriter head.
+     Tablet: two columns, the plate floating in the second with text wrapping around it.
+     Phone: three short blocks ruled off from each other, the plate between the first and second. */
+  .story-cols{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .story-cols::before{display:none}
+  .story-col{position:relative}
+  .story-col + .story-col::before{content:"";position:absolute;left:calc(clamp(26px,3.6vw,48px) / -2);top:0;bottom:0;border-left:1px solid rgba(22,19,16,.3)}
+  .story-k{font-family:var(--font-button);font-weight:400;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+    padding:0 0 8px;margin:0 0 14px;border-bottom:1px solid var(--ink)}
+  .story-k b{color:var(--coral);font-weight:400;margin:0 .6em}
+  .story-fig{float:none;width:100%;margin:0 0 20px}
+  @media(max-width:999px) and (min-width:641px){
+    .story-cols{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .story-col:nth-child(3){grid-column:1/-1;margin-top:10px}
+    .story-col:nth-child(3)::before{display:none}
+    .story-col:nth-child(3) .story-k{margin-top:4px}
+    .story-fig{float:right;width:min(56%,240px);margin:0 0 12px 16px}
+  }
+  @media(max-width:640px){
+    .story-cols{grid-template-columns:1fr;gap:0}
+    .story-col + .story-col::before{display:none}
+    .story-col + .story-col{margin-top:18px;padding-top:18px;border-top:3px double var(--ink)}
+    .story-fig{float:none;width:min(100%,360px);margin:0 auto 18px}
+    .story-col p{font-size:14.5px}
+  }
+
+  /* Hovering cards: lift by moving the card (top/left), not transform, so the stamps tucked behind it stay behind it.
+     Slow and soft. The testimonial and the This Season post don't move. */
+  .price-card,.rising,.candle,.ritual{transition:top .45s cubic-bezier(.2,.8,.2,1),left .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease;top:0;left:0}
+  @media(hover:hover) and (prefers-reduced-motion:no-preference){
+    .price-card:hover,.tq .paper:hover,.rising:not(.open):hover,.season-now:hover,.candle:hover,.ritual:hover{translate:none;scale:none}
+    .price-card:hover,.rising:not(.open):hover,.candle:hover,.ritual:hover{top:-3px;left:-2px}
+  }
+  .price-cta:hover{transform:translate(2px,2px)}
+
+  /* testimonials: no hover, no extra shadow; coloured paper inside the ink outline */
+  .tq .paper,.tq .paper:hover{box-shadow:8px 8px 0 var(--ink)!important;background:var(--blush)!important}
+  .tq-2 .paper,.tq-2 .paper:hover{background:var(--powder)!important;box-shadow:8px 8px 0 var(--ink)!important}
+  .tq-3 .paper,.tq-3 .paper:hover{background:var(--butter)!important;box-shadow:8px 8px 0 var(--ink)!important}
+
+  /* element shadows: the hard shadow takes the element's colour (deepened a step so it reads as a shadow) */
+  :root{--fire:#e9a597;--earth:#a9b58d;--air:#e2c46a;--water:#93acc6}
+  .rising.fire,.rising.fire:nth-child(n){box-shadow:6px 6px 0 var(--fire)!important}
+  .rising.earth,.rising.earth:nth-child(n){box-shadow:6px 6px 0 var(--earth)!important}
+  .rising.air,.rising.air:nth-child(n){box-shadow:6px 6px 0 var(--air)!important}
+  .rising.water,.rising.water:nth-child(n){box-shadow:6px 6px 0 var(--water)!important}
+  .rising.fire:hover{box-shadow:8px 8px 0 var(--fire)!important} .rising.earth:hover{box-shadow:8px 8px 0 var(--earth)!important}
+  .rising.air:hover{box-shadow:8px 8px 0 var(--air)!important} .rising.water:hover{box-shadow:8px 8px 0 var(--water)!important}
+  .ritual.fire,.ritual.fire:nth-child(n){box-shadow:7px 7px 0 var(--fire)} .ritual.earth,.ritual.earth:nth-child(n){box-shadow:7px 7px 0 var(--earth)}
+  .ritual.air,.ritual.air:nth-child(n){box-shadow:7px 7px 0 var(--air)} .ritual.water,.ritual.water:nth-child(n){box-shadow:7px 7px 0 var(--water)}
+  .ritual::after{display:none}
+  .candle.fire,.candle.fire:nth-child(n){box-shadow:7px 7px 0 var(--fire)} .candle.earth,.candle.earth:nth-child(n){box-shadow:7px 7px 0 var(--earth)}
+  .candle.air,.candle.air:nth-child(n){box-shadow:7px 7px 0 var(--air)} .candle.water,.candle.water:nth-child(n){box-shadow:7px 7px 0 var(--water)}
+  .season-now,.season-now:hover{box-shadow:8px 8px 0 var(--lilac)}
+
+  /* readings on tablet and phone: Quickie and Here To Help stay side by side down to 600px, with tighter padding */
+  @media(max-width:820px){
+    .rd-pair{grid-template-columns:1fr 1fr;gap:20px}
+    .rd-pair .price-card{padding:26px 20px}
+    .rd-card p:not(.rd-tag){font-size:14px;margin-bottom:20px}
+    .rd-card .rd-tag{font-size:18px}
+    .rd-card .rd-len{font-size:10.5px}
+    .rd-pair .price-cta{padding:14px 16px;font-size:12.5px}
+  }
+  @media(max-width:599px){
+    .rd-pair{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+    .rd-pair .price-card{padding:24px 20px}
+  }
+  /* Bri's pink hand-drawn stars beside the readings title */
+  .price .eph.pink-stars{width:clamp(64px,7vw,96px);right:calc(50% - min(44vw,560px));top:clamp(36px,5vh,64px);transform:rotate(8deg)}
+  .price .eph.pink-star{width:clamp(30px,3vw,42px);left:calc(50% - min(44vw,540px));top:clamp(110px,14vh,170px);transform:rotate(-12deg)}
