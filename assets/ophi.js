@@ -341,6 +341,40 @@
     });
   }catch(e){}
 
+
+  /* This Season: fill the page from assets/season-data.js for the current month (Pacific time) */
+  try{
+    var DATA=window.OPHI_SEASON;
+    if(DATA && document.querySelector('.season-now')){
+      var ym=(function(){ try{ var f=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Vancouver',year:'numeric',month:'2-digit'}).formatToParts(new Date());
+        var y,m; f.forEach(function(p){ if(p.type==='year') y=p.value; if(p.type==='month') m=p.value; }); return y+'-'+m; }catch(e){ var d=new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2); } })();
+      var keys=Object.keys(DATA).sort(), key=null;
+      keys.forEach(function(k){ if(k<=ym) key=k; });
+      if(!key) key=keys[0];
+      var M=DATA[key], esc=function(t){ return String(t).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+      var rich=function(t){ return esc(t).replace(/\*([^*]+)\*/g,'<em>$1</em>'); };
+      var paras=function(t){ return String(t||'').split(/\n\s*\n/).map(function(x){ return '<p>'+rich(x.trim())+'</p>'; }).join(''); };
+      Array.prototype.forEach.call(document.querySelectorAll('[data-month]'),function(el){ el.textContent=el.textContent.replace(/^[A-Z][a-z]+ \d{4}/,M.label); });
+      var now=document.querySelector('.season-now');
+      if(M.post && M.post.ready){
+        now.querySelector('h3').innerHTML=rich(M.post.title);
+        var dd=now.querySelectorAll('.summary dd'); dd[0].textContent=M.post.when; dd[1].textContent=M.post.what; dd[2].textContent=M.post.takeaway;
+        var old=now.querySelectorAll(':scope > p'); Array.prototype.forEach.call(old,function(p){ p.remove(); });
+        now.insertAdjacentHTML('beforeend',paras(M.post.body));
+      }
+      Object.keys(M.signs||{}).forEach(function(s){
+        var c=M.signs[s], li=document.querySelector('.rising[data-sign="'+s+'"]'); if(!li||!c||!c.ready) return;
+        var ch=li.querySelector('.chapter');
+        ch.querySelector('h4').innerHTML=rich(c.title);
+        Array.prototype.forEach.call(ch.querySelectorAll(':scope > div > p'),function(p){ p.remove(); });
+        ch.querySelector(':scope > div').insertAdjacentHTML('beforeend',paras(c.body));
+        var ul=ch.querySelector('aside ul');
+        if(c.tries && c.tries.length) ul.innerHTML=c.tries.map(function(t){ return '<li>'+esc(t)+'</li>'; }).join('');
+        else ch.querySelector('aside').querySelectorAll('.k,ul').forEach(function(n){ n.remove(); });
+      });
+    }
+  }catch(e){}
+
   /* This Season: each rising card opens in place to show its chapter; one open at a time */
   try{
     var cards=Array.prototype.slice.call(document.querySelectorAll('.rising'));
