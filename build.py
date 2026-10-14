@@ -26,8 +26,6 @@ PAGES = {
                                'Meet Yourself, Quickie and Here To Help: one-on-one virtual astrology readings with Bri Godard.'),
     'this-season/index.html': ('this-season.html', 'This Season | Ophi by Bri',
                                'The current astrological weather and how it lands for each rising sign, by Bri Godard.'),
-    'home-b/index.html':      ('home-b.html',      'Ophi by Bri | Awakening Astrology (flow draft)',
-                               'Draft of a flowing home page.'),
     'candles/index.html':     ('candles.html',     'Candles & Rituals | Ophi by Bri',
                                'Hand-poured pocket candles for every Moon element, each with its own ritual.'),
 }
@@ -57,6 +55,32 @@ TAIL = '''<script src="/assets/ophi.js?v={v}"></script>
 </html>
 '''
 
+DOOR_CARDS = [
+    ('readings/index.html', '/readings/', 'Readings', 'Meet Yourself, Quickie, <em>Here To Help.</em>', 'pick your reading'),
+    ('this-season/index.html', '/this-season/', 'This Season', 'The sky right now, <em>by rising sign.</em>', 'read your chapter'),
+    ('candles/index.html', '/candles/', 'Candles &amp; Rituals', 'A pocket candle for <em>your Moon.</em>', 'find your element'),
+]
+STAR_ARROW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+
+def doors(out):
+    """The closing band on every page: 'See your sky' (cast a chart) and two small doors to the other pages."""
+    cards = [c for c in DOOR_CARDS if c[0] != out][:2]
+    html = ['<section class="hero night" id="cast">',
+            '  <canvas class="stars" aria-hidden="true"></canvas>',
+            '  <div class="night-inner">',
+            '    <p class="folio">Free<b>&#x2726;</b>Whole sign houses<b>&#x2726;</b>Takes a minute</p>',
+            '    <h2 class="flow-h">See your sky.</h2>',
+            '    <p class="night-sub">Cast your natal chart. Tap any planet to see how the different parts of you get along.</p>',
+            '    <a class="cta" href="/chart/">Cast my chart ' + STAR_ARROW + '</a>',
+            '  </div>', '</section>', '', '<section class="more flow-sec">']
+    for _, href, label, title, hand in cards:
+        html += ['  <a class="more-card" href="%s">' % href,
+                 '    <p class="folio">%s</p>' % label,
+                 '    <h3>%s</h3>' % title,
+                 '    <span class="hand">%s</span>' % hand, '  </a>']
+    html.append('</section>')
+    return '\n'.join(html)
+
 def main():
     css = rd('src/ophi.base.css') + rd('src/site.css') + rd('src/soft.css') + rd('src/flow.css')
     js = rd('src/ophi.base.js')
@@ -69,8 +93,9 @@ def main():
     for out, (src, title, desc) in PAGES.items():
         body = rd('src/pages/' + src)
         for k, val in parts.items(): body = body.replace('{{%s}}' % k, val)
+        body = body.replace('{{doors}}', doors(out))
         assert '{{' not in body, (src, re.findall(r'\{\{\w+\}\}', body))
-        bc = ' class="flow"' if src == 'home-b.html' else ''
+        bc = ' class="flow"'
         wr(out, HEAD.format(title=title, desc=desc, v=v, bodyclass=bc) + body + TAIL.format(v=v))
     # chart page: add the shared menu once
     ch = rd('chart/index.html')

@@ -287,10 +287,10 @@
   }catch(e){}
 
 
-  /* Option B, for comparing: add ?trail to any page address. The masthead has no star field; instead the cursor
-     leaves a short trail of sparkling stars that drift, shrink and fade. Capped so it never gets busy. */
+  /* Dark bands: no star field; the cursor leaves a short trail of sparkling stars that drift, shrink and fade.
+     Capped at 36 so it never gets busy. (?grid on the address brings back the old star grid for comparison.) */
   try{
-    if(/[?&]trail\b/.test(location.search) && window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    if(!/[?&]grid\b/.test(location.search) && window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       document.documentElement.classList.add('trail-mode');
       var STAR2=new Path2D('M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z');
       Array.prototype.forEach.call(document.querySelectorAll('canvas.stars'),function(cv){

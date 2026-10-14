@@ -8,7 +8,6 @@
      - Small light footer.
      ===================================================================================== */
   body.flow{--s1:8px;--s2:16px;--s3:24px;--s4:48px;--sec:clamp(56px,8vw,96px)}
-  body.flow .lace-edge{display:none}
 
   /* light masthead */
   body.flow .hero.light{background:transparent;color:var(--ink);border-top:7px solid var(--ink);min-height:0}
@@ -97,3 +96,78 @@
   footer.foot-lite{background:transparent;color:var(--ink)}
   .foot-lite .logo{color:var(--ink)}
   @media(max-width:860px){ .mb-side .relic{display:none} }
+
+  /* =====================================================================================
+     ROUND 6 (14 Oct): flow layout becomes the site
+     ===================================================================================== */
+  /* dark mastheads: only as tall as they need to be; every inner page title the same size */
+  body.flow .hero.mini .mast{padding:clamp(26px,4vw,44px) var(--pad) clamp(30px,4.4vw,48px)}
+  body.flow .hero.mini .headline h1{font-size:clamp(42px,7vw,92px)!important;white-space:normal}
+  body.flow .hero.mini .byline{font-size:clamp(10px,1vw,11.5px);padding:12px 0 9px}
+  body.flow .hero.mini .hand-line{margin-top:12px;font-size:clamp(22px,2.6vw,30px)}
+  body.flow .hero:not(.mini):not(.night):not(.light) .wrap{padding-top:clamp(34px,5vh,56px);padding-bottom:clamp(36px,5vh,56px)}
+  body.flow .lace-edge + section{padding-top:calc(var(--sec) * .7 + var(--lace-h) * .4)}
+  body.flow .lace-edge + .story{padding-top:calc(var(--sec) * .7 + var(--lace-h) * .4)}
+
+  /* Ophiuchus: three columns; the plate sits flush right inside the third (wider) column, text wrapping round it */
+  @media(min-width:1000px){ body.flow .story-cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)} }
+  body.flow .story-col:nth-child(3) .story-fig{float:right;width:52%;margin:2px 0 10px 16px}
+  @media(max-width:999px) and (min-width:641px){
+    body.flow .story-cols{grid-template-columns:repeat(2,minmax(0,1fr))}
+    body.flow .story-col:nth-child(3) .story-fig{width:min(44%,260px)}
+  }
+  @media(max-width:640px){ body.flow .story-col:nth-child(3) .story-fig{width:48%;margin-left:14px} }
+  .story .flow-next{margin-top:var(--s4)}
+
+  /* testimonials: title on the left, a carousel of notes on the right */
+  .words-grid{align-items:start}
+  .words-grid .sec-row{position:relative;padding-top:var(--s3)}
+  .eph.words-stars{position:absolute;width:clamp(56px,6vw,84px);right:4%;top:-8px;transform:rotate(10deg)}
+  .words-car{position:relative;min-width:0}
+  .words-car .tq-track{width:100%;margin-left:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .words-car .tq-track::-webkit-scrollbar{display:none}
+  .words-car .tq-slide{flex:0 0 100%;padding:26px 14px 22px 4px;scroll-snap-align:center;display:block}
+  .note-card{background:var(--paper);box-shadow:8px 8px 0 var(--lilac);transform:none}
+  .tq-slide:nth-child(even) .note-card{box-shadow:8px 8px 0 var(--coral)}
+  .eph.car-bow{position:absolute;z-index:3;width:clamp(64px,7vw,92px);right:-6px;top:-4px;transform:rotate(14deg);filter:drop-shadow(0 1px 0 rgba(22,19,16,.35))}
+  .words-car .tq-foot{justify-content:flex-start;min-height:0;margin-top:var(--s2)}
+  .words-car .tq-nav{gap:var(--s2)}
+  .words-car .tq-btn{width:auto;height:auto;padding:0 6px;border:0;background:none;box-shadow:none;font-family:var(--font-hand);font-size:34px;line-height:1;color:var(--pen);cursor:pointer;transition:color .2s,transform .2s}
+  .words-car .tq-btn:hover{color:var(--coral);transform:none}
+  .words-car .tq-btn.prev:hover{transform:translateX(-3px)} .words-car .tq-btn.next:hover{transform:translateX(3px)}
+  .words-car .tq-dots{gap:4px}
+  .words-car .tq-dots button{width:22px;height:22px;display:grid;place-items:center;padding:0;border:0;background:none;cursor:pointer}
+  .words-car .tq-dots button::before{content:"";width:7px;height:7px;border-radius:50%;border:1.5px solid var(--ink);transition:background .2s,transform .2s}
+  .words-car .tq-dots button[aria-current]::before{background:var(--coral);border-color:var(--coral);transform:scale(1.2)}
+
+  /* This Season: rising cards with a black hard shadow and an element-coloured orb behind the glyph */
+  .rising-grid .rising.rising:nth-child(n){box-shadow:6px 6px 0 var(--ink)!important}
+  .rising-grid .rising.rising:nth-child(n):not(.open):hover{box-shadow:8px 8px 0 var(--ink)!important}
+  .rising .gl{position:relative;z-index:0;display:inline-grid;place-items:center;width:44px;height:44px}
+  .rising .gl::before{content:"";position:absolute;inset:-4px;z-index:-1;border-radius:50%;filter:blur(5px);opacity:.9}
+  .rising.fire .gl::before{background:radial-gradient(circle,var(--fire) 35%,transparent 72%)}
+  .rising.earth .gl::before{background:radial-gradient(circle,var(--earth) 35%,transparent 72%)}
+  .rising.air .gl::before{background:radial-gradient(circle,var(--air) 35%,transparent 72%)}
+  .rising.water .gl::before{background:radial-gradient(circle,var(--water) 35%,transparent 72%)}
+  @media(max-width:599px){ .rising-grid .rising.rising:nth-child(n){box-shadow:4px 4px 0 var(--ink)!important} .rising .gl{width:36px;height:36px} }
+
+  /* "In the sky right now": no box; laid out like a journal page, a date column and ruled entries */
+  body.flow .season-now{background:none;border:0;box-shadow:none!important;padding:0;max-width:var(--banner);margin:0 auto;
+    display:grid;grid-template-columns:minmax(150px,.32fr) minmax(0,1fr);gap:0 var(--s4);text-align:left}
+  body.flow .season-now .eph.pin{left:auto;right:6px;margin:0;top:-6px;width:30px;transform:rotate(18deg)}
+  body.flow .season-now > .r-saturn{display:none}
+  body.flow .season-now .kick{grid-column:1;grid-row:1/5;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:10px;
+    border:0;border-right:1px solid var(--ink);padding:4px var(--s3) 0 0}
+  body.flow .season-now .kick span{font-family:var(--font-title);font-size:clamp(34px,3.6vw,48px);letter-spacing:-.01em;text-transform:none;line-height:1}
+  body.flow .season-now h3{grid-column:2;margin:0 0 var(--s2);font-size:clamp(30px,3.6vw,44px)}
+  body.flow .season-now .summary{grid-column:2;grid-template-columns:110px 1fr;margin:0 0 var(--s2);border-top:3px double var(--ink);border-bottom:0;padding:0}
+  body.flow .season-now .summary dt,body.flow .season-now .summary dd{padding:12px 0;border-bottom:1px solid rgba(22,19,16,.25)}
+  body.flow .season-now > p{grid-column:2}
+  @media(max-width:700px){
+    body.flow .season-now{grid-template-columns:1fr}
+    body.flow .season-now .kick{grid-row:auto;border-right:0;border-bottom:1px solid var(--ink);padding:0 0 12px;margin-bottom:var(--s2);flex-direction:row;justify-content:space-between;align-items:baseline}
+    body.flow .season-now h3,body.flow .season-now .summary,body.flow .season-now > p{grid-column:1}
+  }
+  body.flow .season{padding-bottom:var(--sec)}
+  body.flow .season-sec{border-top:0;padding-top:0}
+  body.flow .season-sec .headline{text-align:left;width:min(100%,var(--banner))}
