@@ -710,6 +710,12 @@
     --font-hand:'Ophi Hand','Segoe Script','Bradley Hand',cursive;
   }
   body{background:var(--bone)}
+  /* paper grain over the whole page: fine tooth plus a soft fibre mottle (no creases) */
+  body::after{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.22;mix-blend-mode:multiply;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.014' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='0.55'/%3E%3C/svg%3E");
+    background-size:180px 180px,520px 520px}
   .hand{font-family:var(--font-hand);color:var(--pen);font-weight:400;letter-spacing:0}
 
   /* ---------- lighter chrome ---------- */
@@ -756,8 +762,10 @@
   .hero.mini .lede{max-width:62ch;margin:14px auto 0;font-size:var(--lede-size);line-height:1.6;color:rgba(236,231,220,.8)}
 
   /* Bri's black lace runner hangs off the bottom of every masthead onto the page */
-  .lace-edge{position:relative;z-index:4;height:var(--lace-h);margin-bottom:calc(var(--lace-h) * -1);pointer-events:none;
-    background:var(--lace-ink) 0 0/auto 100% repeat-x;transform:translateY(-12%)}
+  .lace-edge{position:relative;z-index:4;height:var(--lace-h);pointer-events:none;
+    /* the runner's top fifth is open lacework, so it tucks up under the black masthead: no paper shows through the gaps */
+    margin-top:calc(var(--lace-h) * -.3);margin-bottom:calc(var(--lace-h) * -.7);
+    background:var(--lace-ink) 0 0/auto 100% repeat-x}
   .lace-edge + section{border-top:0;padding-top:calc(clamp(56px,8vh,104px) + var(--lace-h) * .5)}
 
   /* ---------- cursor: a small black arrow, with the orb behind it ---------- */
