@@ -49,3 +49,5 @@
   #placements table{font-size:.86rem}
   #placements td,#placements th{padding-block:.42rem}
 }
+.chart-mast .nav{justify-content:flex-start}
+.chart-mast .nav .chip{margin-left:0}

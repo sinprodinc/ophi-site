@@ -148,6 +148,8 @@ def main():
     ch = rd('chart/index.html')
     ch = re.sub(r'<script src="/assets/menu\.js[^"]*" defer></script>\n?', '', ch)
     ch = re.sub(r'<script src="/assets/trail\.js[^"]*" defer></script>\n?', '', ch)
+    ch = re.sub(r'<script src="/assets/chart-music\.js[^"]*" defer></script>\n?', '', ch)
+    ch = ch.replace('</head>', '<script src="/assets/chart-music.js?v=%s" defer></script>\n</head>' % hashlib.sha1(rd('assets/chart-music.js').encode()).hexdigest()[:8], 1)
     ch = ch.replace('</head>', '<script src="/assets/trail.js?v=%s" defer></script>\n</head>' % v, 1)
     ch = re.sub(r'<link rel="stylesheet" href="/assets/chart-fixes\.css[^"]*">\n?', '', ch)
     ch = ch.replace('</head>', '<link rel="stylesheet" href="/assets/chart-fixes.css?v=%s">\n</head>' % v, 1)
