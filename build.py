@@ -86,7 +86,7 @@ def door_preview(href):
         return '<ul class="door-checks">' + ''.join('<li>%s%s</li>' % (CHECK, t) for t in items) + '</ul>'
     if href == '/this-season/':
         # Filled from assets/season-data.js each month (first three sentences of the post); this line shows until a post is ready.
-        return '<p class="door-peek" data-season-preview>[Placeholder] The first few sentences of this month\'s reading will show here, and change on the 1st of every month.</p>'
+        return '<p class="door-peek" data-season-preview>The sky right now, read for each rising sign. A new chapter on the 1st of every month.</p>'
     if href == '/#why':
         return '<p class="door-peek">The forgotten, hidden thirteenth constellation of the zodiac, positioned between Scorpio and Sagittarius.</p>'
     if href == '/candles/':
