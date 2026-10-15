@@ -125,7 +125,8 @@ def main():
     menu = re.sub(r"var SHELVED = \[[^\]]*\];", 'var SHELVED = [%s];' % ', '.join("'%s'" % n for n in sorted(SHELVED)), menu, count=1)
     wr('assets/menu.js', menu)
     import hashlib
-    v = hashlib.sha1((css + js + menu).encode()).hexdigest()[:8]   # cache-buster: changes whenever the shared files do
+    v = hashlib.sha1((css + js + menu).encode()).hexdigest()[:8]
+    sv = hashlib.sha1(rd('assets/season-data.js').encode()).hexdigest()[:8]   # cache-buster: changes whenever the shared files do
     wr('assets/ophi.css', css)
     wr('assets/ophi.js', js)
     parts = {k: rd('src/partials/%s.html' % k) for k in ('top', 'nav', 'footer', 'footer-lite', 'readings')}
@@ -138,6 +139,8 @@ def main():
         for k, val in parts.items(): body = body.replace('{{%s}}' % k, val)
         body = body.replace('{{doors}}', doors(out))
         body = shelf(body)
+        # the season file changes every month: give it its own version so browsers never keep an old reading
+        body = re.sub(r'/assets/season-data\.js(\?v=\w+)?', '/assets/season-data.js?v=' + sv, body)
         assert '{{' not in body, (src, re.findall(r'\{\{\w+\}\}', body))
         bc = ' class="flow"'
         wr(out, HEAD.format(title=title, desc=desc, v=v, bodyclass=bc) + body + TAIL.format(v=v))
