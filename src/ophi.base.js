@@ -404,7 +404,7 @@
       var M2=SD[k2];
       Array.prototype.forEach.call(document.querySelectorAll('[data-season-label]'),function(el){ el.textContent=M2.label; });
       if(M2.post && M2.post.ready){
-        var src=String(M2.post.body||M2.post.takeaway||'').replace(/\*/g,'').replace(/\s+/g,' ').trim();
+        var src=String(M2.post.body||M2.post.takeaway||'').split(/\n\s*\n/).filter(function(x){ return !/^\s*## /.test(x); }).map(function(x){ return x.replace(/^\s*~ /,''); }).join(' ').replace(/\*/g,'').replace(/\s+/g,' ').trim();
         var sent=src.match(/[^.!?]+[.!?]+["')\]]*/g)||[src];
         Array.prototype.forEach.call(document.querySelectorAll('[data-season-preview]'),function(el){ el.textContent=sent.slice(0,3).join(' ').trim(); });
       }
@@ -424,7 +424,7 @@
       var M=DATA[key], esc=function(t){ return String(t).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
       var rich=function(t){ return esc(t).replace(/\*([^*]+)\*/g,'<em>$1</em>'); };
       /* paragraphs are separated by a blank line; a paragraph starting with "## " is a small heading */
-      var paras=function(t){ return String(t||'').split(/\n\s*\n/).map(function(x){ x=x.trim(); return /^## /.test(x)?'<h4 class="sub-h">'+rich(x.slice(3))+'</h4>':'<p>'+rich(x)+'</p>'; }).join(''); };
+      var paras=function(t){ return String(t||'').split(/\n\s*\n/).map(function(x){ x=x.trim(); return /^## /.test(x)?'<h4 class="sub-h">'+rich(x.slice(3))+'</h4>':/^~ /.test(x)?'<p class="pen">'+rich(x.slice(2))+'</p>':'<p>'+rich(x)+'</p>'; }).join(''); };
       Array.prototype.forEach.call(document.querySelectorAll('[data-month]'),function(el){ el.textContent=el.textContent.replace(/^[A-Z][a-z]+ \d{4}/,M.label); });
       var now=document.querySelector('.season-now');
       if(M.post && M.post.ready){
@@ -438,7 +438,9 @@
       var sc=document.querySelector('[data-season-close]');
       if(sc && M.closing && M.closing.body){ sc.querySelector('h3').innerHTML=rich(M.closing.title||''); sc.querySelector('div').innerHTML=paras(M.closing.body); sc.hidden=false; }
       Object.keys(M.signs||{}).forEach(function(s){
-        var c=M.signs[s], li=document.querySelector('.rising[data-sign="'+s+'"]'); if(!li||!c||!c.ready) return;
+        var c=M.signs[s], li=document.querySelector('.rising[data-sign="'+s+'"]'); if(!li||!c) return;
+        if(c.teaser){ var tg=li.querySelector('.tagline'); if(tg) tg.textContent=c.teaser; }   /* the month's teaser replaces the sign's standing tagline */
+        if(!c.ready) return;
         var ch=li.querySelector('.chapter');
         ch.querySelector('h4').innerHTML=rich(c.title);
         Array.prototype.forEach.call(ch.querySelectorAll(':scope > div > p'),function(p){ p.remove(); });
