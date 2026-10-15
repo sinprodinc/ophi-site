@@ -1566,3 +1566,10 @@
   @media(max-width:700px){ .has-dd h2{white-space:normal;text-wrap:balance} }
   .tour-card::before{opacity:1;background:radial-gradient(ellipse,var(--o1) 0 40%,transparent 72%)}
   .tour-card::after{opacity:.9}
+  /* tour: no orbs; each page title gets a coloured marker highlight, and its Visit button wears the same colour */
+  .tour-card::before,.tour-card::after{display:none}
+  .tour-card{--hl:#c9b8ec}
+  .tour-card.orb-air{--hl:#f0d98a} .tour-card.orb-water{--hl:#b9cbe0} .tour-card.orb-fire{--hl:#f0bdb1}
+  .tour-t{padding:0 .12em;margin:0 -.04em;background:linear-gradient(transparent 52%,var(--hl) 52%,var(--hl) 92%,transparent 92%)}
+  .tour-go{background:var(--hl);border-color:var(--ink)}
+  .tour-card:hover .tour-go{background:var(--ink);color:var(--paper)}

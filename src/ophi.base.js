@@ -243,15 +243,25 @@
       var mark=function(){
         dots.forEach(function(d,k){ if(k===cur){d.setAttribute('aria-current','true');}else{d.removeAttribute('aria-current');} });
       };
+      /* seamless loop: a copy of the first slide waits after the last, so "next" from the end keeps sliding
+         forward and then quietly resets to the real first slide (and "back" from the first does the reverse) */
+      var N=slides.length, ghost=null;
+      if(N>1){ ghost=slides[0].cloneNode(true); ghost.setAttribute('aria-hidden','true'); ghost.removeAttribute('aria-label');
+        Array.prototype.forEach.call(ghost.querySelectorAll('a,button,[tabindex]'),function(el){ el.setAttribute('tabindex','-1'); });
+        track.appendChild(ghost); }
+      var instant=function(x){ track.style.scrollBehavior='auto'; track.scrollTo({left:x,behavior:'instant'}); track.offsetWidth; track.style.scrollBehavior=''; };
       var go=function(n,jump){
-        cur=(n+slides.length)%slides.length;
-        track.scrollTo({left:slides[cur].offsetLeft,behavior:(jump||calm)?'auto':'smooth'});
+        var smooth=!(jump||calm);
+        if(ghost && smooth && n>=N){ cur=0; mark(); track.scrollTo({left:ghost.offsetLeft,behavior:'smooth'}); return; }
+        if(ghost && smooth && n<0){ instant(ghost.offsetLeft); cur=N-1; mark(); requestAnimationFrame(function(){ track.scrollTo({left:slides[N-1].offsetLeft,behavior:'smooth'}); }); return; }
+        cur=(n+N)%N;
+        if(smooth) track.scrollTo({left:slides[cur].offsetLeft,behavior:'smooth'}); else instant(slides[cur].offsetLeft);
         mark();
       };
       /* turn by itself, giving each testimonial as long as it takes to read */
       var plan=function(){
         clearTimeout(timer);
-        if(!auto||!onScreen||held||slides.length<2) return;
+        if(!auto||!onScreen||held||N<2) return;
         var words=slides[cur].textContent.trim().split(/\s+/).length;
         timer=setTimeout(function(){ go(cur+1); plan(); }, Math.min(40000,Math.max(6500,words*330)));
       };
@@ -268,7 +278,8 @@
         clearTimeout(settle);
         settle=setTimeout(function(){
           var k=Math.round(track.scrollLeft/track.clientWidth);
-          if(k!==cur&&k>=0&&k<slides.length){ cur=k; mark(); }
+          if(ghost && k>=N){ instant(slides[0].offsetLeft); k=0; }
+          if(k!==cur&&k>=0&&k<N){ cur=k; mark(); }
         },110);
       },{passive:true});
       car.addEventListener('mouseenter',function(){ held=true; clearTimeout(timer); });
@@ -279,7 +290,7 @@
       if('IntersectionObserver' in window){
         new IntersectionObserver(function(en){ onScreen=en[0].isIntersecting; plan(); },{threshold:.45}).observe(car);
       }
-      if(slides.length<2) car.classList.add('single');
+      if(N<2) car.classList.add('single');
       car.classList.add('is-ready');
       go(0,true);
     });
