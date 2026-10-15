@@ -462,3 +462,33 @@
   .tour-t{padding:0 .12em;margin:0 -.04em;background:linear-gradient(transparent 52%,var(--hl) 52%,var(--hl) 92%,transparent 92%)}
   .tour-go{background:var(--hl);border-color:var(--ink)}
   .tour-card:hover .tour-go{background:var(--ink);color:var(--paper)}
+
+  /* =====================================================================================
+     ROUND 10 (14 Oct): lock-in pass
+     ===================================================================================== */
+  /* tour: the top and bottom rules stay put; only the line between them slides */
+  .tour-car .tq-track{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .tour-car .tq-slide{padding:0}
+  .tour-card{border:0!important}
+  /* the same hand-drawn highlighter stroke used across the site, one colour per page, hugging the words */
+  .tour-t{padding:0 .1em;margin:0 -.04em;-webkit-box-decoration-break:clone;box-decoration-break:clone;
+    background:var(--hls) 0 70%/100% 58% no-repeat!important}
+  .tour-card{--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%239a7fd0' fill-opacity='.38' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
+  .tour-card.orb-air{--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%23e2c46a' fill-opacity='.6' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
+  .tour-card.orb-water{--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%2393acc6' fill-opacity='.6' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
+  .tour-card.orb-fire{--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%23e9a597' fill-opacity='.7' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
+
+  /* Readings quote: two fixed lines; the size follows the column width so "ever-changing conversation." never breaks */
+  .pull{container-type:inline-size}
+  .pull .pull-q{max-width:none!important;font-size:clamp(18px,6.4cqi,44px)!important}
+  .pull .pq-1,.pull .pq-2{display:block;white-space:nowrap}
+
+  /* reading prices: back in Modern Romance, in front of a lighter orb */
+  .rd-trio .price-amount .val,.rd-trio .price-amount .cur,.rd-trio .price-amount .cents{font-family:var(--font-title)}
+  .rd-trio .price-amount .val{font-size:clamp(56px,5.4vw,72px)}
+  .rd-trio .price-amount .cur,.rd-trio .price-amount .cents{font-size:clamp(20px,1.8vw,24px)}
+  .rd-trio .price-amount{isolation:isolate}
+  .rd-trio .price-amount > span{position:relative;z-index:1}
+  .rd-trio .price-amount::before{width:clamp(96px,8.4vw,116px);opacity:.42;filter:blur(8px);top:50%}
+  .rd-trio .per{position:relative;z-index:1}
+  .rd-trio .price-amount::before{opacity:.55}
