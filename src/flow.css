@@ -614,3 +614,20 @@
   body.flow .words{padding-bottom:calc(var(--sec) + clamp(40px,5vw,72px))}
   @media(max-width:860px){ .words-stamp{display:none} body.flow .words{padding-bottom:var(--sec)} }
   .words-grid > .words-stamp{top:auto;bottom:clamp(-150px,-11vw,-110px);left:clamp(40px,7vw,110px)}
+
+  /* lace pieces at the page edge (testimonials: bow; Readings primer: butterfly) */
+  .bleed.lace{--bw:clamp(110px,12vw,180px);opacity:.95}
+  @media(max-width:700px){ .bleed.lace{--bw:clamp(76px,22vw,104px)} }
+
+  /* telescope under "A final thought": bottom-left on tablet and desktop, bottom-right on phones */
+  .season-close{position:relative}
+  .season-close > div{grid-row:1/4}
+  .close-stamp{grid-column:1;grid-row:3;align-self:end;justify-self:start;width:clamp(110px,11vw,150px);height:auto;margin:var(--s3) 0 0;transform:rotate(-6deg);transform-origin:50% 50%;opacity:.92;pointer-events:none}
+  @media(max-width:760px){ .close-stamp{position:absolute;right:0;bottom:-6px;width:92px;margin:0} .season-close{padding-bottom:var(--s3)} .season-close > div{padding-right:0} }
+  @media(max-width:760px){ .season-close > div{grid-row:auto} }
+  /* dark lace sits further off the edge on phones so it never darkens the titles */
+  @media(max-width:700px){ .bleed.lace{--bw:clamp(70px,20vw,96px);--out:.62} }
+  @media(max-width:760px){ .close-stamp{position:static;display:block;justify-self:end;margin:var(--s2) 4px 0 auto;width:92px} .season-close{padding-bottom:0} }
+  @media(min-width:701px) and (max-width:1180px){ .bleed.lace{--out:.55} }
+  @media(max-width:760px){ .close-stamp{grid-row:auto;grid-column:1} }
+  @media(min-width:701px) and (max-width:1180px){ .intro .bleed.lace{--out:.7} }

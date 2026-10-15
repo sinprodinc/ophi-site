@@ -46,7 +46,7 @@
   try{
     /* All of Bri's doodles (edge doodles, small accents, the testimonial bow, the pink glitter stars, the quote heart) get the same swell; they keep their own tilt (CSS transform)
        because the motion uses the separate translate / rotate / scale properties */
-    var relics=Array.prototype.slice.call(document.querySelectorAll('.relic, .bleed, .accent, .stamp, .eph.car-bow, .eph.words-stars, .in-heart'));
+    var relics=Array.prototype.slice.call(document.querySelectorAll('.relic, .bleed, .accent, .ink-stamp, .eph.car-bow, .eph.words-stars, .in-heart'));
     if(relics.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       relics.forEach(function(el){
         if(el.classList.contains('set')) return;
