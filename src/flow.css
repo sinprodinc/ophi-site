@@ -511,3 +511,20 @@
   /* reading cards: the same lighter paper as the Planets / Signs / Houses / Aspects tiles */
   .rd-trio .price-card{background:#fffdf8}
   .welcome .ag-title{font-size:clamp(38px,4.1vw,56px)}
+
+  /* the tour highlight hugs the title words at every width */
+  .tour-t{justify-self:start;width:fit-content;max-width:100%}
+
+  /* title doodles: bigger, tucked behind the top-left corner of the words */
+  .ag-title,.pull .pull-q{position:relative;isolation:isolate}
+  .ag-title .in-title,.welcome .ag-title .in-title,.pull .in-heart{position:absolute;z-index:-1;margin:0;vertical-align:baseline}
+  .ag-title .in-title,.welcome .ag-title .in-title{left:-.32em;top:-.3em;width:.95em;transform:rotate(-12deg)}
+  .pull .in-heart{left:-.42em;top:-.5em;width:1.25em;transform:rotate(-10deg);opacity:.85}
+  .pull{padding-left:calc(var(--s3) + 8px)}
+  .ag-title .nw{white-space:normal}
+
+  /* testimonial card on the lighter paper */
+  body.flow .note-card{background:#fffdf8}
+  .ag-title .in-title,.welcome .ag-title .in-title{left:-.42em;top:-.42em;width:1.35em;opacity:.9}
+  .pull .in-heart{width:max(1.4em,46px);left:-.55em;top:-.62em}
+  .pull .in-heart{top:-.2em;left:-.6em}
