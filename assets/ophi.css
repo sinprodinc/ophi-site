@@ -1706,3 +1706,8 @@
   .accent,.eph.car-bow,.eph.words-stars,.in-heart{transform-origin:50% 50%}
   /* Welcome: "Get curious about yourself…" in the body typeface (KIN668) */
   .welcome .ag-txt .ag-body{font-family:var(--font-body);font-size:16px;line-height:1.7;color:var(--ink-2);margin-top:var(--s2)}
+
+  /* Ophiuchus plate: a small inset the story wraps around, never the full width */
+  .story-flow .story-fig{float:right;width:min(58%,190px);margin:4px 0 10px 16px;break-inside:avoid}
+  .story-flow .story-fig figcaption{font-size:8.5px;padding:5px 7px 4px}
+  @media(max-width:640px){ .story-flow .story-fig{width:min(46%,160px);margin-left:14px} }
