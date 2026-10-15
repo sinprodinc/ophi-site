@@ -44,7 +44,9 @@
      size while their section is being read and only start once they pass the upper part of the screen.
      Each also slides and tips a little on the way through. */
   try{
-    var relics=Array.prototype.slice.call(document.querySelectorAll('.relic'));
+    /* Bri's doodles that bleed off the page edge get the same swell; they keep their own tilt (CSS transform)
+       because the motion uses the separate translate / rotate / scale properties */
+    var relics=Array.prototype.slice.call(document.querySelectorAll('.relic, .bleed'));
     if(relics.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       relics.forEach(function(el){
         if(el.classList.contains('set')) return;
@@ -55,7 +57,7 @@
       var measure=function(){
         vh=window.innerHeight;
         var sy=window.pageYOffset;
-        relics.forEach(function(el){ el._t=el.style.transform; el.style.transform='none'; });
+        relics.forEach(function(el){ el._t=el.style.transform; el.style.transform='none'; el.style.translate=el.style.rotate=el.style.scale=''; });
         relics.forEach(function(el){
           if(!el.offsetParent){ el._m=null; return; }
           var r=el.getBoundingClientRect();
@@ -74,7 +76,9 @@
               p=Math.max(0,Math.min(1,(start-mid)/(start-end))),
               d=first?Math.max(-.7,-sy/vh):Math.max(-.7,Math.min(.7,(mid-vh/2)/vh)),
               depth=(+el.getAttribute('data-depth')||40)*(small?.5:1);
-          el.style.transform='translate3d(0,'+(-d*depth).toFixed(1)+'px,0) rotate('+(d*-9).toFixed(2)+'deg) scale('+(1+p*p*(small?GROW*.7:GROW)+p*.25).toFixed(3)+')';
+          var ty=(-d*depth).toFixed(1), rot=(d*-9).toFixed(2), sc=(1+p*p*(small?GROW*.7:GROW)+p*.25).toFixed(3);
+          if(el.classList.contains('bleed')){ el.style.translate='0 '+ty+'px'; el.style.rotate=rot+'deg'; el.style.scale=sc; }
+          else el.style.transform='translate3d(0,'+ty+'px,0) rotate('+rot+'deg) scale('+sc+')';
           el.style.opacity=(1-Math.pow(p,1.5)).toFixed(3);
         });
       };

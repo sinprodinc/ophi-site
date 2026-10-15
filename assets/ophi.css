@@ -1693,3 +1693,10 @@
   .rising-grid > .rising > button{flex:1 0 auto}
   .rising .open-hint{margin-top:auto!important}
   .rising .tagline{margin-bottom:10px}
+
+  /* bleed doodles swell from their own middle as they scroll away, like the stamps */
+  .bleed{transform-origin:50% 50%;will-change:translate,scale,opacity}
+  /* testimonial bow: bigger, tied right on the card's top-right corner (the card starts 26px down and 14px in) */
+  .eph.car-bow{width:clamp(96px,9.5vw,132px);right:calc(14px - clamp(40px,4vw,54px));top:calc(26px - clamp(46px,4.6vw,62px));transform:rotate(18deg);z-index:4}
+  @media(max-width:600px){ .eph.car-bow{width:84px;right:-20px;top:-16px} }
+  .eph.car-bow{filter:none;opacity:.9}
