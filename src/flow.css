@@ -528,3 +528,29 @@
   .ag-title .in-title,.welcome .ag-title .in-title{left:-.42em;top:-.42em;width:1.35em;opacity:.9}
   .pull .in-heart{width:max(1.4em,46px);left:-.55em;top:-.62em}
   .pull .in-heart{top:-.2em;left:-.6em}
+
+  /* =====================================================================================
+     ROUND 12 (14 Oct): Bri's doodle formula
+     - Big doodles bleed off the page edge, alternating left and right down the page for balance,
+       each lined up with a title or a rule so it belongs to something. They sit behind the text.
+     - One small accent per page sits on a line, near the content, never floating in empty space.
+     - Never more than that: the page stays calm.
+     ===================================================================================== */
+  html{overflow-x:hidden} body{overflow-x:clip}
+  .welcome,.story,.words,.intro,.price,.season,.season-sec{isolation:isolate}
+  .bleed-at{position:relative;height:0;z-index:-1;pointer-events:none}
+  .bleed{position:absolute;top:var(--t,0);width:var(--bw);height:auto;--bw:clamp(120px,15vw,230px);--out:.32;opacity:.95}
+  .bleed.tall{--bw:clamp(110px,13vw,200px)}
+  .bleed.l{left:calc(50% - 50vw - var(--bw) * var(--out));transform:rotate(-10deg)}
+  .bleed.r{right:calc(50% - 50vw - var(--bw) * var(--out));transform:rotate(9deg)}
+  @media(max-width:700px){ .bleed{--bw:clamp(84px,24vw,120px);--out:.45} }
+
+  .accent{position:absolute;pointer-events:none;width:clamp(32px,3vw,42px);height:auto;z-index:1}
+  .ag-side{position:relative}
+  .ag-side > .on-vline{right:-19px;bottom:18%;transform:rotate(-8deg)}
+  .ag-txt > .on-vline.q{left:calc(-1 * var(--s4) - 19px);top:auto;margin-top:18px;transform:rotate(10deg)}
+  body.flow .season-now .kick{position:relative}
+  .kick > .on-vline.k{right:-17px;bottom:-6px;width:32px;transform:rotate(-12deg)}
+  @media(max-width:760px){ .accent.on-vline{display:none} }
+  @media(max-width:700px){ .kick > .on-vline.k{display:none} }
+  body.flow .season-now > p + p{margin-top:.9em}
