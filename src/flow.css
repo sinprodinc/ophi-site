@@ -589,3 +589,7 @@
   .eph.car-bow{width:clamp(96px,9.5vw,132px);right:calc(14px - clamp(40px,4vw,54px));top:calc(26px - clamp(46px,4.6vw,62px));transform:rotate(18deg);z-index:4}
   @media(max-width:600px){ .eph.car-bow{width:84px;right:-20px;top:-16px} }
   .eph.car-bow{filter:none;opacity:.9}
+  /* bow: its knot sits just above the testimonial card's top-right corner */
+  .eph.car-bow{--bw:clamp(96px,9.5vw,132px);width:var(--bw);right:calc(14px - var(--bw) * .62);top:calc(22px - var(--bw) * .3);transform:rotate(14deg)}
+  @media(max-width:600px){ .eph.car-bow{--bw:84px;width:var(--bw);right:calc(14px - var(--bw) * .62);top:calc(22px - var(--bw) * .3)} }
+  .accent,.eph.car-bow,.eph.words-stars,.in-heart{transform-origin:50% 50%}

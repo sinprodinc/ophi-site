@@ -44,9 +44,9 @@
      size while their section is being read and only start once they pass the upper part of the screen.
      Each also slides and tips a little on the way through. */
   try{
-    /* Bri's doodles that bleed off the page edge get the same swell; they keep their own tilt (CSS transform)
+    /* All of Bri's doodles (edge doodles, small accents, the testimonial bow, the pink glitter stars, the quote heart) get the same swell; they keep their own tilt (CSS transform)
        because the motion uses the separate translate / rotate / scale properties */
-    var relics=Array.prototype.slice.call(document.querySelectorAll('.relic, .bleed'));
+    var relics=Array.prototype.slice.call(document.querySelectorAll('.relic, .bleed, .accent, .eph.car-bow, .eph.words-stars, .in-heart'));
     if(relics.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       relics.forEach(function(el){
         if(el.classList.contains('set')) return;
@@ -77,7 +77,7 @@
               d=first?Math.max(-.7,-sy/vh):Math.max(-.7,Math.min(.7,(mid-vh/2)/vh)),
               depth=(+el.getAttribute('data-depth')||40)*(small?.5:1);
           var ty=(-d*depth).toFixed(1), rot=(d*-9).toFixed(2), sc=(1+p*p*(small?GROW*.7:GROW)+p*.25).toFixed(3);
-          if(el.classList.contains('bleed')){ el.style.translate='0 '+ty+'px'; el.style.rotate=rot+'deg'; el.style.scale=sc; }
+          if(!el.classList.contains('relic')){ el.style.translate='0 '+ty+'px'; el.style.rotate=rot+'deg'; el.style.scale=sc; }
           else el.style.transform='translate3d(0,'+ty+'px,0) rotate('+rot+'deg) scale('+sc+')';
           el.style.opacity=(1-Math.pow(p,1.5)).toFixed(3);
         });
