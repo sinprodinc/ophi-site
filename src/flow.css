@@ -593,3 +593,5 @@
   .eph.car-bow{--bw:clamp(96px,9.5vw,132px);width:var(--bw);right:calc(14px - var(--bw) * .62);top:calc(22px - var(--bw) * .3);transform:rotate(14deg)}
   @media(max-width:600px){ .eph.car-bow{--bw:84px;width:var(--bw);right:calc(14px - var(--bw) * .62);top:calc(22px - var(--bw) * .3)} }
   .accent,.eph.car-bow,.eph.words-stars,.in-heart{transform-origin:50% 50%}
+  /* Welcome: "Get curious about yourself…" in the body typeface (KIN668) */
+  .welcome .ag-txt .ag-body{font-family:var(--font-body);font-size:16px;line-height:1.7;color:var(--ink-2);margin-top:var(--s2)}
