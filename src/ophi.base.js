@@ -383,6 +383,24 @@
     });
   }catch(e){}
 
+  /* This Season door card (any page): the month's name and the first three sentences of its post.
+     season-data.js may load after this script, so it runs again once the page has loaded. */
+  var seasonDoor=function(){ try{
+    var SD=window.OPHI_SEASON, pv=document.querySelectorAll('[data-season-preview],[data-season-label]');
+    if(SD && pv.length){
+      var ym2=(function(){ try{ var y,m; new Intl.DateTimeFormat('en-CA',{timeZone:'America/Vancouver',year:'numeric',month:'2-digit'}).formatToParts(new Date()).forEach(function(p){ if(p.type==='year') y=p.value; if(p.type==='month') m=p.value; }); return y+'-'+m; }catch(e){ var d=new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2); } })();
+      var k2=null, ks=Object.keys(SD).sort(); ks.forEach(function(k){ if(k<=ym2) k2=k; }); if(!k2) k2=ks[0];
+      var M2=SD[k2];
+      Array.prototype.forEach.call(document.querySelectorAll('[data-season-label]'),function(el){ el.textContent=M2.label; });
+      if(M2.post && M2.post.ready){
+        var src=String(M2.post.body||M2.post.takeaway||'').replace(/\*/g,'').replace(/\s+/g,' ').trim();
+        var sent=src.match(/[^.!?]+[.!?]+["')\]]*/g)||[src];
+        Array.prototype.forEach.call(document.querySelectorAll('[data-season-preview]'),function(el){ el.textContent=sent.slice(0,3).join(' ').trim(); });
+      }
+    }
+  }catch(e){} };
+  seasonDoor(); if(!window.OPHI_SEASON) addEventListener('load',seasonDoor);
+
   /* This Season: fill the page from assets/season-data.js for the current month (Pacific time) */
   try{
     var DATA=window.OPHI_SEASON;

@@ -62,6 +62,24 @@ DOOR_CARDS = [
 ]
 STAR_ARROW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
+CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>'
+
+def door_folio(href):
+    """This Season's door names the month (the page script keeps it current)."""
+    return '<b>&#x2726;</b><span data-season-label>This month</span>' if href == '/this-season/' else ''
+
+def door_preview(href):
+    """A small preview of what is behind each door."""
+    if href == '/readings/':
+        items = ['Sun, Moon, Rising and Ascendant ruler', 'Major aspects and chart patterns', 'Digital takeaways to keep for reflection']
+        return '<ul class="door-checks">' + ''.join('<li>%s%s</li>' % (CHECK, t) for t in items) + '</ul>'
+    if href == '/this-season/':
+        # Filled from assets/season-data.js each month (first three sentences of the post); this line shows until a post is ready.
+        return '<p class="door-peek" data-season-preview>[Placeholder] The first few sentences of this month\'s reading will show here, and change on the 1st of every month.</p>'
+    if href == '/candles/':
+        return '<p class="door-orbs">' + ''.join('<span class="orb-%s">%s</span>' % (e.lower(), e) for e in ('Fire', 'Earth', 'Air', 'Water')) + '</p>'
+    return ''
+
 def doors(out):
     """The closing band on every page: 'See your sky' (cast a chart) and two small doors to the other pages."""
     cards = [c for c in DOOR_CARDS if c[0] != out][:2]
@@ -78,9 +96,12 @@ def doors(out):
             '  </div>', '</section>', '', '<section class="more flow-sec">']
     for _, href, label, title, hand in cards:
         html += ['  <a class="more-card" href="%s">' % href,
-                 '    <p class="folio">%s</p>' % label,
+                 '    <p class="folio">%s</p>' % (label + door_folio(href)),
                  '    <h3>%s</h3>' % title,
+                 '    ' + door_preview(href),
                  '    <span class="hand">%s</span>' % hand, '  </a>']
+    if any(c[1] == '/this-season/' for c in cards) and out != 'this-season/index.html':
+        html.append('<script src="/assets/season-data.js" defer></script>')
     html.append('</section>')
     return '\n'.join(html)
 
