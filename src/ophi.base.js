@@ -191,14 +191,14 @@
         if(stage===1) viaEl(my); else viaCtx(my);
       };
       var start=function(){
-        on=true; started=true; token++; store('0');
+        on=true; started=true; token++; store('0'); try{ sessionStorage.removeItem('ophi-music-off'); }catch(e){}
         /* created inside the tap so the browser lets it sound later if route 3 is needed */
         if(!elOK){ try{ if(AC && !ctx){ ctx=new AC(); gain=ctx.createGain(); gain.gain.value=0; gain.connect(ctx.destination); } if(ctx && ctx.state==='suspended') ctx.resume(); }catch(e){} }
         if(stage>=2) viaCtx(token); else viaEl(token);
         paint();
       };
       var stop=function(){
-        on=false; token++; clearTimeout(watch); store(null);
+        on=false; token++; clearTimeout(watch); store(null); try{ sessionStorage.setItem('ophi-music-off','1'); }catch(e){}
         if(stage>=2){
           try{
             offset=(ctx.currentTime-t0)%pcm.duration;
@@ -212,6 +212,17 @@
         paint();
       };
       var toggle=function(){ if(on) stop(); else start(); };
+      var armed=false;
+      var armGesture=function(){
+        if(armed) return; armed=true;
+        var go=function(e){
+          ['pointerdown','keydown','touchstart'].forEach(function(t){ removeEventListener(t,go,true); });
+          if(on || (e.target && e.target.closest && e.target.closest('.sound,.sound-fab'))) return;   /* the music button handles its own click */
+          var off=false; try{ off=sessionStorage.getItem('ophi-music-off')==='1'; }catch(err){}
+          if(!off) start();
+        };
+        ['pointerdown','keydown','touchstart'].forEach(function(t){ addEventListener(t,go,true); });
+      };
       sBtn.addEventListener('click',toggle); sFab.addEventListener('click',toggle);
       /* remember where the track was, so the next page can carry on from there */
       addEventListener('pagehide',function(){
@@ -227,7 +238,18 @@
         el.addEventListener('loadedmetadata',function(){ try{ if(el.currentTime<1) el.currentTime=parseFloat(was)||0; }catch(e){} },{once:true});
         var p=el.play();
         var ok=function(){ on=true; started=true; elOK=true; token++; fadeEl(VOL,900); paint(); };
-        if(p && p.then) p.then(ok,function(){ store(null); paint(); }); else ok();
+        if(p && p.then) p.then(ok,function(){ store(null); paint(); armGesture(); }); else ok();
+      }else{
+        /* first visit (and the visitor hasn't switched it off): music starts on its own.
+           Most browsers only allow sound after the visitor's first tap, click or key press, so if the
+           quiet start is refused it begins on that first interaction instead. */
+        var off=false; try{ off=sessionStorage.getItem('ophi-music-off')==='1'; }catch(e){}
+        if(!off){
+          mkEl(); el._src=1; el.src=SRC; el.volume=0;
+          var p2=el.play();
+          var ok2=function(){ on=true; started=true; elOK=true; token++; store('0'); fadeEl(VOL,1200); paint(); };
+          if(p2 && p2.then) p2.then(ok2,function(){ armGesture(); }); else ok2();
+        }
       }
       var navEl2=document.querySelector('.hero nav');
       if(window.IntersectionObserver && navEl2) new IntersectionObserver(function(en){ navSeen=en[0].isIntersecting; paint(); },{threshold:.2}).observe(navEl2);

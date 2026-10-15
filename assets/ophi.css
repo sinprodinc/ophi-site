@@ -1727,8 +1727,8 @@
   .words-grid > .words-stamp{top:auto;bottom:clamp(-150px,-11vw,-110px);left:clamp(40px,7vw,110px)}
 
   /* lace pieces at the page edge (testimonials: bow; Readings primer: butterfly) */
-  .bleed.lace{--bw:clamp(110px,12vw,180px);opacity:.95}
-  @media(max-width:700px){ .bleed.lace{--bw:clamp(76px,22vw,104px)} }
+  .bleed.lacey{--bw:clamp(110px,12vw,180px);opacity:.95}
+  @media(max-width:700px){ .bleed.lacey{--bw:clamp(76px,22vw,104px)} }
 
   /* telescope under "A final thought": bottom-left on tablet and desktop, bottom-right on phones */
   .season-close{position:relative}
@@ -1737,21 +1737,21 @@
   @media(max-width:760px){ .close-stamp{position:absolute;right:0;bottom:-6px;width:92px;margin:0} .season-close{padding-bottom:var(--s3)} .season-close > div{padding-right:0} }
   @media(max-width:760px){ .season-close > div{grid-row:auto} }
   /* dark lace sits further off the edge on phones so it never darkens the titles */
-  @media(max-width:700px){ .bleed.lace{--bw:clamp(70px,20vw,96px);--out:.62} }
+  @media(max-width:700px){ .bleed.lacey{--bw:clamp(70px,20vw,96px);--out:.62} }
   @media(max-width:760px){ .close-stamp{position:static;display:block;justify-self:end;margin:var(--s2) 4px 0 auto;width:92px} .season-close{padding-bottom:0} }
-  @media(min-width:701px) and (max-width:1180px){ .bleed.lace{--out:.55} }
+  @media(min-width:701px) and (max-width:1180px){ .bleed.lacey{--out:.55} }
   @media(max-width:760px){ .close-stamp{grid-row:auto;grid-column:1} }
-  @media(min-width:701px) and (max-width:1180px){ .intro .bleed.lace{--out:.7} }
+  @media(min-width:701px) and (max-width:1180px){ .intro .bleed.lacey{--out:.7} }
 
   /* Readings: light-grey lace butterfly, mostly on the page, behind the title */
-  .bleed.lace.fly{--bw:clamp(130px,14vw,200px);--out:.12;opacity:1}
-  @media(max-width:1180px){ .bleed.lace.fly{--bw:clamp(110px,18vw,150px);--out:.12} }
-  @media(max-width:700px){ .bleed.lace.fly{--bw:110px;--out:.18} }
+  .bleed.lacey.fly{--bw:clamp(130px,14vw,200px);--out:.12;opacity:1}
+  @media(max-width:1180px){ .bleed.lacey.fly{--bw:clamp(110px,18vw,150px);--out:.12} }
+  @media(max-width:700px){ .bleed.lacey.fly{--bw:110px;--out:.18} }
 
   /* Home: more of the dark lace bow, at the top-left of the testimonial title */
-  .bleed.lace.bow{--bw:clamp(120px,12vw,170px);--out:.18;margin-top:-40px}
-  @media(max-width:1180px){ .bleed.lace.bow{--out:.3} }
-  @media(max-width:700px){ .bleed.lace.bow{--bw:96px;--out:.35;margin-top:-30px} }
+  .bleed.lacey.bow{--bw:clamp(120px,12vw,170px);--out:.18;margin-top:-40px}
+  @media(max-width:1180px){ .bleed.lacey.bow{--out:.3} }
+  @media(max-width:700px){ .bleed.lacey.bow{--bw:96px;--out:.35;margin-top:-30px} }
 
   /* This Season: fireworks rise off the rule, just past "By your rising." */
   .season-sec .headline .byline{position:relative}
@@ -1767,3 +1767,5 @@
   .accent.on-rule.rule-fw2{left:46%;bottom:calc(100% + 2px)}
   @media(max-width:1180px){ .accent.on-rule.rule-fw2{left:auto;right:6%} }
   @media(max-width:700px){ .accent.on-rule.rule-fw2{right:0} }
+  /* Readings butterfly: soft enough that the title always reads clearly over it, sitting beside the title rather than the small label */
+  .bleed.lacey.fly{margin-top:20px}

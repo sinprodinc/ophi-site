@@ -33,7 +33,7 @@
       clearInterval(fadeT); var from = el.volume, s0 = Date.now();
       fadeT = setInterval(function () { var k = Math.min(1, (Date.now() - s0) / ms); try { el.volume = from + (to - from) * k; } catch (e) {} if (k >= 1) { clearInterval(fadeT); if (done) done(); } }, 40);
     };
-    var play = function (at, quiet) {
+    var play = function (at, quiet, onfail) {
       if (!el.src) { el.preload = 'auto'; el.src = SRC; }
       if (at) {
         var seek = function () { try { if (Math.abs(el.currentTime - at) > 1) el.currentTime = at; } catch (e) {} };
@@ -42,19 +42,29 @@
       el.volume = 0;
       var p = el.play();
       var ok = function () { on = true; store(String(Math.max(el.currentTime || 0, at || 0))); fade(VOL, 900); paint(); };
-      var no = function () { on = false; if (quiet) store(null); paint(); };
+      var no = function () { on = false; if (quiet) store(null); paint(); if (onfail) onfail(); };
       if (p && p.then) p.then(ok, no); else ok();
     };
     btn.addEventListener('click', function () {
-      if (on) { on = false; store(null); fade(0, 280, function () { try { el.pause(); } catch (e) {} }); paint(); }
-      else play(0, false);
+      if (on) { on = false; store(null); try { sessionStorage.setItem('ophi-music-off', '1'); } catch (e) {} fade(0, 280, function () { try { el.pause(); } catch (e) {} }); paint(); }
+      else { try { sessionStorage.removeItem('ophi-music-off'); } catch (e) {} play(0, false); }
     });
     btn.addEventListener('mouseenter', function () { document.body.classList.add('cur-hover'); });
     btn.addEventListener('mouseleave', function () { document.body.classList.remove('cur-hover'); });
     addEventListener('pagehide', function () { if (on) store(String(el.currentTime || 0)); });
     /* arriving with the music on: carry on from where it was */
-    var was = stored();
-    if (was !== null) play(parseFloat(was) || 0, true);
+    var was = stored(), off = false;
+    try { off = sessionStorage.getItem('ophi-music-off') === '1'; } catch (e) {}
+    var arm = function () {
+      var go = function (e) {
+        ['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { removeEventListener(t, go, true); });
+        if (on || (e.target && e.target.closest && e.target.closest('.cm-btn'))) return;
+        play(parseFloat(stored()) || 0, false);
+      };
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { addEventListener(t, go, true); });
+    };
+    /* music starts on its own unless the visitor switched it off; if the browser wants a tap first, it starts on the first one */
+    if (!off) play(was !== null ? (parseFloat(was) || 0) : 0, false, arm);
     paint();
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();

@@ -22,7 +22,7 @@ PAGES = {
     # out path            source page           <title>                         description
     'index.html':             ('home.html',        'Ophi by Bri | Awakening Astrology',
                                'Applied astrology readings by Bri Godard. Meet yourself through your natal chart.'),
-    'readings/index.html':    ('readings.html',    'Readings | Ophi by Bri',
+    'readings/index.html':    ('readings.html',    'Make It Make Sense | Ophi by Bri',
                                'Meet Yourself, Quickie and Here To Help: one-on-one virtual astrology readings with Bri Godard.'),
     'this-season/index.html': ('this-season.html', 'This Season | Ophi by Bri',
                                'The current astrological weather and how it lands for each rising sign, by Bri Godard.'),
@@ -66,7 +66,7 @@ TAIL = '''<script src="/assets/ophi.js?v={v}"></script>
 '''
 
 DOOR_CARDS = [
-    ('readings/index.html', '/readings/', 'Readings', 'Meet Yourself, Quickie, <em>Here To Help.</em>', 'pick your reading'),
+    ('readings/index.html', '/readings/', 'Make It Make Sense', 'Meet Yourself, Quickie, <em>Here To Help.</em>', 'pick your reading'),
     ('this-season/index.html', '/this-season/', 'This Season', 'The sky right now, <em>by rising sign.</em>', 'read your chapter'),
     ('candles/index.html', '/candles/', 'Candles &amp; Rituals', 'A pocket candle for <em>your Moon.</em>', 'find your element'),
     ('index.html#why', '/#why', 'The story', 'Why <em>Ophiuchus?</em>', 'read the story'),
@@ -97,7 +97,7 @@ def doors(out):
     """The closing band on every page: 'See your sky' (cast a chart) and two small doors to the other pages."""
     cards = [c for c in DOOR_CARDS if c[0] != out and c[0].split('/')[0] not in SHELVED][:2]
     if out == 'index.html':   # Home names its two doors after what they lead to
-        cards = [('', '/readings/', 'Readings', 'Meet <em>Yourself.</em>', 'book a reading'),
+        cards = [('', '/readings/', 'Make It Make Sense', 'Meet <em>Yourself.</em>', 'book a reading'),
                  ('', '/this-season/', 'This Season', 'The sky <em>right now.</em>', 'read your chapter')]
     html = ['<section class="hero night" id="cast">',
             '  <canvas class="stars" aria-hidden="true"></canvas>',
