@@ -10,6 +10,9 @@
     { href: '/this-season/', title: 'This Season' },
     { href: '/candles/', title: 'Candles & Rituals' }
   ];
+  /* pages that are shelved for now (set in build.py, written here by the build) */
+  var SHELVED = ['candles'];
+  PAGES = PAGES.filter(function (p) { return SHELVED.indexOf(p.href.replace(/\//g, '')) < 0; });
   var NUM = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
 
   var path = location.pathname.replace(/index\.html$/, '');

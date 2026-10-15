@@ -29,3 +29,23 @@
 .chart-mast .brand{color:var(--paper)}
 .chart-mast .nav{gap:clamp(10px,2vw,24px)}
 .chart-mast .nav .chip{margin-left:auto}
+
+/* Aspects stay closed until a planet is chosen */
+#aspList .pick-hint{list-style:none;padding:1.4rem 1rem;border:1.5px dashed rgba(22,19,16,.45);text-align:center;
+  font-family:'Ophi Hand',cursive;font-size:1.5rem;line-height:1.2;color:#2f3d7c}
+
+/* Desktop: placements on the left, the Serpent Bearer beside them; phones keep the stacked layout */
+@media(min-width:1100px){
+  .pl-serp{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(1.6rem,3vw,2.6rem);align-items:start;
+    max-width:calc(var(--banner) + 8vw);margin:0 auto;padding-inline:max(16px,4vw)}
+  .pl-serp > .band{padding-inline:0}
+  .pl-serp > #placements .wrap,.pl-serp > #serpent .wrap{max-width:none}
+  .pl-serp > #serpent{position:sticky;top:1.2rem;margin-top:clamp(2.2rem,6vw,4.2rem);padding:clamp(1.4rem,2.4vw,2rem);
+    border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink)}
+  .pl-serp > #serpent .headline h2{font-size:clamp(2rem,3.2vw,2.8rem)}
+  .pl-serp > #serpent .oph-glyph{width:64px}
+  .pl-serp > #serpent .serpent .small,.pl-serp > #serpent .serpent p{font-size:.88rem}
+  .pl-serp > #serpent .serpent .verdict{font-size:1.4rem}
+  #placements table{font-size:.86rem}
+  #placements td,#placements th{padding-block:.42rem}
+}

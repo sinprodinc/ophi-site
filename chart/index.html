@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ophi Natal Chart</title>
 <link rel="icon" type="image/png" href="/assets/favicon.png">
-<script src="/assets/trail.js?v=35dab9be" defer></script>
-<link rel="stylesheet" href="/assets/chart-fixes.css?v=35dab9be">
-<script src="/assets/menu.js?v=35dab9be" defer></script>
+<script src="/assets/trail.js?v=b12f619b" defer></script>
+<link rel="stylesheet" href="/assets/chart-fixes.css?v=b12f619b">
+<script src="/assets/menu.js?v=b12f619b" defer></script>
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -338,16 +338,17 @@ tr.pick{cursor:pointer}tr.pick:hover td,tr.pick.on td{background:var(--paper-2)}
     </div>
     <div class="ledger">
       <h3>Aspects</h3>
-      <p>Aspects are the angles between your planets. They show which parts of you cooperate and which ones argue. Open any line to read it.</p>
+      <p>Aspects are the angles between your planets. They show which parts of you cooperate and which ones argue.</p>
       <div class="toggles" id="toggles"></div>
       <div class="orb"><label for="orbRange">Orb</label><input type="range" id="orbRange" min="0.4" max="1.3" step="0.05" value="1"><output id="orbOut" for="orbRange">Standard</output></div>
-      <div class="focusbar"><span id="focusLabel">All planets</span><button type="button" class="linkbtn" id="focusClear" hidden>Show all</button></div>
+      <div class="focusbar"><span id="focusLabel">All planets</span><button type="button" class="linkbtn" id="focusClear" hidden>Close</button></div>
       <ul class="asp-list" id="aspList"></ul>
     </div>
   </div>
 
 </div></div>
 
+<div class="pl-serp">
 <div class="band" id="placements"><div class="wrap">
   <div class="headline sec-head" data-hl="b"><h2>The <em>Placements</em></h2><div class="byline">Where everything sat when you arrived</div></div>
   <div class="scroll"><table id="placeTable"><thead><tr><th>Point</th><th>Sign</th><th>Degree</th><th>House</th></tr></thead><tbody></tbody></table></div>
@@ -368,6 +369,7 @@ tr.pick{cursor:pointer}tr.pick:hover td,tr.pick.on td{background:var(--paper-2)}
     </div>
   </div>
 </div></div>
+</div>
 
 
 
@@ -1222,6 +1224,13 @@ function strengthTag(a) {
 function drawAspects() {
   var list = visibleAspects(), ul = $('#aspList');
   if (state.selected && !list.some(function (a) { return a.key === state.selected; })) state.selected = null;
+  /* Ophi: the list stays closed until a planet is chosen, so only the aspects someone asks for are shown */
+  if (!state.focus) {
+    if (state.selected) { state.selected = null; if (typeof applyWheelState === 'function') applyWheelState(); }
+    ul.innerHTML = '<li class="empty pick-hint">Click on a planet to reveal its aspects.</li>';
+    $('#focusLabel').textContent = 'No planet chosen'; $('#focusClear').hidden = true;
+    return;
+  }
   if (!list.length) { ul.innerHTML = '<li class="empty">No aspects with these settings. Widen the orb or switch a type back on.</li>'; }
   else ul.innerHTML = list.map(function (a) {
     var b = C.breakdown(a), open = a.key === state.selected, ap = a.applying === null ? '' : (a.applying ? 'applying' : 'separating');

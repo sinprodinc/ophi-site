@@ -30,6 +30,16 @@ PAGES = {
                                'Hand-poured pocket candles for every Moon element, each with its own ritual.'),
 }
 
+# Shelved pages: kept in src/ exactly as designed, but not published or linked anywhere.
+# To bring one back, take it out of this set and run the build: its page, menu entry, footer link,
+# Home tour line and door card all return. Links to it are wrapped in <!--SHELF:name--> ... <!--/SHELF:name-->.
+SHELVED = {'candles'}
+
+def shelf(html):
+    for name in SHELVED:
+        html = re.sub(r'<!--SHELF:%s-->.*?<!--/SHELF:%s-->' % (name, name), '', html, flags=re.S)
+    return html
+
 HEAD = '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,6 +69,7 @@ DOOR_CARDS = [
     ('readings/index.html', '/readings/', 'Readings', 'Meet Yourself, Quickie, <em>Here To Help.</em>', 'pick your reading'),
     ('this-season/index.html', '/this-season/', 'This Season', 'The sky right now, <em>by rising sign.</em>', 'read your chapter'),
     ('candles/index.html', '/candles/', 'Candles &amp; Rituals', 'A pocket candle for <em>your Moon.</em>', 'find your element'),
+    ('index.html#why', '/#why', 'The story', 'Why <em>Ophiuchus?</em>', 'read the story'),
 ]
 STAR_ARROW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
@@ -76,13 +87,15 @@ def door_preview(href):
     if href == '/this-season/':
         # Filled from assets/season-data.js each month (first three sentences of the post); this line shows until a post is ready.
         return '<p class="door-peek" data-season-preview>[Placeholder] The first few sentences of this month\'s reading will show here, and change on the 1st of every month.</p>'
+    if href == '/#why':
+        return '<p class="door-peek">The forgotten, hidden thirteenth constellation of the zodiac, positioned between Scorpio and Sagittarius.</p>'
     if href == '/candles/':
         return '<p class="door-orbs">' + ''.join('<span class="orb-%s">%s</span>' % (e.lower(), e) for e in ('Fire', 'Earth', 'Air', 'Water')) + '</p>'
     return ''
 
 def doors(out):
     """The closing band on every page: 'See your sky' (cast a chart) and two small doors to the other pages."""
-    cards = [c for c in DOOR_CARDS if c[0] != out][:2]
+    cards = [c for c in DOOR_CARDS if c[0] != out and c[0].split('/')[0] not in SHELVED][:2]
     if out == 'index.html':   # Home names its two doors after what they lead to
         cards = [('', '/readings/', 'Readings', 'Meet <em>Yourself.</em>', 'book a reading'),
                  ('', '/this-season/', 'This Season', 'The sky <em>right now.</em>', 'read your chapter')]
@@ -109,15 +122,22 @@ def main():
     css = rd('src/ophi.base.css') + rd('src/site.css') + rd('src/soft.css') + rd('src/flow.css')
     js = rd('src/ophi.base.js')
     menu = rd('assets/menu.js')
+    menu = re.sub(r"var SHELVED = \[[^\]]*\];", 'var SHELVED = [%s];' % ', '.join("'%s'" % n for n in sorted(SHELVED)), menu, count=1)
+    wr('assets/menu.js', menu)
     import hashlib
     v = hashlib.sha1((css + js + menu).encode()).hexdigest()[:8]   # cache-buster: changes whenever the shared files do
     wr('assets/ophi.css', css)
     wr('assets/ophi.js', js)
     parts = {k: rd('src/partials/%s.html' % k) for k in ('top', 'nav', 'footer', 'footer-lite', 'readings')}
+    import shutil
     for out, (src, title, desc) in PAGES.items():
+        if out.split('/')[0] in SHELVED:   # not published: remove any old copy of the built page
+            shutil.rmtree(os.path.join(ROOT, os.path.dirname(out)), ignore_errors=True)
+            continue
         body = rd('src/pages/' + src)
         for k, val in parts.items(): body = body.replace('{{%s}}' % k, val)
         body = body.replace('{{doors}}', doors(out))
+        body = shelf(body)
         assert '{{' not in body, (src, re.findall(r'\{\{\w+\}\}', body))
         bc = ' class="flow"'
         wr(out, HEAD.format(title=title, desc=desc, v=v, bodyclass=bc) + body + TAIL.format(v=v))
@@ -131,7 +151,7 @@ def main():
     ch = ch.replace('</head>', '<link rel="icon" type="image/png" href="/assets/favicon.png">\n<script src="/assets/menu.js?v=%s" defer></script>\n</head>' % v, 1) \
         if '/assets/favicon.png' not in ch else ch.replace('</head>', '<script src="/assets/menu.js?v=%s" defer></script>\n</head>' % v, 1)
     wr('chart/index.html', ch)
-    print('built', ', '.join(PAGES), '+ chart menu; version', v)
+    print('built', ', '.join(o for o in PAGES if o.split('/')[0] not in SHELVED), '+ chart menu; shelved:', ', '.join(sorted(SHELVED)) or 'none', '; version', v)
 
 if __name__ == '__main__':
     main()
