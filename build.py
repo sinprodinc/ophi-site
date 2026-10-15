@@ -65,6 +65,9 @@ STAR_ARROW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke
 def doors(out):
     """The closing band on every page: 'See your sky' (cast a chart) and two small doors to the other pages."""
     cards = [c for c in DOOR_CARDS if c[0] != out][:2]
+    if out == 'index.html':   # Home names its two doors after what they lead to
+        cards = [('', '/readings/', 'Readings', 'Meet <em>Yourself.</em>', 'book a reading'),
+                 ('', '/this-season/', 'This Season', 'The sky <em>right now.</em>', 'read your chapter')]
     html = ['<section class="hero night" id="cast">',
             '  <canvas class="stars" aria-hidden="true"></canvas>',
             '  <div class="night-inner">',
@@ -100,6 +103,8 @@ def main():
     # chart page: add the shared menu once
     ch = rd('chart/index.html')
     ch = re.sub(r'<script src="/assets/menu\.js[^"]*" defer></script>\n?', '', ch)
+    ch = re.sub(r'<script src="/assets/trail\.js[^"]*" defer></script>\n?', '', ch)
+    ch = ch.replace('</head>', '<script src="/assets/trail.js?v=%s" defer></script>\n</head>' % v, 1)
     ch = re.sub(r'<link rel="stylesheet" href="/assets/chart-fixes\.css[^"]*">\n?', '', ch)
     ch = ch.replace('</head>', '<link rel="stylesheet" href="/assets/chart-fixes.css?v=%s">\n</head>' % v, 1)
     ch = ch.replace('</head>', '<link rel="icon" type="image/png" href="/assets/favicon.png">\n<script src="/assets/menu.js?v=%s" defer></script>\n</head>' % v, 1) \

@@ -2,11 +2,30 @@
 /* The close X belongs to the expanded chart only */
 .zoom-x[hidden]{display:none!important}
 .wheel-stage:not(.zoomed) .zoom-x{display:none!important}
-/* Serpent Bearer: wider text and less height on desktop */
+
+/* Masthead: the same minimal dark band as the other pages, with the cursor star trail and Bri's lace under it */
+@font-face{font-family:'Ophi Hand';font-display:swap;src:url(/assets/fonts/hand-standin.woff2) format('woff2')}
+.chart-mast{position:relative;overflow:clip;z-index:3;padding-block:1rem clamp(1.8rem,4.4vw,3rem)}
+.chart-mast > .wrap{position:relative;z-index:1}
+.chart-mast canvas.stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.chart-mast .nav{border-bottom:1px solid rgba(236,231,220,.35)}
+.chart-mast .chip{color:var(--ink)}
+.chart-mast .headline{margin-top:clamp(1.6rem,4vw,2.8rem)}
+.chart-mast .headline h1{font-size:clamp(42px,7vw,92px);color:var(--paper)}
+.chart-mast .byline{font-size:clamp(10px,1vw,11.5px)}
+.chart-mast .hand-line{margin:12px 0 0;text-align:center;font-family:'Ophi Hand',cursive;font-size:clamp(22px,2.6vw,30px);line-height:1.1;color:#ece3cf}
+.lace-edge{position:relative;z-index:4;height:clamp(46px,5.6vw,72px);pointer-events:none;
+  margin-top:calc(clamp(46px,5.6vw,72px) * -.3);margin-bottom:calc(clamp(46px,5.6vw,72px) * -.7);
+  background:url(/assets/lace-ink.png) center top/auto 100% repeat-x}
+#top{padding-top:calc(1.6rem + clamp(46px,5.6vw,72px) * .5)!important}
+
+/* Serpent Bearer: the glyph is a small sticker in the corner and the text wraps around it */
 #serpent{padding-block:clamp(1.8rem,4vw,3rem)}
-#serpent .serpent{max-width:min(72rem,100%);grid-template-columns:auto minmax(0,1fr);gap:clamp(1.2rem,3vw,2.4rem)}
+#serpent .serpent{display:block;max-width:min(72rem,100%)}
+#serpent .serpent::after{content:"";display:table;clear:both}
 #serpent .serpent p{max-width:none}
-@media(min-width:900px){
-  #serpent .serpent > div{columns:2;column-gap:2.4rem}
-  #serpent .serpent .verdict{column-span:all}
-}
+#serpent .oph-glyph{float:left;width:clamp(64px,8vw,92px);height:auto;margin:.2rem 1.2rem .6rem 0;transform:rotate(-6deg);
+  border:1.5px dashed rgba(236,231,220,.55);border-radius:50%;padding:10px 8px 6px;overflow:visible}
+.chart-mast .brand{color:var(--paper)}
+.chart-mast .nav{gap:clamp(10px,2vw,24px)}
+.chart-mast .nav .chip{margin-left:auto}

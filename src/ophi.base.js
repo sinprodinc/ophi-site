@@ -234,8 +234,7 @@
 
   /* testimonial carousel */
   try{
-    var car=document.querySelector('.tq-carousel');
-    if(car){
+    Array.prototype.forEach.call(document.querySelectorAll('.tq-carousel'),function(car){
       var track=car.querySelector('.tq-track'),
           slides=Array.prototype.slice.call(track.children),
           dots=Array.prototype.slice.call(car.querySelectorAll('.tq-dots button')),
@@ -283,7 +282,7 @@
       if(slides.length<2) car.classList.add('single');
       car.classList.add('is-ready');
       go(0,true);
-    }
+    });
   }catch(e){}
 
 
@@ -435,6 +434,16 @@
       });
       if(x) x.addEventListener('click',function(){ shut(li); b.focus(); });
     });
+    /* a click anywhere outside the open card (or Esc) closes it */
+    if(cards.length){
+      document.addEventListener('click',function(e){
+        cards.forEach(function(li){ if(li.classList.contains('open') && !li.contains(e.target)) shut(li); });
+      });
+      document.addEventListener('keydown',function(e){
+        if(e.key!=='Escape') return;
+        cards.forEach(function(li){ if(li.classList.contains('open')){ shut(li); li.querySelector('button').focus(); } });
+      });
+    }
     /* a link straight to a sign (ophibybri.com/this-season/#leo-rising) opens that card */
     var h=location.hash && document.getElementById(location.hash.slice(1));
     if(h && h.classList.contains('rising')) h.querySelector('button').click();
