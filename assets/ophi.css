@@ -1711,3 +1711,17 @@
   .story-flow .story-fig{float:right;width:min(58%,190px);margin:4px 0 10px 16px;break-inside:avoid}
   .story-flow .story-fig figcaption{font-size:8.5px;padding:5px 7px 4px}
   @media(max-width:640px){ .story-flow .story-fig{width:min(46%,160px);margin-left:14px} }
+
+  /* This Season: the story uses the full width of its column, like the summary above it */
+  body.flow .season-now > p,body.flow .season-now > p.pen,body.flow .season-now > .sub-h{max-width:none}
+
+  /* testimonials: smaller heart at the left edge */
+  .bleed.heart-sm{--bw:clamp(72px,9vw,138px)}
+  @media(max-width:700px){ .bleed.heart-sm{--bw:clamp(52px,14vw,72px)} }
+
+  /* a black stamp below the testimonial title column, in the open space above the dark band */
+  .words-grid{position:relative}
+  .words-stamp{position:absolute;left:clamp(10px,3vw,48px);top:calc(100% - 10px);width:clamp(110px,10vw,140px);height:auto;transform:rotate(-8deg);transform-origin:50% 50%;opacity:.92;pointer-events:none}
+  body.flow .words{padding-bottom:calc(var(--sec) + clamp(40px,5vw,72px))}
+  @media(max-width:860px){ .words-stamp{display:none} body.flow .words{padding-bottom:var(--sec)} }
+  .words-grid > .words-stamp{top:auto;bottom:clamp(-150px,-11vw,-110px);left:clamp(40px,7vw,110px)}

@@ -46,7 +46,7 @@
   try{
     /* All of Bri's doodles (edge doodles, small accents, the testimonial bow, the pink glitter stars, the quote heart) get the same swell; they keep their own tilt (CSS transform)
        because the motion uses the separate translate / rotate / scale properties */
-    var relics=Array.prototype.slice.call(document.querySelectorAll('.relic, .bleed, .accent, .eph.car-bow, .eph.words-stars, .in-heart'));
+    var relics=Array.prototype.slice.call(document.querySelectorAll('.relic, .bleed, .accent, .stamp, .eph.car-bow, .eph.words-stars, .in-heart'));
     if(relics.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       relics.forEach(function(el){
         if(el.classList.contains('set')) return;
@@ -106,7 +106,7 @@
   try{ (function(){
     var sBtn=document.querySelector('nav .sound'), sFab=document.querySelector('.sound-fab'), sTxt=sBtn&&sBtn.querySelector('.sound-txt');
     if(sBtn && sFab){
-      var SRC='/assets/ophi-music.mp3', KEY='ophi-music', VOL=.75, on=false, started=false, navSeen=true, stage=0, token=0,
+      var SRC='/assets/ophi-music.mp3?v=binaural-1', KEY='ophi-music', VOL=.75, on=false, started=false, navSeen=true, stage=0, token=0,
           bytes=null, el=null, fadeT=null, watch=null,
           AC=window.AudioContext||window.webkitAudioContext, elOK=false, ctx=null, gain=null, node=null, pcm=null, offset=0, t0=0, failT=null;
       var store=function(v){ try{ if(v===null) sessionStorage.removeItem(KEY); else sessionStorage.setItem(KEY,v); }catch(e){} };
