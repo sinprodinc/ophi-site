@@ -1,6 +1,6 @@
 /* This Season content, one block per month.
    The page shows the month it is in Vancouver (Pacific time), so it switches by itself at midnight on the 1st.
-   If a month has no block yet, the page keeps showing the most recent month that does.
+   If a month has no block yet, or its post is still "ready: false", the page keeps showing the most recent finished month.
    To write a month: replace the placeholder text in its block. Leave "ready: false" on a sign until its chapter is written;
    the card then shows the "being written" note instead of half-finished copy.
    Optional: risingIntro (the line above the twelve cards), closing.title + closing.body (a closing note under them),
