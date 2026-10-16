@@ -457,12 +457,12 @@
         now.querySelector('h3').innerHTML=rich(M.post.title);
         var dd=now.querySelectorAll('.summary dd'); dd[0].textContent=M.post.when; dd[1].textContent=M.post.what; dd[2].textContent=M.post.takeaway;
         var old=now.querySelectorAll(':scope > p'); Array.prototype.forEach.call(old,function(p){ p.remove(); });
-        /* a body that opens with "## The story" folds away behind that title, so the rising cards come up sooner */
-        var body=String(M.post.body||''), m0=body.match(/^\s*## ([^\n]+)\n\s*\n/);
-        if(m0){
-          now.insertAdjacentHTML('beforeend','<details class="story-fold"><summary><span class="sf-t">'+rich(m0[1])+'</span>'+
-            '<span class="sf-hint"><span class="hand">read the energy</span><svg viewBox="0 0 70 54" aria-hidden="true"><path d="M11 5C34 8 45 22 43 40"/><path d="M32 33 L43 47 L54 33"/></svg></span></summary>'+
-            '<div class="sf-body">'+paras(body.slice(m0[0].length))+'</div></details>');
+        /* a body that opens with "## The story" moves below the rising cards (just above "Before you go");
+           the post keeps a button that jumps down to it, so the cards stay near the top of the page */
+        var body=String(M.post.body||''), m0=body.match(/^\s*## ([^\n]+)\n\s*\n/), home=document.querySelector('[data-full-story]');
+        if(m0 && home){
+          now.insertAdjacentHTML('beforeend','<a class="jump-story" href="#full-story"><span>Jump to the full story</span><svg viewBox="0 0 70 54" aria-hidden="true"><path d="M11 5C34 8 45 22 43 40"/><path d="M32 33 L43 47 L54 33"/></svg></a>');
+          home.querySelector('h3').innerHTML=rich(m0[1]); home.querySelector('.fs-body').innerHTML=paras(body.slice(m0[0].length)); home.hidden=false;
         } else now.insertAdjacentHTML('beforeend',paras(body));
       }
       var ri=document.querySelector('[data-rising-intro]');

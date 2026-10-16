@@ -688,3 +688,22 @@
   .season-sec .headline h2 .h2-in{position:relative;display:inline-block}
   .accent.h2-fw{position:absolute;right:calc(100% + 6px);bottom:.12em;width:clamp(64px,7vw,104px);height:auto;transform:none}
   @media(max-width:520px){ .accent.h2-fw{width:48px;right:calc(100% - 4px)} }
+
+  /* This Season: a button in the post jumps to the full story, which sits under the rising cards */
+  body.flow .season-now > .jump-story{grid-column:2;justify-self:start;display:inline-flex;align-items:center;gap:8px;margin-top:var(--s3);padding:10px 16px 9px;
+    font-family:var(--font-button);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;
+    background:#fffdf8;border:1.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);transition:top .3s,left .3s,box-shadow .3s;position:relative;top:0;left:0}
+  body.flow .season-now > .jump-story:hover{top:-2px;left:-2px;box-shadow:6px 6px 0 var(--ink)}
+  .jump-story svg{width:26px;height:22px;fill:none;stroke:var(--coral);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  @media(max-width:700px){ body.flow .season-now > .jump-story{grid-column:1} }
+  .full-story{position:relative;max-width:var(--banner);margin:var(--sec) auto 0;padding-top:var(--s4);border-top:3px double var(--ink);
+    display:grid;grid-template-columns:minmax(200px,.36fr) minmax(0,1fr);grid-template-rows:auto 1fr;gap:var(--s1) var(--s4);text-align:left;scroll-margin-top:24px}
+  .full-story > .folio{grid-column:1;margin:0}
+  .full-story > h3{grid-column:1;font-family:var(--font-title);font-weight:400;font-size:clamp(34px,4vw,52px);line-height:1;margin:0}
+  .full-story > .fs-body{grid-column:2;grid-row:1/3}
+  .full-story .fs-body > p{font-size:15px;line-height:1.7;color:var(--ink-2);margin:0 0 .9em;max-width:66ch}
+  .full-story .fs-body > p.pen{font-family:var(--font-hand);color:var(--pen);font-size:clamp(21px,2vw,25px);line-height:1.3}
+  .full-story .fs-body > .sub-h{font-family:var(--font-title);font-weight:400;font-size:clamp(22px,2.2vw,28px);margin:1.3em 0 .5em}
+  @media(max-width:760px){ .full-story{grid-template-columns:1fr} .full-story > .fs-body{grid-column:1;grid-row:auto;margin-top:var(--s2)} }
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }

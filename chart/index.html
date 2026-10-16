@@ -6,9 +6,9 @@
 <title>Ophi Natal Chart</title>
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <script src="/assets/chart-music.js?v=be48deab" defer></script>
-<script src="/assets/trail.js?v=c51b1d7c" defer></script>
-<link rel="stylesheet" href="/assets/chart-fixes.css?v=c51b1d7c">
-<script src="/assets/menu.js?v=c51b1d7c" defer></script>
+<script src="/assets/trail.js?v=e8ae53b8" defer></script>
+<link rel="stylesheet" href="/assets/chart-fixes.css?v=e8ae53b8">
+<script src="/assets/menu.js?v=e8ae53b8" defer></script>
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -321,8 +321,6 @@ tr.pick{cursor:pointer}tr.pick:hover td,tr.pick.on td{background:var(--paper-2)}
     </form>
   </div>
 </div></div>
-
-<div class="band slate-band"><div class="wrap"><div class="slate" aria-hidden="true"><img src="/assets/stamps/zodiac-wheel.webp" alt=""><p>your sky will appear here</p></div></div></div>
 
 <div class="band" id="chart" style="padding-top:.5rem"><div class="wrap">
   <div class="headline sec-head" data-hl="c"><h2>The <em>Wheel</em></h2><div class="byline" id="wheelByline">Tropical zodiac<span class="gl">&#x2726;</span>Whole sign houses<span class="gl">&#x2726;</span>True node</div></div>
@@ -1143,7 +1141,7 @@ function drawWheel(fresh, target) {
   }
   sv('circle', { cx: CX, cy: CY, r: R_ASP, fill: 'none', stroke: '#161310', 'stroke-width': 1, 'stroke-dasharray': '1 5' }, svg);
   /* angles */
-  if (ch.timeKnown) [['AC', ch.asc, 1], ['DC', ch.dsc, 0], ['MC', ch.mc, 1], ['IC', ch.ic, 0]].forEach(function (an) {
+  if (ch.timeKnown && !state.example) [['AC', ch.asc, 1], ['DC', ch.dsc, 0], ['MC', ch.mc, 1], ['IC', ch.ic, 0]].forEach(function (an) {
     var a1 = pol(R_HOUSE, ang(an[1])), a2 = pol(R_AX, ang(an[1])), a3 = pol(R_LBL, ang(an[1]));
     sv('line', { 'class': 'axis', x1: a1[0], y1: a1[1], x2: a2[0], y2: a2[1] }, svg);
     sv('text', { 'class': 't-btn', x: a3[0], y: a3[1], 'font-size': 15 }, svg).textContent = an[0];
@@ -1161,7 +1159,7 @@ function drawWheel(fresh, target) {
   });
   /* aspect lines */
   var lines = sv('g', {}, svg), lon = {}; allPoints(ch).forEach(function (x) { lon[x.id] = x.lon; }); if (ch.timeKnown) { lon.dsc = ch.dsc; lon.ic = ch.ic; }
-  visibleAspects().forEach(function (as, idx) {
+  if (!state.example) visibleAspects().forEach(function (as, idx) {
     var p1 = pol(R_ASP, ang(lon[as.a])), p2 = pol(R_ASP, ang(lon[as.b]));
     var ln = sv('line', { 'class': 'asp asp-' + as.type, 'data-key': as.key, x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1], 'stroke-width': (1.8 + 2.4 * as.strength).toFixed(2), opacity: (0.55 + 0.45 * as.strength).toFixed(2), style: '--i:' + idx }, lines);
     if (as.type === 'conjunction') ln.setAttribute('stroke-width', 5);
@@ -1170,7 +1168,7 @@ function drawWheel(fresh, target) {
   /* planets */
   var items = ch.points.concat(shownExtras(ch)).map(function (x) { return { p: x, lon: x.lon, disp: x.lon }; }).sort(function (a, b) { return a.lon - b.lon; });
   placeGlyphs(items, { R: R_PL, size: 24, inner: 171 });
-  items.forEach(function (itm, idx) {
+  if (!state.example) items.forEach(function (itm, idx) {
     var x = itm.p, d0 = pol(R_ASP, ang(x.lon)), t1 = pol(R_HOUSE, ang(x.lon)), t2 = pol(R_HOUSE - 14, ang(x.lon)), t3 = pol(itm.r + 15, ang(itm.disp)), c = pol(itm.r, ang(itm.disp));
     sv('circle', { 'class': 'dot', cx: d0[0], cy: d0[1], r: 3 }, svg);
     sv('path', { 'class': 'mark', d: 'M' + t1 + 'L' + t2 }, svg); sv('path', { 'class': 'lead', d: 'M' + t2 + 'L' + t3 }, svg);
@@ -1214,7 +1212,7 @@ function swatch(type) {
 function drawToggles() {
   $('#toggles').innerHTML = E.ASPECTS.map(function (a) {
     var n = state.aspects.filter(function (x) { return x.type === a.id; }).length;
-    return '<button type="button" class="tg" data-type="' + a.id + '" aria-pressed="' + state.types[a.id] + '">' + swatch(a.id) + a.name + ' ' + n + '</button>';
+    return '<button type="button" class="tg" data-type="' + a.id + '" aria-pressed="' + state.types[a.id] + '">' + swatch(a.id) + a.name + (state.example ? '' : ' ' + n) + '</button>';
   }).join('');
 }
 /* Bri, 12 Oct: a conjunction or opposition within 3 degrees is very tight and loud in energy. */
@@ -1267,6 +1265,7 @@ function recalc() {
 /* ---------- table, meta, serpent ---------- */
 function drawTable() {
   var ch = state.chart, rows = ch.angles.filter(function (a) { return a.id === 'asc'; }).concat(ch.points, shownExtras(ch), ch.angles.filter(function (a) { return a.id === 'mc'; }));
+  if (state.example) { $('#placeTable tbody').innerHTML = '<tr><td colspan="4" class="empty-row">Your placements will appear here once you cast your chart.</td></tr>'; return; }
   $('#placeTable tbody').innerHTML = rows.map(function (p) {
     var g = p.kind === 'angle' ? '<span class="gl" style="font-family:var(--font-button);font-size:.8rem">' + glyph(p.id) + '</span>' : '<span class="gl">' + glyph(p.id) + '</span>';
     return '<tr' + (p.kind !== 'angle' ? ' class="pick" data-id="' + p.id + '" tabindex="0"' : '') + '><td>' + g + p.name + (p.retro && p.kind !== 'node' ? '<span class="rx" title="Retrograde">R</span>' : '') + '</td><td><span class="gl">' + SGL[p.sign] + '</span>' + p.signName + '</td><td>' + E.fmtDeg(p.deg) + '</td><td>' + (p.house ? ord(p.house) : 'n/a') + '</td></tr>';
@@ -1277,7 +1276,7 @@ function markRows() { $$('#placeTable tr.pick').forEach(function (r) { r.classLi
 function fmtTime(i) { var h = i.h % 12 || 12; return h + ':' + (i.mi < 10 ? '0' : '') + i.mi + (i.h < 12 ? ' am' : ' pm'); }
 function drawMeta() {
   var ch = state.chart, i = ch.input, star = '<span class="gl">✦</span>', bits = [];
-  if (state.example) bits.push('<span class="sticker">Example chart</span>'); else if (i.name) bits.push('<span>' + esc(i.name) + '</span>' + star);
+  if (state.example) { $('#meta').innerHTML = ''; $('#wheelNote').textContent = 'Enter your birth details above and your planets will fill this wheel.'; return; } else if (i.name) bits.push('<span>' + esc(i.name) + '</span>' + star);
   bits.push('<span>' + i.d + ' ' + MONTHS[i.mo - 1] + ' ' + i.y + '</span>' + star);
   bits.push('<span>' + (ch.timeKnown ? fmtTime(i) : 'Time unknown') + '</span>' + star);
   bits.push('<span>' + esc(i.place) + '</span>' + star + '<span>' + ch.offsetLabel + '</span>');
@@ -1288,6 +1287,7 @@ function drawMeta() {
 function joinNames(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + (a.length > 2 ? ',' : '') + ' and ' + a[a.length - 1]; }
 function ophHouse() { var ch = state.chart; return ch.timeKnown && ch.ophiuchus ? ((Math.floor(((ch.ophiuchus.start + ch.ophiuchus.end) / 2) / 30) - ch.ascSign + 12) % 12) + 1 : null; }
 function drawSerpent() {
+  if (state.example) { $('#ophVerdict').innerHTML = 'Where is <b>Ophiuchus</b> in your chart?'; $('#ophDetail').textContent = 'Cast your chart above to see whether any of your planets sat in the Serpent Bearer, and which house it falls in for you.'; $('#ophHouseTitle').textContent = ''; $('#ophHouse').textContent = ''; return; }
   var ch = state.chart, inO = allPoints(ch).filter(function (p) { return p.inOphiuchus; }).map(function (p) { return p.name; }), many = inO.length > 1, h = ophHouse();
   if (inO.length) {
     $('#ophVerdict').innerHTML = 'Your ' + joinNames(inO) + (many ? ' were' : ' was') + ' in <b>Ophiuchus</b>.';
@@ -1315,8 +1315,7 @@ function renderAll(fresh) {
   
 }
 function cast(input, isExample, fresh) {
-  if (!isExample) document.body.classList.remove('pre-cast');
-  state.example = !!isExample; state.focus = null;
+  state.example = !!isExample; document.body.classList.toggle('empty-chart', !!isExample); state.focus = null;
   state.chart = E.chart(input); renderAll(fresh);
 }
 
@@ -1524,8 +1523,8 @@ function init() {
   if (!E || !window.Astronomy) { $('#engineAlert').innerHTML = '<p class="alert" role="alert">The chart engine did not load. Check your connection and reload the page.</p>'; return; }
   try { E.setMinors(MINORS); } catch (e) { }
 
-  /* Ophi: no example chart. The page waits as a blank slate; the visitor's own chart is the first one cast. */
-  document.body.classList.add('pre-cast');
+  /* Ophi: the page opens on an empty wheel (signs and houses only); the visitor's own chart is the first one filled in. */
+  cast(EXAMPLE, true, true);
 
   $('#castForm').addEventListener('submit', function (ev) {
     ev.preventDefault(); $('#formAlert').innerHTML = '';
