@@ -322,6 +322,8 @@ tr.pick{cursor:pointer}tr.pick:hover td,tr.pick.on td{background:var(--paper-2)}
   </div>
 </div></div>
 
+<div class="band slate-band"><div class="wrap"><div class="slate" aria-hidden="true"><img src="/assets/stamps/zodiac-wheel.webp" alt=""><p>your sky will appear here</p></div></div></div>
+
 <div class="band" id="chart" style="padding-top:.5rem"><div class="wrap">
   <div class="headline sec-head" data-hl="c"><h2>The <em>Wheel</em></h2><div class="byline" id="wheelByline">Tropical zodiac<span class="gl">&#x2726;</span>Whole sign houses<span class="gl">&#x2726;</span>True node</div></div>
   <div id="engineAlert"></div>
@@ -1313,6 +1315,7 @@ function renderAll(fresh) {
   
 }
 function cast(input, isExample, fresh) {
+  if (!isExample) document.body.classList.remove('pre-cast');
   state.example = !!isExample; state.focus = null;
   state.chart = E.chart(input); renderAll(fresh);
 }
@@ -1521,7 +1524,8 @@ function init() {
   if (!E || !window.Astronomy) { $('#engineAlert').innerHTML = '<p class="alert" role="alert">The chart engine did not load. Check your connection and reload the page.</p>'; return; }
   try { E.setMinors(MINORS); } catch (e) { }
 
-  cast(EXAMPLE, true, true);
+  /* Ophi: no example chart. The page waits as a blank slate; the visitor's own chart is the first one cast. */
+  document.body.classList.add('pre-cast');
 
   $('#castForm').addEventListener('submit', function (ev) {
     ev.preventDefault(); $('#formAlert').innerHTML = '';
