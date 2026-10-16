@@ -51,3 +51,5 @@
 }
 .chart-mast .nav{justify-content:flex-start}
 .chart-mast .nav .chip{margin-left:0}
+/* cards on the lighter paper, like the rest of the site */
+.card,.rd-grid .card{background:#fffdf8!important}
