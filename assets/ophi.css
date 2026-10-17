@@ -1818,3 +1818,10 @@
   @media(max-width:760px){ .full-story{grid-template-columns:1fr} .full-story > .fs-body{grid-column:1;grid-row:auto;margin-top:var(--s2)} }
   html{scroll-behavior:smooth}
   @media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+
+/* Burn Rituals page (/rituals/, 17 Oct): handwriting in ink instead of ballpoint blue, and a scent note under each ritual */
+.burn .ritual li,.burn .find-moon .hand{color:var(--ink)}
+.burn .scent{margin-top:16px;padding-top:12px;border-top:1px solid rgba(22,19,16,.4)}
+.burn .scent .k{font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px;color:var(--ink)}
+.burn .scent .k b{color:var(--coral);font-weight:400;margin:0 .5em}
+.burn .scent p{font-size:13.5px;line-height:1.6;color:var(--ink-2)}
