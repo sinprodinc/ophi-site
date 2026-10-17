@@ -26,6 +26,8 @@ PAGES = {
                                'Meet Yourself, Quickie and Here To Help: one-on-one virtual astrology readings with Bri Godard.'),
     'this-season/index.html': ('this-season.html', 'This Season | Ophi by Bri',
                                'The current astrological weather and how it lands for each rising sign, by Bri Godard.'),
+    'rituals/index.html':     ('rituals.html',     'Burn Rituals | Ophi by Bri',
+                               'The burn ritual for each Ophi pocket candle: Fire, Earth, Air and Water Moons.'),
     'candles/index.html':     ('candles.html',     'Candles & Rituals | Ophi by Bri',
                                'Hand-poured pocket candles for every Moon element, each with its own ritual.'),
 }
