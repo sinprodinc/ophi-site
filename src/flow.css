@@ -725,27 +725,23 @@ body.secret .void{position:fixed;inset:0;z-index:-1;pointer-events:none;
     radial-gradient(45% 38% at 12% 64%,rgba(154,127,208,.12),transparent 70%),
     radial-gradient(120% 90% at 50% 40%,#151026 0%,#0b0914 72%)}
 /* more texture: one soft mottle stretched over the whole screen (never tiled, so no seams) */
-body.secret .void::after{content:"";position:absolute;inset:0;opacity:.55;mix-blend-mode:overlay;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.009' numOctaves='4' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .6 0 0 0 0 .55 0 0 0 0 .7 0 0 0 1.1 -.3'/%3E%3C/filter%3E%3Crect width='1000' height='1000' filter='url(%23m)'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
+body.secret .void::after{content:"";position:absolute;inset:0;opacity:.22;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.009' numOctaves='4' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .78 0 0 0 0 .72 0 0 0 0 .9 0 0 0 1.4 -.55'/%3E%3C/filter%3E%3Crect width='1000' height='1000' filter='url(%23m)'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
+/* a few stars that twinkle (CSS opacity only, animated off the main thread) */
+body.secret .twinkle{position:absolute;width:7px;height:7px;margin:-3px 0 0 -3px;border-radius:50%;opacity:.08;
+  background:radial-gradient(circle,#f8f4ec 0 22%,rgba(245,241,232,.35) 40%,transparent 70%);animation:twinkle 9s ease-in-out infinite;will-change:opacity}
+body.secret .twinkle.four{width:11px;height:11px;margin:-5px 0 0 -5px;border-radius:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ece7dc' d='M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z'/%3E%3C/svg%3E") center/contain no-repeat}
+@keyframes twinkle{0%,82%,100%{opacity:.08}90%{opacity:.9}}
+@media(prefers-reduced-motion:reduce){ body.secret .twinkle{animation:none;opacity:.25} }
 body.secret .void-stars{position:absolute;inset:0;width:100%;height:100%}
 /* fine grain everywhere, seamless */
-body.secret::after{opacity:.55;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+body.secret::after{opacity:.16;mix-blend-mode:normal;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 2.2 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
   background-size:180px 180px}
 
-/* the header: a sheet of torn lilac paper, ink type, the lace peeking out underneath */
-body.secret .hero.mini{position:relative;z-index:2;background:url(/assets/journal/lilac-torn.webp) center bottom/max(100%,1500px) auto no-repeat;color:var(--ink);
-  padding-bottom:clamp(70px,9vw,130px);filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))}
-body.secret .hero.mini .stars{display:none}
-body.secret .hero .headline h1{color:var(--ink);font-size:clamp(48px,7vw,104px)}
-body.secret .hero .headline::after{display:none}
-body.secret .hero .byline{color:var(--ink);border-color:rgba(22,19,16,.7)}
-body.secret .hero .hand-line{color:var(--ink)}
-body.secret .hero .brand,body.secret .hero .logo,body.secret .hero .nav-links,body.secret .hero .nav-links a{color:var(--ink)}
-body.secret .hero nav{border-bottom-color:rgba(22,19,16,.35)}
-body.secret .hero nav .sound,body.secret .hero .om-btn{color:var(--ink);border-color:rgba(22,19,16,.7)}
-body.secret .hero .nav-links a.nav-cta{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-body.secret .lace-edge{z-index:1;margin-top:calc(var(--lace-h) * -1.05)}
+/* the header is the regular dark masthead, as on every page; the lace gets a faint lilac glow against the night sky */
+body.secret .lace-edge{filter:drop-shadow(0 6px 14px rgba(201,184,236,.28))}
 
 body.secret .rituals{border-top:0;background:transparent;padding-top:clamp(40px,6vw,72px)}
 body.secret .rituals .sub{color:rgba(236,231,220,.72)}
@@ -758,25 +754,31 @@ body.secret .ritual-grid{display:flex;flex-direction:column;gap:clamp(56px,8vw,9
 }
 body.secret .orbit{position:relative;isolation:isolate}
 body.secret .glow{position:absolute;z-index:0;inset:-12% -10%;border-radius:50%;pointer-events:none;
-  background:radial-gradient(closest-side,rgba(170,140,230,.34),rgba(120,90,200,.12) 60%,transparent 100%);filter:blur(34px)}
+  background:radial-gradient(closest-side,rgba(170,140,230,.3),rgba(120,90,200,.12) 55%,rgba(120,90,200,.04) 80%,transparent 100%)}
 
 /* crumpled paper cards */
 body.flow.secret .ritual.ritual.ritual{position:relative;z-index:1;color:var(--ink);border:0;box-shadow:none;border-radius:0;
   background:url(/assets/journal/paper.webp) center/100% 100% no-repeat!important;
   padding:clamp(40px,5vw,60px) clamp(30px,4.4vw,52px) clamp(44px,5vw,64px);
-  filter:drop-shadow(0 16px 26px rgba(0,0,0,.5));transition:rotate .25s ease-out}
+  filter:drop-shadow(0 16px 26px rgba(0,0,0,.5));transition:rotate .25s ease-out;will-change:rotate}
 body.secret .ritual::after{display:none}
-body.secret .ritual .el{color:var(--ink);border-bottom-color:rgba(22,19,16,.35)}
+body.secret .ritual .el{color:var(--ink);border-bottom-color:rgba(22,19,16,.35);align-items:center;gap:16px}
+body.secret .ritual .el .el-name{display:inline-grid;grid-template-columns:auto auto;column-gap:8px;line-height:1.15;row-gap:3px;align-items:center}
+body.secret .ritual .el .el-name::before{grid-row:1 / span 2}
+body.secret .ritual .el .el-name b{font-weight:400;grid-column:2}
+body.secret .ritual .el .el-candle{text-align:right;max-width:58%;line-height:1.45;text-wrap:balance}
 body.secret .ritual h3,body.secret .ritual h3 em{color:var(--ink)}
 body.secret .ritual p{color:var(--ink-2)}
 body.secret .ritual li{color:var(--ink);border-top-color:rgba(22,19,16,.14)}
 body.secret .ritual li::before{color:var(--coral)}
 body.secret .scent{border-top:1px solid rgba(22,19,16,.3)}
-body.secret .scent .k{color:var(--ink)}
+body.secret .scent .k{color:var(--ink);margin-bottom:2px}
+body.secret .scent .notes{font-family:var(--font-button);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;margin:0 0 8px}
+body.secret .scent .notes b{color:var(--coral);font-weight:400;margin:0 .6em}
 body.secret .scent p{color:var(--ink-2)}
 
 /* Bri's paper stickers, tucked on the edges, never over the writing */
-body.secret .jstk{position:absolute;z-index:2;pointer-events:none;height:auto;filter:drop-shadow(0 4px 6px rgba(0,0,0,.4));transition:rotate .3s ease-out}
+body.secret .jstk{position:absolute;z-index:2;pointer-events:none;height:auto;filter:drop-shadow(0 4px 6px rgba(0,0,0,.4));transition:rotate .3s ease-out;will-change:rotate}
 body.secret .st-l-mid{width:clamp(70px,7.4vw,98px);left:clamp(-104px,-7vw,-74px);top:30%}
 body.secret .st-tr{width:clamp(96px,10vw,140px);right:clamp(-118px,-7.8vw,-80px);top:-34px;transform:rotate(-62deg)}
 body.secret .st-top{width:clamp(120px,13vw,170px);left:50%;top:-30px;margin-left:clamp(-85px,-6.5vw,-60px)}
