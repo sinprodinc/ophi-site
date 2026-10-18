@@ -1835,14 +1835,23 @@ body.secret .void{position:fixed;inset:0;z-index:-1;pointer-events:none;
     radial-gradient(45% 38% at 10% 62%,rgba(154,127,208,.13),transparent 70%),
     radial-gradient(120% 90% at 50% 40%,#130f20 0%,#09070f 72%)}
 body.secret .void-stars{position:absolute;inset:0;width:100%;height:100%}
+/* grain: only the fine tooth (seamless at any size; the big mottle layer showed its tile edges on wide dark screens) */
+body.secret::after{opacity:.5;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+  background-size:180px 180px}
 body.secret .lace-edge{filter:drop-shadow(0 6px 14px rgba(201,184,236,.28))}
 body.secret .rituals{border-top:0;background:transparent}
 body.secret .rituals .headline h2,body.secret .rituals .headline h2 em{color:var(--paper)}
 body.secret .rituals .byline{color:var(--paper);border-color:rgba(236,231,220,.55)}
-body.secret .rituals .sub{color:rgba(236,231,220,.7)}
+body.secret .rituals .sub{color:rgba(236,231,220,.7);margin-top:clamp(8px,2vw,24px)!important}
 
-/* one quiet column instead of a grid of cards */
+/* one quiet column on phones and tablets; two by two on wide screens, cards the same height */
 body.secret .ritual-grid{display:flex;flex-direction:column;gap:clamp(64px,9vw,120px);max-width:720px;margin:0 auto;padding:clamp(24px,4vw,48px) 0 clamp(16px,3vw,32px)}
+@media(min-width:1100px){
+  body.secret .ritual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:72px 56px;max-width:1180px}
+  body.secret .orbit{display:flex} body.secret .orbit > .ritual{flex:1}
+  body.flow.secret .care.care{max-width:1180px}
+}
 body.secret .orbit{position:relative;isolation:isolate}
 /* the light behind each card: lilac, with a breath of the element's colour, slowly breathing */
 body.secret .glow{position:absolute;z-index:0;inset:-26% -18%;border-radius:50%;pointer-events:none;
