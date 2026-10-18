@@ -714,3 +714,50 @@
 .burn .scent .k{font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px;color:var(--ink)}
 .burn .scent .k b{color:var(--coral);font-weight:400;margin:0 .5em}
 .burn .scent p{font-size:13.5px;line-height:1.6;color:var(--ink-2)}
+
+/* ===== The secret page (/rituals/, 18 Oct): deep space, floating ritual cards, a moon behind each =====
+   Only body.secret gets this; the rest of the site is untouched. 12th house: quiet, dark, a little hidden. */
+body.secret{background:#0a0812;color:var(--paper)}
+body.secret .void{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(60% 45% at 78% 22%,rgba(106,79,176,.30),transparent 70%),
+    radial-gradient(50% 40% at 12% 58%,rgba(201,184,236,.14),transparent 70%),
+    radial-gradient(40% 30% at 70% 88%,rgba(239,83,52,.08),transparent 70%),
+    radial-gradient(120% 90% at 50% 40%,#151024 0%,#0a0812 70%)}
+body.secret .void-stars{position:absolute;inset:0;width:100%;height:100%}
+body.secret .lace-edge{filter:drop-shadow(0 6px 14px rgba(201,184,236,.28))}
+body.secret .rituals{border-top:0;background:transparent}
+body.secret .rituals .headline h2,body.secret .rituals .headline h2 em{color:var(--paper)}
+body.secret .rituals .byline{color:var(--paper);border-color:rgba(236,231,220,.7)}
+body.secret .rituals .sub{color:rgba(236,231,220,.78)}
+/* the cards float, each with its own moon rising behind it */
+body.secret .ritual-grid{row-gap:clamp(70px,9vw,110px);padding-top:clamp(56px,7vw,96px)}
+body.secret .ritual{color:var(--ink)}
+body.secret .orbit{position:relative;isolation:isolate}
+body.secret .orbit > .ritual{position:relative;z-index:1;animation:drift 8s ease-in-out infinite}
+body.secret .ritual.ritual.ritual,body.secret .ritual.ritual.ritual:hover{box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 46px rgba(201,184,236,.12)}
+body.secret .moon{position:absolute;z-index:0;width:clamp(170px,21vw,270px);aspect-ratio:1;border-radius:50%;top:clamp(-96px,-8vw,-52px);right:clamp(-70px,-5vw,-28px);
+  background:
+    radial-gradient(circle at 62% 56%,rgba(116,104,146,.34) 0 8%,transparent 9.5%),
+    radial-gradient(circle at 41% 69%,rgba(116,104,146,.26) 0 5.5%,transparent 7%),
+    radial-gradient(circle at 70% 31%,rgba(116,104,146,.22) 0 4.5%,transparent 6%),
+    radial-gradient(circle at 30% 44%,rgba(116,104,146,.18) 0 3.5%,transparent 5%),
+    radial-gradient(circle at 34% 30%,#fffdf8 0%,#e9e3f1 32%,#b9b0cf 62%,#7f7699 86%,#5d5577 100%);
+  box-shadow:0 0 40px 6px rgba(236,231,220,.18),0 0 120px 30px color-mix(in srgb,var(--orb) 32%,transparent);
+  opacity:.92;animation:drift 11s ease-in-out infinite reverse}
+body.secret .f-fire .moon,body.secret .f-air .moon{right:auto;left:clamp(-70px,-5vw,-28px)}   /* moons sit on the outer edges, so neighbours never collide */
+body.secret .f-earth > .ritual{animation-delay:-2s} body.secret .f-air > .ritual{animation-delay:-4s} body.secret .f-water > .ritual{animation-delay:-6s}
+body.secret .f-earth .moon{animation-delay:-3s} body.secret .f-air .moon{animation-delay:-6s} body.secret .f-water .moon{animation-delay:-9s}
+.f-fire{--orb:var(--fire)} .f-earth{--orb:var(--earth)} .f-air{--orb:var(--air)} .f-water{--orb:var(--water)}
+@keyframes drift{0%,100%{translate:0 0}50%{translate:0 -12px}}
+@media(prefers-reduced-motion:reduce){ body.secret .orbit > .ritual,body.secret .moon{animation:none} }
+@media(max-width:700px){ body.secret .moon{width:150px;top:-58px} body.secret .ritual-grid{row-gap:84px;padding-top:56px} }
+/* care box and the chart prompt, on the night sky */
+body.flow.secret .care.care{background:rgba(255,253,248,.06);border:1px solid rgba(236,231,220,.28);border-left:3px solid var(--coral);color:rgba(236,231,220,.86);box-shadow:none;background:rgba(255,253,248,.06)!important}
+body.secret .care .k{color:var(--paper)}
+body.secret .find-moon .hand,body.secret .find-moon a{color:var(--paper)}
+body.secret .find-moon a{border-color:rgba(236,231,220,.6)}
+/* footer on the night sky */
+body.secret footer.foot-lite{border-top-color:rgba(236,231,220,.45);color:var(--paper)}
+body.secret .fl-brand,body.secret .foot-lite .logo,body.secret .fl-links a,body.secret .fl-social a{color:var(--paper)}
+body.secret .fl-small{border-top-color:rgba(236,231,220,.2);color:rgba(236,231,220,.7)} body.secret .fl-small a{color:rgba(236,231,220,.7)}

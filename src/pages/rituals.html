@@ -1,11 +1,12 @@
 {{top}}
+<div class="void" aria-hidden="true"><canvas class="void-stars"></canvas></div>
 <section class="hero mini">
   <canvas class="stars" aria-hidden="true"></canvas>
 {{nav}}
   <div class="mast">
     <div class="headline" style="--r:7.4">
       <h1>Burn <em>Rituals</em></h1>
-      <p class="byline">Pocket candles<b>&#x2726;</b>By Moon element</p>
+      <p class="byline">The hidden room<b>&#x2726;</b>By Moon element</p>
     </div>
     <p class="hand-line">take a seat and take a breath</p>
   </div>
@@ -19,7 +20,7 @@
   </div>
   <p class="sub" style="margin:0 auto clamp(36px,5vh,52px);text-align:center;max-width:620px">Find the element on your tin. Keep a pen and a scrap of paper close before you light it.</p>
   <div class="ritual-grid">
-    <img class="dd-in behind-fire" src="/assets/doodle/pink-star.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <div class="orbit f-fire"><span class="moon" aria-hidden="true"></span>
     <article class="ritual fire" id="fire">
       <div class="el"><span>Fire Moon</span><span>Set This B*tch On Fire</span></div>
       <h3>The Fire <em>ritual</em></h3>
@@ -34,6 +35,8 @@
       </ol>
       <div class="scent"><p class="k">The scent<b>&#x2726;</b>Clove, Juniper and Vanilla</p><p>Clove opens warm and spicy, with an earthy bite that wakes you up. Juniper keeps it bright and clean, like cold air beside a fire. Vanilla settles underneath and keeps the heat steady.</p></div>
     </article>
+    </div>
+    <div class="orbit f-earth"><span class="moon" aria-hidden="true"></span>
     <article class="ritual earth" id="earth">
       <div class="el"><span>Earth Moon</span><span>Calm The F*ck Down</span></div>
       <h3>The Earth <em>ritual</em></h3>
@@ -48,6 +51,8 @@
       </ol>
       <div class="scent"><p class="k">The scent<b>&#x2726;</b>Cardamom, Iris and Leather</p><p>Cardamom is warm and a little sweet, a spice that slows you down. Iris is soft and powdery, the quiet in the middle. Leather gives it weight, something solid to lean on.</p></div>
     </article>
+    </div>
+    <div class="orbit f-air"><span class="moon" aria-hidden="true"></span>
     <article class="ritual air" id="air">
       <div class="el"><span>Air Moon</span><span>Ghost 'Em</span></div>
       <h3>The Air <em>ritual</em></h3>
@@ -62,6 +67,8 @@
       </ol>
       <div class="scent"><p class="k">The scent<b>&#x2726;</b>Sage, Sea Salt and Ambrette Seed</p><p>Sage is green and herbal, the clearing note. Sea salt keeps it open and airy, like a window cracked by the ocean. Ambrette seed is soft and musky, a skin-close warmth that keeps a clear head from feeling cold.</p></div>
     </article>
+    </div>
+    <div class="orbit f-water"><span class="moon" aria-hidden="true"></span>
     <article class="ritual water" id="water">
       <div class="el"><span>Water Moon</span><span>Cry Bby xo</span></div>
       <h3>The Water <em>ritual</em></h3>
@@ -76,6 +83,7 @@
       </ol>
       <div class="scent"><p class="k">The scent<b>&#x2726;</b>Rose, Geranium and Amber</p><p>Rose is soft and tender, the heart of it. Geranium leans green and fresh and keeps the rose light. Amber is warm and resinous underneath, like being held while you let it all out.</p></div>
     </article>
+    </div>
   </div>
   <div class="care"><span class="k">Candle care<img class="dd-in in-k" src="/assets/doodle/heart-sm.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>Never leave it burning unattended. Set on a heat-safe surface. The tin gets hot. Do not burn more than 3 hours at a time. Let the tin cool before closing the lid. Ingredients: Soy wax, fragrance oil, wick, magic.</div>
   <div class="find-moon">
@@ -85,3 +93,30 @@
 </section>
 
 {{footer-lite}}
+<script>
+/* Secret page sky: a fixed field of faint stars (some of Bri's four-point ones) that twinkle slowly. Still for "reduce motion". */
+(function(){
+  var cv=document.querySelector('.void-stars'); if(!cv) return;
+  var ctx=cv.getContext('2d'), W, H, dpr, stars=[], calm=matchMedia('(prefers-reduced-motion:reduce)').matches, last=0;
+  var STAR=new Path2D('M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z');
+  var seed=11, rnd=function(){ seed=(seed*16807)%2147483647; return seed/2147483647; };
+  function size(){
+    dpr=Math.min(2,devicePixelRatio||1); W=innerWidth; H=innerHeight; cv.width=W*dpr; cv.height=H*dpr; stars=[]; seed=11;
+    var n=Math.round(W*H/5200);
+    for(var i=0;i<n;i++) stars.push({x:rnd()*W,y:rnd()*H,r:.35+Math.pow(rnd(),3)*1.3,a:.25+rnd()*.6,sp:.3+rnd()*.9,ph:rnd()*6.28,lil:rnd()<.12});
+    for(var j=0;j<Math.round(W*H/90000)+3;j++) stars.push({x:rnd()*W,y:rnd()*H,s:5+rnd()*7,a:.35+rnd()*.35,sp:.2+rnd()*.4,ph:rnd()*6.28,four:1,coral:rnd()<.2});
+    draw(0);
+  }
+  function draw(t){
+    ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
+    for(var i=0;i<stars.length;i++){
+      var s=stars[i], tw=calm?1:.55+.45*Math.sin(t/1000*s.sp+s.ph), al=s.a*tw;
+      if(s.four){ var z=s.s*(.8+.2*tw); ctx.save(); ctx.translate(s.x-z/2,s.y-z/2); ctx.scale(z/24,z/24);
+        ctx.fillStyle=s.coral?'rgba(239,83,52,'+al*.8+')':'rgba(236,231,220,'+al+')'; ctx.fill(STAR); ctx.restore(); }
+      else { ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,6.283); ctx.fillStyle=s.lil?'rgba(201,184,236,'+al+')':'rgba(245,241,232,'+al+')'; ctx.fill(); }
+    }
+  }
+  function loop(t){ if(!document.hidden && t-last>48){ draw(t); last=t; } requestAnimationFrame(loop); }
+  addEventListener('resize',size); size(); if(!calm) requestAnimationFrame(loop);
+})();
+</script>

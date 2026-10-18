@@ -37,6 +37,9 @@ PAGES = {
 # Home tour line and door card all return. Links to it are wrapped in <!--SHELF:name--> ... <!--/SHELF:name-->.
 SHELVED = {'candles'}
 
+# Extra body classes for pages with their own mood. /rituals/ is the secret page behind the candle QR codes.
+BODY_EXTRA = {'rituals/index.html': ' secret'}
+
 def shelf(html):
     for name in SHELVED:
         html = re.sub(r'<!--SHELF:%s-->.*?<!--/SHELF:%s-->' % (name, name), '', html, flags=re.S)
@@ -144,7 +147,7 @@ def main():
         # the season file changes every month: give it its own version so browsers never keep an old reading
         body = re.sub(r'/assets/season-data\.js(\?v=\w+)?', '/assets/season-data.js?v=' + sv, body)
         assert '{{' not in body, (src, re.findall(r'\{\{\w+\}\}', body))
-        bc = ' class="flow"'
+        bc = ' class="flow%s"' % BODY_EXTRA.get(out, '')
         wr(out, HEAD.format(title=title, desc=desc, v=v, bodyclass=bc) + body + TAIL.format(v=v))
     # chart page: add the shared menu once
     ch = rd('chart/index.html')
