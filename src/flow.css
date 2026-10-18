@@ -715,61 +715,87 @@
 .burn .scent .k b{color:var(--coral);font-weight:400;margin:0 .5em}
 .burn .scent p{font-size:13.5px;line-height:1.6;color:var(--ink-2)}
 
-/* ===== The secret page (/rituals/, 18 Oct, round 2): deep space, glass cards, a soft purple light behind each =====
-   Only body.secret gets this; the rest of the site is untouched. 12th house: quiet, dark, a little hidden. */
-body.secret{background:#09070f;color:var(--paper)}
+/* ===== The secret page (/rituals/, 18 Oct, round 3): a '90s journal in the dark =====
+   Lilac torn-paper header, crumpled paper cards on a textured night sky, Bri's paper stickers on the edges.
+   Only body.secret gets this; the rest of the site is untouched. Images in /assets/journal/. */
+body.secret{background:#0b0914;color:var(--paper)}
 body.secret .void{position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
-    radial-gradient(55% 40% at 80% 18%,rgba(106,79,176,.26),transparent 70%),
-    radial-gradient(45% 38% at 10% 62%,rgba(154,127,208,.13),transparent 70%),
-    radial-gradient(120% 90% at 50% 40%,#130f20 0%,#09070f 72%)}
+    radial-gradient(55% 40% at 80% 22%,rgba(106,79,176,.24),transparent 70%),
+    radial-gradient(45% 38% at 12% 64%,rgba(154,127,208,.12),transparent 70%),
+    radial-gradient(120% 90% at 50% 40%,#151026 0%,#0b0914 72%)}
+/* more texture: one soft mottle stretched over the whole screen (never tiled, so no seams) */
+body.secret .void::after{content:"";position:absolute;inset:0;opacity:.55;mix-blend-mode:overlay;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.009' numOctaves='4' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .6 0 0 0 0 .55 0 0 0 0 .7 0 0 0 1.1 -.3'/%3E%3C/filter%3E%3Crect width='1000' height='1000' filter='url(%23m)'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
 body.secret .void-stars{position:absolute;inset:0;width:100%;height:100%}
-/* grain: only the fine tooth (seamless at any size; the big mottle layer showed its tile edges on wide dark screens) */
-body.secret::after{opacity:.5;mix-blend-mode:overlay;
+/* fine grain everywhere, seamless */
+body.secret::after{opacity:.55;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
   background-size:180px 180px}
-body.secret .lace-edge{filter:drop-shadow(0 6px 14px rgba(201,184,236,.28))}
-body.secret .rituals{border-top:0;background:transparent}
-body.secret .rituals .headline h2,body.secret .rituals .headline h2 em{color:var(--paper)}
-body.secret .rituals .byline{color:var(--paper);border-color:rgba(236,231,220,.55)}
-body.secret .rituals .sub{color:rgba(236,231,220,.7);margin-top:clamp(8px,2vw,24px)!important}
 
-/* one quiet column on phones and tablets; two by two on wide screens, cards the same height */
-body.secret .ritual-grid{display:flex;flex-direction:column;gap:clamp(64px,9vw,120px);max-width:720px;margin:0 auto;padding:clamp(24px,4vw,48px) 0 clamp(16px,3vw,32px)}
+/* the header: a sheet of torn lilac paper, ink type, the lace peeking out underneath */
+body.secret .hero.mini{position:relative;z-index:2;background:url(/assets/journal/lilac-torn.webp) center bottom/max(100%,1500px) auto no-repeat;color:var(--ink);
+  padding-bottom:clamp(70px,9vw,130px);filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))}
+body.secret .hero.mini .stars{display:none}
+body.secret .hero .headline h1{color:var(--ink);font-size:clamp(48px,7vw,104px)}
+body.secret .hero .headline::after{display:none}
+body.secret .hero .byline{color:var(--ink);border-color:rgba(22,19,16,.7)}
+body.secret .hero .hand-line{color:var(--ink)}
+body.secret .hero .brand,body.secret .hero .logo,body.secret .hero .nav-links,body.secret .hero .nav-links a{color:var(--ink)}
+body.secret .hero nav{border-bottom-color:rgba(22,19,16,.35)}
+body.secret .hero nav .sound,body.secret .hero .om-btn{color:var(--ink);border-color:rgba(22,19,16,.7)}
+body.secret .hero .nav-links a.nav-cta{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+body.secret .lace-edge{z-index:1;margin-top:calc(var(--lace-h) * -1.05)}
+
+body.secret .rituals{border-top:0;background:transparent;padding-top:clamp(40px,6vw,72px)}
+body.secret .rituals .sub{color:rgba(236,231,220,.72)}
+
+/* one column on phones and tablets; two by two on wide screens */
+body.secret .ritual-grid{display:flex;flex-direction:column;gap:clamp(56px,8vw,96px);max-width:640px;margin:0 auto;padding:clamp(24px,4vw,40px) 0 clamp(16px,3vw,32px)}
 @media(min-width:1100px){
-  body.secret .ritual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:72px 56px;max-width:1180px}
+  body.secret .ritual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:88px 64px;max-width:1160px}
   body.secret .orbit{display:flex} body.secret .orbit > .ritual{flex:1}
-  body.flow.secret .care.care{max-width:1180px}
 }
 body.secret .orbit{position:relative;isolation:isolate}
-/* the light behind each card: lilac, with a breath of the element's colour, slowly breathing */
-body.secret .glow{position:absolute;z-index:0;inset:-26% -18%;border-radius:50%;pointer-events:none;
-  background:radial-gradient(closest-side,rgba(170,140,230,.55),color-mix(in srgb,var(--orb) 18%,rgba(120,90,200,.24)) 55%,transparent 100%);
-  filter:blur(36px);animation:breathe 9s ease-in-out infinite}
-@keyframes breathe{0%,100%{opacity:.7;scale:.96}50%{opacity:1;scale:1.03}}
-body.secret .f-earth .glow{animation-delay:-2.2s} body.secret .f-air .glow{animation-delay:-4.5s} body.secret .f-water .glow{animation-delay:-6.7s}
+body.secret .glow{position:absolute;z-index:0;inset:-12% -10%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(170,140,230,.34),rgba(120,90,200,.12) 60%,transparent 100%);filter:blur(34px)}
 
-/* glass cards: dark, see-through, light writing */
-body.flow.secret .ritual.ritual.ritual{position:relative;z-index:1;background:rgba(14,11,24,.38)!important;color:var(--paper);
-  border:1px solid rgba(201,184,236,.22);border-radius:2px;padding:clamp(28px,4vw,44px);
-  -webkit-backdrop-filter:blur(14px) saturate(120%);backdrop-filter:blur(14px) saturate(120%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 30px 80px rgba(0,0,0,.45)}
+/* crumpled paper cards */
+body.flow.secret .ritual.ritual.ritual{position:relative;z-index:1;color:var(--ink);border:0;box-shadow:none;border-radius:0;
+  background:url(/assets/journal/paper.webp) center/100% 100% no-repeat!important;
+  padding:clamp(40px,5vw,60px) clamp(30px,4.4vw,52px) clamp(44px,5vw,64px);
+  filter:drop-shadow(0 16px 26px rgba(0,0,0,.5));transition:rotate .25s ease-out}
 body.secret .ritual::after{display:none}
-body.secret .ritual .el{color:rgba(236,231,220,.72);border-bottom-color:rgba(236,231,220,.2)}
-body.secret .ritual h3,body.secret .ritual h3 em{color:var(--paper)}
-body.secret .ritual p{color:rgba(236,231,220,.72)}
-body.secret .ritual li{color:var(--paper);border-top-color:rgba(236,231,220,.12)}
-body.secret .ritual li::before{color:rgba(239,83,52,.85)}
-body.secret .scent{border-top-color:rgba(236,231,220,.2)}
-body.secret .scent .k{color:var(--paper)}
-body.secret .scent p{color:rgba(236,231,220,.72)}
-.f-fire{--orb:var(--fire)} .f-earth{--orb:var(--earth)} .f-air{--orb:var(--air)} .f-water{--orb:var(--water)}
-@media(prefers-reduced-motion:reduce){ body.secret .glow{animation:none} }
+body.secret .ritual .el{color:var(--ink);border-bottom-color:rgba(22,19,16,.35)}
+body.secret .ritual h3,body.secret .ritual h3 em{color:var(--ink)}
+body.secret .ritual p{color:var(--ink-2)}
+body.secret .ritual li{color:var(--ink);border-top-color:rgba(22,19,16,.14)}
+body.secret .ritual li::before{color:var(--coral)}
+body.secret .scent{border-top:1px solid rgba(22,19,16,.3)}
+body.secret .scent .k{color:var(--ink)}
+body.secret .scent p{color:var(--ink-2)}
 
-/* care box and the chart prompt, on the night sky */
-body.flow.secret .care.care{max-width:720px;background:rgba(14,11,24,.46)!important;border:1px solid rgba(236,231,220,.16);border-left:2px solid var(--coral);
-  color:rgba(236,231,220,.75);box-shadow:none;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-body.secret .care .k{color:var(--paper)}
+/* Bri's paper stickers, tucked on the edges, never over the writing */
+body.secret .jstk{position:absolute;z-index:2;pointer-events:none;height:auto;filter:drop-shadow(0 4px 6px rgba(0,0,0,.4));transition:rotate .3s ease-out}
+body.secret .st-l-mid{width:clamp(70px,7.4vw,98px);left:clamp(-104px,-7vw,-74px);top:30%}
+body.secret .st-tr{width:clamp(96px,10vw,140px);right:clamp(-118px,-7.8vw,-80px);top:-34px;transform:rotate(-62deg)}
+body.secret .st-top{width:clamp(120px,13vw,170px);left:50%;top:-30px;margin-left:clamp(-85px,-6.5vw,-60px)}
+body.secret .st-r-mid{width:clamp(70px,7vw,96px);right:clamp(-44px,-3vw,-30px);top:52%}
+body.secret .st-bl{width:clamp(64px,6vw,84px);left:clamp(-34px,-2.4vw,-22px);bottom:-26px}
+body.secret .st-r-low{width:clamp(84px,8vw,112px);right:clamp(-100px,-6.8vw,-70px);top:58%}
+@media(max-width:700px){
+  body.secret .st-l-mid,body.secret .st-r-mid,body.secret .st-r-low{width:58px}
+  body.secret .st-l-mid{left:-6px;top:auto;bottom:-74px;width:50px}
+  body.secret .st-r-mid,body.secret .st-r-low{right:-4px;top:auto;bottom:-56px}
+  body.secret .st-tr{width:84px;right:-10px;top:-34px}
+  body.secret .st-top{width:120px;margin-left:-60px;top:-26px}
+  body.secret .st-bl{left:-8px;bottom:-30px;width:60px}
+}
+
+/* care note on a strip of the same paper, and the chart prompt */
+body.flow.secret .care.care{max-width:1160px;color:var(--ink-2);border:0;box-shadow:none;
+  background:url(/assets/journal/paper.webp) center/cover no-repeat!important;padding:clamp(26px,3vw,34px) clamp(28px,4vw,48px);filter:drop-shadow(0 12px 20px rgba(0,0,0,.45))}
+body.secret .care .k{color:var(--ink)}
 body.secret .find-moon .hand,body.secret .find-moon a{color:var(--paper)}
 body.secret .find-moon a{border-color:rgba(236,231,220,.5)}
 /* footer on the night sky */

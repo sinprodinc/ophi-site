@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/ophi.css?v=5fd8ba16">
-<script src="/assets/menu.js?v=5fd8ba16" defer></script>
+<link rel="stylesheet" href="/assets/ophi.css?v=96ebefe3">
+<script src="/assets/menu.js?v=96ebefe3" defer></script>
 </head>
 <body class="flow secret">
 
@@ -39,7 +39,7 @@
   </nav>
   <div class="mast">
     <div class="headline" style="--r:7.4">
-      <h1>Burn <em>Rituals</em></h1>
+      <h1>A Burn Ritual</h1>
       <p class="byline">The hidden room<b>&#x2726;</b>By Moon element</p>
     </div>
     <p class="hand-line">take a seat and take a breath</p>
@@ -50,7 +50,7 @@
 <section class="rituals burn" id="rituals">
   <p class="sub" style="margin:0 auto clamp(36px,5vh,52px);text-align:center;max-width:620px">Find the element on your tin. Keep a pen and a scrap of paper close before you light it.</p>
   <div class="ritual-grid">
-    <div class="orbit f-fire"><span class="glow" aria-hidden="true"></span>
+    <div class="orbit f-fire"><span class="glow" aria-hidden="true"></span><img class="jstk st-l-mid" src="/assets/journal/hearts.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="jstk st-tr" src="/assets/journal/arrow.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <article class="ritual fire" id="fire">
       <div class="el"><span>Fire Moon</span><span>Set This B*tch On Fire</span></div>
       <h3>The Fire <em>ritual</em></h3>
@@ -66,7 +66,7 @@
       <div class="scent"><p class="k">The scent<b>&#x2726;</b>Clove, Juniper and Vanilla</p><p>Clove opens warm and spicy, with an earthy bite that wakes you up. Juniper keeps it bright and clean, like cold air beside a fire. Vanilla settles underneath and keeps the heat steady.</p></div>
     </article>
     </div>
-    <div class="orbit f-earth"><span class="glow" aria-hidden="true"></span>
+    <div class="orbit f-earth"><span class="glow" aria-hidden="true"></span><img class="jstk st-top" src="/assets/journal/five-stars.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <article class="ritual earth" id="earth">
       <div class="el"><span>Earth Moon</span><span>Calm The F*ck Down</span></div>
       <h3>The Earth <em>ritual</em></h3>
@@ -82,7 +82,7 @@
       <div class="scent"><p class="k">The scent<b>&#x2726;</b>Cardamom, Iris and Leather</p><p>Cardamom is warm and a little sweet, a spice that slows you down. Iris is soft and powdery, the quiet in the middle. Leather gives it weight, something solid to lean on.</p></div>
     </article>
     </div>
-    <div class="orbit f-air"><span class="glow" aria-hidden="true"></span>
+    <div class="orbit f-air"><span class="glow" aria-hidden="true"></span><img class="jstk st-r-mid" src="/assets/journal/butterfly.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="jstk st-bl" src="/assets/journal/moon-star.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <article class="ritual air" id="air">
       <div class="el"><span>Air Moon</span><span>Ghost 'Em</span></div>
       <h3>The Air <em>ritual</em></h3>
@@ -98,7 +98,7 @@
       <div class="scent"><p class="k">The scent<b>&#x2726;</b>Sage, Sea Salt and Ambrette Seed</p><p>Sage is green and herbal, the clearing note. Sea salt keeps it open and airy, like a window cracked by the ocean. Ambrette seed is soft and musky, a skin-close warmth that keeps a clear head from feeling cold.</p></div>
     </article>
     </div>
-    <div class="orbit f-water"><span class="glow" aria-hidden="true"></span>
+    <div class="orbit f-water"><span class="glow" aria-hidden="true"></span><img class="jstk st-r-low" src="/assets/journal/stars-trio.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <article class="ritual water" id="water">
       <div class="el"><span>Water Moon</span><span>Cry Bby xo</span></div>
       <h3>The Water <em>ritual</em></h3>
@@ -167,6 +167,19 @@
   function loop(t){ if(!document.hidden && t-last>48){ draw(t); last=t; } requestAnimationFrame(loop); }
   addEventListener('resize',size); size(); if(!calm) requestAnimationFrame(loop);
 })();
-</script><script src="/assets/ophi.js?v=5fd8ba16"></script>
+</script>
+<script>
+/* Paper cards tilt very lightly as you scroll: each leans its own way and sways a degree or two, never enough to overlap. */
+(function(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var cards=[].slice.call(document.querySelectorAll('.orbit')), lean=[-1.1,.9,.7,-.8], q=false;
+  function tick(){ q=false; var vh=innerHeight;
+    cards.forEach(function(c,i){ var r=c.getBoundingClientRect(), k=((r.top+r.height/2)-vh/2)/vh;   // -1..1 through the screen
+      var card=c.querySelector('.ritual'); card.style.rotate=(lean[i%4]+Math.sin(k*2.2+i)*1.3).toFixed(2)+'deg';
+      [].forEach.call(c.querySelectorAll(".jstk"),function(st,j){ st.style.rotate=(Math.sin(k*2.6+i+j*1.7)*4).toFixed(2)+'deg'; });
+    }); }
+  addEventListener('scroll',function(){ if(!q){ q=true; requestAnimationFrame(tick); } },{passive:true}); addEventListener('resize',tick); tick();
+})();
+</script><script src="/assets/ophi.js?v=96ebefe3"></script>
 </body>
 </html>
