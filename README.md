@@ -28,3 +28,11 @@ Shared pieces live in `src/partials/` (`top`, `nav`, `footer`). Pages use `{{top
 - The private Chart Studio.
 - Client readings, session notes, or reference readings.
 - Anything with a client's birth data.
+
+## Fluid scale (19 Oct 2026)
+Above 1280px wide every page (except `/chart/`) is laid out at 1280px and zoomed to fill the window, up to 2x, so type,
+cards and graphics grow together. The page head sets `--z`, `--vw` and `--vh`; `build.py` rewrites every `vw`/`vh` in the
+CSS to `var(--vw)`/`var(--vh)` so viewport units aren't zoomed twice. Write `vw`/`vh` as usual in `src/`; the build handles it.
+JS that turns pointer positions into CSS pixels must divide by `window.OPHI_Z`. Phones and tablets (1280 and under) are unchanged.
+Also from this round: `data-dodge` on a hero stamp makes it step off the nav buttons and the hero words;
+`.torn` and `.sticker` labels sway as they scroll.
