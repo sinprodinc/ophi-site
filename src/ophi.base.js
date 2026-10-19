@@ -17,8 +17,9 @@
         (function loop(){
           dx=mx; dy=my;
           ox+=(mx-ox)*0.12; oy+=(my-oy)*0.12;
-          dot.style.transform='translate('+dx+'px,'+dy+'px)';
-          orb.style.transform='translate('+ox+'px,'+oy+'px) translate(-50%,-50%)';
+          var z=window.OPHI_Z||1;   /* the page may be zoomed to fit a wide window: pointer positions are in window pixels */
+          dot.style.transform='translate('+dx/z+'px,'+dy/z+'px)';
+          orb.style.transform='translate('+ox/z+'px,'+oy/z+'px) translate(-50%,-50%)';
           requestAnimationFrame(loop);
         })();
       }
@@ -54,10 +55,44 @@
         el.style.setProperty('--rt',((Math.random()*2-1)*6).toFixed(1)+'deg');
       });
       var queued=false, vh=0, GROW=1.7;
+      /* Stamps marked data-dodge step out of the way of the nav buttons and the hero text (19 Oct).
+         At rest each looks for the nearest spot where it covers no more than a corner of any button, stays off the words,
+         and keeps most of itself on screen. It may still graze a button: it just never sits in front of one. */
+      var dodgers=Array.prototype.slice.call(document.querySelectorAll('[data-dodge]'));
+      var dodge=function(){
+        if(!dodgers.length) return;
+        var z=window.OPHI_Z||1, W=document.documentElement.clientWidth;
+        var boxes=function(sel){ return Array.prototype.map.call(document.querySelectorAll(sel),function(e){ return e.getBoundingClientRect(); }).filter(function(r){ return r.width&&r.height; }); };
+        var btns=boxes('.hero nav a, .hero nav button, .om-btn'), words=boxes('.hero h1, .hero .byline, .hero .hand-line, .hero .brand, .hero .logo');
+        var labels=[];   /* a wing may brush a button's frame, never the words on it */
+        Array.prototype.forEach.call(document.querySelectorAll('.hero nav a, .hero nav button, .om-btn'),function(b){
+          try{ var rg=document.createRange(); rg.selectNodeContents(b); var r=rg.getBoundingClientRect(); if(r.width) labels.push({left:r.left-4,right:r.right+4,top:r.top-2,bottom:r.bottom+2}); }catch(e){} });
+        var ov=function(a,b){ var w=Math.min(a.r,b.right)-Math.max(a.l,b.left), h=Math.min(a.b,b.bottom)-Math.max(a.t,b.top); return w>0&&h>0?w*h:0; };
+        dodgers.forEach(function(el){
+          el.style.translate='';
+          if(!el.offsetParent) return;
+          var art=(el.querySelector('i')||el).getBoundingClientRect(), A=art.width*art.height; if(!A) return;
+          /* the drawing fills about 70% of its box: test against a slightly smaller box so transparent corners don't count */
+          var ix=art.width*.14, iy=art.height*.14, best=null, step=8*z;
+          for(var dy=-6*step; dy<=26*step; dy+=step) for(var dx=-34*step; dx<=10*step; dx+=step){
+            var a={l:art.left+ix+dx, r:art.right-ix+dx, t:art.top+iy+dy, b:art.bottom-iy+dy}, inner=(a.r-a.l)*(a.b-a.t), bad=0;
+            btns.forEach(function(b){ var c=ov(a,b)/(b.width*b.height); if(c>.06) bad+=c; });
+            words.forEach(function(b){ var c=ov(a,b)/inner; if(c>.05) bad+=c*2; });
+            var a2={l:art.left+art.width*.05+dx, r:art.right-art.width*.05+dx, t:art.top+art.height*.05+dy, b:art.bottom-art.height*.05+dy};
+            labels.forEach(function(b){ var c=ov(a2,b)/((b.right-b.left)*(b.bottom-b.top)); if(c>0) bad+=1+c; });
+            var vis=(Math.min(a.r,W)-Math.max(a.l,0))/(a.r-a.l); if(vis<.6) bad+=(.6-vis)*2;
+            if(a.t<0) bad+=(-a.t)/(a.b-a.t);
+            var cost=bad*1e4+Math.hypot(dx,dy*1.3);
+            if(!best||cost<best.c) best={c:cost,x:dx,y:dy};
+          }
+          if(best&&(best.x||best.y)) el.style.translate=(best.x/z).toFixed(1)+'px '+(best.y/z).toFixed(1)+'px';   /* .relic motion uses transform, so this adds to it */
+        });
+      };
       var measure=function(){
         vh=window.innerHeight;
         var sy=window.pageYOffset;
         relics.forEach(function(el){ el._t=el.style.transform; el.style.transform='none'; el.style.translate=el.style.rotate=el.style.scale=''; });
+        dodge();
         relics.forEach(function(el){
           if(!el.offsetParent){ el._m=null; return; }
           var r=el.getBoundingClientRect();
@@ -257,6 +292,23 @@
       paint();
     }
   })(); }catch(e){}
+
+  /* Paper labels sway as you scroll (19 Oct), the same motion as the cards on the rituals page: each keeps its own lean
+     and rocks a few degrees as it travels through the screen. They use the separate rotate / translate properties,
+     so their resting tilt (CSS transform) stays as designed. */
+  try{
+    var papers=Array.prototype.slice.call(document.querySelectorAll('.torn, .sticker'));
+    if(papers.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      var pq=false;
+      var sway=function(){ pq=false; var vh=innerHeight;
+        papers.forEach(function(el,i){ var r=el.getBoundingClientRect(); if(r.bottom<-80||r.top>vh+80) return;
+          var k=((r.top+r.height/2)-vh/2)/vh;   /* -1..1 as it crosses the screen */
+          el.style.rotate=(Math.sin(k*2.4+i*1.3)*3.2).toFixed(2)+'deg';
+          el.style.translate='0 '+(Math.sin(k*1.8+i)*5).toFixed(1)+'px'; }); };
+      addEventListener('scroll',function(){ if(!pq){ pq=true; requestAnimationFrame(sway); } },{passive:true});
+      addEventListener('resize',sway); sway();
+    }
+  }catch(e){}
 
   /* testimonial carousel */
   try{

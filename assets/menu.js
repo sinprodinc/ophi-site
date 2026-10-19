@@ -38,7 +38,7 @@
     '.om-btn[aria-expanded="true"] .om-lines i:nth-child(3){width:100%;transform:translateY(-4.5px) rotate(-45deg)}',
     '@media(max-width:479px){.om-btn{width:34px;padding:0;justify-content:center}.om-btn .om-txt{display:none}}',
     /* the card */
-    '.om-card{position:fixed;top:60px;right:16px;z-index:9001;text-transform:none;letter-spacing:normal;width:min(250px,calc(100vw - 32px));padding:10px 18px 12px;',
+    '.om-card{position:fixed;top:60px;right:16px;z-index:9001;text-transform:none;letter-spacing:normal;width:min(250px,calc(var(--vw,1vw) * 100 - 32px));padding:10px 18px 12px;',
     'background:var(--om-bone);color:var(--om-ink);border:2px solid var(--om-ink);box-shadow:6px 6px 0 var(--om-ink);text-align:left;',
     'opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98);transform-origin:top right;transition:opacity .2s,transform .2s,visibility 0s .2s}',
     '.om-card::before{content:"";position:absolute;top:-8px;right:16px;width:12px;height:12px;background:var(--om-bone);border-left:2px solid var(--om-ink);border-top:2px solid var(--om-ink);transform:rotate(45deg)}',

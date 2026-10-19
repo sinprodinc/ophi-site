@@ -804,3 +804,43 @@ body.secret .find-moon a{border-color:rgba(236,231,220,.5)}
 body.secret footer.foot-lite{border-top-color:rgba(236,231,220,.3);color:var(--paper)}
 body.secret .fl-brand,body.secret .foot-lite .logo,body.secret .fl-links a,body.secret .fl-social a{color:var(--paper)}
 body.secret .fl-small{border-top-color:rgba(236,231,220,.15);color:rgba(236,231,220,.6)} body.secret .fl-small a{color:rgba(236,231,220,.6)}
+
+/* ===== Fluid scale (19 Oct) =====
+   Above 1280px wide the page is laid out at 1280 and zoomed to fill the window (--z is set in the page head),
+   so type, cards and graphics grow together and the margins stay in proportion. Phones and tablets are untouched. */
+body.flow{zoom:var(--z,1)}
+
+/* Hero wand (19 Oct): the whole moon wand shows now, crescent to handle. It leans in from the bottom-left corner;
+   only the tip of the handle (about a tenth) runs under the lace, and a sliver of the left side may run off the page. */
+@media(min-width:600px){
+  body.flow .hero{--wand:clamp(70px,calc(5vw + 40px),112px)}
+  body.flow .hero > .hero-key{--w:var(--wand);--tilt:-12deg;left:calc(var(--wand) * -.04);bottom:calc(var(--wand) * -.34)}
+  body.flow .hero > .hero-key i{opacity:.78}
+}
+
+/* Home "Inside Ophi" (19 Oct): on tablets and up the one-line ticker opens into illustrated cards, one per page,
+   each with an ink stamp, a crayon doodle and the button underneath (after the Chani article grid). Phones keep the ticker. */
+.tour-art{display:none}
+@media(min-width:701px){
+  .tour-car .tq-track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);overflow:visible;scroll-snap-type:none;
+    border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .tour-car .tq-track > [aria-hidden="true"]{display:none}            /* the carousel's looping copy */
+  .tour-car .tq-track{align-items:stretch}
+  .tour-car .tq-slide{flex:none;padding:0;overflow:visible;align-self:stretch}
+  .tour-car .tq-slide + .tq-slide{border-left:1px solid var(--ink)}
+  .tour-car .tq-foot{display:none}
+  .tour-card{display:flex;flex-direction:column;align-items:center;text-align:center;height:100%;
+    padding:var(--s4) clamp(14px,2vw,28px) var(--s4);gap:0}
+  .tour-art{position:relative;display:block;width:100%;height:clamp(150px,16vw,210px);margin:0 0 var(--s3)}
+  .tour-art > img:first-child{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+    transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+  .tour-dood{position:absolute;width:clamp(44px,4.6vw,62px);height:auto;top:-4%;right:calc(50% - clamp(110px,11vw,140px));rotate:12deg;pointer-events:none}
+  .tour-slide-2 .tour-dood,.tq-slide:nth-child(2) .tour-dood{right:auto;left:calc(50% - clamp(118px,11.6vw,148px));top:auto;bottom:-2%;rotate:-14deg;width:clamp(30px,3vw,40px)}
+  .tq-slide:nth-child(3) .tour-dood{top:-12%;right:calc(50% - clamp(122px,12vw,150px));rotate:-6deg}
+  .tour-card:hover .tour-art > img:first-child{transform:rotate(-3deg) scale(1.04)}
+  .tour-n{margin:0 0 6px}
+  .tour-t{justify-self:auto;white-space:normal;font-size:clamp(28px,2.7vw,36px);margin:0 0 var(--s2)}
+  .tour-d{max-width:30ch;margin:0 auto var(--s3);text-wrap:balance}
+  .tour-go{margin-top:auto;padding:11px 22px 10px;font-size:11px;box-shadow:3px 3px 0 var(--ink);transition:box-shadow .2s,translate .2s,background .2s,color .2s}
+  .tour-card:hover .tour-go{translate:-1px -1px;box-shadow:5px 5px 0 var(--ink)}
+}

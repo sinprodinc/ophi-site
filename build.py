@@ -62,6 +62,7 @@ HEAD = '''<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Special+Elite&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/ophi.css?v={v}">
 <script src="/assets/menu.js?v={v}" defer></script>
+<script>{fit}</script>
 </head>
 <body{bodyclass}>
 '''
@@ -69,6 +70,23 @@ TAIL = '''<script src="/assets/ophi.js?v={v}"></script>
 </body>
 </html>
 '''
+
+# Fluid scale (19 Oct): above DESIGN_W the whole page grows with the window, like a printed page held closer.
+# The page is laid out at DESIGN_W and zoomed to fit, so type, graphics and spacing keep their proportions.
+# Viewport units would be zoomed twice, so the build rewrites them to --vw / --vh, which this script keeps
+# equal to one real 1vw / 1vh. Phones and tablets (up to DESIGN_W) are untouched.
+DESIGN_W, MAX_ZOOM = 1280, 2
+FIT = ("(function(){var d=document.documentElement;function f(){var w=d.clientWidth||innerWidth,"
+       "z=w>%d?Math.min(w/%d,%s):1;d.style.setProperty('--z',z);"
+       "d.style.setProperty('--vw',innerWidth/z/100+'px');d.style.setProperty('--vh',innerHeight/z/100+'px');"
+       "window.OPHI_Z=z}f();addEventListener('resize',f)})();") % (DESIGN_W, DESIGN_W, MAX_ZOOM)
+
+VU = re.compile(r'(?<![\w.#%-])(-?)(\d*\.?\d+)(vw|vh)\b')
+def fluid(css):
+    """Viewport units -> the zoom-safe custom units, leaving url(...) data alone."""
+    parts = re.split(r'(url\([^)]*\))', css)
+    return ''.join(x if x.startswith('url(') else VU.sub(lambda m: 'calc(%s%s * var(--%s,1%s))' % (m.group(1), m.group(2), m.group(3), m.group(3)), x)
+                   for x in parts)
 
 DOOR_CARDS = [
     ('readings/index.html', '/readings/', 'Make It Make Sense', 'Meet Yourself, Quickie, <em>Here To Help.</em>', 'pick your reading'),
@@ -124,7 +142,7 @@ def doors(out):
     return '\n'.join(html)
 
 def main():
-    css = rd('src/ophi.base.css') + rd('src/site.css') + rd('src/soft.css') + rd('src/flow.css')
+    css = fluid(rd('src/ophi.base.css') + rd('src/site.css') + rd('src/soft.css') + rd('src/flow.css'))
     js = rd('src/ophi.base.js')
     menu = rd('assets/menu.js')
     menu = re.sub(r"var SHELVED = \[[^\]]*\];", 'var SHELVED = [%s];' % ', '.join("'%s'" % n for n in sorted(SHELVED)), menu, count=1)
@@ -148,7 +166,8 @@ def main():
         body = re.sub(r'/assets/season-data\.js(\?v=\w+)?', '/assets/season-data.js?v=' + sv, body)
         assert '{{' not in body, (src, re.findall(r'\{\{\w+\}\}', body))
         bc = ' class="flow%s"' % BODY_EXTRA.get(out, '')
-        wr(out, HEAD.format(title=title, desc=desc, v=v, bodyclass=bc) + body + TAIL.format(v=v))
+        body = re.sub(r'style="[^"]*"', lambda m: fluid(m.group(0)), body)
+        wr(out, HEAD.format(title=title, desc=desc, v=v, bodyclass=bc, fit=FIT) + body + TAIL.format(v=v))
     # chart page: add the shared menu once
     ch = rd('chart/index.html')
     ch = re.sub(r'<script src="/assets/menu\.js[^"]*" defer></script>\n?', '', ch)
