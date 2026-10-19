@@ -54,7 +54,7 @@
         el.style.setProperty('--rs',(0.8+Math.random()*0.2).toFixed(2));
         el.style.setProperty('--rt',((Math.random()*2-1)*6).toFixed(1)+'deg');
       });
-      var queued=false, vh=0, GROW=1.7;
+      var queued=false, vh=0, GROW=1.15;
       /* Stamps marked data-dodge step out of the way of the nav buttons and the hero text (19 Oct).
          At rest each looks for the nearest spot where it covers no more than a corner of any button, stays off the words,
          and keeps most of itself on screen. It may still graze a button: it just never sits in front of one. */
@@ -106,15 +106,17 @@
         relics.forEach(function(el){
           var m=el._m; if(!m) return;
           var mid=m.cy-sy;
-          var first=m.cy<vh,                                  /* on the first screen */
-              start=first?m.cy:vh*.36, end=-(vh*.16+m.h*.5),
+          /* 19 Oct (Bri): each piece holds still while its section is read, then from about halfway up the screen it grows
+             and turns, gently at first and more as it goes. It never fades: it stays in view, just bigger, until it scrolls away. */
+          var first=m.cy<vh*.5,                               /* already above the middle on the first screen */
+              start=first?m.cy:vh*.5, end=-(vh*.35+m.h*.5),
               p=Math.max(0,Math.min(1,(start-mid)/(start-end))),
               d=first?Math.max(-.7,-sy/vh):Math.max(-.7,Math.min(.7,(mid-vh/2)/vh)),
-              depth=(+el.getAttribute('data-depth')||40)*(small?.5:1);
-          var ty=(-d*depth).toFixed(1), rot=(d*-9).toFixed(2), sc=(1+p*p*(small?GROW*.7:GROW)+p*.25).toFixed(3);
+              depth=(+el.getAttribute('data-depth')||40)*(small?.5:1),
+              dir=(el._dir||(el._dir=(Math.random()<.5?-1:1)));
+          var ty=(-d*depth).toFixed(1), rot=(d*-6+p*p*14*dir).toFixed(2), sc=(1+p*p*(small?GROW*.7:GROW)+p*.12).toFixed(3);
           if(!el.classList.contains('relic')){ el.style.translate='0 '+ty+'px'; el.style.rotate=rot+'deg'; el.style.scale=sc; }
           else el.style.transform='translate3d(0,'+ty+'px,0) rotate('+rot+'deg) scale('+sc+')';
-          el.style.opacity=(1-Math.pow(p,1.5)).toFixed(3);
         });
       };
       var ask=function(){ if(!queued){ queued=true; requestAnimationFrame(drift); } };
@@ -314,12 +316,13 @@
   /* Push pins rock very slightly as they scroll by, like the stickers on the rituals page (19 Oct).
      rotate adds to each pin's own tilt (CSS transform), so their resting angles stay as designed. */
   try{
-    var pins=Array.prototype.slice.call(document.querySelectorAll('.eph.pin'));
+    var pins=Array.prototype.slice.call(document.querySelectorAll('.eph.pin, .pan-art'));
     if(pins.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var nq=false;
       var rock=function(){ nq=false; var vh=innerHeight;
         pins.forEach(function(el,i){ var r=el.getBoundingClientRect(); if(r.bottom<-40||r.top>vh+40) return;
-          var k=((r.top+r.height/2)-vh/2)/vh; el.style.rotate=(Math.sin(k*2.6+i*1.7)*4).toFixed(2)+'deg'; }); };
+          var k=((r.top+r.height/2)-vh/2)/vh, amp=el.classList.contains('pan-art')?9:4;   /* the banner pieces turn a little more */
+          el.style.rotate=(Math.sin(k*2.6+i*1.7)*amp).toFixed(2)+'deg'; }); };
       addEventListener('scroll',function(){ if(!nq){ nq=true; requestAnimationFrame(rock); } },{passive:true});
       addEventListener('resize',rock); rock();
     }
