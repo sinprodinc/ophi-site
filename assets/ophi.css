@@ -698,7 +698,7 @@
      THE SOFTER EDITION (approved 14 Oct 2026)
      Loud masthead, quiet pages. Loaded after the base styles and overrides them.
      ===================================================================================== */
-  @font-face{font-family:'Ophi Hand';font-display:swap;src:url(fonts/hand-standin.woff2) format('woff2')}
+  @font-face{font-family:'Ophi Hand';font-display:swap;src:url(fonts/biro-script.woff2) format('woff2');unicode-range:U+0020,U+0041-005A,U+0061-007A}@font-face{font-family:'Ophi Hand';font-display:swap;src:url(fonts/hand-standin.woff2) format('woff2');unicode-range:U+0000-001F,U+0021-0040,U+005B-0060,U+007B-FFFF}
   /* The handwriting font. Cedarville Cursive (free, OFL) stands in until Bri has the Biro Script web licence;
      to switch, drop biro-script.woff2 into assets/fonts and change the src above. */
   :root{
@@ -2066,3 +2066,33 @@ body.flow .words{padding-bottom:var(--sec)!important}
 .pa-fly{width:clamp(130px,calc(13 * var(--vw,1vw)),180px);top:calc(clamp(56px,calc(6 * var(--vw,1vw)),80px) - clamp(22px,calc(2.4 * var(--vw,1vw)),34px));left:calc(-1 * clamp(20px,calc(2.2 * var(--vw,1vw)),34px));rotate:-16deg}
 @media(max-width:700px){ .pa-fly{width:96px;top:40px;left:-16px} }
 @media(max-width:700px){ .pa-glitter{top:calc(56px + 36px);right:10px} }
+/* cursor: Bri's pixel arrow (19 Oct), at a normal cursor size, tip on the pointer */
+.cursor-dot img{position:absolute;left:-1px;top:-1px;width:20px;height:27px;max-width:none;display:block}
+body.cur-hover .cursor-dot img{transform:scale(.9);transform-origin:0 0}
+
+/* ===== This Season, 19 Oct round 4 ===== */
+/* "Your rising is your story." with room to breathe before the intro, which runs wider (about three lines on desktop) */
+#by-rising{position:relative}
+#by-rising .byline{margin-bottom:0}
+body.flow .rising-intro{max-width:min(92ch,100%);margin:var(--s4) auto var(--s4);padding:0 var(--pad);font-size:15px;line-height:1.7}
+/* Bri's black star trail, on the right, well clear of the title */
+.rise-stars{position:absolute;z-index:0;pointer-events:none;width:clamp(64px,calc(7 * var(--vw,1vw)),104px);height:auto;right:max(12px,calc(50% - var(--banner) / 2 - clamp(10px,calc(2 * var(--vw,1vw)),40px)));top:calc(-1 * clamp(10px,calc(1.6 * var(--vw,1vw)),26px));rotate:6deg}
+@media(max-width:700px){ .rise-stars{width:54px;right:10px;top:-14px} }
+/* "The story": a newspaper spread like the top of the page: title on the left, a rule, then the text in columns on the right */
+@media(min-width:761px){
+  body.flow .full-story{display:grid;grid-template-columns:minmax(200px,.36fr) minmax(0,1fr);gap:0 var(--s4);align-items:start}
+  body.flow .full-story > .fs-body{grid-column:2;grid-row:1/3;border-left:1px solid var(--ink);padding-left:var(--s4)}
+  body.flow .full-story .fs-body > p{max-width:none}
+}
+@media(min-width:1000px){
+  body.flow .full-story > .fs-body{columns:2;column-gap:var(--s4);column-rule:1px solid rgba(22,19,16,.25)}
+  body.flow .full-story .fs-body > *{break-inside:avoid-column}
+  body.flow .full-story .fs-body > .sub-h{break-after:avoid-column}
+  body.flow .full-story .fs-body > p:first-child{margin-top:0}
+}
+/* banners: the globe is gone; the paper star sticker now sits on the paper banner's top edge, right side */
+.pa-armillary{display:none}
+.pans{padding-bottom:clamp(64px,calc(7 * var(--vw,1vw)),96px)}
+.pa-glitter{top:auto;bottom:calc(clamp(64px,calc(7 * var(--vw,1vw)),96px) + clamp(22px,calc(2.4 * var(--vw,1vw)),34px));right:clamp(30px,calc(6 * var(--vw,1vw)),110px);rotate:9deg}
+@media(max-width:700px){ .pa-glitter{top:auto;bottom:calc(64px + 30px);right:12px} }
+@media(max-width:700px){ .rise-stars{width:40px;right:4px;top:-46px} }

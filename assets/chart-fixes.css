@@ -4,7 +4,7 @@
 .wheel-stage:not(.zoomed) .zoom-x{display:none!important}
 
 /* Masthead: the same minimal dark band as the other pages, with the cursor star trail and Bri's lace under it */
-@font-face{font-family:'Ophi Hand';font-display:swap;src:url(/assets/fonts/hand-standin.woff2) format('woff2')}
+@font-face{font-family:'Ophi Hand';font-display:swap;src:url(/assets/fonts/biro-script.woff2) format('woff2');unicode-range:U+0020,U+0041-005A,U+0061-007A}@font-face{font-family:'Ophi Hand';font-display:swap;src:url(/assets/fonts/hand-standin.woff2) format('woff2');unicode-range:U+0000-001F,U+0021-0040,U+005B-0060,U+007B-FFFF}
 .chart-mast{position:relative;overflow:clip;z-index:3;padding-block:1rem clamp(1.8rem,4.4vw,3rem)}
 .chart-mast > .wrap{position:relative;z-index:1}
 .chart-mast canvas.stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
@@ -56,3 +56,6 @@
 
 
 .empty-row{text-align:center;font-family:"Ophi Hand",cursive;font-size:1.3rem;color:#2f3d7c;padding:1.4rem .5rem!important}
+/* Bri's pixel arrow cursor, same as the rest of the site */
+html,body{cursor:url(/assets/collage/cursor.png) 1 1,auto}
+a,button,[role=button],label,select,summary,.results li{cursor:url(/assets/collage/cursor.png) 1 1,pointer}

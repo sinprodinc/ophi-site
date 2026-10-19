@@ -147,7 +147,6 @@ def doors(out):
             '  </div>', '</section>', '',
             '<section class="pans" aria-label="More from Ophi">',
             '  <img class="pan-art pa-fly" src="/assets/eph/lace-butterfly-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
-            '  <img class="pan-art pa-armillary" src="/assets/stamps/armillary.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
             '  <img class="pan-art pa-glitter" src="/assets/journal/sparkle-cross.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">']
     for k, (href, tone, title, hand) in enumerate(PANS):
         if PAN_PAGE.get(out) and href.startswith(PAN_PAGE[out]):
