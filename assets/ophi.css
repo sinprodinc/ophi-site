@@ -2034,3 +2034,35 @@ body.flow{--pen:#4f3a8c}
 @media(max-width:860px){ .bleed.lacey.fly.words-fly{display:none} }
 /* the hand-over-chart stamp moved to the top carousel, so the testimonials no longer keep room for it */
 body.flow .words{padding-bottom:var(--sec)!important}
+
+/* ===== 19 Oct, round 3 (Bri's notes) ===== */
+/* banners: half the speed, smaller type */
+.pan-left .pan-track{animation-duration:92s}
+.pan-right .pan-track{animation-duration:104s}
+.pan-track{padding:clamp(10px,calc(1.1 * var(--vw,1vw)),14px) 0}
+.pan-t{font-size:clamp(24px,calc(2.6 * var(--vw,1vw)),34px)}
+.pan-h{font-size:clamp(19px,calc(2 * var(--vw,1vw)),26px)}
+.pan-dash{font-size:clamp(18px,calc(1.9 * var(--vw,1vw)),24px)}
+.pans{gap:clamp(56px,calc(6.4 * var(--vw,1vw)),88px)}
+/* the ink lace butterfly sits where the bow was, on the black banner's left end */
+.pa-fly{width:clamp(110px,calc(11 * var(--vw,1vw)),160px);left:calc(-1 * clamp(14px,calc(1.6 * var(--vw,1vw)),26px));top:calc(clamp(56px,calc(6 * var(--vw,1vw)),80px) - clamp(40px,calc(4 * var(--vw,1vw)),56px));rotate:-12deg;z-index:3}
+/* the paper star sticker: bigger, further right, overlapping the black banner's lower edge */
+.pa-glitter{width:clamp(70px,calc(7 * var(--vw,1vw)),100px);right:clamp(40px,calc(7 * var(--vw,1vw)),120px);left:auto;top:calc(clamp(56px,calc(6 * var(--vw,1vw)),80px) + clamp(18px,calc(2 * var(--vw,1vw)),28px));rotate:-8deg;z-index:3}
+/* the armillary is big enough to read, still tucked behind the paper banner */
+.pa-armillary{width:clamp(150px,calc(14 * var(--vw,1vw)),200px);bottom:calc(-1 * clamp(10px,calc(1.4 * var(--vw,1vw)),22px))}
+.pans{padding-bottom:clamp(96px,calc(10 * var(--vw,1vw)),140px)}
+@media(max-width:700px){
+  .pa-fly{width:88px;top:30px;left:-12px}
+  .pa-glitter{width:58px;right:18px;top:calc(56px + 22px)}
+  .pa-armillary{width:110px}
+}
+/* top strip: the black doodled stars on This Season, bigger */
+.tq-slide:nth-child(3) .tour-dood{width:clamp(66px,calc(6.6 * var(--vw,1vw)),90px);top:calc(-1 * clamp(30px,calc(3.4 * var(--vw,1vw)),46px));left:-14%}
+/* Readings, "Choose your reading": the curved arrows ~12% smaller and about 2 cm further in from the edge */
+.bleed.r.arrows{--bw:clamp(105px,calc(13 * var(--vw,1vw)),200px);margin-right:clamp(40px,calc(5.6 * var(--vw,1vw)),76px)}
+@media(max-width:700px){ .bleed.r.arrows{--bw:76px;margin-right:12px} }
+/* This Season: the blue star on the date column's rule, bigger and higher up the line */
+.kick > .on-vline.k{width:46px;right:-24px;bottom:34px}
+.pa-fly{width:clamp(130px,calc(13 * var(--vw,1vw)),180px);top:calc(clamp(56px,calc(6 * var(--vw,1vw)),80px) - clamp(22px,calc(2.4 * var(--vw,1vw)),34px));left:calc(-1 * clamp(20px,calc(2.2 * var(--vw,1vw)),34px));rotate:-16deg}
+@media(max-width:700px){ .pa-fly{width:96px;top:40px;left:-16px} }
+@media(max-width:700px){ .pa-glitter{top:calc(56px + 36px);right:10px} }

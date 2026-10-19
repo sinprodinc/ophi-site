@@ -311,6 +311,20 @@
     }
   }catch(e){}
 
+  /* Push pins rock very slightly as they scroll by, like the stickers on the rituals page (19 Oct).
+     rotate adds to each pin's own tilt (CSS transform), so their resting angles stay as designed. */
+  try{
+    var pins=Array.prototype.slice.call(document.querySelectorAll('.eph.pin'));
+    if(pins.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      var nq=false;
+      var rock=function(){ nq=false; var vh=innerHeight;
+        pins.forEach(function(el,i){ var r=el.getBoundingClientRect(); if(r.bottom<-40||r.top>vh+40) return;
+          var k=((r.top+r.height/2)-vh/2)/vh; el.style.rotate=(Math.sin(k*2.6+i*1.7)*4).toFixed(2)+'deg'; }); };
+      addEventListener('scroll',function(){ if(!nq){ nq=true; requestAnimationFrame(rock); } },{passive:true});
+      addEventListener('resize',rock); rock();
+    }
+  }catch(e){}
+
   /* testimonial carousel */
   try{
     Array.prototype.forEach.call(document.querySelectorAll('.tq-carousel'),function(car){

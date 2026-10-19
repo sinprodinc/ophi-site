@@ -21,7 +21,7 @@ def wr(p, s):
 PAGES = {
     # out path            source page           <title>                         description
     'index.html':             ('home.html',        'Ophi by Bri | Awakening Astrology',
-                               'Applied astrology readings by Bri Godard. Meet yourself through your natal chart.'),
+                               'Awakening Astrology: readings by Bri Godard. Meet yourself through your natal chart.'),
     'readings/index.html':    ('readings.html',    'Make It Make Sense | Ophi by Bri',
                                'Meet Yourself, Quickie and Here To Help: one-on-one virtual astrology readings with Bri Godard.'),
     'this-season/index.html': ('this-season.html', 'This Season | Ophi by Bri',
@@ -122,6 +122,9 @@ PANS = [
     ('/readings/#readings', 'ink', 'Make It Make <em>Sense</em>', 'Time to Meet Yourself'),
     ('/this-season/', 'paper', 'This <em>Season</em>', "What's in the sky right now?"),
 ]
+# On its own page a banner is swapped for the Home banner (same colour, same direction).
+HOME_PAN = ('/', 'Awakening <em>Astrology</em>', 'you are written in the stars')
+PAN_PAGE = {'readings/index.html': '/readings/', 'this-season/index.html': '/this-season/'}
 
 def pan(href, tone, title, hand, direction):
     unit = ('<span class="pan-i"><span class="pan-t">%s</span><span class="pan-dash">&mdash;</span>'
@@ -143,12 +146,12 @@ def doors(out):
             '    <a class="cta" href="/chart/">Cast my chart ' + STAR_ARROW + '</a>',
             '  </div>', '</section>', '',
             '<section class="pans" aria-label="More from Ophi">',
-            '  <img class="pan-art pa-bow" src="/assets/eph/lace-bow-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
-            '  <img class="pan-art pa-plane" src="/assets/doodle/plane.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
-            '  <img class="pan-art pa-swirls" src="/assets/doodle/swirls.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
+            '  <img class="pan-art pa-fly" src="/assets/eph/lace-butterfly-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
             '  <img class="pan-art pa-armillary" src="/assets/stamps/armillary.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
             '  <img class="pan-art pa-glitter" src="/assets/journal/sparkle-cross.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">']
     for k, (href, tone, title, hand) in enumerate(PANS):
+        if PAN_PAGE.get(out) and href.startswith(PAN_PAGE[out]):
+            href, title, hand = HOME_PAN
         html.append(pan(href, tone, title, hand, 'left' if k == 0 else 'right'))
     html.append('</section>')
     return '\n'.join(html)
