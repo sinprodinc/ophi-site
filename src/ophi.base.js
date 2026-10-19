@@ -297,14 +297,15 @@
      and rocks a few degrees as it travels through the screen. They use the separate rotate / translate properties,
      so their resting tilt (CSS transform) stays as designed. */
   try{
-    var papers=Array.prototype.slice.call(document.querySelectorAll('.torn, .sticker'));
+    var papers=Array.prototype.slice.call(document.querySelectorAll('.torn, .sticker, .tour-go, .pan-tag'));
     if(papers.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var pq=false;
       var sway=function(){ pq=false; var vh=innerHeight;
         papers.forEach(function(el,i){ var r=el.getBoundingClientRect(); if(r.bottom<-80||r.top>vh+80) return;
           var k=((r.top+r.height/2)-vh/2)/vh;   /* -1..1 as it crosses the screen */
-          el.style.rotate=(Math.sin(k*2.4+i*1.3)*3.2).toFixed(2)+'deg';
-          el.style.translate='0 '+(Math.sin(k*1.8+i)*5).toFixed(1)+'px'; }); };
+          var lean=(i%2?2.2:-2.6);   /* its resting lean, alternating */
+          el.style.rotate=(lean+Math.sin(k*2.6+i*1.3)*6.5).toFixed(2)+'deg';
+          el.style.translate=(Math.sin(k*2.1+i*.7)*6).toFixed(1)+'px '+(Math.sin(k*1.8+i)*13).toFixed(1)+'px'; }); };
       addEventListener('scroll',function(){ if(!pq){ pq=true; requestAnimationFrame(sway); } },{passive:true});
       addEventListener('resize',sway); sway();
     }

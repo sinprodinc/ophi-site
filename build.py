@@ -116,12 +116,24 @@ def door_preview(href):
         return '<p class="door-orbs">' + ''.join('<span class="orb-%s">%s</span>' % (e.lower(), e) for e in ('Fire', 'Earth', 'Air', 'Water')) + '</p>'
     return ''
 
+# The two panning banners under "See your sky" (Bri, 19 Oct): one slides left, one slides right, with paper showing
+# between them. Each is one big link. (They replace the two door cards.)
+PANS = [
+    ('/readings/#readings', 'ink', 'Make It Make <em>Sense</em>', 'Time to Meet Yourself'),
+    ('/this-season/', 'paper', 'This <em>Season</em>', "What's in the sky right now?"),
+]
+
+def pan(href, tone, title, hand, direction):
+    unit = ('<span class="pan-i"><span class="pan-t">%s</span><span class="pan-dash">&mdash;</span>'
+            '<span class="pan-h">%s</span><b class="pan-star">&#x2726;</b></span>') % (title, hand)
+    run = unit * 6
+    label = re.sub(r'<[^>]+>', '', title).replace('&amp;', '&') + ': ' + hand
+    return ('  <a class="pan pan-%s pan-%s" href="%s" aria-label="%s">\n'
+            '    <span class="pan-track" aria-hidden="true"><span class="pan-run">%s</span><span class="pan-run">%s</span></span>\n'
+            '  </a>') % (tone, direction, href, label.replace('"', '&quot;'), run, run)
+
 def doors(out):
-    """The closing band on every page: 'See your sky' (cast a chart) and two small doors to the other pages."""
-    cards = [c for c in DOOR_CARDS if c[0] != out and c[0].split('/')[0] not in SHELVED][:2]
-    if out == 'index.html':   # Home names its two doors after what they lead to
-        cards = [('', '/readings/', 'Make It Make Sense', 'Meet <em>Yourself.</em>', 'book a reading'),
-                 ('', '/this-season/', 'This Season', 'The sky <em>right now.</em>', 'read your chapter')]
+    """The closing band on every page: 'See your sky' (cast a chart), then two panning banners to Readings and This Season."""
     html = ['<section class="hero night" id="cast">',
             '  <canvas class="stars" aria-hidden="true"></canvas>',
             '  <div class="night-inner">',
@@ -129,15 +141,15 @@ def doors(out):
             '    <h2 class="flow-h">See your sky.</h2>',
             '    <p class="night-sub">Cast your natal chart. Tap any planet to see how the different parts of you get along.</p>',
             '    <a class="cta" href="/chart/">Cast my chart ' + STAR_ARROW + '</a>',
-            '  </div>', '</section>', '', '<section class="more flow-sec">']
-    for _, href, label, title, hand in cards:
-        html += ['  <a class="more-card" href="%s">' % href,
-                 '    <p class="folio">%s</p>' % (label + door_folio(href)),
-                 '    <h3>%s</h3>' % title,
-                 '    ' + door_preview(href),
-                 '    <span class="hand">%s</span>' % hand, '  </a>']
-    if any(c[1] == '/this-season/' for c in cards) and out != 'this-season/index.html':
-        html.append('<script src="/assets/season-data.js" defer></script>')
+            '  </div>', '</section>', '',
+            '<section class="pans" aria-label="More from Ophi">',
+            '  <img class="pan-art pa-bow" src="/assets/eph/lace-bow-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
+            '  <img class="pan-art pa-plane" src="/assets/doodle/plane.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
+            '  <img class="pan-art pa-swirls" src="/assets/doodle/swirls.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
+            '  <img class="pan-art pa-armillary" src="/assets/stamps/armillary.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
+            '  <img class="pan-art pa-glitter" src="/assets/journal/sparkle-cross.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">']
+    for k, (href, tone, title, hand) in enumerate(PANS):
+        html.append(pan(href, tone, title, hand, 'left' if k == 0 else 'right'))
     html.append('</section>')
     return '\n'.join(html)
 
