@@ -78,9 +78,11 @@
     var open = false;
     /* the card floats above everything (mastheads clip their contents), lined up under the button */
     var place = function () {
-      var r = btn.getBoundingClientRect();
-      card.style.top = (r.bottom + 12) + 'px';
-      card.style.right = Math.max(8, document.documentElement.clientWidth - r.right) + 'px';
+      /* the card lives inside the page, which may be zoomed to fit a wide window: measure in screen pixels,
+         then turn them back into the page's own units */
+      var r = window.OPHI_BOX ? window.OPHI_BOX(btn) : btn.getBoundingClientRect(), z = window.OPHI_Z || 1;
+      card.style.top = ((r.bottom + 12) / z) + 'px';
+      card.style.right = (Math.max(8, document.documentElement.clientWidth - r.right) / z) + 'px';
     };
     addEventListener('resize', function () { if (open) place(); });
     addEventListener('scroll', function () { if (open) place(); }, { passive: true });

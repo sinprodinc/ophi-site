@@ -79,7 +79,17 @@ DESIGN_W, MAX_ZOOM = 1280, 2
 FIT = ("(function(){var d=document.documentElement;function f(){var w=d.clientWidth||innerWidth,"
        "z=w>%d?Math.min(w/%d,%s):1;d.style.setProperty('--z',z);"
        "d.style.setProperty('--vw',innerWidth/z/100+'px');d.style.setProperty('--vh',innerHeight/z/100+'px');"
-       "window.OPHI_Z=z}f();addEventListener('resize',f)})();") % (DESIGN_W, DESIGN_W, MAX_ZOOM)
+       "window.OPHI_Z=z;K=0}"
+       # OPHI_BOX(el): an element's box in real screen pixels in every browser. Under CSS zoom Chrome reports boxes
+       # in screen pixels but Safari reports them in the page's own (unzoomed) units; mouse positions are always
+       # screen pixels. A hidden 100px probe tells us which, once per window size.
+       "var K=0;function k(){if(K)return K;var z=window.OPHI_Z||1;if(z==1||!document.body)return 1;"
+       "var p=document.getElementById('ophi-probe');if(!p){p=document.createElement('div');p.id='ophi-probe';"
+       "p.style.cssText='position:absolute;left:0;top:0;width:100px;height:1px;visibility:hidden;pointer-events:none';"
+       "document.body.appendChild(p)}var w=p.getBoundingClientRect().width;K=w?z/(w/100):1;return K}"
+       "window.OPHI_BOX=function(el){var r=el.getBoundingClientRect(),s=k();if(s>.99&&s<1.01)return r;"
+       "return{left:r.left*s,top:r.top*s,right:r.right*s,bottom:r.bottom*s,width:r.width*s,height:r.height*s,x:r.left*s,y:r.top*s}};"
+       "f();addEventListener('resize',f)})();") % (DESIGN_W, DESIGN_W, MAX_ZOOM)
 
 VU = re.compile(r'(?<![\w.#%-])(-?)(\d*\.?\d+)(vw|vh)\b')
 def fluid(css):

@@ -1,5 +1,7 @@
 
 (function(){
+  /* boxes in real screen pixels in every browser (see OPHI_BOX in the page head) */
+  var BOX=function(el){ return window.OPHI_BOX?window.OPHI_BOX(el):el.getBoundingClientRect(); };
   /* custom cursor + trailing orb (desktop, motion-ok only) */
   try{
     if(window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
@@ -62,16 +64,16 @@
       var dodge=function(){
         if(!dodgers.length) return;
         var z=window.OPHI_Z||1, W=document.documentElement.clientWidth;
-        var boxes=function(sel){ return Array.prototype.map.call(document.querySelectorAll(sel),function(e){ return e.getBoundingClientRect(); }).filter(function(r){ return r.width&&r.height; }); };
+        var boxes=function(sel){ return Array.prototype.map.call(document.querySelectorAll(sel),function(e){ return BOX(e); }).filter(function(r){ return r.width&&r.height; }); };
         var btns=boxes('.hero nav a, .hero nav button, .om-btn'), words=boxes('.hero h1, .hero .byline, .hero .hand-line, .hero .brand, .hero .logo');
         var labels=[];   /* a wing may brush a button's frame, never the words on it */
         Array.prototype.forEach.call(document.querySelectorAll('.hero nav a, .hero nav button, .om-btn'),function(b){
-          try{ var rg=document.createRange(); rg.selectNodeContents(b); var r=rg.getBoundingClientRect(); if(r.width) labels.push({left:r.left-4,right:r.right+4,top:r.top-2,bottom:r.bottom+2}); }catch(e){} });
+          try{ var rg=document.createRange(); rg.selectNodeContents(b); var r=BOX(rg); if(r.width) labels.push({left:r.left-4,right:r.right+4,top:r.top-2,bottom:r.bottom+2}); }catch(e){} });
         var ov=function(a,b){ var w=Math.min(a.r,b.right)-Math.max(a.l,b.left), h=Math.min(a.b,b.bottom)-Math.max(a.t,b.top); return w>0&&h>0?w*h:0; };
         dodgers.forEach(function(el){
           el.style.translate='';
           if(!el.offsetParent) return;
-          var art=(el.querySelector('i')||el).getBoundingClientRect(), A=art.width*art.height; if(!A) return;
+          var art=(BOX(el.querySelector('i')||el)), A=art.width*art.height; if(!A) return;
           /* the drawing fills about 70% of its box: test against a slightly smaller box so transparent corners don't count */
           var ix=art.width*.14, iy=art.height*.14, best=null, step=8*z;
           for(var dy=-6*step; dy<=26*step; dy+=step) for(var dx=-34*step; dx<=10*step; dx+=step){
@@ -95,7 +97,7 @@
         dodge();
         relics.forEach(function(el){
           if(!el.offsetParent){ el._m=null; return; }
-          var r=el.getBoundingClientRect();
+          var r=BOX(el);
           el._m={cy:r.top+sy+r.height/2, h:r.height};
         });
         relics.forEach(function(el){ el.style.transform=el._t; });
@@ -303,7 +305,7 @@
     if(papers.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var pq=false;
       var sway=function(){ pq=false; var vh=innerHeight;
-        papers.forEach(function(el,i){ var r=el.getBoundingClientRect(); if(r.bottom<-80||r.top>vh+80) return;
+        papers.forEach(function(el,i){ var r=BOX(el); if(r.bottom<-80||r.top>vh+80) return;
           var k=((r.top+r.height/2)-vh/2)/vh;   /* -1..1 as it crosses the screen */
           var lean=(i%2?2.2:-2.6);   /* its resting lean, alternating */
           el.style.rotate=(lean+Math.sin(k*2.6+i*1.3)*6.5).toFixed(2)+'deg';
@@ -320,7 +322,7 @@
     if(pins.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var nq=false;
       var rock=function(){ nq=false; var vh=innerHeight;
-        pins.forEach(function(el,i){ var r=el.getBoundingClientRect(); if(r.bottom<-40||r.top>vh+40) return;
+        pins.forEach(function(el,i){ var r=BOX(el); if(r.bottom<-40||r.top>vh+40) return;
           var k=((r.top+r.height/2)-vh/2)/vh, amp=el.classList.contains('pan-art')?9:4;   /* the banner pieces turn a little more */
           el.style.rotate=(Math.sin(k*2.6+i*1.7)*amp).toFixed(2)+'deg'; }); };
       addEventListener('scroll',function(){ if(!nq){ nq=true; requestAnimationFrame(rock); } },{passive:true});
@@ -401,7 +403,7 @@
       var STAR2=new Path2D('M12 0C12.7 6.9 17.1 11.3 24 12 17.1 12.7 12.7 17.1 12 24 11.3 17.1 6.9 12.7 0 12 6.9 11.3 11.3 6.9 12 0Z');
       Array.prototype.forEach.call(document.querySelectorAll('canvas.stars'),function(cv){
         var host=cv.parentNode, ctx=cv.getContext('2d'), W=0,H=0,dpr=1, parts=[], lx=null, ly=null, run=false, last=0;
-        var size=function(){ var r=host.getBoundingClientRect(); dpr=Math.min(2,devicePixelRatio||1); W=r.width; H=r.height; cv.width=W*dpr; cv.height=H*dpr; };
+        var size=function(){ var r=BOX(host); dpr=Math.min(2,devicePixelRatio||1); W=r.width; H=r.height; cv.width=W*dpr; cv.height=H*dpr; };
         var loop=function(t){
           var dt=Math.min(50,t-(last||t)); last=t;
           ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
@@ -414,7 +416,7 @@
           if(parts.length){ requestAnimationFrame(loop); } else { run=false; last=0; }
         };
         host.addEventListener('pointermove',function(e){
-          var r=host.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+          var r=BOX(host), x=e.clientX-r.left, y=e.clientY-r.top;
           if(lx===null){ lx=x; ly=y; return; }
           var d=Math.hypot(x-lx,y-ly);
           if(d>16 && parts.length<36){
@@ -442,7 +444,7 @@
       var host=cv.parentNode, ctx=cv.getContext('2d'), stars=[], W=0, H=0, dpr=1, px=-9999, py=-9999, inside=false, running=false, onScreen=true, last=0;
       var seed=7; var rnd=function(){ seed=(seed*16807)%2147483647; return seed/2147483647; };
       var layout=function(){
-        var r=host.getBoundingClientRect(); dpr=Math.min(2,window.devicePixelRatio||1);
+        var r=BOX(host); dpr=Math.min(2,window.devicePixelRatio||1);
         W=r.width; H=r.height; cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
         stars=[]; seed=7;
         var i, n;
@@ -480,7 +482,7 @@
       };
       var wake=function(){ if(!running && onScreen){ running=true; requestAnimationFrame(tick); } };
       if(finePtr){
-        host.addEventListener('pointermove',function(e){ var r=host.getBoundingClientRect(); px=e.clientX-r.left; py=e.clientY-r.top; inside=true; wake(); },{passive:true});
+        host.addEventListener('pointermove',function(e){ var r=BOX(host); px=e.clientX-r.left; py=e.clientY-r.top; inside=true; wake(); },{passive:true});
         host.addEventListener('pointerleave',function(){ inside=false; wake(); });
       }
       /* only animate while the masthead is on screen */
@@ -568,7 +570,7 @@
         if(!was){
           li.classList.add('open'); b.setAttribute('aria-expanded','true');
           if(history.replaceState) history.replaceState(null,'','#'+li.id);
-          var top=li.getBoundingClientRect().top;
+          var top=BOX(li).top;
           if(top<70||top>innerHeight*.6) li.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'});
         }
       });
