@@ -715,7 +715,7 @@
 .burn .scent .k b{color:var(--coral);font-weight:400;margin:0 .5em}
 .burn .scent p{font-size:13.5px;line-height:1.6;color:var(--ink-2)}
 
-/* ===== The secret page (/rituals/, 18 Oct, round 3): a '90s journal in the dark =====
+/* ===== The secret page (/rituals/, 18 Oct, round 3; round 4 on 21 Oct): a '90s journal in the dark =====
    Lilac torn-paper header, crumpled paper cards on a textured night sky, Bri's paper stickers on the edges.
    Only body.secret gets this; the rest of the site is untouched. Images in /assets/journal/. */
 body.secret{background:#0b0914;color:var(--paper)}
@@ -746,52 +746,145 @@ body.secret .lace-edge{filter:drop-shadow(0 6px 14px rgba(201,184,236,.28))}
 body.secret .rituals{border-top:0;background:transparent;padding-top:clamp(40px,6vw,72px)}
 body.secret .rituals .sub{color:rgba(236,231,220,.72)}
 
-/* one column on phones and tablets; two by two on wide screens */
-body.secret .ritual-grid{display:flex;flex-direction:column;gap:clamp(56px,8vw,96px);max-width:640px;margin:0 auto;padding:clamp(24px,4vw,40px) 0 clamp(16px,3vw,32px)}
-@media(min-width:1100px){
-  body.secret .ritual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:88px 64px;max-width:1160px}
-  body.secret .orbit{display:flex} body.secret .orbit > .ritual{flex:1}
+/* ----- Round 4 (21 Oct): element tabs, full rituals, a Moon-sign takeaway. Same night sky, same crumpled paper. ----- */
+body.secret .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+body.secret .rr-rites-intro{margin:0 auto clamp(26px,4vh,40px);text-align:center;max-width:620px}
+
+/* the four tins: paper tags in a row (two by two on phones). The chosen one sits up, darker, with "✦ your tin" written under it,
+   so the choice never depends on colour alone. */
+body.secret .rr-tins{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,22px);max-width:1160px;margin:0 auto clamp(40px,5vw,64px)}
+body.secret .rr-tins[hidden]{display:none}
+body.secret .rr-tin{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;cursor:pointer;
+  font:inherit;color:var(--ink);padding:18px 20px 34px;border:0;border-radius:0;
+  background:url(/assets/journal/paper.webp) center/cover no-repeat;opacity:.62;
+  filter:drop-shadow(0 10px 16px rgba(0,0,0,.45)) saturate(.7);transition:opacity .2s,translate .25s cubic-bezier(.2,.8,.2,1),filter .2s}
+body.secret .rr-tin:nth-child(1){rotate:-1.2deg} body.secret .rr-tin:nth-child(2){rotate:.8deg} body.secret .rr-tin:nth-child(3){rotate:-.6deg} body.secret .rr-tin:nth-child(4){rotate:1deg}
+body.secret .rr-tin:hover{opacity:.85}
+body.secret .rr-tin[aria-selected="true"]{opacity:1;translate:0 -8px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.55)) drop-shadow(0 0 22px rgba(170,140,230,.35))}
+body.secret .rr-tin:focus-visible{outline:2px solid var(--lilac);outline-offset:5px}
+body.secret .rr-tin-el{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
+body.secret .rr-tin-el::before{content:"";width:16px;height:16px;border-radius:50%;filter:blur(.6px);background:radial-gradient(circle,var(--orb) 0 50%,transparent 74%)}
+body.secret .rr-tin.fire{--orb:var(--fire)} body.secret .rr-tin.earth{--orb:var(--earth)} body.secret .rr-tin.air{--orb:var(--air)} body.secret .rr-tin.water{--orb:var(--water)}
+body.secret .rr-tin-name{font-family:var(--font-title);font-size:clamp(19px,1.9vw,25px);line-height:1.08;text-wrap:balance}
+body.secret .rr-tin-signs{font-size:12px;color:var(--ink-2)}
+body.secret .rr-tin-mark{position:absolute;left:20px;bottom:10px;font-family:var(--font-hand);font-size:21px;line-height:1;color:var(--pen);opacity:0;transition:opacity .2s}
+body.secret .rr-tin[aria-selected="true"] .rr-tin-mark{opacity:1}
+body.secret .rr-tin[aria-selected="true"] .rr-tin-name{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:5px;text-decoration-color:var(--coral)}
+@media(max-width:760px){
+  body.secret .rr-tins{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px}
+  body.secret .rr-tin{padding:14px 14px 30px}
+  body.secret .rr-tin-mark{left:14px;bottom:8px;font-size:19px}
 }
-body.secret .orbit{position:relative;isolation:isolate}
-body.secret .glow{position:absolute;z-index:0;inset:-12% -10%;border-radius:50%;pointer-events:none;
-  background:radial-gradient(closest-side,rgba(170,140,230,.3),rgba(120,90,200,.12) 55%,rgba(120,90,200,.04) 80%,transparent 100%)}
 
-/* crumpled paper cards */
-body.flow.secret .ritual.ritual.ritual{position:relative;z-index:1;color:var(--ink);border:0;box-shadow:none;border-radius:0;
-  background:url(/assets/journal/paper.webp) center/100% 100% no-repeat!important;
-  padding:clamp(40px,5vw,60px) clamp(30px,4.4vw,52px) clamp(44px,5vw,64px);
-  filter:drop-shadow(0 16px 26px rgba(0,0,0,.5));transition:rotate .25s ease-out;will-change:rotate}
-body.secret .ritual::after{display:none}
-body.secret .ritual .el{color:var(--ink);border-bottom-color:rgba(22,19,16,.35);align-items:center;gap:16px}
-body.secret .ritual .el .el-name{display:inline-grid;grid-template-columns:auto auto;column-gap:8px;line-height:1.15;row-gap:3px;align-items:center}
-body.secret .ritual .el .el-name::before{grid-row:1 / span 2}
-body.secret .ritual .el .el-name b{font-weight:400;grid-column:2}
-body.secret .ritual .el .el-candle{text-align:right;max-width:58%;line-height:1.45;text-wrap:balance}
-body.secret .ritual h3,body.secret .ritual h3 em{color:var(--ink)}
-body.secret .ritual p{color:var(--ink-2)}
-body.secret .ritual li{color:var(--ink);border-top-color:rgba(22,19,16,.14)}
-body.secret .ritual li::before{color:var(--coral)}
-body.secret .scent{border-top:1px solid rgba(22,19,16,.3)}
-body.secret .scent .k{color:var(--ink);margin-bottom:2px}
-body.secret .scent .notes{font-family:var(--font-button);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;margin:0 0 8px}
-body.secret .scent .notes b{color:var(--coral);font-weight:400;margin:0 .6em}
-body.secret .scent p{color:var(--ink-2)}
+/* one ritual at a time: the ritual on the left, its Moon on the right (stacked on phones and tablets) */
+body.secret .rr-rite{display:grid;gap:clamp(48px,6vw,72px);max-width:1160px;margin:0 auto;outline:0}
+body.secret .rr-rite[hidden]{display:none}
+body.secret .rr-rites:not(.rr-js) .rr-rite + .rr-rite{margin-top:clamp(80px,10vw,120px)}
+@media(min-width:1000px){
+  body.secret .rr-rite{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(40px,4.4vw,64px);align-items:start}
+}
+body.secret .rr-rite.rr-in{animation:riteIn .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes riteIn{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+body.secret .rr-rite-main{display:flex;flex-direction:column;gap:clamp(30px,4vw,44px)}
 
-/* Bri's paper stickers, tucked on the edges, never over the writing */
+/* crumpled paper that keeps its torn edges at any height: the edges are sliced off the image, only the middle stretches */
+body.secret .rr-sheet{position:relative;z-index:1;color:var(--ink);
+  border:clamp(30px,3.4vw,44px) solid transparent;border-image:url(/assets/journal/paper.webp) 150 fill / clamp(30px,3.4vw,44px) / 0 stretch;
+  padding:clamp(4px,1vw,12px) clamp(4px,1.2vw,14px);filter:drop-shadow(0 16px 26px rgba(0,0,0,.5));transition:rotate .25s ease-out;will-change:rotate}
+body.secret .rr-sheet .k,body.secret .rr-take-k,body.secret .rr-take-k2{font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin:0}
+body.secret .rr-sheet .k b,body.secret .rr-take-k b,body.secret .rr-rite-signs b{color:var(--coral);font-weight:400;margin:0 .6em}
+
+/* the head sheet */
+body.secret .rr-sheet-head .el{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-bottom:10px;border-bottom:1px solid rgba(22,19,16,.35);
+  font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
+body.secret .rr-sheet-head .el-name{display:inline-grid;grid-template-columns:auto auto;column-gap:8px;row-gap:3px;line-height:1.15;align-items:center}
+body.secret .rr-sheet-head .el-name::before{content:"";grid-row:1 / span 2;width:20px;height:20px;border-radius:50%;filter:blur(.6px);background:radial-gradient(circle,var(--orb) 0 50%,transparent 74%)}
+body.secret .rr-sheet-head .el-name b{font-weight:400;grid-column:2}
+body.secret .rr-rite.fire{--orb:var(--fire)} body.secret .rr-rite.earth{--orb:var(--earth)} body.secret .rr-rite.air{--orb:var(--air)} body.secret .rr-rite.water{--orb:var(--water)}
+body.secret .rr-sheet-head .el-candle{font-family:var(--font-title);font-size:clamp(17px,1.7vw,21px);letter-spacing:0;text-transform:none;text-align:right;max-width:60%;line-height:1.2;text-wrap:balance}
+body.secret .rr-rite-signs{font-family:var(--font-button);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin:16px 0 0}
+body.secret .rr-rite-signs b{margin:0 .5em}
+body.secret .rr-sheet-head h2{font-family:var(--font-title);font-weight:400;font-size:clamp(38px,4.4vw,56px);line-height:1;margin:10px 0 14px;color:var(--ink)}
+body.secret .rr-sheet-head h2 em{font-style:italic}
+body.secret .rr-sheet-head .rr-for{font-family:var(--font-hand);font-size:clamp(25px,2.3vw,30px);line-height:1.12;color:var(--pen);margin:0 0 14px;text-wrap:balance}
+body.secret .rr-sheet p{font-size:14.5px;line-height:1.68;color:var(--ink-2)}
+body.secret .rr-sheet-head .rr-intro{margin:0}
+body.secret .rr-sheet-head .rr-pour{margin:16px 0 0;padding-left:14px;border-left:2px solid var(--coral);font-size:13.5px;font-style:italic}
+body.secret .rr-sheet-head .scent{margin-top:20px;padding-top:14px;border-top:1px solid rgba(22,19,16,.3)}
+body.secret .rr-sheet-head .scent .notes{font-family:var(--font-button);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:4px 0 8px}
+body.secret .rr-sheet-head .scent .notes b{margin:0 .6em}
+body.secret .rr-sheet-head .scent p:last-child{margin:0}
+
+/* the six steps: numbered, in order, all on the page (no accordions) */
+body.secret .rr-steps{list-style:none;margin:10px 0 0;padding:0}
+body.secret .rr-steps li{display:grid;grid-template-columns:clamp(64px,7vw,84px) minmax(0,1fr);column-gap:16px;padding:18px 0 16px;border-top:1px solid rgba(22,19,16,.16)}
+body.secret .rr-steps li:first-child{border-top:0}
+body.secret .rr-steps .rr-n{grid-row:1 / span 9;font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);padding-top:9px}
+body.secret .rr-steps h3{font-family:var(--font-hand);font-weight:400;font-size:clamp(26px,2.5vw,32px);line-height:1.08;color:var(--pen);margin:0 0 6px}
+body.secret .rr-steps p{margin:0 0 8px}
+body.secret .rr-steps p:last-child{margin-bottom:0}
+@media(max-width:560px){
+  body.secret .rr-steps li{grid-template-columns:1fr}
+  body.secret .rr-steps .rr-n{grid-row:auto;padding:0 0 2px}
+}
+body.secret .rr-reflect{margin-top:12px;padding:20px 22px;border:1.5px dashed rgba(22,19,16,.45);rotate:-.4deg}
+body.secret .rr-reflect .rr-q{font-family:var(--font-hand);font-size:clamp(25px,2.3vw,30px);line-height:1.15;color:var(--pen);margin:8px 0 0}
+
+/* "A little something for your Moon" */
+body.secret .rr-moon-h{font-family:var(--font-title);font-weight:400;font-size:clamp(28px,2.8vw,36px);line-height:1.05;margin:0 0 10px;color:var(--ink)}
+body.secret .rr-moon-h em{font-style:italic}
+body.secret .rr-moon-sub{margin:0 0 16px}
+body.secret .rr-signs{border:0;margin:0 0 18px;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+body.secret .rr-signs legend{font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);padding:0;margin:0 0 10px}
+body.secret .rr-sign{position:relative;cursor:pointer}
+body.secret .rr-sign input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+body.secret .rr-sign span{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-button);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:10px 14px 9px;border:1.5px solid var(--ink);color:var(--ink);background:rgba(255,253,248,.35);transition:background .15s,color .15s,box-shadow .15s}
+body.secret .rr-sign span::before{content:"";width:9px;height:9px;border:1.5px solid currentColor;border-radius:50%}
+body.secret .rr-sign:hover span{background:rgba(255,253,248,.7)}
+body.secret .rr-sign input:checked + span{background:var(--ink);color:var(--paper);box-shadow:4px 4px 0 var(--coral)}
+body.secret .rr-sign input:checked + span::before{content:"\2726";width:auto;height:auto;border:0;border-radius:0;color:var(--coral);font-size:12px;line-height:1}
+body.secret .rr-sign input:focus-visible + span{outline:2px solid var(--lilac);outline-offset:3px}
+body.secret .rr-takes{border-top:1px solid rgba(22,19,16,.3);padding-top:16px}
+body.secret .rr-take-wait{font-family:var(--font-hand);font-size:24px;line-height:1.15;color:var(--pen);margin:0;opacity:.75}
+body.secret .rr-rites:not(.rr-js) .rr-take-wait{display:none}
+body.secret .rr-take + .rr-take{margin-top:28px}
+body.secret .rr-js .rr-take + .rr-take{margin-top:0}
+body.secret .rr-take[hidden]{display:none}
+body.secret .rr-take h4{font-family:var(--font-title);font-weight:400;font-size:clamp(26px,2.5vw,32px);line-height:1.08;margin:8px 0 10px;color:var(--ink);text-wrap:balance}
+body.secret .rr-take-d{margin:0 0 14px}
+body.secret .rr-take-k2{color:var(--ink-2)}
+body.secret .rr-take-q{font-family:var(--font-hand);font-size:clamp(24px,2.2vw,28px)!important;line-height:1.15!important;color:var(--pen)!important;margin:6px 0 18px}
+body.secret .rr-rites.rr-js .rr-take:not([hidden]){animation:riteIn .4s cubic-bezier(.2,.8,.2,1)}
+body.secret .rr-copy{font-family:var(--font-button);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+  color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);padding:11px 18px 10px;box-shadow:4px 4px 0 var(--coral);transition:translate .15s,box-shadow .15s}
+body.secret .rr-copy:hover{translate:2px 2px;box-shadow:2px 2px 0 var(--coral)}
+body.secret .rr-copy:focus-visible{outline:2px solid var(--lilac);outline-offset:3px}
+body.secret .rr-copy.rr-done{background:var(--coral);border-color:var(--coral)}
+body.secret .rr-rites:not(.rr-js) .rr-copy{display:none}
+@media(prefers-reduced-motion:reduce){
+  body.secret .rr-rite.rr-in,body.secret .rr-rites.rr-js .rr-take:not([hidden]){animation:none}
+  body.secret .rr-tin,body.secret .rr-sheet,body.secret .rr-copy{transition:none}
+}
+
+/* Bri's paper stickers on the head sheet's edges, never over the writing */
 body.secret .jstk{position:absolute;z-index:2;pointer-events:none;height:auto;filter:drop-shadow(0 4px 6px rgba(0,0,0,.4));transition:rotate .3s ease-out;will-change:rotate}
-body.secret .st-l-mid{width:clamp(70px,7.4vw,98px);left:clamp(-104px,-7vw,-74px);top:30%}
-body.secret .st-tr{width:clamp(96px,10vw,140px);right:clamp(-118px,-7.8vw,-80px);top:-34px;transform:rotate(-62deg)}
-body.secret .st-top{width:clamp(120px,13vw,170px);left:50%;top:-30px;margin-left:clamp(-85px,-6.5vw,-60px)}
-body.secret .st-r-mid{width:clamp(70px,7vw,96px);right:clamp(-44px,-3vw,-30px);top:52%}
-body.secret .st-bl{width:clamp(64px,6vw,84px);left:clamp(-34px,-2.4vw,-22px);bottom:-26px}
-body.secret .st-r-low{width:clamp(84px,8vw,112px);right:clamp(-100px,-6.8vw,-70px);top:58%}
-@media(max-width:700px){
-  body.secret .st-l-mid,body.secret .st-r-mid,body.secret .st-r-low{width:58px}
-  body.secret .st-l-mid{left:-6px;top:auto;bottom:-74px;width:50px}
-  body.secret .st-r-mid,body.secret .st-r-low{right:-4px;top:auto;bottom:-56px}
-  body.secret .st-tr{width:84px;right:-10px;top:-34px}
-  body.secret .st-top{width:120px;margin-left:-60px;top:-26px}
-  body.secret .st-bl{left:-8px;bottom:-30px;width:60px}
+body.secret .st-l-mid{width:clamp(70px,7.4vw,98px);left:clamp(-120px,-8vw,-86px);top:34%}
+body.secret .st-tr{width:clamp(96px,10vw,140px);right:clamp(-130px,-8.6vw,-92px);top:-60px;transform:rotate(-62deg)}
+body.secret .st-top{width:clamp(120px,13vw,170px);left:50%;top:-62px;margin-left:clamp(-85px,-6.5vw,-60px)}
+body.secret .st-r-mid{width:clamp(70px,7vw,96px);right:clamp(-82px,-5.6vw,-60px);top:46%}
+body.secret .st-bl{width:clamp(64px,6vw,84px);left:clamp(-74px,-5vw,-54px);bottom:-60px}
+body.secret .st-r-low{width:clamp(84px,8vw,112px);right:clamp(-126px,-8.4vw,-94px);top:56%}
+@media(max-width:1000px){
+  body.secret .st-l-mid{left:-74px} body.secret .st-r-low{right:-80px}
+}
+@media(max-width:760px){
+  body.secret .st-l-mid,body.secret .st-r-mid,body.secret .st-r-low{width:56px}
+  body.secret .st-l-mid{left:-30px;top:auto;bottom:-70px;width:48px}
+  body.secret .st-r-mid,body.secret .st-r-low{right:-30px;top:auto;bottom:-70px}
+  body.secret .st-tr{width:78px;right:-36px;top:-64px}
+  body.secret .st-top{width:116px;margin-left:-58px;top:-60px}
+  body.secret .st-bl{left:-30px;bottom:-66px;width:58px}
 }
 
 /* care note on a strip of the same paper, and the chart prompt */
