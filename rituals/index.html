@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/ophi.css?v=387ee212">
-<script src="/assets/menu.js?v=387ee212" defer></script>
+<link rel="stylesheet" href="/assets/ophi.css?v=a5425fcd">
+<script src="/assets/menu.js?v=a5425fcd" defer></script>
 <script>(function(){var d=document.documentElement;function f(){var w=d.clientWidth||innerWidth,z=w>1280?Math.min(w/1280,2):1;d.style.setProperty('--z',z);d.style.setProperty('--vw',innerWidth/z/100+'px');d.style.setProperty('--vh',innerHeight/z/100+'px');window.OPHI_Z=z;K=0}var K=0;function k(){if(K)return K;var z=window.OPHI_Z||1;if(z==1||!document.body)return 1;var p=document.getElementById('ophi-probe');if(!p){p=document.createElement('div');p.id='ophi-probe';p.style.cssText='position:absolute;left:0;top:0;width:100px;height:1px;visibility:hidden;pointer-events:none';document.body.appendChild(p)}var w=p.getBoundingClientRect().width;K=w?z/(w/100):1;return K}window.OPHI_BOX=function(el){var r=el.getBoundingClientRect(),s=k();if(s>.99&&s<1.01)return r;return{left:r.left*s,top:r.top*s,right:r.right*s,bottom:r.bottom*s,width:r.width*s,height:r.height*s,x:r.left*s,y:r.top*s}};f();addEventListener('resize',f)})();</script>
 </head>
 <body class="flow secret">
@@ -254,7 +254,7 @@
           <p class="rr-intro">Air Moons often process emotions through ideas, conversation, and trying to understand what's happening around them. That can be helpful, but when one thought turns into twenty, things can get pretty noisy upstairs. You might spend so much time thinking about how you feel that you forget to check in with the actual feeling. This ritual is about sorting through the mental clutter and figuring out what deserves your attention.</p>
           <p class="rr-pour">Poured with the Sun in Libra, reciting positive affirmations. Light to create head space.</p>
         </article>
-        <img class="rr-g g-r" data-spin="5" src="/assets/journal/butterfly.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="rr-g g-bl" data-spin="5" src="/assets/journal/moon-star.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="rr-g g-star g-star-h" data-spin="14" src="/assets/journal/chrome-star-3.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <img class="rr-g g-arrow g-curve" data-spin="3" src="/assets/journal/curve-arrows.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="rr-g g-r" data-spin="5" src="/assets/journal/butterfly.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="rr-g g-bl" data-spin="5" src="/assets/journal/moon-star.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="rr-g g-star g-star-h" data-spin="14" src="/assets/journal/chrome-star-3.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
       </div>
       <div class="rr-slot rr-slot-scent">
         <div class="rr-sheet rr-scent"><p class="k">The scent</p><p class="notes">Sage<b aria-hidden="true">&#x2726;</b>Sea Salt<b aria-hidden="true">&#x2726;</b>Ambrette Seed</p><p>Sage is green and herbal, the clearing note. Sea salt keeps it open and airy, like a window cracked by the ocean. Ambrette seed is soft and musky, a skin-close warmth that keeps a clear head from feeling cold.</p></div>
@@ -271,7 +271,7 @@
             <li><span class="rr-n"><small>Step</small>6</span><h3>Give your mind the night off.</h3><p>Fold up your paper and put it somewhere safe. If there's something important on it, you can come back to it later. For now, do something that doesn't require you to analyze, explain, or make another decision.</p></li>
           </ol>
         </article>
-        <img class="rr-g g-tape g-tape-r" data-spin="1" src="/assets/journal/tape-grey.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><img class="rr-g g-l2 g-curve" data-spin="4" src="/assets/journal/curve-arrows.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <img class="rr-g g-tape g-tape-r" data-spin="1" src="/assets/journal/tape-grey.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
       </div>
       <div class="rr-slot rr-slot-reflect">
         <div class="rr-sheet rr-reflect"><div class="rr-lined"><p class="k">Your reflection</p><p class="rr-q">What have I been spending too much time thinking about, and is there anything I actually need to do about it?</p></div></div>
@@ -546,66 +546,30 @@ var tilt;
 (function(){
   if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   var q=false, box=function(e){ return window.OPHI_BOX?OPHI_BOX(e):e.getBoundingClientRect(); };
+  /* More visible motion (21 Oct, Bri): papers sway about 1.5 to 2 degrees and drift a few pixels against the scroll;
+     graphics turn further, drift a little more than the paper under them and grow slightly past the middle of the screen. */
+  var SHEETS='.rr-rite:not([hidden]) .rr-sheet-head, .rr-rite:not([hidden]) .rr-sheet-steps, .rr-rite:not([hidden]) .rr-moon, .rr-rite:not([hidden]) .rr-scent, .rr-rite:not([hidden]) .rr-reflect, .rr-slot-care .care';
+  var BASE={'rr-scent':2,'rr-reflect':-1.2,'care':-.5};
   tilt=function(){ q=false; var vh=innerHeight;
-    [].forEach.call(document.querySelectorAll('.rr-rite:not([hidden]) .rr-sheet-head, .rr-rite:not([hidden]) .rr-sheet-steps, .rr-rite:not([hidden]) .rr-moon, .rr-tins, .rr-slot-care'),function(c,i){
+    [].forEach.call(document.querySelectorAll(SHEETS),function(c,i){
       var r=box(c); if(r.bottom<-200||r.top>vh+200) return;
-      var k=((r.top+Math.min(r.height,vh)/2)-vh/2)/vh, big=r.height>vh*1.1?.3:.8, lean=[-.6,.5,.4,-.5,.3][i%5];
-      if(c.classList.contains('rr-tins')) return;
-      c.style.rotate=((lean+Math.sin(k*2.2+i)*.7)*big).toFixed(2)+'deg';
+      var k=((r.top+Math.min(r.height,vh)/2)-vh/2)/vh, big=r.height>vh*1.1?.55:1, lean=[-.6,.5,.4,-.5,.3,-.4][i%6], base=0;
+      for(var n in BASE) if(c.classList.contains(n)) base=BASE[n];
+      c.style.rotate=(base+(lean+Math.sin(k*2.4+i)*1.6)*big).toFixed(2)+'deg';
+      c.style.translate='0 '+(k*-10*big).toFixed(1)+'px';
     });
     [].forEach.call(document.querySelectorAll('.rr-rites .rr-g'),function(g,j){
       if(g.offsetParent===null) return;
       var r=box(g); if(r.bottom<-100||r.top>vh+100) return;
-      var p=Math.min(1,Math.max(0,1-(r.top+r.height/2)/vh)), ease=p<.35?p*.4:(.14+(p-.35)*1.3);   // gentle at first, more past halfway
-      var amp=+g.getAttribute('data-spin')||4;
-      g.style.rotate=(Math.sin(j*1.9)*amp*.4+ease*amp*(j%2?-1:1)).toFixed(2)+'deg';
-      g.style.scale=(1+ease*.05).toFixed(3);
+      var p=Math.min(1,Math.max(0,1-(r.top+r.height/2)/vh)), ease=p<.35?p*.5:(.18+(p-.35)*1.6);
+      var amp=Math.max(6,(+g.getAttribute('data-spin')||4)*1.6), dir=j%2?-1:1;
+      g.style.rotate=(Math.sin(j*1.9)*amp*.4+ease*amp*dir).toFixed(2)+'deg';
+      g.style.scale=(1+ease*.09).toFixed(3);
+      g.style.translate=(dir*ease*6).toFixed(1)+'px '+((p-.5)*-22).toFixed(1)+'px';
     }); };
   addEventListener('scroll',function(){ if(!q){ q=true; requestAnimationFrame(tilt); } },{passive:true}); addEventListener('resize',tilt); tilt();
 })();
 </script>
-<!-- Handwriting trial (preview only, 21 Oct): eight free fonts, self-hosted (licences in /assets/fonts/hand/).
-     La Belle Aurore shows by default; add ?fonts to the address for the picker. Remove once Bri picks one. -->
-<style>
-@font-face{font-family:'Try labelle';font-display:swap;src:url(/assets/fonts/hand/labelle.woff2) format('woff2');size-adjust:83.3%;ascent-override:96.0%;descent-override:24.0%;line-gap-override:0%}
-@font-face{font-family:'Try nothing';font-display:swap;src:url(/assets/fonts/hand/nothing.woff2) format('woff2');size-adjust:90.9%;ascent-override:88.0%;descent-override:22.0%;line-gap-override:0%}
-@font-face{font-family:'Try cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
-@font-face{font-family:'Try apple';font-display:swap;src:url(/assets/fonts/hand/apple.woff2) format('woff2');size-adjust:63.1%;ascent-override:126.7%;descent-override:31.7%;line-gap-override:0%}
-@font-face{font-family:'Try kristi';font-display:swap;src:url(/assets/fonts/hand/kristi.woff2) format('woff2');size-adjust:96.6%;ascent-override:82.8%;descent-override:20.7%;line-gap-override:0%}
-@font-face{font-family:'Try sunrise';font-display:swap;src:url(/assets/fonts/hand/sunrise.woff2) format('woff2');size-adjust:74.6%;ascent-override:107.2%;descent-override:26.8%;line-gap-override:0%}
-@font-face{font-family:'Try caveat';font-display:swap;src:url(/assets/fonts/hand/caveat.woff2) format('woff2');size-adjust:104.2%;ascent-override:76.8%;descent-override:19.2%;line-gap-override:0%}
-@font-face{font-family:'Try madi';font-display:swap;src:url(/assets/fonts/hand/madi.woff2) format('woff2');size-adjust:99.7%;ascent-override:80.2%;descent-override:20.1%;line-gap-override:0%}
-body.secret{--font-hand:'Try labelle','Ophi Hand',cursive}
-.hand-pick{position:fixed;z-index:9999;left:50%;bottom:14px;translate:-50% 0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;
-  max-width:calc(100vw - 24px);padding:10px 12px;background:rgba(11,9,20,.92);border:1px solid rgba(236,231,220,.25);box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.hand-pick p{flex:1 0 100%;margin:0 0 4px;text-align:center;font-family:var(--font-button);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(236,231,220,.7)}
-.hand-pick button{font-size:20px;line-height:1;padding:8px 12px 6px;color:#ece7dc;background:transparent;border:1px solid rgba(236,231,220,.35);cursor:pointer}
-.hand-pick button[aria-pressed="true"]{background:#ece7dc;color:#161310}
-body.custom-cursor .hand-pick *{cursor:pointer!important}
-@media(max-width:760px){ .hand-pick{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;left:0;right:0;bottom:0;translate:none;max-width:none;padding:8px 10px}
-  .hand-pick p{display:none} .hand-pick button{flex:0 0 auto;font-size:17px;white-space:nowrap} }
-</style>
-<script>
-(function(){
-  var L=[["labelle", "La Belle Aurore"], ["nothing", "Nothing You Could Do"], ["cedarville", "Cedarville Cursive"], ["apple", "Homemade Apple"], ["kristi", "Kristi"], ["sunrise", "Waiting for the Sunrise"], ["caveat", "Caveat"], ["madi", "Ms Madi"]], q=new URLSearchParams(location.search), pick=q.get('hand');
-  function use(k){ document.body.style.setProperty('--font-hand',"'Try "+k+"','Ophi Hand',cursive");
-    [].forEach.call(document.querySelectorAll('.hand-pick button'),function(b){ b.setAttribute('aria-pressed',b.dataset.k===k?'true':'false'); });
-    try{ sessionStorage.setItem('ophi-hand',k); }catch(e){} if(window.tilt) setTimeout(tilt,300); }
-  var saved0=null; try{ saved0=sessionStorage.getItem('ophi-hand'); }catch(e){}
-  if(!q.has('fonts')){ if(pick||saved0) use(pick||saved0); return; }
-  var bar=document.createElement('div'); bar.className='hand-pick'; bar.setAttribute('role','group'); bar.setAttribute('aria-label','Try a handwriting font');
-  bar.innerHTML='<p>Handwriting trial \u00b7 tap to compare</p>';
-  L.forEach(function(f,i){ var b=document.createElement('button'); b.type='button'; b.dataset.k=f[0];
-    b.style.fontFamily="'Try "+f[0]+"'"; b.textContent=(i+1)+' '+f[1]; b.title=f[1];
-    b.addEventListener('click',function(){ use(f[0]); }); bar.appendChild(b); });
-  var cur=document.createElement('button'); cur.type='button'; cur.dataset.k='current'; cur.textContent='0 current'; cur.style.fontFamily="'Ophi Hand'";
-  cur.addEventListener('click',function(){ document.body.style.setProperty('--font-hand',"'Ophi Hand',cursive");
-    [].forEach.call(bar.querySelectorAll('button'),function(b){ b.setAttribute('aria-pressed',b===cur?'true':'false'); }); });
-  bar.appendChild(cur); document.body.appendChild(bar);
-  var saved=null; try{ saved=sessionStorage.getItem('ophi-hand'); }catch(e){}
-  use(pick||saved||'labelle');
-})();
-</script>
-<script src="/assets/ophi.js?v=387ee212"></script>
+<script src="/assets/ophi.js?v=a5425fcd"></script>
 </body>
 </html>

@@ -746,6 +746,14 @@ body.secret .lace-edge{filter:drop-shadow(0 6px 14px rgba(201,184,236,.28))}
 body.secret .rituals{border-top:0;background:transparent;padding-top:clamp(40px,6vw,72px)}
 body.secret .rituals .sub{color:rgba(236,231,220,.72)}
 
+/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
+   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
+@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
+body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
+/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
+   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
+@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
+body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
 /* ----- Round 4 (21 Oct): element tabs, full rituals, a Moon-sign takeaway. Same night sky.
    Round 4b (21 Oct, Bri's notes): a different paper for each part (her paper sheets), graphics always ON TOP of the paper,
    turning a little as you scroll; handwriting in dark charcoal; quieter, more elevated details. ----- */
@@ -756,7 +764,7 @@ body.secret .rr-rites-intro{margin:0 auto clamp(30px,4.4vh,46px);text-align:cent
 /* graphics: every one sits above the paper. Slots carry no stacking context, so a graphic in one slot also covers the next sheet. */
 body.secret .rr-slot{position:relative}
 body.secret .rr-g{position:absolute;z-index:30;pointer-events:none;height:auto;max-width:none;
-  filter:drop-shadow(0 5px 7px rgba(0,0,0,.38));transition:rotate .35s ease-out,scale .35s ease-out;will-change:rotate}
+  filter:drop-shadow(0 5px 7px rgba(0,0,0,.38));transition:rotate .45s ease-out,scale .45s ease-out,translate .45s ease-out;will-change:rotate,translate}
 body.secret .rr-sheet{position:relative;z-index:1}
 
 /* ---- the four tins: sticky notes; the chosen one is pinned, lifted and says "✦ your tin" (never colour alone) ---- */
@@ -815,7 +823,7 @@ body.secret .rr-rite.rr-in{animation:riteIn .5s cubic-bezier(.2,.8,.2,1)}
 body.secret .rr-rite-main{display:flex;flex-direction:column}
 
 /* papers: the torn and clipped edges are sliced off each image, so they keep their shape at any size */
-body.secret .rr-sheet{color:var(--ink);transition:rotate .3s ease-out;will-change:rotate;filter:drop-shadow(0 16px 26px rgba(0,0,0,.5))}
+body.secret .rr-sheet{color:var(--ink);transition:rotate .4s ease-out,translate .4s ease-out;will-change:rotate,translate;filter:drop-shadow(0 16px 26px rgba(0,0,0,.5))}
 body.secret .rr-sheet-head{border:solid transparent;border-width:clamp(52px,6vw,72px) clamp(30px,3.6vw,42px) clamp(34px,4vw,46px);
   border-image:url(/assets/journal/paper-dot.webp) 110 60 70 60 fill / clamp(52px,6vw,72px) clamp(30px,3.6vw,42px) clamp(34px,4vw,46px) / 0 stretch;
   padding:0 clamp(8px,1.6vw,22px) clamp(10px,1.4vw,18px)}
@@ -916,7 +924,7 @@ body.secret .rr-rites:not(.rr-js) .rr-copy{display:none}
 
 /* care on the torn strip, taped down; the Moon-sign question in a paper speech bubble */
 body.secret .rr-slot-care{max-width:1160px;margin:clamp(64px,8vw,96px) auto 0}
-body.flow.secret .rr-slot-care .care.care{position:relative;z-index:1;max-width:none;margin:0;color:var(--ink-2);box-shadow:none;rotate:-.5deg;
+body.flow.secret .rr-slot-care .care.care{position:relative;z-index:1;max-width:none;margin:0;color:var(--ink-2);box-shadow:none;rotate:-.5deg;transition:rotate .4s ease-out,translate .4s ease-out;
   border:solid transparent;border-width:30px 36px;border-image:url(/assets/journal/paper.webp) 150 fill / 30px 36px / 0 stretch;
   background:none!important;padding:6px clamp(8px,1.6vw,24px);filter:drop-shadow(0 12px 20px rgba(0,0,0,.45));font-size:13px;line-height:1.65}
 body.secret .g-care-l{width:clamp(110px,10vw,140px);right:-20px;top:-18px;rotate:12deg}
@@ -946,7 +954,7 @@ body.secret .g-tape-r{right:12%;top:-22px;rotate:4deg}
 body.secret .g-tape-moon{width:clamp(110px,10vw,140px);right:16%;top:6px;rotate:5deg}
 body.secret .g-l2{width:clamp(76px,7.4vw,98px);left:clamp(-80px,-5.6vw,-56px);top:42%}
 body.secret .g-bow{width:clamp(96px,9vw,124px);left:clamp(-96px,-6.6vw,-70px)}
-body.secret .g-curve{width:clamp(80px,7.6vw,104px)}
+body.secret .g-arrow.g-curve{transform:rotate(4deg);width:clamp(104px,10vw,136px)}
 body.secret .g-spark{width:clamp(56px,5.4vw,72px);right:-26px;top:-30px}
 body.secret .g-dia{width:clamp(50px,5vw,66px);left:-26px;bottom:14%}
 @media(max-width:1000px){
@@ -960,7 +968,8 @@ body.secret .g-dia{width:clamp(50px,5vw,66px);left:-26px;bottom:14%}
   body.secret .rr-slot-reflect{width:94%;margin-left:-2px}
   body.secret .rr-moon{border-width:56px 20px 22px 34px;border-image-width:56px 20px 22px 34px;padding:0 8px 12px 4px}
   body.secret .g-arrow{width:72px;right:-18px;top:-50px}
-  body.secret .g-l,body.secret .g-l2,body.secret .g-bow,body.secret .g-curve{width:50px;left:-18px;top:auto;bottom:-30px}
+  body.secret .g-arrow.g-curve{width:80px}
+  body.secret .g-l,body.secret .g-l2,body.secret .g-bow{width:50px;left:-18px;top:auto;bottom:-30px}
   body.secret .g-top{width:110px;margin-left:-55px;top:-24px}
   body.secret .g-r,body.secret .g-r2{width:56px;right:-16px;top:auto;bottom:-34px}
   body.secret .g-bl{width:50px;left:-14px;bottom:-30px}
