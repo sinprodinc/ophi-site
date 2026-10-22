@@ -1938,8 +1938,17 @@ body.secret .rr-slot-steps{margin-top:clamp(40px,calc(5 * var(--vw,1vw)),60px)}
 body.secret .rr-sheet-steps{border:clamp(32px,calc(3.6 * var(--vw,1vw)),44px) solid transparent;border-image:url(/assets/journal/paper.webp) 150 fill / clamp(32px,calc(3.6 * var(--vw,1vw)),44px) / 0 stretch;
   padding:clamp(6px,calc(1 * var(--vw,1vw)),12px) clamp(6px,calc(1.4 * var(--vw,1vw)),18px)}
 body.secret .rr-slot-reflect{z-index:2;width:min(88%,600px);margin:calc(-1 * clamp(22px,calc(2.6 * var(--vw,1vw)),34px)) auto 0 clamp(-4px,calc(-1 * var(--vw,1vw)),-12px)}
-body.secret .rr-reflect{rotate:-1.2deg;border:solid transparent;border-width:60px 26px 38px 26px;
-  border-image:url(/assets/journal/paper-card.webp) 150 60 90 60 fill / 60px 26px 38px 26px / 0 stretch;padding:4px 18px 10px}
+body.secret .rr-reflect{rotate:-1.2deg;container-type:inline-size;aspect-ratio:749 / 583;border:0;padding:0;
+  background:url(/assets/journal/paper-card.webp) 0 0 / 100% 100% no-repeat}
+/* The card's ruled lines rise 6.76° to the right and sit 5.58cqw apart (measured off Bri's image), so the writing block is turned
+   the same way, its line-height is the ruling, and its first baseline lands on the first line. Hand fonts carry fixed metrics
+   (ascent 80% / descent 20%), so the baseline sits at half a line plus 0.3 of the type size in every font. */
+body.secret .rr-lined{--P:5.58cqw;--f:3.9cqw;position:absolute;left:14.7cqw;width:74cqw;transform-origin:0 0;rotate:-6.76deg;
+  top:calc(26.8cqw - (var(--P) / 2 + var(--f) * .3 - .2cqw) / .993)}
+body.secret .rr-lined p{margin:0!important;line-height:var(--P)!important}
+body.secret .rr-lined .k{display:flex;align-items:flex-end;height:var(--P);font-size:max(1.55cqw,9px);line-height:1!important;letter-spacing:.2em;padding-bottom:calc(var(--P) / 2 - var(--f) * .3 + .2cqw - .22em)}
+body.secret .rr-lined .rr-q{font-family:var(--font-hand);font-size:var(--f)!important;color:var(--pen)!important}
+@media(max-width:760px){ body.secret .rr-lined{--f:4.5cqw} body.secret .rr-slot-reflect.rr-slot-reflect{width:calc(100% + 8px);margin-left:-4px!important;margin-right:-4px!important} }
 body.secret .rr-moon{border:solid transparent;border-width:64px 26px 26px 48px;
   border-image:url(/assets/journal/paper-clip.webp) 160 50 50 120 fill / 64px 26px 26px 48px / 0 stretch;padding:2px 14px 16px 8px}
 
@@ -1982,7 +1991,6 @@ body.secret .rr-steps p:last-child{margin-bottom:0}
   body.secret .rr-n small{margin:0}
 }
 /* reflection, on the lined card */
-body.secret .rr-reflect .rr-q{font-family:var(--font-hand);font-size:clamp(25px,calc(2.4 * var(--vw,1vw)),30px)!important;line-height:1.2!important;color:var(--pen)!important;margin:10px 0 0}
 
 /* "A little something for your Moon", on the clipped page */
 body.secret .rr-moon-h{font-family:var(--font-title);font-weight:400;font-size:clamp(30px,calc(3 * var(--vw,1vw)),38px);line-height:1.04;margin:0 0 12px;color:var(--ink)}
@@ -2025,8 +2033,6 @@ body.flow.secret .rr-slot-care .care.care{position:relative;z-index:1;max-width:
 body.secret .g-care-l{width:clamp(110px,calc(10 * var(--vw,1vw)),140px);right:-20px;top:-18px;rotate:12deg}
 body.secret .g-care-r{width:clamp(100px,calc(9 * var(--vw,1vw)),130px);left:-16px;bottom:-16px;rotate:-10deg}
 body.secret .find-moon{margin-top:clamp(40px,calc(5 * var(--vw,1vw)),60px)}
-body.secret .find-moon .rr-bubble{color:var(--pen)!important;font-size:27px;padding:2px 24px 18px;border:solid transparent;border-width:22px 40px 34px 30px;
-  border-image:url(/assets/journal/paper-bubble.webp) 70 160 90 90 fill / 22px 40px 34px 30px / 0 stretch;filter:drop-shadow(0 8px 14px rgba(0,0,0,.45));rotate:-2deg}
 
 @media(prefers-reduced-motion:reduce){
   body.secret .rr-rite.rr-in,body.secret .rr-rites.rr-js .rr-take:not([hidden]){animation:none}
@@ -2077,7 +2083,6 @@ body.secret .g-dia{width:clamp(50px,calc(5 * var(--vw,1vw)),66px);left:-26px;bot
   body.secret .g-dia{width:42px;left:-10px}
   body.secret .g-care-l{width:90px;right:-8px} body.secret .g-care-r{width:84px;left:-6px}
   body.flow.secret .rr-slot-care .care.care{border-width:24px 24px;border-image-width:24px 24px}
-  body.secret .find-moon .rr-bubble{font-size:23px}
 }
 
 /* care note on a strip of the same paper, and the chart prompt */
