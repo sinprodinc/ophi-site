@@ -1865,6 +1865,26 @@ body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
    Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
 @font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
 body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
+/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
+   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
+@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
+body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
+/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
+   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
+@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
+body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
+/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
+   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
+@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
+body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
+/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
+   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
+@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
+body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
+/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
+   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
+@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
+body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
 /* ----- Round 4 (21 Oct): element tabs, full rituals, a Moon-sign takeaway. Same night sky.
    Round 4b (21 Oct, Bri's notes): a different paper for each part (her paper sheets), graphics always ON TOP of the paper,
    turning a little as you scroll; handwriting in dark charcoal; quieter, more elevated details. ----- */
@@ -2037,9 +2057,10 @@ body.secret .rr-rites:not(.rr-js) .rr-copy{display:none}
 body.secret .rr-slot-care{max-width:1160px;margin:clamp(64px,calc(8 * var(--vw,1vw)),96px) auto 0}
 body.flow.secret .rr-slot-care .care.care{position:relative;z-index:1;max-width:none;margin:0;color:var(--ink-2);box-shadow:none;rotate:-.5deg;transition:rotate .4s ease-out,translate .4s ease-out;
   border:solid transparent;border-width:30px 36px;border-image:url(/assets/journal/paper.webp) 150 fill / 30px 36px / 0 stretch;
-  background:none!important;padding:6px clamp(8px,calc(1.6 * var(--vw,1vw)),24px);filter:drop-shadow(0 12px 20px rgba(0,0,0,.45));font-size:13px;line-height:1.65}
-body.secret .g-care-l{width:clamp(110px,calc(10 * var(--vw,1vw)),140px);right:-20px;top:-18px;rotate:12deg}
-body.secret .g-care-r{width:clamp(100px,calc(9 * var(--vw,1vw)),130px);left:-16px;bottom:-16px;rotate:-10deg}
+  background:none!important;padding:6px clamp(8px,calc(1.6 * var(--vw,1vw)),24px) 18px;filter:drop-shadow(0 12px 20px rgba(0,0,0,.45));font-size:13px;line-height:1.65}
+/* care tapes hold still and only touch the strip's corners, clear of the words */
+body.secret .g-care-l{width:clamp(100px,calc(9 * var(--vw,1vw)),124px);right:-34px;top:-22px;rotate:24deg}
+body.secret .g-care-r{width:clamp(92px,calc(8 * var(--vw,1vw)),110px);left:-36px;bottom:-40px;rotate:-14deg}
 body.secret .find-moon{margin-top:clamp(40px,calc(5 * var(--vw,1vw)),60px)}
 
 @media(prefers-reduced-motion:reduce){
@@ -2090,9 +2111,25 @@ body.secret .g-dia{width:clamp(50px,calc(5 * var(--vw,1vw)),66px);left:-26px;bot
   body.secret .g-tape{width:104px} body.secret .g-tape-moon{width:96px}
   body.secret .g-spark{width:46px;right:-8px;top:-24px}
   body.secret .g-dia{width:42px;left:-10px}
-  body.secret .g-care-l{width:90px;right:-8px} body.secret .g-care-r{width:84px;left:-6px}
+  body.secret .g-care-l{width:84px;right:-22px;top:-20px} body.secret .g-care-r{width:76px;left:-22px;bottom:-34px}
   body.flow.secret .rr-slot-care .care.care{border-width:24px 24px;border-image-width:24px 24px}
 }
+
+/* tiny chrome stars (21 Oct): on the paper, in the space under a step's numeral, along the steps sheet's edges,
+   and in a corner of the head sheet and the Moon page; never over writing (checked by measuring at every width) */
+body.secret .rr-steps li{position:relative}
+body.secret .g-mini{width:clamp(20px,calc(1.9 * var(--vw,1vw)),26px);filter:drop-shadow(0 3px 4px rgba(0,0,0,.35))}
+body.secret .g-step{left:clamp(4px,calc(.8 * var(--vw,1vw)),12px);top:clamp(96px,calc(8.4 * var(--vw,1vw)),110px)}
+body.secret .g-step-2,body.secret .g-step-5{left:clamp(18px,calc(2 * var(--vw,1vw)),28px)}
+body.secret .g-edge-l{left:clamp(8px,calc(1.2 * var(--vw,1vw)),16px);top:58%}
+body.secret .g-edge-r{right:clamp(8px,calc(1.2 * var(--vw,1vw)),16px);top:22%}
+body.secret .g-head-br{right:clamp(10px,calc(1.4 * var(--vw,1vw)),18px);bottom:clamp(8px,calc(1 * var(--vw,1vw)),14px)}
+body.secret .g-moon-bl{left:clamp(14px,calc(1.6 * var(--vw,1vw)),22px);bottom:clamp(6px,calc(.8 * var(--vw,1vw)),10px)}
+@media(max-width:560px){
+  body.secret .g-step{left:auto;right:4px;top:22px}
+  body.secret .g-step-2,body.secret .g-step-5{right:30px}
+}
+@media(max-width:760px){ body.secret .g-edge-l{left:2px} body.secret .g-edge-r{right:2px} body.secret .g-mini{width:18px} }
 
 /* care note on a strip of the same paper, and the chart prompt */
 body.flow.secret .care.care{max-width:1160px;color:var(--ink-2);border:0;box-shadow:none;
