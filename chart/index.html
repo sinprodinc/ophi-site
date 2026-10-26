@@ -159,6 +159,7 @@ textarea{min-height:11rem;resize:vertical;line-height:1.5}
 :is(#wheel,#boothWheel) .pl.diu:hover text,:is(#wheel,#boothWheel) .pl.diu.on text{stroke:var(--ink)}
 :is(#wheel,#boothWheel) .pl.noc[data-id=moon]:hover text,:is(#wheel,#boothWheel) .pl.noc[data-id=moon].on text{stroke:var(--paper)}
 :is(#wheel,#boothWheel) .pl.static:hover circle{fill:var(--paper-hi)}:is(#wheel,#boothWheel) .pl.static:hover text{fill:var(--ink)}
+#wheel .hot{cursor:pointer;pointer-events:all}#wheel circle.dot.hot{stroke:transparent;stroke-width:14}#wheel circle.dot.hot:hover{fill:var(--coral)}#wheel text.hot{pointer-events:all}#wheel text.hot:hover,#wheel text.hot:focus-visible{fill:var(--coral);outline:none}#wheel circle.hot.on{fill:var(--ink)}
 :is(#wheel,#boothWheel) .asp{fill:none;stroke-linecap:round;transition:opacity .25s,stroke-width .2s}
 :is(#wheel,#boothWheel) .asp-conjunction{stroke:var(--ink)}
 :is(#wheel,#boothWheel) .asp-opposition,:is(#wheel,#boothWheel) .asp-square{stroke:var(--coral)}
@@ -332,7 +333,7 @@ tr.pick{cursor:pointer}tr.pick:hover td,tr.pick.on td{background:var(--paper-2)}
       <div class="wheel-stage" id="wheelStage">
         <button type="button" class="zoom-x" id="zoomClose" aria-label="Close the expanded chart" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
         <svg id="wheel" viewBox="-40 -40 720 720" role="img" aria-label="Natal chart wheel"></svg>
-        <p class="wheel-tools"><button type="button" class="tg" id="extrasToggle">Hide asteroids and nodes</button><button type="button" class="tg" id="transitToggle">Show transits</button><button type="button" class="tg" id="zoomOpen">Expand chart</button></p>
+        <p class="wheel-tools"><button type="button" class="tg" id="allToggle">Show all aspects</button><button type="button" class="tg" id="extrasToggle">Hide asteroids and nodes</button><button type="button" class="tg" id="transitToggle">Show transits</button><button type="button" class="tg" id="zoomOpen">Expand chart</button></p>
         <p class="transit-note" id="transitNote" hidden></p>
       </div>
       <p class="wheel-note" id="wheelNote"></p>
@@ -341,8 +342,7 @@ tr.pick{cursor:pointer}tr.pick:hover td,tr.pick.on td{background:var(--paper-2)}
       <h3>Aspects</h3>
       <p>Aspects are the angles between your planets. They show which parts of you cooperate and which ones argue. By clicking on each planet in the wheel above, you can reveal their interactions and read about them in this section.</p>
       <div class="toggles" id="toggles"></div>
-      <div class="orb"><label for="orbRange">Orb</label><input type="range" id="orbRange" min="0.4" max="1.3" step="0.05" value="1"><output id="orbOut" for="orbRange">Standard</output></div>
-      <div class="focusbar"><span id="focusLabel">All planets</span><button type="button" class="linkbtn" id="focusClear" hidden>Close</button></div>
+      <div class="focusbar"><span id="focusLabel">Nothing selected</span><button type="button" class="linkbtn" id="focusClear" hidden>Close</button></div>
       <ul class="asp-list" id="aspList"></ul>
     </div>
   </div>
@@ -575,64 +575,85 @@ tr.pick{cursor:pointer}tr.pick:hover td,tr.pick.on td{background:var(--paper-2)}
     });
   }
 
-  /* Orbs (Bri, 12 Oct, 6:23 pm; replaces 3/7 and 5/8/8/8/10 set earlier that day): one set for every point,
-     planets, angles, nodes, Chiron, asteroids and Fortune alike. Either side of exact: conjunction 8, sextile 6,
-     square 8, trine 8, opposition 10. A conjunction or opposition within 3 degrees is marked very tight and loud
-     (see TIGHT below). No extra room for the Sun or Moon. Nothing wider than these is ever listed, whatever the orb
-     slider says. An opposition to the Rising or Midheaven is shown as a conjunction to the Descendant or IC, so it
-     takes the conjunction orb. */
-  function orbLimit(aspId, b, scale) {
+  /* Aspects follow Demetra George (Astrology and the Authentic Self, ch. 2), adopted by Bri on 23 Oct 2026 for the
+     whole system. The sign decides whether two points are configured, and how: the same sign is a conjunction, two
+     signs apart a sextile, three a square, four a trine, six an opposition. One or five signs apart is aversion: no
+     aspect. Degrees then decide how strongly the two speak to each other:
+       tight  within 3 degrees of exact, or 13 when the Moon is one of them: they act on each other. Only a tight
+              aspect can cross a sign line, and then only within 3 degrees (a dissociate aspect, weakened by the
+              mismatch of signs).
+       close  within the earlier orbs (conjunction 8, sextile 6, square 8, trine 8, opposition 10).
+       wide   by sign only: a faint, background connection, still worth a mention.
+     Every list runs tightest to widest. An opposition to the Rising or Midheaven is shown as a conjunction to the
+     Descendant or IC. */
+  var GAZE = 3, GAZE_MOON = 13;
+  function orbLimit(aspId, b) {
     var conj = aspId === 'conjunction' || (aspId === 'opposition' && b.kind === 'angle');
-    var base = conj ? 8 : aspId === 'opposition' ? 10 : aspId === 'sextile' ? 6 : 8;
-    return Math.min(base * scale, base);
+    return conj ? 8 : aspId === 'opposition' ? 10 : aspId === 'sextile' ? 6 : 8;
   }
-  /* aspects between planets, plus planets to the angles. orbScale scales every orb (1 = standard). */
-  function aspects(ch, opts) {
-    opts = opts || {}; var scale = opts.orbScale === undefined ? 1 : opts.orbScale, out = [];
-    var pts = ch.points.concat(ch.angles);
+  function signOf(p) { return p.sign !== undefined && p.sign !== null ? p.sign : Math.floor(norm(p.lon) / 30); }
+  /* how two points relate: the aspect by sign (if any), plus any degree aspect within 3 degrees across a sign line */
+  function relate(a, b) {
+    var s = sep(a.lon, b.lon), d = ((signOf(b) - signOf(a)) % 12 + 12) % 12, g = Math.min(d, 12 - d), out = [], bySign = null, k;
+    for (k = 0; k < ASPECTS.length; k++) if (ASPECTS[k].angle === g * 30) bySign = ASPECTS[k];
+    if (bySign) out.push({ asp: bySign, orb: Math.abs(s - bySign.angle), dis: false });
+    for (k = 0; k < ASPECTS.length; k++) { var asp = ASPECTS[k], o = Math.abs(s - asp.angle); if (asp !== bySign && o <= GAZE) out.push({ asp: asp, orb: o, dis: true }); }
+    return out;
+  }
+  function tierOf(orb, dis, aspId, a, b) {
+    if (dis) return 'tight';
+    if (orb <= (a.id === 'moon' || b.id === 'moon' ? GAZE_MOON : GAZE)) return 'tight';
+    return orb <= orbLimit(aspId, b) ? 'close' : 'wide';
+  }
+  function makeRec(a, b, r) {
+    var asp = r.asp, orb = r.orb, applying = null;
+    if (b.kind !== 'angle' && a.kind !== 'angle' && a.kind !== 'lot' && b.kind !== 'lot') { var s2 = sep(a.lon + (a.speed || 0) / 24, b.lon + (b.speed || 0) / 24); applying = Math.abs(s2 - asp.angle) < orb; }
+    var pair = a.id + '-' + b.id;
+    var rec = { a: a.id, b: b.id, aName: a.name, bName: b.name, type: asp.id, typeName: asp.name, mode: asp.mode, angle: asp.angle, orb: orb,
+      limit: orbLimit(asp.id, b), tier: tierOf(orb, r.dis, asp.id, a, b), dissociate: r.dis, strength: Math.max(0.05, 1 - orb / 30), applying: applying,
+      pair: pair, key: pair + (r.dis ? '~' + asp.id : '') };
+    if (a.extra || a.kind === 'minor') rec.extra = true;
+    /* a planet opposite the Rising sits on the Descendant, and one opposite the Midheaven sits on the IC */
+    if (b.kind === 'angle' && asp.id === 'opposition') {
+      rec.b = b.id === 'asc' ? 'dsc' : 'ic'; rec.bName = b.id === 'asc' ? 'Descendant' : 'IC'; rec.type = ASPECTS[0].id; rec.typeName = ASPECTS[0].name; rec.mode = ASPECTS[0].mode; rec.angle = 0;
+      rec.pair = a.id + '-' + rec.b; rec.key = rec.pair + (r.dis ? '~opp' : '');
+    }
+    return rec;
+  }
+  function byOrb(x, y) { return x.orb - y.orb; }
+  /* aspects between the planets, and from the planets to the Rising and Midheaven */
+  function aspects(ch) {
+    var out = [], pts = ch.points.concat(ch.angles);
     for (var i = 0; i < pts.length; i++) for (var j = i + 1; j < pts.length; j++) {
       var a = pts[i], b = pts[j]; if (a.kind === 'angle' && b.kind === 'angle') continue;
-      var s = sep(a.lon, b.lon);
-      for (var k = 0; k < ASPECTS.length; k++) {
-        var asp = ASPECTS[k], limit = orbLimit(asp.id, b, scale), orb = Math.abs(s - asp.angle);
-        if (orb <= limit) {
-          var applying = null;
-          if (b.kind !== 'angle') {
-            var s2 = sep(a.lon + a.speed / 24, b.lon + b.speed / 24); applying = Math.abs(s2 - asp.angle) < orb;
-          }
-          var rec = { a: a.id, b: b.id, aName: a.name, bName: b.name, type: asp.id, typeName: asp.name, mode: asp.mode, angle: asp.angle, orb: orb, limit: limit, strength: 1 - orb / limit, applying: applying, key: a.id + '-' + b.id };
-          /* a planet opposite the Rising sits on the Descendant, and one opposite the Midheaven sits on the IC */
-          if (b.kind === 'angle' && asp.id === 'opposition') { rec.b = b.id === 'asc' ? 'dsc' : 'ic'; rec.bName = b.id === 'asc' ? 'Descendant' : 'IC'; rec.type = ASPECTS[0].id; rec.typeName = ASPECTS[0].name; rec.mode = ASPECTS[0].mode; rec.angle = 0; rec.key = a.id + '-' + rec.b; }
-          out.push(rec);
-          break;
-        }
-      }
+      relate(a, b).forEach(function (r) { out.push(makeRec(a, b, r)); });
     }
-    out.sort(function (x, y) { return x.orb - y.orb; });
-    return out;
+    return out.sort(byOrb);
   }
-  /* Aspects from one of the extra points (a node, Chiron, an asteroid or the Part of Fortune) to the planets, the
-     angles and the other extra points. Same orbs as the planets (orbLimit above). The two nodes are always
-     opposite, so that pair is left out. */
-  function extraAspects(ch, id, opts) {
-    opts = opts || {}; var scale = opts.orbScale === undefined ? 1 : opts.orbScale, out = [], a = null;
-    ch.extras.forEach(function (x) { if (x.id === id) a = x; }); if (!a) return out;
-    ch.points.concat(ch.extras, ch.angles).forEach(function (b) {
-      if (b.id === a.id || (a.kind === 'node' && b.kind === 'node')) return;
-      var s = sep(a.lon, b.lon);
-      for (var k = 0; k < ASPECTS.length; k++) {
-        var asp = ASPECTS[k], limit = orbLimit(asp.id, b, scale), orb = Math.abs(s - asp.angle);
-        if (orb > limit) continue;
-        var applying = null;
-        if (b.kind !== 'angle' && a.kind !== 'lot' && b.kind !== 'lot') { var s2 = sep(a.lon + a.speed / 24, b.lon + b.speed / 24); applying = Math.abs(s2 - asp.angle) < orb; }
-        var rec = { a: a.id, b: b.id, aName: a.name, bName: b.name, type: asp.id, typeName: asp.name, mode: asp.mode, angle: asp.angle, orb: orb, limit: limit, strength: 1 - orb / limit, applying: applying, key: a.id + '-' + b.id, extra: true };
-        if (b.kind === 'angle' && asp.id === 'opposition') { rec.b = b.id === 'asc' ? 'dsc' : 'ic'; rec.bName = b.id === 'asc' ? 'Descendant' : 'IC'; rec.type = ASPECTS[0].id; rec.typeName = ASPECTS[0].name; rec.mode = ASPECTS[0].mode; rec.angle = 0; rec.key = a.id + '-' + rec.b; }
-        out.push(rec); break;
-      }
+  function angleAxis(id) { return id === 'asc' || id === 'dsc' ? ['asc', 'dsc'] : ['mc', 'ic']; }
+  /* every aspect of one point: a planet, a node, Chiron, an asteroid, the Part of Fortune, or an angle. Clicking an
+     angle shows its whole axis (the Rising and the Descendant together, or the Midheaven and the IC). The extra point
+     is always named first, so its own copy is used. The two nodes are always opposite, so that pair is left out. */
+  function aspectsOf(ch, id) {
+    var out = [];
+    if (ANGLE_IDS[id]) {
+      var axis = angleAxis(id), ang = ch.angles.filter(function (x) { return x.id === axis[0]; })[0];
+      if (!ang) return out;
+      ch.points.concat(ch.extras).forEach(function (p) { relate(p, ang).forEach(function (r) { var rec = makeRec(p, ang, r); if (axis.indexOf(rec.b) >= 0) out.push(rec); }); });
+      return out.sort(byOrb);
+    }
+    var all = ch.points.concat(ch.extras), me = all.filter(function (x) { return x.id === id; })[0];
+    if (!me) return out;
+    all.concat(ch.angles).forEach(function (o) {
+      if (o.id === me.id || (me.kind === 'node' && o.kind === 'node')) return;
+      var first = me, second = o;
+      if (o.kind !== 'angle' && (o.extra || o.kind === 'minor') && !(me.extra || me.kind === 'minor')) { first = o; second = me; }
+      relate(first, second).forEach(function (r) { out.push(makeRec(first, second, r)); });
     });
-    out.sort(function (x, y) { return x.orb - y.orb; });
-    return out;
+    return out.sort(byOrb);
   }
+  var ANGLE_IDS = { asc: 1, dsc: 1, mc: 1, ic: 1 };
+  function extraAspects(ch, id) { return aspectsOf(ch, id); }
 
   /* ---------- studio analysis ---------- */
   function analysis(ch, asp) {
@@ -675,7 +696,7 @@ tr.pick{cursor:pointer}tr.pick:hover td,tr.pick.on td{background:var(--paper-2)}
   function fmtDeg(deg) { var d = Math.floor(deg), m = Math.floor((deg - d) * 60 + 1e-9); return d + '°' + (m < 10 ? '0' : '') + m + "'"; }
   function fmtOrb(orb) { var d = Math.floor(orb), m = Math.round((orb - d) * 60); if (m === 60) { d++; m = 0; } return d + '°' + (m < 10 ? '0' : '') + m + "'"; }
 
-  return { chart: chart, sky: sky, setMinors: setMinors, aspects: aspects, extraAspects: extraAspects, analysis: analysis, localToUtc: localToUtc, tzOffsetMin: tzOffsetMin, fmtOffset: fmtOffset, fmtDeg: fmtDeg, fmtOrb: fmtOrb, sep: sep, norm: norm,
+  return { chart: chart, sky: sky, setMinors: setMinors, aspects: aspects, extraAspects: extraAspects, aspectsOf: aspectsOf, relate: relate, analysis: analysis, localToUtc: localToUtc, tzOffsetMin: tzOffsetMin, fmtOffset: fmtOffset, fmtDeg: fmtDeg, fmtOrb: fmtOrb, sep: sep, norm: norm,
     SIGNS: SIGNS, BODIES: BODIES, ASPECTS: ASPECTS, ELEMENTS: ELEMENTS, MODES: MODES, RULER_TRAD: RULER_TRAD, RULER_MOD: RULER_MOD };
 });
 
@@ -1032,7 +1053,7 @@ tr.pick{cursor:pointer}tr.pick:hover td,tr.pick.on td{background:var(--paper-2)}
       var part = ANGLE_PART[a.a], side = ANGLE_ASPECT[a.b][a.mode].replace('{Part}', part.charAt(0).toUpperCase() + part.slice(1));
       return { title: a.aName + ' ' + TYPE[a.type].verb + ' ' + (a.b === 'asc' ? 'Rising' : 'Midheaven'), text: side + ' ' + TYPE[a.type].line };
     }
-    var pair = P[a.key] || {}, body = pair[a.mode] || pair.fusion || pair.flow || pair.friction || '';
+    var pair = P[a.pair || a.key] || {}, body = pair[a.mode] || pair.fusion || pair.flow || pair.friction || '';
     return { title: a.aName + ' ' + TYPE[a.type].verb + ' ' + a.bName, text: (body ? body + ' ' : '') + TYPE[a.type].line };
   }
 
@@ -1054,7 +1075,7 @@ var SGL = ['♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑',
 var AGL = { conjunction: '☌', opposition: '☍', trine: '△', square: '□', sextile: '✶' };
 var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var EXAMPLE = { name: '', y: 1990, mo: 6, d: 21, h: 14, mi: 30, tz: 'America/Vancouver', lat: 49.25, lon: -123.12, place: 'Vancouver, British Columbia', timeKnown: true };
-var state = { chart: null, aspects: [], orbScale: 1, types: { conjunction: true, opposition: true, trine: true, square: true, sextile: true }, focus: null, selected: null, example: true, place: null, manual: false, extras: true, transits: false, sky: null, skyDate: null, zoomed: false };
+var state = { chart: null, aspects: [], orbScale: 1, types: { conjunction: true, opposition: true, trine: true, square: true, sextile: true }, focus: null, selected: null, example: true, place: null, manual: false, extras: true, showAll: false, transits: false, sky: null, skyDate: null, zoomed: false };
 
 function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 function ord(n) { return n + (n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th'); }
@@ -1144,9 +1165,12 @@ function drawWheel(fresh, target) {
   if (ch.timeKnown && !state.example) [['AC', ch.asc, 1], ['DC', ch.dsc, 0], ['MC', ch.mc, 1], ['IC', ch.ic, 0]].forEach(function (an) {
     var a1 = pol(R_HOUSE, ang(an[1])), a2 = pol(R_AX, ang(an[1])), a3 = pol(R_LBL, ang(an[1]));
     sv('line', { 'class': 'axis', x1: a1[0], y1: a1[1], x2: a2[0], y2: a2[1] }, svg);
-    sv('text', { 'class': 't-btn', x: a3[0], y: a3[1], 'font-size': 15 }, svg).textContent = an[0];
+    var fid = { AC: 'asc', DC: 'dsc', MC: 'mc', IC: 'ic' }[an[0]], hot = !target;
+    var lbl = sv('text', { 'class': 't-btn' + (hot ? ' hot' : ''), x: a3[0], y: a3[1], 'font-size': 15 }, svg); lbl.textContent = an[0];
+    if (hot) { lbl.setAttribute('data-focus', fid); lbl.setAttribute('tabindex', '0'); lbl.setAttribute('role', 'button'); lbl.setAttribute('aria-label', ANGLE_NAME[fid] + '. Show its aspects.'); }
     /* each angle gets a small ring on the aspect circle, where its aspect lines land */
     var d = pol(R_ASP, ang(an[1])), ring = sv('circle', { cx: d[0], cy: d[1], r: 4, fill: '#ece7dc', stroke: '#161310', 'stroke-width': 1.6 }, svg); sv('title', {}, ring).textContent = an[0];
+    if (hot) { ring.setAttribute('data-focus', fid); ring.setAttribute('class', 'hot' + (state.focus === fid || (ANGLE_NAME[state.focus] && angleTwin(state.focus) === fid) ? ' on' : '')); }
   });
   /* transit planets */
   tItems.forEach(function (itm) {
@@ -1161,8 +1185,8 @@ function drawWheel(fresh, target) {
   var lines = sv('g', {}, svg), lon = {}; allPoints(ch).forEach(function (x) { lon[x.id] = x.lon; }); if (ch.timeKnown) { lon.dsc = ch.dsc; lon.ic = ch.ic; }
   if (!state.example) visibleAspects().forEach(function (as, idx) {
     var p1 = pol(R_ASP, ang(lon[as.a])), p2 = pol(R_ASP, ang(lon[as.b]));
-    var ln = sv('line', { 'class': 'asp asp-' + as.type, 'data-key': as.key, x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1], 'stroke-width': (1.8 + 2.4 * as.strength).toFixed(2), opacity: (0.55 + 0.45 * as.strength).toFixed(2), style: '--i:' + idx }, lines);
-    if (as.type === 'conjunction') ln.setAttribute('stroke-width', 5);
+    var ln = sv('line', { 'class': 'asp asp-' + as.type, 'data-key': as.key, x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1], 'stroke-width': (as.tier === 'wide' ? 1.3 : as.tier === 'close' ? 2.4 : 3.6).toFixed(2), opacity: (as.tier === 'wide' ? 0.42 : as.tier === 'close' ? 0.75 : 1).toFixed(2), style: '--i:' + idx }, lines);
+    if (as.type === 'conjunction') ln.setAttribute('stroke-width', as.tier === 'wide' ? 2.5 : 5);
     var hit = sv('line', { 'class': 'hit', 'data-key': as.key, x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1] }, lines); sv('title', {}, hit).textContent = C.breakdown(as).title;
   });
   /* planets */
@@ -1170,7 +1194,8 @@ function drawWheel(fresh, target) {
   placeGlyphs(items, { R: R_PL, size: 24, inner: 171 });
   if (!state.example) items.forEach(function (itm, idx) {
     var x = itm.p, d0 = pol(R_ASP, ang(x.lon)), t1 = pol(R_HOUSE, ang(x.lon)), t2 = pol(R_HOUSE - 14, ang(x.lon)), t3 = pol(itm.r + 15, ang(itm.disp)), c = pol(itm.r, ang(itm.disp));
-    sv('circle', { 'class': 'dot', cx: d0[0], cy: d0[1], r: 3 }, svg);
+    var dot = sv('circle', { 'class': 'dot' + (target ? '' : ' hot'), cx: d0[0], cy: d0[1], r: 3 }, svg);
+    if (!target) { dot.setAttribute('data-focus', x.id); sv('title', {}, dot).textContent = x.name + '. Show its aspects.'; }
     sv('path', { 'class': 'mark', d: 'M' + t1 + 'L' + t2 }, svg); sv('path', { 'class': 'lead', d: 'M' + t2 + 'L' + t3 }, svg);
     var clickable = true, sc = sect(x.id);
     g = sv('g', { 'class': (clickable ? 'pl' : 'pl static') + (sc ? ' ' + sc : ''), 'data-id': x.id, transform: 'translate(' + c[0] + ' ' + c[1] + ')', style: '--i:' + idx }, svg);
@@ -1196,13 +1221,39 @@ function applyWheelState() {
   $$('#wheel .pl').forEach(function (g) { var id = g.getAttribute('data-id'); g.classList.toggle('on', id === f); g.classList.toggle('dim', !!f && !linked[id]); });
   $$('#wheel .asp').forEach(function (l) { var k = l.getAttribute('data-key'); l.classList.toggle('sel', k === sel); l.classList.toggle('dim', !!sel && k !== sel); });
 }
+function angleTwin(id) { return { asc: 'dsc', dsc: 'asc', mc: 'ic', ic: 'mc' }[id]; }
 function isExtraId(id) { return !!id && state.chart.extras.some(function (p) { return p.id === id; }); }
-/* The ten planets and the angles are always in play. An asteroid, a node, Chiron or the Part of Fortune brings its own
-   aspects in only while it is the one isolated, so the full wheel stays readable. */
-function visibleAspects() {
-  var f = state.focus, src = isExtraId(f) ? E.extraAspects(state.chart, f, { orbScale: state.orbScale }).filter(function (a) { var o = pt(a.b); return !o || !o.extra || state.extras; }) : state.aspects;
-  return src.filter(function (a) { return state.types[a.type] && (!f || a.a === f || a.b === f); });
+/* Bri, 26 Oct: "Show all aspects" lays every aspect on the wheel at once, so a client can see everything going on at
+   a glance. Planets and angles, plus Chiron and, while they are shown, the nodes, asteroids and Part of Fortune. Each
+   pair once, tightest first; wide ones stay thin and faint on the wheel. Switched off, the wheel is clean again. */
+var TIER_RANK = { tight: 0, close: 1, wide: 2 };
+function allAspects() {
+  var ch = state.chart, seen = {}, out = [];
+  function shown(id) { var p = pt(id); return !p || !p.extra || state.extras; }
+  function add(a) {
+    if (!state.types[a.type] || !shown(a.a) || !shown(a.b)) return;
+    var id = [a.a, a.b].sort().join('|') + '|' + a.type + (a.dissociate ? '~' : '');
+    if (seen[id]) return; seen[id] = 1; out.push(a);
+  }
+  state.aspects.forEach(add);
+  shownExtras(ch).forEach(function (x) { E.aspectsOf(ch, x.id).forEach(add); });
+  return out.sort(function (x, y) { return (TIER_RANK[x.tier] - TIER_RANK[y.tier]) || (x.orb - y.orb); });
 }
+/* Bri, 23 Oct: the wheel stays clean. No aspect lines show until a point is clicked: a planet, a node, Chiron, an
+   asteroid, an angle, or its dot on the inner circle. Then every aspect of that point shows, wide ones by sign
+   included, tightest first. The printed sheets draw their own chosen lines (state.wheelAll). */
+function visibleAspects() {
+  var f = state.focus;
+  if (!f) return state.wheelAll ? state.aspects.filter(function (a) { return state.types[a.type]; }) : state.showAll ? allAspects() : [];
+  var axis = ANGLE_NAME[f] ? (f === 'asc' || f === 'dsc' ? ['asc', 'dsc'] : ['mc', 'ic']) : [f];
+  return E.aspectsOf(state.chart, f).filter(function (a) {
+    if (!state.types[a.type]) return false;
+    var other = axis.indexOf(a.a) >= 0 ? a.b : a.a, o = pt(other);
+    return !o || !o.extra || state.extras;
+  });
+}
+var ANGLE_NAME = { asc: 'Rising', dsc: 'Descendant', mc: 'Midheaven', ic: 'IC' };
+function focusName(id) { var p = pt(id); return ANGLE_NAME[id] ? (id === 'asc' || id === 'dsc' ? 'Rising and Descendant' : 'Midheaven and IC') : p ? p.name : id; }
 
 /* ---------- aspect ledger ---------- */
 function swatch(type) {
@@ -1215,36 +1266,33 @@ function drawToggles() {
     return '<button type="button" class="tg" data-type="' + a.id + '" aria-pressed="' + state.types[a.id] + '">' + swatch(a.id) + a.name + (state.example ? '' : ' ' + n) + '</button>';
   }).join('');
 }
-/* Bri, 12 Oct: a conjunction or opposition within 3 degrees is very tight and loud in energy. */
+/* George's method (23 Oct). Bri, 12 Oct: a conjunction or opposition within 3 degrees is very tight and loud. */
+function tierWord(a) { return a.tier === 'tight' ? 'Tight' : a.tier === 'close' ? 'Close' : 'By sign'; }
 function strengthTag(a) {
+  if (a.dissociate) return '<span class="tag loud">Tight, across a sign line.</span> <span class="tag">Strong in degree, strained by the signs.</span>';
   if ((a.type === 'conjunction' || a.type === 'opposition') && a.orb <= 3) return '<span class="tag loud">Very tight. Loud.</span>';
-  if (a.orb < 1.5) return '<span class="tag loud">Close to exact. Loud.</span>';
-  if (a.strength >= 0.5) return '<span class="tag">Strong</span>';
-  return '<span class="tag">Wide. Background.</span>';
+  if (a.tier === 'tight') return '<span class="tag loud">Tight. These two act on each other.</span>';
+  if (a.tier === 'close') return '<span class="tag">Close</span>';
+  return '<span class="tag">Wide, by sign. A faint background connection.</span>';
 }
 function drawAspects() {
   var list = visibleAspects(), ul = $('#aspList');
   if (state.selected && !list.some(function (a) { return a.key === state.selected; })) state.selected = null;
-  /* Ophi: the list stays closed until a planet is chosen, so only the aspects someone asks for are shown */
-  if (!state.focus) {
-    if (state.selected) { state.selected = null; if (typeof applyWheelState === 'function') applyWheelState(); }
-    ul.innerHTML = '<li class="empty pick-hint">Click on a planet to reveal its aspects.</li>';
-    $('#focusLabel').textContent = 'No planet chosen'; $('#focusClear').hidden = true;
-    return;
-  }
-  if (!list.length) { ul.innerHTML = '<li class="empty">No aspects with these settings. Widen the orb or switch a type back on.</li>'; }
+  if (!state.focus && (!state.showAll || state.example)) { ul.innerHTML = '<li class="empty pick-hint">Click on a planet to reveal its aspects.</li>'; }
+  else if (!list.length) { ul.innerHTML = '<li class="empty">No aspects with these settings. Switch a type back on.</li>'; }
   else ul.innerHTML = list.map(function (a) {
     var b = C.breakdown(a), open = a.key === state.selected, ap = a.applying === null ? '' : (a.applying ? 'applying' : 'separating');
     return '<li class="asp-item' + (open ? ' open' : '') + '" data-key="' + a.key + '">' +
       '<button type="button" class="asp-head" aria-expanded="' + open + '">' +
       '<span class="asp-gl gl">' + glyph(a.a) + ' <span class="t t-' + a.type + '">' + AGL[a.type] + V + '</span> ' + (isAngle(a.b) ? '<span style="font-family:var(--font-button);font-size:.7em;letter-spacing:0">' + glyph(a.b) + '</span>' : glyph(a.b)) + '</span>' +
       '<span class="asp-name">' + esc(b.title) + '</span>' +
-      '<span class="asp-orb">' + E.fmtOrb(a.orb) + '<i>' + ap + '</i></span>' +
+      '<span class="asp-orb">' + E.fmtOrb(a.orb) + '<i>' + tierWord(a) + (ap ? ', ' + ap : '') + '</i></span>' +
       '<span class="meter"><i style="width:' + Math.max(6, Math.round(a.strength * 100)) + '%"></i></span></button>' +
       (open ? '<div class="asp-body">' + strengthTag(a) + '<p>' + esc(b.text) + '</p></div>' : '') + '</li>';
   }).join('');
-  var f = state.focus ? pt(state.focus) : null;
-  $('#focusLabel').textContent = (f ? f.name + ' only' : 'All planets') + ' / ' + list.length + (list.length === 1 ? ' aspect' : ' aspects');
+  var f = state.focus;
+  var count = list.length + (list.length === 1 ? ' aspect' : ' aspects');
+  $('#focusLabel').textContent = f ? focusName(f) + ' / ' + count : state.showAll && !state.example ? 'All aspects / ' + count : 'Nothing selected';
   $('#focusClear').hidden = !f;
 }
 function selectAspect(key, scroll) {
@@ -1252,23 +1300,22 @@ function selectAspect(key, scroll) {
   if (scroll && state.selected) { var li = $('#aspList .asp-item.open'); if (li && li.scrollIntoView) li.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' }); }
 }
 function setFocus(id) {
-  state.focus = state.focus === id ? null : id; state.selected = null; state.userSel = false;
-  var v = visibleAspects(); if (v.length) state.selected = v[0].key;
+  state.focus = (state.focus === id || (ANGLE_NAME[id] && state.focus === angleTwin(id))) ? null : id; state.selected = null; state.userSel = false;
+  var v = visibleAspects(); if (state.focus && v.length) state.selected = v[0].key;
   drawWheel(false); drawAspects(); markRows();
 }
 function recalc() {
   state.aspects = E.aspects(state.chart, { orbScale: state.orbScale });
-  var s = state.orbScale; $('#orbOut').textContent = s < 0.8 ? 'Tight' : s > 1.12 ? 'Wide' : 'Standard';
   drawToggles(); drawWheel(false); drawAspects();
 }
 
 /* ---------- table, meta, serpent ---------- */
 function drawTable() {
-  var ch = state.chart, rows = ch.angles.filter(function (a) { return a.id === 'asc'; }).concat(ch.points, shownExtras(ch), ch.angles.filter(function (a) { return a.id === 'mc'; }));
   if (state.example) { $('#placeTable tbody').innerHTML = '<tr><td colspan="4" class="empty-row">Your placements will appear here once you cast your chart.</td></tr>'; return; }
+  var ch = state.chart, rows = ch.angles.filter(function (a) { return a.id === 'asc'; }).concat(ch.points, shownExtras(ch), ch.angles.filter(function (a) { return a.id === 'mc'; }));
   $('#placeTable tbody').innerHTML = rows.map(function (p) {
     var g = p.kind === 'angle' ? '<span class="gl" style="font-family:var(--font-button);font-size:.8rem">' + glyph(p.id) + '</span>' : '<span class="gl">' + glyph(p.id) + '</span>';
-    return '<tr' + (p.kind !== 'angle' ? ' class="pick" data-id="' + p.id + '" tabindex="0"' : '') + '><td>' + g + p.name + (p.retro && p.kind !== 'node' ? '<span class="rx" title="Retrograde">R</span>' : '') + '</td><td><span class="gl">' + SGL[p.sign] + '</span>' + p.signName + '</td><td>' + E.fmtDeg(p.deg) + '</td><td>' + (p.house ? ord(p.house) : 'n/a') + '</td></tr>';
+    return '<tr class="pick" data-id="' + p.id + '" tabindex="0"><td>' + g + p.name + (p.retro && p.kind !== 'node' ? '<span class="rx" title="Retrograde">R</span>' : '') + '</td><td><span class="gl">' + SGL[p.sign] + '</span>' + p.signName + '</td><td>' + E.fmtDeg(p.deg) + '</td><td>' + (p.house ? ord(p.house) : 'n/a') + '</td></tr>';
   }).join('');
   markRows();
 }
@@ -1310,7 +1357,7 @@ function drawSerpent() {
 /* ---------- casting ---------- */
 function renderAll(fresh) {
   state.aspects = E.aspects(state.chart, { orbScale: state.orbScale });
-  var v = visibleAspects(); state.selected = v.length ? v[0].key : null; state.userSel = false;
+  var v = visibleAspects(); state.selected = state.focus && v.length ? v[0].key : null; state.userSel = false;
   drawMeta(); drawToggles(); drawWheel(fresh); drawAspects(); drawTable(); drawSerpent();
   
 }
@@ -1548,7 +1595,7 @@ function init() {
   $('#manualToggle').addEventListener('click', function () { setManual(!state.manual); });
 
   $('#toggles').addEventListener('click', function (ev) { var b = ev.target.closest('.tg'); if (!b) return; var t = b.getAttribute('data-type'); state.types[t] = !state.types[t]; drawToggles(); drawWheel(false); drawAspects(); });
-  $('#orbRange').addEventListener('input', function () { state.orbScale = +this.value; recalc(); });
+  $('#allToggle').addEventListener('click', function () { state.showAll = !state.showAll; this.textContent = (state.showAll ? 'Hide' : 'Show') + ' all aspects'; this.classList.toggle('on', state.showAll); state.focus = null; state.selected = null; state.userSel = false; drawWheel(false); drawAspects(); markRows(); });
   $('#extrasToggle').addEventListener('click', function () { state.extras = !state.extras; this.textContent = (state.extras ? 'Hide' : 'Show') + ' asteroids and nodes'; var fp = state.focus ? pt(state.focus) : null; if (!state.extras && fp && fp.extra) { state.focus = null; state.selected = null; } drawWheel(false); drawAspects(); drawTable();  });
   $('#transitToggle').addEventListener('click', function () {
     state.transits = !state.transits; var note = $('#transitNote');
@@ -1578,10 +1625,11 @@ function init() {
   var wheel = $('#wheel');
   wheel.addEventListener('click', function (ev) {
     var g = ev.target.closest('.pl'); if (g && !g.classList.contains('static')) { setFocus(g.getAttribute('data-id')); return; }
+    var hf = ev.target.closest('[data-focus]'); if (hf) { setFocus(hf.getAttribute('data-focus')); return; }
     var l = ev.target.closest('.hit'); if (l) { var k = l.getAttribute('data-key'); if (state.selected !== k) selectAspect(k, !state.zoomed); return; }
     openZoom();
   });
-  wheel.addEventListener('keydown', function (ev) { if (ev.key !== 'Enter' && ev.key !== ' ') return; var g = ev.target.closest('.pl'); if (g && !g.classList.contains('static')) { ev.preventDefault(); var id = g.getAttribute('data-id'); setFocus(id); var again = $('#wheel .pl[data-id="' + id + '"]'); if (again) again.focus(); } });
+  wheel.addEventListener('keydown', function (ev) { if (ev.key !== 'Enter' && ev.key !== ' ') return; var hk = ev.target.closest('text[data-focus]'); if (hk) { ev.preventDefault(); setFocus(hk.getAttribute('data-focus')); return; } var g = ev.target.closest('.pl'); if (g && !g.classList.contains('static')) { ev.preventDefault(); var id = g.getAttribute('data-id'); setFocus(id); var again = $('#wheel .pl[data-id="' + id + '"]'); if (again) again.focus(); } });
   var tb = $('#placeTable tbody');
   tb.addEventListener('click', function (ev) { var r = ev.target.closest('tr.pick'); if (r) { setFocus(r.getAttribute('data-id')); $('#chart').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' }); } });
   tb.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { var r = ev.target.closest('tr.pick'); if (r) setFocus(r.getAttribute('data-id')); } });
