@@ -9,10 +9,10 @@
     { href: '/book/', title: 'Book a Reading' },
     { href: '/chart/', title: 'Your Chart' },
     { href: '/this-season/', title: 'This Season' },
-    { href: '/candles/', title: 'Candles & Rituals' }
+    { href: '/candles/', title: 'Moon Candles' }
   ];
   /* pages that are shelved for now (set in build.py, written here by the build) */
-  var SHELVED = ['candles'];
+  var SHELVED = [];
   PAGES = PAGES.filter(function (p) { return SHELVED.indexOf(p.href.replace(/\//g, '')) < 0; });
   var NUM = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
 

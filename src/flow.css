@@ -1245,3 +1245,57 @@ body.flow .help-go .cta:hover{box-shadow:2px 2px 0 var(--coral)}
 }
 .help-pull .pull-q{font-size:clamp(30px,9cqi,48px)!important}
 @media(max-width:700px){ .help .bleed.r.arrows{display:none} }
+   MOON CANDLES SHOP (Bri, 27 Oct 2026). /candles/ un-shelved as a shop: the tin lids are the product pictures,
+   light paper cards (pastel fills were rejected), black outlines and hard black shadows. Page copy and stock come
+   from tools/shop.py.
+   ===================================================================================== */
+.shop .shop-lede{max-width:640px;margin:0 auto clamp(40px,5vh,56px);text-align:center}
+.shop .candle{background:#fffdf8;border:1.5px solid var(--ink);scroll-margin-top:96px}
+.shop .candle .tin-shot{position:relative;width:68%;margin:6px auto 18px;aspect-ratio:58/94;background:#1b1916;border-radius:14px;
+  padding:5.5%;box-shadow:inset 0 0 0 1.5px #3a3631,inset 0 -6px 10px rgba(0,0,0,.45);rotate:-1.2deg;transition:rotate .35s ease,translate .35s ease}
+.shop .candle:nth-child(even) .tin-shot{rotate:1.4deg}
+.shop .candle:hover .tin-shot{rotate:0deg;translate:0 -3px}
+.shop .candle .tin-shot::before{content:"";position:absolute;left:50%;top:-5px;width:34%;height:7px;margin-left:-17%;background:#2a2723;border-radius:3px 3px 0 0}
+.shop .candle .tin-shot img{display:block;width:100%;height:100%;object-fit:cover;border-radius:6px}
+.shop .candle .notes{font-family:var(--font-button);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin:12px 0 0;color:var(--ink-2)}
+.shop .candle .notes b{color:var(--coral);font-weight:400;margin:0 .45em}
+.shop .candle .el span:last-child{color:var(--ink)}
+.shop .candle .price-line{margin-top:auto;padding-top:14px}
+.shop .candle .stub{margin-top:0}
+.shop .candle .stub{border-top:2px dotted rgba(22,19,16,.5)}
+.shop .buy{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-button);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:10px 14px;border:1.5px solid var(--ink);background:var(--coral);color:var(--ink);text-decoration:none;box-shadow:3px 3px 0 var(--ink);
+  transition:translate .15s ease,box-shadow .15s ease;white-space:nowrap}
+.shop a.buy:hover{translate:-1px -1px;box-shadow:5px 5px 0 var(--ink)}
+.shop a.buy:focus-visible{outline:2px solid var(--lilac-deep,#6a4fb0);outline-offset:3px}
+.shop .buy.soon,.shop .buy.out{background:transparent;box-shadow:none;cursor:default;color:var(--ink-2)}
+.shop .candle.sold-out .tin-shot{filter:grayscale(.6);opacity:.7}
+
+.set-card{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(18px,3vw,44px);align-items:center;
+  max-width:1240px;margin:clamp(40px,6vh,64px) auto 0;padding:clamp(20px,2.4vw,30px);background:#fffdf8;border:1.5px solid var(--ink);box-shadow:7px 7px 0 var(--ink);scroll-margin-top:96px}
+.set-tins{display:flex;align-items:flex-end}
+.set-tins img{width:clamp(54px,6vw,78px);aspect-ratio:510/893;object-fit:cover;border:5px solid #1b1916;border-radius:9px;background:#1b1916;margin-left:-16px;box-shadow:0 10px 16px -12px rgba(22,19,16,.7)}
+.set-tins img:first-child{margin-left:0;rotate:-7deg}.set-tins img:nth-child(2){rotate:-2deg;translate:0 -8px}
+.set-tins img:nth-child(3){rotate:3deg;translate:0 -8px}.set-tins img:nth-child(4){rotate:8deg}
+.set-copy .el{font-family:var(--font-button);font-size:10px;letter-spacing:.16em;text-transform:uppercase;display:flex;justify-content:space-between;gap:12px;padding-bottom:8px;border-bottom:1px solid rgba(22,19,16,.4)}
+.set-copy h3{font-family:var(--font-title);font-weight:400;font-size:clamp(28px,2.8vw,40px);line-height:1;margin:12px 0 8px}
+.set-copy p{margin:0;font-size:14px;line-height:1.6;max-width:56ch}
+.set-buy{text-align:right}
+.set-buy .price-line{display:flex;align-items:baseline;justify-content:flex-end;gap:8px;font-family:var(--font-title);font-size:40px;line-height:1}
+.set-buy .price-line small{font-family:var(--font-button);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.set-buy .was{margin:6px 0 14px;font-family:var(--font-button);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);text-decoration:line-through}
+
+.ship{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;max-width:1240px;margin:clamp(34px,5vh,50px) auto 0;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
+.ship > div{padding:16px clamp(14px,1.6vw,22px);font-size:13px;line-height:1.55}
+.ship > div + div{border-left:1px solid rgba(22,19,16,.4)}
+.ship .k{display:block;font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+
+.secret-note{display:flex;flex-direction:column;align-items:center;gap:2px;margin:clamp(34px,5vh,48px) auto 0;text-align:center}
+.secret-note .hand{font-size:clamp(26px,2.6vw,32px)}
+.secret-note .sn-sub{font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.shop .care{margin-top:clamp(30px,4vh,44px)}
+
+@media(max-width:1100px){ .set-card{grid-template-columns:auto minmax(0,1fr)} .set-buy{grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;flex-wrap:wrap} .set-buy .was{margin:0} }
+@media(max-width:760px){ .ship{grid-template-columns:1fr} .ship > div + div{border-left:0;border-top:1px solid rgba(22,19,16,.4)} }
+@media(max-width:560px){ .set-card{grid-template-columns:1fr;justify-items:start} .set-tins{margin:4px 0 0 6px} .shop .candle .tin-shot{width:62%} }
+@media(prefers-reduced-motion:reduce){ .shop .candle .tin-shot,.shop .buy{transition:none} }

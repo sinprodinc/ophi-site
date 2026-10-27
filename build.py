@@ -30,14 +30,14 @@ PAGES = {
                                'The current astrological weather and how it lands for each rising sign, by Bri Godard.'),
     'rituals/index.html':     ('rituals.html',     'Burn Rituals | Ophi by Bri',
                                'The burn ritual for each Ophi pocket candle: Fire, Earth, Air and Water Moons.'),
-    'candles/index.html':     ('candles.html',     'Candles & Rituals | Ophi by Bri',
-                               'Hand-poured pocket candles for every Moon element, each with its own ritual.'),
+    'candles/index.html':     ('candles.html',     'Moon Candles | Ophi by Bri',
+                               'Hand-poured pocket candles for every Moon element: Fire, Earth, Air and Water. Ships within Canada.'),
 }
 
 # Shelved pages: kept in src/ exactly as designed, but not published or linked anywhere.
 # To bring one back, take it out of this set and run the build: its page, menu entry, footer link,
 # Home tour line and door card all return. Links to it are wrapped in <!--SHELF:name--> ... <!--/SHELF:name-->.
-SHELVED = {'candles'}
+SHELVED = set()   # Candles un-shelved as the Moon Candles shop (Bri, 27 Oct 2026)
 
 # Extra body classes for pages with their own mood. /rituals/ is the secret page behind the candle QR codes.
 BODY_EXTRA = {'rituals/index.html': ' secret'}
@@ -103,7 +103,7 @@ def fluid(css):
 DOOR_CARDS = [
     ('readings/index.html', '/readings/', 'Make It Make Sense', 'Meet Yourself, Quickie, <em>Here To Help.</em>', 'pick your reading'),
     ('this-season/index.html', '/this-season/', 'This Season', 'The sky right now, <em>by rising sign.</em>', 'read your chapter'),
-    ('candles/index.html', '/candles/', 'Candles &amp; Rituals', 'A pocket candle for <em>your Moon.</em>', 'find your element'),
+    ('candles/index.html', '/candles/', 'Moon Candles', 'A pocket candle for <em>your Moon.</em>', 'shop your element'),
     ('index.html#why', '/#why', 'The story', 'Why <em>Ophiuchus?</em>', 'read the story'),
 ]
 STAR_ARROW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
