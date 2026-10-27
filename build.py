@@ -37,7 +37,7 @@ PAGES = {
 # Shelved pages: kept in src/ exactly as designed, but not published or linked anywhere.
 # To bring one back, take it out of this set and run the build: its page, menu entry, footer link,
 # Home tour line and door card all return. Links to it are wrapped in <!--SHELF:name--> ... <!--/SHELF:name-->.
-SHELVED = set()   # Candles un-shelved as the Moon Candles shop (Bri, 27 Oct 2026)
+SHELVED = {'candles'}   # Moon Candles shop on hold (Bri, 27 Oct 2026, 12:48): built and kept in src/, not published. Remove to bring it back.
 
 # Extra body classes for pages with their own mood. /rituals/ is the secret page behind the candle QR codes.
 BODY_EXTRA = {'rituals/index.html': ' secret'}
