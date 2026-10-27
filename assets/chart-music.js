@@ -63,8 +63,8 @@
       };
       ['pointerdown', 'keydown', 'touchstart'].forEach(function (t) { addEventListener(t, go, true); });
     };
-    /* music starts on its own unless the visitor switched it off; if the browser wants a tap first, it starts on the first one */
-    if (!off) play(was !== null ? (parseFloat(was) || 0) : 0, false, arm);
+    /* only carries on if the visitor pressed play on another page this visit; otherwise silent until they press Music (Bri's rule) */
+    if (!off && was !== null) play(parseFloat(was) || 0, false, arm);
     paint();
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
