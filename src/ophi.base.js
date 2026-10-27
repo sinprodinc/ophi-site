@@ -278,8 +278,18 @@
         var p=el.play();
         var ok=function(){ on=true; started=true; elOK=true; token++; fadeEl(VOL,900); paint(); };
         if(p && p.then) p.then(ok,function(){ store(null); paint(); armGesture(); }); else ok();
+      }else{
+        /* first visit (and the visitor hasn't switched it off): music starts on its own.
+           Most browsers only allow sound after the visitor's first tap, click or key press, so if the
+           quiet start is refused it begins on that first interaction instead. */
+        var off=false; try{ off=sessionStorage.getItem('ophi-music-off')==='1'; }catch(e){}
+        if(!off){
+          mkEl(); el._src=1; el.src=SRC; el.volume=0;
+          var p2=el.play();
+          var ok2=function(){ on=true; started=true; elOK=true; token++; store('0'); fadeEl(VOL,1200); paint(); };
+          if(p2 && p2.then) p2.then(ok2,function(){ armGesture(); }); else ok2();
+        }
       }
-      /* no stored position = the visitor hasn't pressed play this visit: stay silent until they press the Music button (Bri's rule) */
       var navEl2=document.querySelector('.hero nav');
       if(window.IntersectionObserver && navEl2) new IntersectionObserver(function(en){ navSeen=en[0].isIntersecting; paint(); },{threshold:.2}).observe(navEl2);
       sBtn.hidden=false;
