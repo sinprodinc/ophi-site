@@ -6,6 +6,7 @@
   var PAGES = [
     { href: '/', title: 'Home' },
     { href: '/readings/', title: 'Make It Make Sense' },
+    { href: '/book/', title: 'Book a Reading' },
     { href: '/chart/', title: 'Your Chart' },
     { href: '/this-season/', title: 'This Season' },
     { href: '/candles/', title: 'Candles & Rituals' }

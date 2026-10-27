@@ -23,7 +23,9 @@ PAGES = {
     'index.html':             ('home.html',        'Ophi by Bri | Awakening Astrology',
                                'Awakening Astrology: readings by Bri Godard. Meet yourself through your natal chart.'),
     'readings/index.html':    ('readings.html',    'Make It Make Sense | Ophi by Bri',
-                               'Meet Yourself, Quickie and Here To Help: one-on-one virtual astrology readings with Bri Godard.'),
+                               'Astrology, a way back to yourself: what a natal chart is, and how a reading with Bri Godard can help.'),
+    'book/index.html':        ('book.html',        'Book a Reading | Ophi by Bri',
+                               'Meet Yourself, Quickie and Here To Help: book a one-on-one virtual astrology reading with Bri Godard.'),
     'this-season/index.html': ('this-season.html', 'This Season | Ophi by Bri',
                                'The current astrological weather and how it lands for each rising sign, by Bri Godard.'),
     'rituals/index.html':     ('rituals.html',     'Burn Rituals | Ophi by Bri',
@@ -129,12 +131,12 @@ def door_preview(href):
 # The two panning banners under "See your sky" (Bri, 19 Oct): one slides left, one slides right, with paper showing
 # between them. Each is one big link. (They replace the two door cards.)
 PANS = [
-    ('/readings/#readings', 'ink', 'Make It Make <em>Sense</em>', 'Time to Meet Yourself'),
+    ('/book/', 'ink', 'Make It Make <em>Sense</em>', 'Time to Meet Yourself'),
     ('/this-season/', 'paper', 'This <em>Season</em>', "What's in the sky right now?"),
 ]
 # On its own page a banner is swapped for the Home banner (same colour, same direction).
 HOME_PAN = ('/', 'Awakening <em>Astrology</em>', 'you are written in the stars')
-PAN_PAGE = {'readings/index.html': '/readings/', 'this-season/index.html': '/this-season/'}
+PAN_PAGE = {'book/index.html': '/book/', 'this-season/index.html': '/this-season/'}
 
 def pan(href, tone, title, hand, direction):
     unit = ('<span class="pan-i"><span class="pan-t">%s</span><span class="pan-dash">&mdash;</span>'

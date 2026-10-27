@@ -1211,3 +1211,37 @@ body.flow .rising-intro{max-width:min(92ch,100%);margin:var(--s4) auto var(--s4)
 .pa-glitter{top:auto;bottom:calc(clamp(64px,7vw,96px) + clamp(22px,2.4vw,34px));right:clamp(30px,6vw,110px);rotate:9deg}
 @media(max-width:700px){ .pa-glitter{top:auto;bottom:calc(64px + 30px);right:12px} }
 @media(max-width:700px){ .rise-stars{width:40px;right:4px;top:-46px} }
+
+/* =====================================================================================
+   27 Oct 2026: Make It Make Sense explains; booking has its own page (/book/).
+   "How a reading can help": four light cards with torn-strip titles, then a pull line and the way to book.
+   ===================================================================================== */
+body.flow .help{padding:var(--sec) var(--pad) var(--sec);isolation:isolate}
+.help-sub{max-width:52ch;margin:var(--s2) auto 0;font-size:15px;line-height:1.65;color:var(--ink-2)}
+.help-grid{position:relative;max-width:var(--banner);margin:var(--s4) auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(var(--s4) + 8px) var(--s4)}
+.help-card{position:relative;background:#fffdf8;border:2px solid var(--ink);box-shadow:9px 9px 0 var(--ink);padding:var(--s3) var(--s4) var(--s4);text-align:left;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.help-card:nth-child(2){transform:translateY(var(--s3))}
+.help-card:nth-child(4){transform:translateY(var(--s3))}
+.help-card .torn{margin:calc(-1 * var(--s3) - 22px) 0 var(--s2) calc(-1 * var(--s4) - 12px)}
+.help-card p{font-size:15px;line-height:1.7;color:var(--ink-2);margin:0;max-width:56ch}
+.help-card:hover{box-shadow:11px 11px 0 var(--ink),0 28px 44px -22px rgba(22,19,16,.5)}
+.help-end{max-width:var(--banner);margin:calc(var(--s4) * 1.6) auto 0;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:var(--s4);align-items:center}
+.help-pull{margin:0;text-align:left}
+.help-pull .pull-q{max-width:none!important}
+.help-pull .pq-1,.help-pull .pq-2{display:block}
+.help-pull-t{font-size:15px;line-height:1.7;color:var(--ink-2);margin:var(--s2) 0 0;max-width:58ch}
+.help-go{display:flex;flex-direction:column;align-items:center;gap:var(--s2);margin:0}
+.help-go .hand{font-size:clamp(22px,2.4vw,28px);color:var(--pen);margin:0}
+body.flow .help-go .cta{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:5px 5px 0 var(--coral)}
+body.flow .help-go .cta:hover{box-shadow:2px 2px 0 var(--coral)}
+.book-back{margin-top:var(--s4)}
+@media(max-width:760px){
+  .help-grid{grid-template-columns:1fr;gap:calc(var(--s4) + 4px)}
+  .help-card:nth-child(2),.help-card:nth-child(4){transform:none}
+  .help-card{padding:var(--s3) var(--s3) var(--s3)}
+  .help-card .torn{margin-left:calc(-1 * var(--s3) - 8px)}
+  .help-end{grid-template-columns:1fr}
+}
+.help-pull .pull-q{font-size:clamp(30px,9cqi,48px)!important}
+@media(max-width:700px){ .help .bleed.r.arrows{display:none} }
