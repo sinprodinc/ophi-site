@@ -1268,7 +1268,8 @@ body.flow .help-go .cta:hover{box-shadow:2px 2px 0 var(--coral)}
   transition:translate .15s ease,box-shadow .15s ease;white-space:nowrap}
 .shop a.buy:hover{translate:-1px -1px;box-shadow:5px 5px 0 var(--ink)}
 .shop a.buy:focus-visible{outline:2px solid var(--lilac-deep,#6a4fb0);outline-offset:3px}
-.shop .buy.soon,.shop .buy.out{background:transparent;box-shadow:none;cursor:default;color:var(--ink-2)}
+.shop .buy.soon{cursor:default}   /* Bri, 27 Oct: same coral button as Buy while the Stripe links are pending */
+.shop .buy.out{background:transparent;box-shadow:none;cursor:default;color:var(--ink-2)}
 .shop .candle.sold-out .tin-shot{filter:grayscale(.6);opacity:.7}
 
 .set-card{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(18px,3vw,44px);align-items:center;
