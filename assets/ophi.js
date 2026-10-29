@@ -69,7 +69,7 @@
       var artImg=function(n,cls){ var a=ART[n]||{}; return '<img class="'+cls+'" src="'+artSrc(n)+'" alt="'+esc(a.alt||'')+'"'+(a.alt?'':' aria-hidden="true"')+' loading="lazy" decoding="async">'; };
       /* paragraphs are separated by a blank line; "## " is a small heading, "~ " is in Bri's hand, [[name]] is a graphic */
       var paras=function(t){ return String(t||'').split(/\n\s*\n/).map(function(x){ x=x.trim(); var g=x.match(/^\[\[([\w-]+)\]\]$/);
-        if(g){ side++; return '<figure class="ts-art ts-art-'+(side%2?'r':'l')+' duo-sway">'+artImg(g[1],'')+'</figure>'; }
+        if(g){ side++; return '<figure class="ts-art ts-art-'+(side%2?'r':'l')+' duo-sway ts-calm">'+artImg(g[1],'')+'</figure>'; }
         return /^## /.test(x)?'<h4 class="sub-h">'+rich(x.slice(3))+'</h4>':/^~ /.test(x)?'<p class="ts-pen">'+rich(x.slice(2))+'</p>':'<p>'+rich(x)+'</p>'; }).join(''); };
       var lab=String(M.label||''), mo=lab.replace(/\s*\d{4}\s*$/,''), yr=(lab.match(/\d{4}/)||[''])[0];
       Array.prototype.forEach.call(document.querySelectorAll('[data-month]'),function(el){ el.textContent=el.textContent.replace(/^[A-Z][a-z]+ \d{4}/,lab); });
@@ -90,7 +90,7 @@
           q('[data-ts-more]').innerHTML=secs.slice(1).map(function(sc){
             var first=String(sc.t[0]||'').trim().match(/^\[\[([\w-]+)\]\]$/), rest=first?sc.t.slice(1):sc.t;
             return '<article class="np-story ts-sec'+(first?' has-fig':'')+'">'+
-              (first?'<figure class="ts-fig duo-sway">'+artImg(first[1],'')+'</figure>':'')+
+              (first?'<figure class="ts-fig duo-sway ts-calm">'+artImg(first[1],'')+'</figure>':'')+
               '<div class="ts-sec-in"><h3 class="np-h">'+rich(sc.h)+'</h3><div class="np-cols ts-body">'+paras(rest.join('\n\n'))+'</div></div></article>';
           }).join('');
           var dl=q('[data-ts-dates]');
@@ -98,21 +98,19 @@
             return '<li><span class="ts-d"><b>'+esc(m2[2])+'</b><i>'+esc(m2[1])+'</i></span><span class="ts-dt">'+rich(d.text)+'</span></li>'; }).join('');
           else dl.outerHTML='<p>'+rich(P.when||'')+'</p>';
           q('[data-ts-what]').innerHTML=rich(P.what||'');
-          if(P.side) q('[data-ts-side-art]').innerHTML=artImg(P.side,'duo-sway');
+          if(P.side) q('[data-ts-side-art]').innerHTML=artImg(P.side,'duo-sway ts-calm');
           if(M.closing && M.closing.body){ q('[data-ts-close-k]').innerHTML=rich(M.closing.title||''); q('[data-ts-close-b]').innerHTML=paras(M.closing.body); q('[data-ts-close]').hidden=false; }
           /* each sticker slot lives in an open space: above the paper (1, 2), the sidebar (3, 7), the corner of the
              second article's graphic (4) and around the closing note (5, 6, 8) */
           var HOST=['.ts-paper .np-page','.ts-paper .np-page','.ts-what','.ts-fig','.ts-close','.ts-close','.ts-side-art','.ts-close'],
-              MOVE=[[14,18,40],[-16,14,-44],[10,12,60],[-12,14,-40],[16,16,28],[-18,18,-50],[12,14,36],[-14,16,-70]];
+              MOVE=[[22,34,6],[-24,30,-5],[10,16,8],[-18,26,-6],[26,30,4],[-24,28,-7],[16,24,6],[-14,20,-8]];   /* Bri, 29 Oct: they travel and zoom; only the little chrome stars spin */
           (P.stickers||[]).slice(0,8).forEach(function(n,i){
             var host=q(HOST[i])||q('.ts-paper .np-page');
-            host.insertAdjacentHTML('beforeend',artImg(n,'ts-sticker ts-st'+(i+1)).replace('<img ','<img data-drift="'+MOVE[i].join(' ')+' .1" '));
+            host.insertAdjacentHTML('beforeend',artImg(n,'ts-sticker ts-st'+(i+1)).replace('<img ','<img data-drift="'+MOVE[i].join(' ')+' -.09" '));
           });
           paper.hidden=false; q('[data-ts-jump]').hidden=false;
         }
       }
-      var ri=document.querySelector('[data-rising-intro]');
-      if(ri && M.risingIntro){ ri.innerHTML=rich(M.risingIntro); ri.hidden=false; }
       Object.keys(M.signs||{}).forEach(function(s){
         var c=M.signs[s], li=document.querySelector('.rising[data-sign="'+s+'"]'); if(!li||!c) return;
         if(c.teaser){ var tg=li.querySelector('.tagline'); if(tg) tg.textContent=c.teaser; }   /* the month's teaser replaces the sign's standing tagline */
@@ -393,8 +391,9 @@
           var k=((r.top+r.height/2)-vh/2)/vh;   /* -1..1 as it crosses the screen */
           var lean=(i%2?2.2:-2.6);   /* its resting lean, alternating */
           /* the big pieces on the home page (photo, plate, notes) and the strip's tags move more gently */
-          var big=el.classList.contains('duo-big'), a=big?.5:el.classList.contains('duo-sway')?1:el.classList.contains('strip-go')?.35:1,
-              m=big?1.1:a;   /* how far it travels */
+          var calm=el.classList.contains('ts-calm'), big=el.classList.contains('duo-big'),
+              a=calm?.18:big?.5:el.classList.contains('duo-sway')?1:el.classList.contains('strip-go')?.35:1,
+              m=calm?1.3:big?1.1:a;   /* how far it travels; This Season's graphics barely turn (Bri, 29 Oct) */
           el.style.rotate=((lean+Math.sin(k*2.6+i*1.3)*6.5)*a).toFixed(2)+'deg';
           el.style.translate=(Math.sin(k*2.1+i*.7)*7*m).toFixed(1)+'px '+(Math.sin(k*1.8+i)*14*m).toFixed(1)+'px'; }); };
       addEventListener('scroll',function(){ if(!pq){ pq=true; requestAnimationFrame(sway); } },{passive:true});
@@ -431,7 +430,8 @@
           el.style.translate=(v[0]*k+f*3).toFixed(1)+'px '+(v[1]*k+Math.cos(k*4.4)*3).toFixed(1)+'px';
           el.style.rotate=(v[2]*k+f*v[2]*.25).toFixed(2)+'deg';
           /* optional 4th value: it stretches and squashes, changing shape as it goes */
-          if(v[3]){ var q=Math.sin(k*4.8)*v[3]; el.style.scale=(1+q).toFixed(3)+' '+(1-q*.7).toFixed(3); } }); };
+          if(v[3]>0){ var q=Math.sin(k*4.8)*v[3]; el.style.scale=(1+q).toFixed(3)+' '+(1-q*.7).toFixed(3); }
+          else if(v[3]<0){ el.style.scale=(1-v[3]*Math.cos(k*2.4)).toFixed(3); }   /* negative: a slow zoom in and out */ }); };
       addEventListener('scroll',function(){ if(!dq){ dq=true; requestAnimationFrame(drift); } },{passive:true});
       addEventListener('resize',drift); drift();
     }

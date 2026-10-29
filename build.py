@@ -163,10 +163,8 @@ def doors(out):
             '    <a class="cta" href="/chart/">Cast my chart ' + STAR_ARROW + '</a>',
             '  </div>', '</section>', '',
             '<section class="pans" aria-label="More from Ophi">',
-            # Bri, 28 Oct: no lace butterfly at the bottom of Make It Make Sense (it pulled the eye there)
-            # Bri, 28 Oct: the same on every page: no lace butterfly here; the star hovers over the "See your sky"
-            # band above and turns, stretches and drifts as you scroll to it
-            '  <img class="pan-art pa-glitter" data-drift="-30 34 70 .22" src="/assets/journal/sparkle-cross.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">']
+            # Bri, 29 Oct: nothing on top of this band on any page (no butterfly, no paper star)
+            ]
     here = PAGE_URL.get(out)
     picks = [p for p in PANS if p[0] != here][:2]
     for k, (href, title, hand) in enumerate(picks):

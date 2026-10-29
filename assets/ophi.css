@@ -2993,3 +2993,13 @@ body.flow .ts-paper{padding-top:calc(var(--sec) + 60px)}
 .ts-art{width:clamp(70px,calc(6.6 * var(--vw,1vw)),92px)}
 .ts-sum{text-wrap:balance}
 @media(max-width:900px){ .ts-st4{bottom:auto;top:0;left:-6%;width:72px} }
+/* Bri, 29 Oct: the summary runs the full width of the rule under it (fewer, longer lines); the chrome star in the
+   closing note moves away from the scribble star */
+@media(min-width:901px){ .ts-sum{max-width:none;text-wrap:pretty} }
+.ts-close .s-pull-l{left:auto;right:16%;top:10%}
+@media(max-width:900px){ .ts-close .s-pull-l{right:30%;top:24px} }
+@media(min-width:901px){ .s-m3{left:26%;top:clamp(270px,calc(26 * var(--vw,1vw)),380px);bottom:auto} }
+@media(min-width:601px) and (max-width:900px){ .s-m3{display:none} }
+/* the third chrome star sits by the year, clear of the text */
+.ts-month{position:relative}
+@media(min-width:901px){ .s-m3{left:18%;top:auto;bottom:-6px} }
