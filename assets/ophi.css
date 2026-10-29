@@ -2475,7 +2475,7 @@ body.flow .np{padding:calc(var(--sec) * .6 + var(--lace-h) * .4) var(--pad) var(
 /* ---- silver stars, scattered (Bri, 28 Oct): Bri's chrome stars in open space only. Each turns gently as it travels
    up the screen (ophi.base.js sets --spin); no growing. ---- */
 .np-star{position:absolute;pointer-events:none;user-select:none;height:auto;z-index:2;width:clamp(22px,calc(2.2 * var(--vw,1vw)),32px);
-  transform:rotate(var(--spin,0deg));transition:transform .25s linear}
+  transform:rotate(var(--spin,0deg));transition:transform .3s ease-out}
 @media(prefers-reduced-motion:reduce){ .np-star{transform:none;transition:none} }
 .s-lead-l{left:2%;top:22%;rotate:-14deg} .s-lead-r{right:3%;top:60%;rotate:12deg;width:clamp(18px,calc(1.7 * var(--vw,1vw)),26px)}
 .np-k .s-k{position:absolute;right:0;top:-10px;rotate:18deg;width:clamp(18px,calc(1.6 * var(--vw,1vw)),24px)}
@@ -2498,8 +2498,9 @@ body.flow .help{padding:var(--sec) var(--pad)}
 .cb-col{display:flex;flex-direction:column;gap:clamp(22px,3cqw,44px)}
 /* Bri's "change is scary" ribbon: turned toward horizontal, coming out from under the first note and running to the
    board's right edge, between the intention note and the contradictions note */
-.cb-ribbon{position:absolute;z-index:3;pointer-events:none;user-select:none;height:auto;width:50%;left:45.5%;top:-6.5cqw;rotate:-40deg}
-.cb-col-b{padding-top:19cqw}
+.cb-ribbon{position:absolute;z-index:5;pointer-events:none;user-select:none;height:auto;width:50%;left:24%;top:-9cqw;rotate:-24deg}
+.cb-cols > .cb-col:first-of-type{padding-top:11cqw}
+.cb-col-b{padding-top:23cqw}
 
 /* Each note is Bri's composed graphic in a box of its own proportions (container units: 1cqw is 1% of the box width,
    1cqh 1% of its height). All positions are fractions of the graphic: --fx/--fy/--fw/--fh place the text, --r is the
@@ -2570,6 +2571,7 @@ body.flow .cb-tagcard .cta:hover{box-shadow:2px 2px 0 var(--coral)}
   .cb-col{display:contents}
   .cb-moon{order:1} .cb-ribbon{order:2} .cb-grid-note{order:3} .cb-stars{order:4} .cb-swirl{order:5} .cb-clipping{order:6} .cb-go{order:7}
   .cb-col-b{padding-top:0}
+  .cb-cols > .cb-col:first-of-type{padding-top:0}
   .cb-ribbon{position:relative;left:auto;top:auto;width:min(78%,440px);align-self:flex-end;margin:calc(-1 * min(16cqw,110px)) -2% calc(-1 * min(16cqw,110px)) 0;rotate:-24deg}
   .cb-scatter{display:none}
 }
@@ -2583,7 +2585,24 @@ body.flow .cb-tagcard .cta:hover{box-shadow:2px 2px 0 var(--coral)}
   .cb-grid-note{--cx:1.2;--sy:1.26;--fs:.0303;--ts:.049}
   .cb-stars{--cx:1.3;--sy:1.3;--fs:.0271;--ts:.043}
   .cb-swirl{--cx:1.24;--sy:1.14;--fs:.0284;--ts:.045}
-  .cb-ribbon{width:82%;margin:-18% -4% -20% 0}
+  .cb-ribbon{width:107%;align-self:flex-start;margin:-15% 0 -17% -3.5%;rotate:-13deg}
+  .cb-grid-note .cb-text p{clear:left}
   .s-cork{display:none}
   .cb-moon .cb-pin{--dx:.2;--dy:.03}
 }
+
+/* ===== 28 Oct 2026 (Bri): the two panning banners, on every page: both dark, both straight, smaller ===== */
+.pan,.pan-ink,.pan-paper{rotate:0deg;width:100%;margin-left:0}
+.pan-paper{background:var(--ink);color:var(--paper);border:0}
+.pan-paper .pan-h,.pan-ink .pan-h{color:#ece3cf}
+.pan-paper .pan-t em{background:linear-gradient(transparent 58%,rgba(154,127,208,.55) 58%,rgba(154,127,208,.55) 90%,transparent 90%)}
+.pan-track{padding:clamp(7px,calc(.8 * var(--vw,1vw)),10px) 0}
+.pan-t{font-size:clamp(19px,calc(1.9 * var(--vw,1vw)),25px)}
+.pan-h{font-size:clamp(16px,calc(1.5 * var(--vw,1vw)),20px)}
+.pan-dash{font-size:clamp(14px,calc(1.4 * var(--vw,1vw)),18px)}
+.pan-star{font-size:clamp(12px,calc(1.2 * var(--vw,1vw)),15px)}
+.pans{gap:clamp(14px,calc(1.6 * var(--vw,1vw)),22px)}
+/* the star sticker sits at the right end, between the two banners, half off the page */
+.pa-glitter{width:clamp(48px,calc(4.6 * var(--vw,1vw)),66px);right:clamp(-22px,calc(-1.4 * var(--vw,1vw)),-12px);bottom:calc(clamp(64px,calc(7 * var(--vw,1vw)),96px) + clamp(10px,calc(1.4 * var(--vw,1vw)),22px))}
+.pa-fly{width:clamp(84px,calc(8 * var(--vw,1vw)),118px)}
+@media(max-width:700px){ .pa-glitter{width:46px;bottom:calc(64px + 12px)} .pa-fly{width:72px} }
