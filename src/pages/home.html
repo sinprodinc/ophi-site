@@ -51,53 +51,103 @@
 </section>
 <div class="lace-edge" aria-hidden="true"></div>
 
-<!-- Bri, 28 Oct 2026: the home page in the language of Make It Make Sense. The top is a newspaper front page: the
-     Welcome lead story beside an "Inside this edition" index (which replaces the sliding strip of pages), then "Why
-     Ophiuchus?" as the second story with a pull quote. The testimonials are pinned on the editor's corkboard, with
-     arrows to move between them. Kept: the lace bow, the pink sparkles and the sage tape. -->
+<!-- Bri, 28 Oct 2026 (round 2): a slim strip of the site's pages at the top, turning every 2.5 seconds (each title in
+     its own colour with a Visit tag), then the newspaper front page: Welcome beside "Inside this edition"; then "Why
+     Ophi?" and "About Bri" side by side, dressed with the corkboard's paper, clips and pins; then the pull quote.
+     Testimonials on the corkboard: the first thought on Bri's clipboard note, the rest on a torn sheet taped under it. -->
 <section class="np np-home flow-sec" id="welcome">
   <div class="np-page">
+    <div class="strip">
+      <div class="tq-carousel strip-car" data-every="2500" role="region" aria-roledescription="carousel" aria-label="Pages on this site">
+        <div class="tq-track" tabindex="0">
+          <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="Your Chart"><a class="strip-a hl-air" href="/chart/"><span class="strip-t">Your <em>Chart</em></span><span class="strip-go">Visit &rarr;</span></a></div>
+          <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="This Season"><a class="strip-a hl-water" href="/this-season/"><span class="strip-t">This <em>Season</em></span><span class="strip-go">Visit &rarr;</span></a></div>
+          <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="Make It Make Sense"><a class="strip-a hl-lilac" href="/readings/"><span class="strip-t">Make It Make <em>Sense</em></span><span class="strip-go">Visit &rarr;</span></a></div>
+          <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="Book a Reading"><a class="strip-a hl-sage" href="/book/"><span class="strip-t">Book a <em>Reading</em></span><span class="strip-go">Visit &rarr;</span></a></div>
+          <!--SHELF:candles-->
+          <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="Moon Candles"><a class="strip-a hl-fire" href="/candles/"><span class="strip-t">Moon <em>Candles</em></span><span class="strip-go">Visit &rarr;</span></a></div>
+          <!--/SHELF:candles-->
+        </div>
+        <div class="tq-foot">
+          <div class="tq-nav">
+            <div class="tq-dots">
+              <button type="button" aria-label="Show Your Chart" aria-current="true"></button>
+              <button type="button" aria-label="Show This Season"></button>
+              <button type="button" aria-label="Show Make It Make Sense"></button>
+              <button type="button" aria-label="Show Book a Reading"></button>
+              <!--SHELF:candles--><button type="button" aria-label="Show Moon Candles"></button><!--/SHELF:candles-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="np-top np-home-top">
       <article class="np-story np-welcome">
-        <img class="np-star s-wel" src="/assets/journal/chrome-star-2.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <p class="np-k">What is Ophi?</p>
+        <img class="wel-fly" src="/assets/eph/lace-butterfly-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <h2 class="np-h1 np-h1-left"><span class="nw">Welcome<em>.</em></span></h2>
         <p class="np-hand">take what you need</p>
+        <p class="np-k np-k-rule">What is Ophi?</p>
         <p class="np-lede">Ophi is Awakening Astrology for the curious, the questioning, the daring, and anyone standing at the edge of a new chapter.</p>
         <p class="np-wel-body">Get curious about yourself. You might be surprised it's been there all along.</p>
       </article>
       <aside class="np-story np-inside" aria-label="Inside this edition">
+        <svg class="strip-arrow" viewBox="0 0 150 120" aria-hidden="true"><path d="M8 6C20 40 52 62 92 66C112 68 126 76 134 104"/><path d="M121 92L134 106L141 87"/></svg>
         <p class="np-k">Inside this edition<img class="np-star s-k" src="/assets/journal/chrome-star-6.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></p>
         <ol class="np-index">
           <li><a href="/readings/"><span class="ix-n">I.</span><span class="ix-t">Make It Make <em>Sense</em></span><span class="ix-d">What a natal chart is, and how a reading can help you meet yourself.</span><span class="ix-go">Read &rarr;</span></a></li>
           <li><a href="/chart/"><span class="ix-n">II.</span><span class="ix-t">Your <em>Chart</em></span><span class="ix-d">Cast your natal chart for free and tap any planet to explore it.</span><span class="ix-go">Cast &rarr;</span></a></li>
           <li><a href="/this-season/"><span class="ix-n">III.</span><span class="ix-t">This <em>Season</em></span><span class="ix-d">The sky right now, read by rising sign. A new chapter on the 1st.</span><span class="ix-go">Read &rarr;</span></a></li>
+          <li><a href="/book/"><span class="ix-n">IV.</span><span class="ix-t">Book a <em>Reading</em></span><span class="ix-d">One-on-one, virtual, all about you: Meet Yourself, Quickie or Here To Help.</span><span class="ix-go">Book &rarr;</span></a></li>
           <!--SHELF:candles-->
-          <li><a href="/candles/"><span class="ix-n">IV.</span><span class="ix-t">Moon <em>Candles</em></span><span class="ix-d">Hand-poured pocket candles, one for each Moon element.</span><span class="ix-go">Shop &rarr;</span></a></li>
+          <li><a href="/candles/"><span class="ix-n">V.</span><span class="ix-t">Moon <em>Candles</em></span><span class="ix-d">Hand-poured pocket candles, one for each Moon element.</span><span class="ix-go">Shop &rarr;</span></a></li>
           <!--/SHELF:candles-->
         </ol>
       </aside>
     </div>
 
-    <article class="np-story np-why" id="why">
-      <img class="np-star s-why" src="/assets/journal/chrome-star-5.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <p class="np-k">Our namesake</p>
-      <h2 class="np-h np-h-big">Why <span class="wave-o">O</span>phiuchus?</h2>
-      <div class="story-flow np-why-flow">
-        <p class="drop">Ophiuchus <span class="pron" aria-label="pronounced oh fee YOU kiss">[oh<i></i>fee<i></i>YOU<i></i>kiss]</span> is known as the Ser&shy;pent Bearer. It is the for&shy;got&shy;ten, hid&shy;den thir&shy;teenth con&shy;stel&shy;la&shy;tion of the zo&shy;di&shy;ac, po&shy;si&shy;tioned between Scor&shy;pio and Sagit&shy;tar&shy;ius.</p>
-        <p>It sits along the Sun's path, yet it was left out&shy;side the tra&shy;di&shy;tion&shy;al twelve-sign sys&shy;tem most of us were taught to follow. This constellation is the one as&shy;so&shy;ci&shy;at&shy;ed with ul&shy;ti&shy;mate heal&shy;ing, deep know&shy;ing, and higher wis&shy;dom.</p>
-        <figure class="story-fig">
-        <img src="/assets/ophiuchus-plate.webp" width="820" height="462" loading="lazy" alt="Old star-atlas illustration of Ophiuchus: a figure holding a long serpent, surrounded by stars.">
-        <figcaption>Fig. I<b>&#x2726;</b>The Serpent Bearer</figcaption>
+    <div class="duo">
+      <article class="np-story duo-why" id="why">
+        <img class="np-star s-why" src="/assets/journal/chrome-star-5.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <p class="np-k">Our namesake</p>
+        <h2 class="np-h np-h-big">Why <span class="wave-o">O</span>phi?</h2>
+        <div class="duo-body">
+          <p class="drop">Ophi is short for Ophiuchus (pronounced oh-fee-YOO-kus), the often-overlooked thirteenth constellation along the Sun's path through the sky.</p>
+          <p>Known as the Serpent Bearer, it's long been associated with the symbolism of healing, wisdom, and miracle transformation.</p>
+          <p>While it doesn't belong to astrology's traditional twelve zodiac signs, I like what it represents: there's always more to the story than what we first see. And sometimes, the most interesting discoveries come from what's been overlooked for too long.</p>
+        </div>
+        <figure class="duo-plate">
+          <div class="plate-print duo-sway">
+            <img class="plate-img" src="/assets/ophiuchus-plate.webp" width="820" height="462" loading="lazy" alt="Old star-atlas illustration of Ophiuchus: a figure holding a long serpent, surrounded by stars.">
+            <img class="plate-tape" src="/assets/eph/tape-cream.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+            <img class="plate-pin duo-rock" src="/assets/cork/pin-red.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+          </div>
+          <figcaption class="plate-card duo-sway"><span class="pc-a">oh-fee-YOO-kus</span><span class="pc-b">the Serpent Bearer</span></figcaption>
         </figure>
-        <p>Ophi&shy;uchus asks us to re&shy;mem&shy;ber that there is always more to the story: more nu&shy;ance, more mys&shy;tery, more truth bub&shy;bling be&shy;neath the sur&shy;face. That is why Ophi&shy;uchus, or Ophi, became our chosen brand rep&shy;re&shy;sen&shy;ta&shy;tion.</p>
-        <p>Like a mirrorball, Astrology reflects every angle of our souls: the patterns, the perspectives, the shadows... Ophi's work is rooted in the belief that self-knowl&shy;edge can become col&shy;lec&shy;tive heal&shy;ing, and healing is where the story begins.</p>
-      </div>
-    </article>
+      </article>
 
-    <blockquote class="np-pull">
-      <img class="np-star s-pull-l" src="/assets/journal/chrome-star-3.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <img class="np-star s-pull-r" src="/assets/journal/chrome-star-7.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <article class="np-story duo-bri" id="bri">
+        <img class="np-star s-bri" src="/assets/journal/chrome-star-3.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <figure class="duo-photo">
+          <div class="photo-print duo-sway">
+            <img class="photo-clip" src="/assets/cork/binder-gold.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+            <img class="photo-img" src="/assets/bri-portrait.webp" width="880" height="1100" loading="lazy" decoding="async" alt="Bri, the astrologer behind Ophi: a black-and-white portrait.">
+          </div>
+          <figcaption class="photo-note duo-sway"><img class="note-pin duo-rock" src="/assets/cork/pin-pink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><span>typical Gemini</span></figcaption>
+        </figure>
+        <p class="np-k">From the editor</p>
+        <h2 class="np-h np-h-big">About <em>Bri</em></h2>
+        <div class="duo-body">
+          <p>I've been a creative, a curious mind, and a jack-of-all-trades for as long as I can remember. Typical Gemini. I've always had my hands in many creative pots, chasing one idea, vision, or fascination after another.</p>
+          <p>But astrology has been a constant. From the glow-in-the-dark stars tacked on my bedroom ceiling to years of studying this beautifully intricate and ancient science, the cosmos has been asking for my attention for quite some time.</p>
+          <p>I care about astrology deeply, and every day it changes my life in some way. I just want to share the abundance with those who are open enough to get curious with me.</p>
+          <p class="duo-sign">This is Ophi by Bri.</p>
+        </div>
+      </article>
+    </div>
+
+    <blockquote class="np-pull np-pull-sm">
+      <img class="np-star s-pull-l" src="/assets/journal/chrome-star-7.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
       <p class="np-pull-k">Ophiuchus asks us to remember:</p>
       <p class="np-pull-q">There is always <em>more to the story.</em></p>
     </blockquote>
@@ -106,7 +156,6 @@
 </section>
 
 <section class="help words-cork flow-sec" id="words">
-  <div class="bleed-at" aria-hidden="true"><img class="bleed l lacey bow" src="/assets/eph/lace-bow-ink.webp" alt="" style="--t:40%" loading="lazy" decoding="async"></div>
   <div class="np-page np-help-head">
     <img class="eph words-stars" src="/assets/eph/glitter-stars.webp" alt="" aria-hidden="true">
     <p class="np-k">Letters to the editor</p>
@@ -115,16 +164,29 @@
   </div>
 
   <div class="cork cork-words">
+    <img class="cw-bow" src="/assets/eph/lace-bow-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <img class="np-star s-cw1" src="/assets/journal/chrome-star-1.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <img class="np-star s-cw2" src="/assets/journal/chrome-star-4.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <img class="cb-deco cw-safety" src="/assets/cork/safety-gold.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="tq-carousel words-car cw-car" role="region" aria-roledescription="carousel" aria-label="Client testimonials">
       <div class="tq-track" tabindex="0">
         <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="Testimonial 1">
+          <!-- one testimonial = two papers: the first thought on the clipboard note, the rest on the torn sheet taped
+               underneath it -->
           <figure class="cw-note">
-            <img class="cw-tape" src="/assets/eph/tape-sage.webp" alt="" aria-hidden="true">
-            <img class="cw-pin" src="/assets/cork/pin-red.webp" alt="" aria-hidden="true">
-            <blockquote><p>Got my first ever birth chart reading from Bri! I had a great experience. I was genuinely amazed by how accurately my chart reflected experiences and patterns in my life, there were a lot of moments where I thought "How did you know that?!" 😂</p><p>I really appreciated how thoughtfully she explained both the challenges and strengths in my chart and how she framed everything as something that can evolve rather than something permanent. The reading gave me a lot to reflect on and helped me see some familiar patterns from a completely different perspective. It was insightful, encouraging, and mind-blowing. I'm so glad I booked with her and would absolutely recommend her!</p></blockquote>
+            <blockquote>
+              <div class="cb-note cw-clipnote">
+                <img class="cb-paper" src="/assets/cork/note-lined-clip.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <div class="cb-text"><i class="cb-float" aria-hidden="true"></i><p>Got my first ever birth chart reading from Bri! I had a great experience. I was genuinely amazed by how accurately my chart reflected experiences and patterns in my life,<span class="cw-cont"> there were a lot of moments where I thought "How did you know that?!" 😂</span></p></div>
+              </div>
+              <div class="cw-sheet">
+                <img class="cw-tape" src="/assets/eph/tape-sage.webp" alt="" aria-hidden="true">
+                <img class="cw-pin" src="/assets/cork/pin-red.webp" alt="" aria-hidden="true">
+                <!-- phones: the clipboard holds less, so the first thought finishes here -->
+                <p class="cw-cont-ph">&hellip;there were a lot of moments where I thought "How did you know that?!" 😂</p>
+                <p>I really appreciated how thoughtfully she explained both the challenges and strengths in my chart and how she framed everything as something that can evolve rather than something permanent. The reading gave me a lot to reflect on and helped me see some familiar patterns from a completely different perspective. It was insightful, encouraging, and mind-blowing. I'm so glad I booked with her and would absolutely recommend her!</p>
+              </div>
+            </blockquote>
             <figcaption><b>Iza</b><span>Meet Yourself</span></figcaption>
           </figure>
         </div>
@@ -142,8 +204,8 @@
     <div class="cb-go cw-go">
       <div class="cb-tagcard">
         <img class="cb-deco cb-clipper" src="/assets/cork/clip-silver.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <p class="hand">had a reading with me?</p>
-        <a class="cta" href="mailto:sinprodinc@gmail.com?subject=A%20testimonial%20for%20Ophi">Submit a testimonial <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p class="hand">I'd love to hear from you.</p>
+        <a class="cta" href="mailto:ophibybri@gmail.com?subject=A%20testimonial%20for%20Ophi">Submit a testimonial <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>

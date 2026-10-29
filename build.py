@@ -147,7 +147,7 @@ def pan(href, tone, title, hand, direction):
             '    <span class="pan-track" aria-hidden="true"><span class="pan-run">%s</span><span class="pan-run">%s</span></span>\n'
             '  </a>') % (tone, direction, href, label.replace('"', '&quot;'), run, run)
 
-NO_FLY = {'readings/index.html'}
+NO_FLY = {'readings/index.html', 'index.html'}   # home (Bri, 28 Oct): the butterfly moved up beside Welcome
 
 def doors(out):
     """The closing band on every page: 'See your sky' (cast a chart), then two panning banners to Readings and This Season."""

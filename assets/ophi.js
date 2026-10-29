@@ -301,15 +301,17 @@
      and rocks a few degrees as it travels through the screen. They use the separate rotate / translate properties,
      so their resting tilt (CSS transform) stays as designed. */
   try{
-    var papers=Array.prototype.slice.call(document.querySelectorAll('.torn, .sticker, .tour-go, .pan-tag'));
+    var papers=Array.prototype.slice.call(document.querySelectorAll('.torn, .sticker, .tour-go, .pan-tag, .strip-go, .duo-sway'));
     if(papers.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var pq=false;
       var sway=function(){ pq=false; var vh=innerHeight;
         papers.forEach(function(el,i){ var r=BOX(el); if(r.bottom<-80||r.top>vh+80) return;
           var k=((r.top+r.height/2)-vh/2)/vh;   /* -1..1 as it crosses the screen */
           var lean=(i%2?2.2:-2.6);   /* its resting lean, alternating */
-          el.style.rotate=(lean+Math.sin(k*2.6+i*1.3)*6.5).toFixed(2)+'deg';
-          el.style.translate=(Math.sin(k*2.1+i*.7)*6).toFixed(1)+'px '+(Math.sin(k*1.8+i)*13).toFixed(1)+'px'; }); };
+          /* the big pieces on the home page (photo, plate, notes) and the strip's tags move more gently */
+          var a=el.classList.contains('duo-sway')?.45:el.classList.contains('strip-go')?.35:1;
+          el.style.rotate=((lean+Math.sin(k*2.6+i*1.3)*6.5)*a).toFixed(2)+'deg';
+          el.style.translate=(Math.sin(k*2.1+i*.7)*6*a).toFixed(1)+'px '+(Math.sin(k*1.8+i)*13*a).toFixed(1)+'px'; }); };
       addEventListener('scroll',function(){ if(!pq){ pq=true; requestAnimationFrame(sway); } },{passive:true});
       addEventListener('resize',sway); sway();
     }
@@ -318,7 +320,7 @@
   /* Push pins rock very slightly as they scroll by, like the stickers on the rituals page (19 Oct).
      rotate adds to each pin's own tilt (CSS transform), so their resting angles stay as designed. */
   try{
-    var pins=Array.prototype.slice.call(document.querySelectorAll('.eph.pin, .pan-art'));
+    var pins=Array.prototype.slice.call(document.querySelectorAll('.eph.pin, .pan-art, .duo-rock, .cw-bow, .wel-fly'));
     if(pins.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var nq=false;
       var rock=function(){ nq=false; var vh=innerHeight;
@@ -337,7 +339,8 @@
           slides=Array.prototype.slice.call(track.children),
           dots=Array.prototype.slice.call(car.querySelectorAll('.tq-dots button')),
           calm=window.matchMedia('(prefers-reduced-motion:reduce)').matches,
-          cur=0, timer=null, auto=!calm, onScreen=false, held=false, settle=null;
+          cur=0, timer=null, auto=!calm, onScreen=false, held=false, settle=null,
+          every=+car.getAttribute('data-every')||0, wake=null;   /* data-every: turn on a fixed beat (the home strip, 2.5 s) */
       var mark=function(){
         dots.forEach(function(d,k){ if(k===cur){d.setAttribute('aria-current','true');}else{d.removeAttribute('aria-current');} });
       };
@@ -361,11 +364,14 @@
         clearTimeout(timer);
         if(!auto||!onScreen||held||N<2) return;
         var words=slides[cur].textContent.trim().split(/\s+/).length;
-        timer=setTimeout(function(){ go(cur+1); plan(); }, Math.min(40000,Math.max(6500,words*330)));
+        timer=setTimeout(function(){ go(cur+1); plan(); }, every||Math.min(40000,Math.max(6500,words*330)));
       };
-      var quit=function(){ auto=false; clearTimeout(timer); };
-      car.querySelector('.prev').addEventListener('click',function(){ quit(); go(cur-1); });
-      car.querySelector('.next').addEventListener('click',function(){ quit(); go(cur+1); });
+      /* a touch stops the testimonials for good; the fixed-beat strip just pauses and picks up again */
+      var quit=function(){ clearTimeout(timer); clearTimeout(wake);
+        if(every){ wake=setTimeout(plan,6000); } else { auto=false; } };
+      var pb=car.querySelector('.prev'), nb=car.querySelector('.next');
+      if(pb) pb.addEventListener('click',function(){ quit(); go(cur-1); });
+      if(nb) nb.addEventListener('click',function(){ quit(); go(cur+1); });
       dots.forEach(function(d,k){ d.addEventListener('click',function(){ quit(); go(k); }); });
       track.addEventListener('keydown',function(e){
         if(e.key==='ArrowLeft'){ e.preventDefault(); quit(); go(cur-1); }

@@ -2687,3 +2687,194 @@ body.flow .np-why .story-flow{border-top:0;padding-top:var(--s2);max-width:none}
 .np-why .pron i{display:inline-block;width:.24em;height:.24em;border-radius:50%;background:currentColor;margin:0 .2em;vertical-align:.3em}
 .cw-go .cb-tagcard .cta{white-space:nowrap}
 @media(min-width:601px) and (max-width:640px){ .words-cork .np-help-head .eph.words-stars{left:auto;right:4%;top:-62px;width:46px} }
+
+/* ===================== 28 Oct 2026, round 2: Home (Bri) =====================
+   A slim strip of the pages at the very top, turning every 2.5 s (each title in its own colour, a Visit tag, dots);
+   on desktop a hand-drawn arrow points from it to "Inside this edition". "What is Ophi?" now sits over the line it
+   asks about. "Why Ophi?" and "About Bri" side by side (asymmetrical), dressed with the corkboard's paper, clips and
+   pins. The pull quote is smaller. Testimonials: the first thought on Bri's clipboard note, the rest on a torn sheet
+   taped under it; the lace bow hangs off the board's top-left corner. */
+.strip{position:relative;margin:0 0 var(--s3)}
+.strip-car{position:relative;min-width:0}
+.strip-car .tq-track{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;width:100%;margin:0;
+  border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.strip-car .tq-track::-webkit-scrollbar{display:none}
+.strip-car .tq-slide{flex:0 0 100%;scroll-snap-align:center;min-width:0;padding:0}
+.strip-a{--hl:#c9b8ec;--hlf:%239a7fd0;display:flex;align-items:center;justify-content:center;gap:clamp(14px,calc(2 * var(--vw,1vw)),26px);padding:12px 8px 14px;color:var(--ink);text-decoration:none}
+.strip-t{font-family:var(--font-title);font-size:clamp(25px,calc(2.7 * var(--vw,1vw)),36px);line-height:1.1;white-space:nowrap;padding:0 .12em;margin:0 -.04em;background:var(--hls) 0 72%/100% 60% no-repeat}
+.strip-t em{font-style:italic}
+.strip-go{font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;padding:6px 10px 5px;
+  background:var(--hl);color:var(--ink);border:1.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);transform:rotate(-3deg);transition:background .2s,color .2s}
+.strip-a:hover .strip-go,.strip-a:focus-visible .strip-go{background:var(--ink);color:var(--paper)}
+.strip-a.hl-air{--hl:#f0d98a;--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%23e2c46a' fill-opacity='.62' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
+.strip-a.hl-water{--hl:#b9cbe0;--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%2393acc6' fill-opacity='.62' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
+.strip-a.hl-lilac{--hl:#c9b8ec;--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%239a7fd0' fill-opacity='.4' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
+.strip-a.hl-sage{--hl:#c4d6ae;--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%2392b578' fill-opacity='.6' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
+.strip-a.hl-fire{--hl:#f0bdb1;--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%23e9a597' fill-opacity='.7' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
+.strip-car .tq-foot{display:flex;justify-content:center;min-height:0;margin-top:6px}
+.strip-car .tq-nav{display:flex;align-items:center}
+.strip-car .tq-dots{display:flex;gap:2px}
+.strip-car .tq-dots button{width:20px;height:20px;display:grid;place-items:center;padding:0;border:0;background:none;cursor:pointer}
+.strip-car .tq-dots button::before{content:"";width:6px;height:6px;border-radius:50%;border:1.5px solid var(--ink);transition:background .2s,transform .2s}
+.strip-car .tq-dots button[aria-current]::before{background:var(--coral);border-color:var(--coral);transform:scale(1.2)}
+/* the hand-drawn arrow from the strip down to "Inside this edition" (desktop) */
+.strip-arrow{position:absolute;z-index:3;width:clamp(96px,calc(8.4 * var(--vw,1vw)),128px);height:auto;left:clamp(-120px,calc(-7.6 * var(--vw,1vw)),-80px);top:clamp(-96px,calc(-6.4 * var(--vw,1vw)),-70px);
+  fill:none;stroke:var(--pen);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;overflow:visible;pointer-events:none}
+
+/* Welcome: the question over the line it asks about; the lace butterfly to the right of the heading */
+.np-k-rule{border-top:1px solid var(--ink);padding-top:var(--s2);margin-top:var(--s2)!important}
+.np-welcome .np-lede{border-top:0;padding-top:0}
+.np-welcome .np-h1-left{position:relative;z-index:1}
+.wel-fly{position:absolute;z-index:2;right:2%;top:clamp(8px,calc(2 * var(--vw,1vw)),30px);width:clamp(96px,calc(10 * var(--vw,1vw)),150px);height:auto;transform:rotate(9deg);pointer-events:none;user-select:none}
+
+/* Why Ophi? | About Bri */
+.duo{position:relative;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:0 clamp(36px,calc(4.8 * var(--vw,1vw)),76px);align-items:start;
+  padding:var(--s4) 0 calc(var(--s4) + 10px);border-bottom:1px solid var(--ink)}
+.duo-why,.duo-bri{position:relative}
+.duo-bri{padding-top:clamp(56px,calc(7 * var(--vw,1vw)),110px)}
+.duo-bri::before{content:"";position:absolute;top:0;bottom:0;left:calc(clamp(36px,calc(4.8 * var(--vw,1vw)),76px) / -2);border-left:1px solid rgba(22,19,16,.3)}
+.duo .np-h-big{font-size:clamp(42px,calc(4.8 * var(--vw,1vw)),68px);line-height:1;padding-bottom:14px}
+.duo .np-h-big em{font-style:italic}
+.duo-body p{font-size:15px;line-height:1.75}
+.duo-why .drop::first-letter{font-family:var(--font-title);float:left;font-size:4.4em;line-height:.82;padding:.08em .08em 0 0;color:var(--ink)}
+.duo-sign{font-family:var(--font-hand)!important;color:var(--pen)!important;font-size:clamp(26px,calc(2.6 * var(--vw,1vw)),34px)!important;line-height:1.2!important;margin-top:var(--s2)!important}
+/* the Serpent Bearer plate, taped and pinned, with a handwritten index card */
+.duo-plate{position:relative;margin:var(--s4) 0 56px;padding:0 16% 0 3%}
+.plate-print{position:relative;background:#fbf8f0;padding:10px;border:1px solid rgba(22,19,16,.15);box-shadow:0 14px 20px rgba(40,20,4,.22);transform:rotate(-2.5deg)}
+.plate-img{display:block;width:100%;height:auto}
+.plate-tape{position:absolute;width:32%;left:-9%;top:-6%;transform:rotate(-30deg);pointer-events:none}
+.plate-pin{position:absolute;width:clamp(26px,calc(2.6 * var(--vw,1vw)),38px);right:10%;top:-20px;transform:rotate(-8deg);pointer-events:none}
+.plate-card{position:absolute;right:0;bottom:-48px;width:clamp(168px,42%,236px);aspect-ratio:749/583;background:url(/assets/journal/paper-card.webp) center/100% 100% no-repeat;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:16% 8% 6%;box-sizing:border-box;text-align:center;
+  transform:rotate(5deg);filter:drop-shadow(0 8px 10px rgba(40,20,4,.25))}
+.pc-a{font-family:var(--font-hand);color:var(--pen);font-size:clamp(21px,calc(2 * var(--vw,1vw)),28px);line-height:1}
+.pc-b{font-family:var(--font-button);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+/* Bri's portrait: a print held by the gold binder clip, with a pinned sticky note */
+.duo-photo{position:relative;margin:0 0 calc(var(--s4) + 18px);padding:0 9% 0 13%}
+.photo-print{position:relative;background:#fbf8f0;padding:12px 12px 44px;border:1px solid rgba(22,19,16,.15);box-shadow:0 16px 24px rgba(40,20,4,.26);transform:rotate(2.2deg)}
+.photo-img{display:block;width:100%;height:auto;aspect-ratio:880/1100;object-fit:cover}
+.photo-clip{position:absolute;z-index:2;width:clamp(56px,calc(5.6 * var(--vw,1vw)),80px);left:50%;top:clamp(-56px,calc(-4 * var(--vw,1vw)),-40px);transform:translateX(-50%) rotate(-3deg);pointer-events:none}
+.photo-note{position:absolute;z-index:2;left:0;bottom:-30px;width:clamp(150px,46%,210px);aspect-ratio:570/430;background:url(/assets/journal/paper-note.webp) center/100% 100% no-repeat;
+  display:grid;place-items:center;padding:4% 16% 12% 6%;box-sizing:border-box;transform:rotate(-7deg);filter:drop-shadow(0 8px 10px rgba(40,20,4,.25))}
+.photo-note span{font-family:var(--font-hand);color:var(--pen);font-size:clamp(22px,calc(2 * var(--vw,1vw)),28px);line-height:1.05;text-align:center}
+.note-pin{position:absolute;width:24px;left:40%;top:-12px;transform:rotate(10deg);pointer-events:none}
+.s-why{right:0;top:var(--s4);rotate:-10deg}
+.s-bri{right:-2%;top:clamp(30px,calc(4 * var(--vw,1vw)),60px);rotate:14deg}
+
+/* the pull quote, smaller, under the two stories; "more to the story." always on one line */
+.np-home .np-pull-sm{margin-top:0;border-top:0;padding:var(--s3) var(--s2)}
+.np-pull-sm .np-pull-q{font-size:clamp(24px,calc(2.7 * var(--vw,1vw)),38px)}
+.np-pull-sm .np-pull-q em{white-space:nowrap}
+
+/* testimonials: two papers */
+.cw-note{padding:0;filter:none}
+.cw-note::before{content:none}
+.cw-note blockquote{margin:0;display:block;font-size:inherit}
+.cw-car .tq-slide{padding:30px 12px 22px 6px}
+.cw-clipnote{--ar:.91;--r:.068;--L:calc(var(--r) * 100cqh);--fx:.072;--fw:.774;--fy:.2556;--fh:calc(8.45 * var(--r));--fs:.0275;
+  width:94%;z-index:3;transform:rotate(-1.4deg)}
+.cw-clipnote .cb-text p{line-height:var(--L);padding-top:calc(var(--L) * .2);font-size:calc(var(--fs) * var(--cx) * 100cqw)}
+/* the two stars at the top left, then the big star at the bottom right */
+.cw-clipnote .cb-float{float:left;width:calc(.21 * var(--cx) * 100cqw);height:calc(var(--L) * 4.2);
+  shape-outside:polygon(0 0,100% 0,100% 28.6%,91% 28.6%,91% 52.4%,67% 52.4%,67% 76.2%,32% 76.2%,32% 100%,0 100%)}
+.cw-clipnote .cb-text::before{content:"";float:right;width:calc(.24 * var(--cx) * 100cqw);height:100%;
+  shape-outside:polygon(100% 0,100% 0,100% 61.5%,26% 61.5%,26% 73.4%,7% 73.4%,7% 85.2%,0 85.2%,0 100%,100% 100%)}
+.cw-sheet{position:relative;z-index:2;width:86%;margin:-8% 0 0 auto;padding:clamp(56px,13%,96px) 10% 104px 11%;box-sizing:border-box;
+  background:url(/assets/journal/paper-dot.webp) center/100% 100% no-repeat;filter:drop-shadow(0 10px 14px rgba(40,20,4,.3))}
+.cw-sheet p{font-size:15px;line-height:1.75;color:var(--ink);margin:0;text-wrap:pretty}
+.cw-note{position:relative}
+.cw-note figcaption{position:absolute;z-index:3;left:calc(14% + 86% * .11);right:calc(86% * .1);bottom:46px;margin:0;padding-top:var(--s1)}
+.cw-tape{position:absolute;z-index:4;width:clamp(96px,10cqw,140px);left:-7%;top:clamp(26px,6%,52px);rotate:-38deg;pointer-events:none}
+.cw-pin{position:absolute;z-index:4;width:clamp(28px,3cqw,38px);right:9%;top:clamp(34px,7%,56px);rotate:-8deg;pointer-events:none}
+.cw-bow{position:absolute;z-index:6;width:clamp(100px,calc(11 * var(--vw,1vw)),168px);height:auto;left:clamp(-64px,calc(-4.2 * var(--vw,1vw)),-34px);top:clamp(-84px,calc(-6 * var(--vw,1vw)),-50px);transform:rotate(-16deg);pointer-events:none;user-select:none}
+/* the testimonial card: the button stays inside its card */
+.cw-go .cb-tagcard{max-width:290px;padding:46px 22px 24px}
+.cw-go .cb-tagcard .hand{line-height:1.2}
+body.flow .cw-go .cb-tagcard .cta{white-space:normal;max-width:100%;box-sizing:border-box;justify-content:center;text-align:center;font-size:12px;letter-spacing:.1em;padding:12px 16px;gap:8px;line-height:1.25}
+@media(max-width:900px){
+  .strip-arrow{display:none}
+  .duo{grid-template-columns:1fr;padding-bottom:var(--s3)}
+  .duo-bri{padding-top:var(--s4);margin-top:var(--s3);border-top:1px solid rgba(22,19,16,.3)}
+  .duo-bri::before{display:none}
+  .duo-photo{max-width:440px;margin-left:auto;margin-right:auto;padding-top:46px}
+  .duo-plate{max-width:560px}
+  .cw-clipnote{width:100%}
+  .cw-sheet{width:92%}
+  .cw-note figcaption{left:calc(8% + 92% * .11);right:calc(92% * .1)}
+}
+@media(max-width:600px){
+  .strip-t{font-size:24px}
+  .strip-a{gap:12px;padding:11px 4px 13px}
+  .strip-go{font-size:9.5px;padding:5px 8px 4px}
+  .wel-fly{right:-2%;top:-4px;width:84px}
+  .duo-plate{padding:0 10% 0 2%;margin-bottom:60px}
+  .plate-card{width:150px;bottom:-52px}
+  .duo-photo{padding:46px 6% 0 10%}
+  .photo-note{width:150px;bottom:-34px;left:-2%}
+  .s-bri{top:auto;bottom:40%}
+  .cw-car .tq-slide{padding:26px 4px 18px 2px}
+  .cw-clipnote{--cx:1.1;--fs:.0292;transform:rotate(-1deg)}
+  .cw-sheet{width:96%;margin-top:-10%;padding:56px 9% 98px 10%}
+  .cw-sheet p{font-size:13.5px;line-height:1.7}
+  .cw-note figcaption{left:calc(4% + 96% * .1);right:calc(96% * .09);bottom:42px}
+  .cw-tape{width:84px;left:-4%;top:28px}
+  .cw-bow{width:86px;left:-12px;top:-50px}
+}
+/* round 2, pass 2: the halves balanced (Why Ophi? narrower; About Bri wider, portrait beside the bio); the two
+   testimonial papers side by side on desktop, the card in the space under the clipboard */
+.duo{grid-template-columns:minmax(0,1fr) minmax(0,1.32fr)}
+.duo-bri{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1fr);grid-template-areas:"k k" "h h" "photo body";column-gap:clamp(26px,calc(3 * var(--vw,1vw)),44px);align-items:start}
+.duo-bri > .np-k{grid-area:k}
+.duo-bri > .np-h{grid-area:h}
+.duo-bri > .duo-body{grid-area:body}
+.duo-bri > .duo-photo{grid-area:photo;margin:clamp(40px,calc(3.6 * var(--vw,1vw)),56px) 0 40px;padding:0 4% 0 2%}
+.duo-plate{padding:0 12% 0 2%}
+.pc-a{font-size:clamp(18px,calc(1.6 * var(--vw,1vw)),23px);white-space:nowrap}
+@media(min-width:1100px){
+  .cork-words{display:block}
+  /* the figure is a grid: clipboard on the left, the torn sheet (a background layer) on the right, tucked under it;
+     the sheet ends with the testimonial and its signature */
+  .cw-note{display:grid;grid-template-columns:55% minmax(0,1fr);grid-template-rows:auto 1fr auto;isolation:isolate}
+  .cw-note blockquote{display:contents}
+  .cw-clipnote{grid-column:1;grid-row:1 / span 3;align-self:start;width:100%}
+  .cw-note::before{content:"";grid-column:2;grid-row:1 / span 3;margin:12% 0 0 -9%;z-index:1;clip-path:none;
+    background:url(/assets/journal/paper-dot.webp) center/100% 100% no-repeat;filter:drop-shadow(0 10px 14px rgba(40,20,4,.3))}
+  .cw-sheet{grid-column:2;grid-row:1;width:auto;margin:12% 0 0 -9%;padding:clamp(66px,14%,96px) 11% 0 15%;background:none;filter:none;z-index:2}
+  .cw-note figcaption{position:static;grid-column:2;grid-row:3;z-index:2;margin:var(--s3) 11% 54px 6%}
+  .cw-tape{left:2%;top:clamp(34px,7%,56px);rotate:-34deg}
+  .cw-pin{right:8%;top:clamp(28px,6%,46px)}
+  .cw-go{justify-content:flex-start;padding:0 0 0 clamp(30px,6%,80px);margin-top:clamp(-150px,-11cqw,-90px)}
+  .cw-go .cb-tagcard{max-width:300px}
+  .cw-safety{right:6%;left:auto;bottom:7%}
+}
+@media(max-width:900px){
+  .duo-bri{display:block}
+  .duo-bri > .duo-photo{margin:0 auto calc(var(--s4) + 18px);padding:46px 9% 0 13%}
+}
+.plate-card{width:clamp(196px,48%,256px);padding:19% 5% 7%}
+.pc-a{font-size:clamp(17px,calc(1.45 * var(--vw,1vw)),21px)}
+.pc-b{font-size:8.5px;white-space:nowrap}
+/* overlap fixes: the tape and pin sit on the sheet's top edge, the clip clears the card's line, phone stars */
+.cw-go .cb-tagcard{padding-top:58px}
+.cw-tape{top:-14px}
+.cw-pin{top:-12px}
+@media(min-width:1100px){ .cw-tape{top:-6px;left:-1%} .cw-pin{top:-4px} }
+@media(max-width:600px){
+  .s-why{top:auto;bottom:-6px;right:2%}
+  .s-bri{top:18px;bottom:auto;right:3%}
+  .cw-tape{top:-16px} .cw-pin{top:-10px}
+}
+@media(max-width:600px){ .cw-tape{top:auto;bottom:-10px;left:-5%;rotate:38deg;width:80px} }
+@media(max-width:900px){ .duo{grid-template-columns:1fr} }
+.cw-go .cb-tagcard .hand{text-wrap:balance}
+@media(max-width:600px){ .cw-clipnote{--cx:1.16;--fs:.0302} .cw-car .tq-slide{padding:26px 0 18px} .cork-words{padding:22px 8px 30px} }
+/* phones: the clipboard ends at "...in my life," and the sheet carries on */
+.cw-cont-ph{display:none}
+@media(max-width:600px){
+  .cw-cont{display:none}
+  .cw-cont-ph{display:block;margin-bottom:.8em!important}
+  .cw-clipnote{--cx:1.14;--fs:.036}
+}
+/* testimonial papers stacked below 1100px: one column, at a comfortable reading size */
+@media(max-width:1099px){ .cork-words{grid-template-columns:1fr} .cw-note{max-width:600px;margin:0 auto} .cw-go{padding-top:var(--s2)} .cw-safety{display:none} }
+@media(max-width:600px){ .cw-note{max-width:440px} }
