@@ -590,4 +590,16 @@
     var h=location.hash && document.getElementById(location.hash.slice(1));
     if(h && h.classList.contains('rising')) h.querySelector('button').click();
   }catch(e){}
+
+  /* Bri, 28 Oct: the little chrome stars on Make It Make Sense turn gently as they travel up the screen (no growing). */
+  (function(){
+    var st=Array.prototype.slice.call(document.querySelectorAll('.np-star'));
+    if(!st.length||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
+    var dir=st.map(function(s,i){return i%2?-1:1;}),queued=false;
+    function spin(){queued=false;var vh=window.innerHeight||1;
+      st.forEach(function(s,i){var r=s.getBoundingClientRect();if(!r.height)return;var t=(r.top+r.height/2)/vh-.5;
+        s.style.setProperty('--spin',(Math.max(-1,Math.min(1,t))*-28*dir[i]).toFixed(1)+'deg');});}
+    window.addEventListener('scroll',function(){if(!queued){queued=true;requestAnimationFrame(spin);}},{passive:true});
+    window.addEventListener('resize',spin);spin();
+  })();
 })();

@@ -2472,16 +2472,19 @@ body.flow .np{padding:calc(var(--sec) * .6 + var(--lace-h) * .4) var(--pad) var(
 }
 @media(max-width:560px){ .np-cols{columns:1} .np-folio span:last-child{display:none} }
 
-/* ---- silver stars, scattered (Bri, 28 Oct): Bri's chrome stars, small, in open space only; they swell like the site's other accents ---- */
-.np-star{width:clamp(22px,calc(2.2 * var(--vw,1vw)),32px)!important}
-.s-lead-l{left:2%;top:26%;rotate:-14deg} .s-lead-r{right:3%;top:58%;rotate:12deg;width:clamp(18px,calc(1.7 * var(--vw,1vw)),26px)!important}
-.np-k .s-k{position:absolute;right:0;top:-10px;rotate:18deg;width:clamp(18px,calc(1.6 * var(--vw,1vw)),24px)!important}
+/* ---- silver stars, scattered (Bri, 28 Oct): Bri's chrome stars in open space only. Each turns gently as it travels
+   up the screen (ophi.base.js sets --spin); no growing. ---- */
+.np-star{position:absolute;pointer-events:none;user-select:none;height:auto;z-index:2;width:clamp(22px,calc(2.2 * var(--vw,1vw)),32px);
+  transform:rotate(var(--spin,0deg));transition:transform .25s linear}
+@media(prefers-reduced-motion:reduce){ .np-star{transform:none;transition:none} }
+.s-lead-l{left:2%;top:22%;rotate:-14deg} .s-lead-r{right:3%;top:60%;rotate:12deg;width:clamp(18px,calc(1.7 * var(--vw,1vw)),26px)}
+.np-k .s-k{position:absolute;right:0;top:-10px;rotate:18deg;width:clamp(18px,calc(1.6 * var(--vw,1vw)),24px)}
 .np-pull{position:relative}
-.s-pull-l{left:5%;top:38%;rotate:-8deg} .s-pull-r{right:6%;top:26%;rotate:22deg;width:clamp(18px,calc(1.6 * var(--vw,1vw)),24px)!important}
+.s-pull-l{left:5%;top:38%;rotate:-8deg} .s-pull-r{right:6%;top:26%;rotate:22deg;width:clamp(18px,calc(1.6 * var(--vw,1vw)),24px)}
 .np-help-head{position:relative}
-.s-help{right:12%;top:8%;rotate:10deg} .s-help2{left:14%;bottom:6%;rotate:-20deg;width:clamp(16px,calc(1.5 * var(--vw,1vw)),22px)!important}
-.s-cork{left:47.5%;bottom:3.5%;rotate:-12deg;z-index:3}
-@media(max-width:760px){ .s-lead-r,.s-pull-r,.s-help2{display:none} .s-lead-l{left:-2px;top:-12px} .s-pull-l{left:0;top:6px} .s-help{right:2%;top:-6px} }
+.s-help{right:12%;top:8%;rotate:10deg} .s-help2{left:14%;bottom:6%;rotate:-20deg;width:clamp(16px,calc(1.5 * var(--vw,1vw)),22px)}
+.s-cork{right:3%;bottom:2%;rotate:-12deg;z-index:3}
+@media(max-width:760px){ .s-lead-r,.s-pull-r,.s-help2{display:none} .s-lead-l{left:-2px;top:-14px} .s-pull-l{left:0;top:6px} .s-help{right:auto;left:2%;top:-18px} }
 
 /* ---- the corkboard ---- */
 body.flow .help{padding:var(--sec) var(--pad)}
@@ -2490,50 +2493,66 @@ body.flow .help{padding:var(--sec) var(--pad)}
 .cork{position:relative;container-type:inline-size;max-width:var(--banner);margin:0 auto;padding:clamp(28px,calc(3.6 * var(--vw,1vw)),56px) clamp(18px,calc(3.4 * var(--vw,1vw)),52px) clamp(32px,calc(4 * var(--vw,1vw)),60px);
   background:#c98e57 url(/assets/cork/cork.webp) center/cover;border:2px solid var(--ink);box-shadow:10px 10px 0 var(--ink),inset 0 0 0 6px rgba(22,19,16,.12),inset 0 0 60px rgba(60,30,8,.28)}
 .cb-deco{position:absolute;pointer-events:none;user-select:none;height:auto;z-index:3}
-/* Bri's "change is scary" ribbon hugs the board's right edge and reaches back between the first two notes */
-.cb-ribbon{width:min(44cqw,520px);right:-1.2cqw;top:1.4cqw;z-index:1;rotate:2deg}
-.cb-scatter{width:min(15cqw,170px);left:3%;bottom:1.5%;opacity:.95;z-index:1}
-/* two columns of pinned things; the right column starts below the ribbon's tail */
+.cb-scatter{display:none}
 .cb-cols{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(22px,3.2cqw,52px);align-items:start}
 .cb-col{display:flex;flex-direction:column;gap:clamp(22px,3cqw,44px)}
-.cb-col-b{padding-top:calc(min(44cqw,520px) * .73 - 14cqw)}
-/* each note is Bri's composed graphic; its text sits on the paper, sized in the note's own units */
-.cb-note{position:relative;container-type:inline-size;margin:0;filter:drop-shadow(0 10px 14px rgba(40,20,4,.32))}
-.cb-paper{display:block;width:100%;height:auto}
-.cb-text{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);box-sizing:border-box;overflow:hidden}
-.cb-text h3{font-family:var(--font-title);font-weight:400;color:var(--ink);margin:0}
-.cb-text p{color:var(--ink);margin:0;text-wrap:pretty}
-/* plaid + moon, lined paper: text starts right of the red margin line and sits on the ruled lines (36 px apart on the
-   900 px graphic, so 3.956cqw); the first ruled line under the title is the first line of text; it steps around the moon */
-.cb-moon{--L:3.956cqw;--x:26.4cqw;--y:calc(19.67cqw - var(--L) * .78);--w:53.6cqw;--h:calc(var(--L) * 11 + 1cqw)}
-.cb-moon .cb-text h3,.cb-moon .cb-text p{line-height:var(--L)}
-.cb-moon .cb-text h3{font-size:4.3cqw;line-height:calc(var(--L) * 2);margin-top:calc(var(--L) * -.55)}
-.cb-moon .cb-text p{font-size:2.78cqw;position:relative;top:calc(var(--L) * .24)}
-.cb-moon .cb-float{float:right;width:15.5cqw;height:calc(var(--L) * 3.75);shape-outside:margin-box}
-.cb-moon .cb-pin{width:9%;left:9%;top:21%;rotate:-10deg}
-/* grid + binder clip: a larger body */
-.cb-grid-note{--x:15.5%;--y:40%;--w:58%;--h:42%}
-.cb-grid-note .cb-text h3{font-size:4.6cqw;line-height:1.05;margin-bottom:.3em}
-.cb-grid-note .cb-text p{font-size:2.85cqw;line-height:1.45}
-/* torn paper + brown stars */
-.cb-stars{--x:14.5%;--y:34%;--w:66%;--h:43%}
-.cb-stars .cb-text{display:flex;flex-direction:column;justify-content:center}
-.cb-stars .cb-text h3{font-size:4.4cqw;line-height:1.05;margin-bottom:.35em}
-.cb-stars .cb-text p{font-size:2.7cqw;line-height:1.5}
-.cb-stars .cb-pin{width:10%;left:2%;top:28%;rotate:-14deg}
-/* lined paper + swirl star: right of the margin line, on the ruled lines (50.7 px apart, so 5.63cqw) */
-.cb-swirl{--L:5.63cqw;--x:19.8cqw;--y:calc(6.67cqw - var(--L) * .2);--w:73cqw;--h:calc(var(--L) * 9.6)}
-.cb-swirl .cb-text h3{font-size:4.6cqw;line-height:calc(var(--L) * 1)}
-.cb-swirl .cb-text h3{padding-top:calc(var(--L) * .1)}
-.cb-swirl .cb-text p{font-size:3.2cqw;line-height:var(--L);position:relative;top:calc(var(--L) * .3)}
-.cb-swirl .cb-tape{width:8%;right:0;top:-7%;rotate:28deg}
-/* the clipping: one headline line, never a lone word */
+/* Bri's "change is scary" ribbon: turned toward horizontal, coming out from under the first note and running to the
+   board's right edge, between the intention note and the contradictions note */
+.cb-ribbon{position:absolute;z-index:3;pointer-events:none;user-select:none;height:auto;width:50%;left:45.5%;top:-6.5cqw;rotate:-40deg}
+.cb-col-b{padding-top:19cqw}
+
+/* Each note is Bri's composed graphic in a box of its own proportions (container units: 1cqw is 1% of the box width,
+   1cqh 1% of its height). All positions are fractions of the graphic: --fx/--fy/--fw/--fh place the text, --r is the
+   ruled-line spacing as a fraction of its height. --cx > 1 crops the graphic's sides (phones); --sy > 1 stretches it. */
+.cb-note{--cx:1;--sy:1;--fs:.025;--ts:.042;position:relative;z-index:2;container-type:size;width:100%;margin:0;
+  aspect-ratio:calc(1 / (var(--cx) * var(--ar) * var(--sy)));overflow-x:clip;overflow-y:visible;filter:drop-shadow(0 10px 14px rgba(40,20,4,.32))}
+.cb-paper{position:absolute;top:0;left:calc((1 - var(--cx)) * 50%);width:calc(var(--cx) * 100%);height:100%;max-width:none}
+.cb-text{position:absolute;box-sizing:border-box;overflow:hidden;
+  left:calc((1 - var(--cx)) * 50cqw + var(--fx) * var(--cx) * 100cqw);top:calc(var(--fy) * 100cqh);
+  width:min(calc(var(--fw) * var(--cx) * 100cqw),calc(96cqw - ((1 - var(--cx)) * 50cqw + var(--fx) * var(--cx) * 100cqw)));height:calc(var(--fh) * 100cqh)}
+.cb-text h3{font-family:var(--font-title);font-weight:400;color:var(--ink);margin:0;font-size:var(--tpx,calc(var(--ts) * var(--cx) * 100cqw));line-height:1.08}
+.cb-text p{color:var(--ink);margin:0;text-wrap:pretty;font-size:var(--fpx,calc(var(--fs) * var(--cx) * 100cqw));line-height:1.5}
+.cb-float{display:block;font-style:normal}
+.cb-note .cb-deco{left:calc((1 - var(--cx)) * 50% + var(--dx) * var(--cx) * 100%);top:calc(var(--dy) * 100%);width:calc(var(--dw) * var(--cx) * 100%)}
+
+/* the ribbon comes out from under the first note */
+.cb-note.cb-moon{z-index:4}
+/* 1. plaid + moon, lined paper: right of the red margin line, title on the second ruled line, every line on a rule,
+      stepping around the moon */
+.cb-moon{--ar:.7633;--r:.05188;--L:calc(var(--r) * 100cqh);--fx:.262;--fw:.536;--fy:calc(213 / 687 - .78 * var(--r));--fh:.585;--ts:.040;--fs:.025}
+.cb-moon .cb-text h3{line-height:calc(var(--L) * 2);margin-top:calc(var(--L) * -.55)}
+.cb-moon .cb-text p{line-height:var(--L);position:relative;top:calc(var(--L) * .24)}
+.cb-moon .cb-float{float:right;width:calc(.155 * var(--cx) * 100cqw);height:calc(var(--L) * 3.4)}
+.cb-moon .cb-pin{--dx:.09;--dy:.21;--dw:.09;rotate:-10deg}
+/* 2. grid + bulldog clip: steps around the grey brush star (top left) and the studded star (bottom right) */
+.cb-grid-note{--ar:.99;--fx:.128;--fw:.672;--fy:.325;--fh:.505;--ts:.046;--fs:.028}
+.cb-grid-note .cb-text p{line-height:1.45}
+.cb-grid-note .cb-text::before{content:"";float:right;width:calc(.08 * var(--cx) * 100cqw);height:100%;
+  shape-outside:polygon(100% 0,100% 0,100% 77.8%,0 77.8%,0 100%,100% 100%)}
+.cb-grid-note .cb-text::after{content:none}
+.cb-grid-note .cb-text h3{margin-bottom:.3em}
+.cb-grid-note .cb-text h3::before{content:"";float:left;width:calc(.13 * var(--cx) * 100cqw);height:calc(.105 * 100cqh)}
+/* 3. torn paper + brown stars: clear of the torn edge, stepping around the stars */
+.cb-stars{--ar:1.0711;--fx:.183;--fw:.644;--fy:.296;--fh:.425;--ts:.040;--fs:.0245}
+.cb-stars .cb-float{float:right;width:calc(.206 * var(--cx) * 100cqw);height:calc(.192 * 100cqh);
+  shape-outside:polygon(0 0,100% 0,100% 100%,82% 100%,82% 30%,0 30%)}
+.cb-stars .cb-text h3{margin-bottom:.35em}
+.cb-stars .cb-pin{--dx:.02;--dy:.28;--dw:.1;rotate:-14deg}
+/* 4. lined paper + swirl star: right of the margin line, title on the third ruled line, every line on a rule,
+      stepping around the swirl star at the bottom */
+.cb-swirl{--ar:.8789;--r:.06413;--L:calc(var(--r) * 100cqh);--fx:.196;--fw:.766;--fy:calc(110 / 791 - .2 * var(--r));--fh:.78;--ts:.042;--fs:.024}
+.cb-swirl .cb-text h3{line-height:var(--L);padding-top:calc(var(--L) * .1)}
+.cb-swirl .cb-text p{line-height:var(--L);position:relative;top:calc(var(--L) * .3)}
+.cb-swirl .cb-float{float:left;width:calc(.105 * var(--cx) * 100cqw);height:100%;margin-right:4px;
+  shape-outside:polygon(0 0,0 0,0 70%,100% 70%,100% 100%,0 100%)}
+.cb-swirl .cb-tape{--dx:.91;--dy:-.07;--dw:.08;rotate:28deg}
+
+/* the clipping: one headline line, then Bri's paragraph */
 .cb-clipping{position:relative;container-type:inline-size;margin:0;padding:clamp(22px,2.4cqw,34px) clamp(20px,2.4cqw,34px) clamp(20px,2.2cqw,30px);background:#fbf8f0;color:var(--ink);
   clip-path:polygon(0 1.5%,4% 0,9% 1.2%,15% .2%,22% 1.4%,30% 0,38% 1%,47% .3%,55% 1.3%,63% 0,71% 1.1%,80% .2%,88% 1.4%,95% .1%,100% 1%,99.4% 30%,100% 62%,99.3% 99%,93% 100%,85% 98.8%,76% 100%,67% 98.9%,58% 100%,49% 98.7%,40% 100%,31% 99%,22% 100%,13% 98.8%,5% 100%,0 99%,.6% 64%,0 33%);
   filter:drop-shadow(0 10px 14px rgba(40,20,4,.32))}
 .cb-clipping::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(22,19,16,.025) 3px 4px);pointer-events:none}
-.cb-clipping .np-k{border-bottom:1px solid var(--ink);padding:0 64px 8px 0;margin-bottom:12px}
-.cb-clip-q{font-family:var(--font-title);font-size:min(7.2cqi,46px);line-height:1.08;margin:0 0 var(--s2);white-space:nowrap}
+.cb-clip-q{font-family:var(--font-title);font-size:min(7.2cqi,46px);line-height:1.08;margin:0 0 var(--s2);padding:0 52px 12px 0;border-bottom:1px solid var(--ink);white-space:nowrap}
 .cb-clip-q em{font-style:italic;background:linear-gradient(transparent 60%,rgba(154,127,208,.34) 60%)}
 .cb-clip-t{font-size:15px;line-height:1.7;color:var(--ink-2);margin:0;text-wrap:pretty}
 .cb-clipping .cb-pin{width:clamp(30px,calc(3.2 * var(--vw,1vw)),42px);right:3%;top:-4px;rotate:-6deg}
@@ -2544,54 +2563,27 @@ body.flow .help{padding:var(--sec) var(--pad)}
 .cb-clipper{width:84px;left:50%;top:-34px;translate:-50% 0}
 body.flow .cb-tagcard .cta{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:5px 5px 0 var(--coral)}
 body.flow .cb-tagcard .cta:hover{box-shadow:2px 2px 0 var(--coral)}
-/* one column: back to reading order, the ribbon on top of the board */
+
+/* one column: reading order, the ribbon coming out from under the first note */
 @media(max-width:1180px){
-  .cork{padding-top:calc(min(60cqw,420px) * .78)}
-  .cb-ribbon{width:min(60cqw,420px);right:-1cqw;top:1.5cqw}
   .cb-cols{display:flex;flex-direction:column;align-items:stretch;gap:clamp(26px,4cqw,44px);max-width:620px;margin:0 auto}
   .cb-col{display:contents}
+  .cb-moon{order:1} .cb-ribbon{order:2} .cb-grid-note{order:3} .cb-stars{order:4} .cb-swirl{order:5} .cb-clipping{order:6} .cb-go{order:7}
   .cb-col-b{padding-top:0}
-  .cb-moon{order:1} .cb-grid-note{order:2} .cb-stars{order:3} .cb-swirl{order:4} .cb-clipping{order:5} .cb-go{order:6}
+  .cb-ribbon{position:relative;left:auto;top:auto;width:min(78%,440px);align-self:flex-end;margin:calc(-1 * min(16cqw,110px)) -2% calc(-1 * min(16cqw,110px)) 0;rotate:-24deg}
   .cb-scatter{display:none}
-  .s-cork{left:auto;right:4%;bottom:2%}
 }
-/* phones: the composed notes leave too little paper for readable text, so each idea becomes its own kind of pinned
-   paper: lined with a red margin over gingham, grid under a bulldog clip, white on a black backing, lined with a black strip */
+/* phones: Bri's own graphics, cropped at the sides and, where a note needs more room, stretched a little taller,
+   so the text keeps a readable size */
 @media(max-width:600px){
-  .cork{padding:calc(min(78cqw,330px) * .92 + 2cqw) 16px 34px;box-shadow:6px 6px 0 var(--ink),inset 0 0 0 4px rgba(22,19,16,.12),inset 0 0 40px rgba(60,30,8,.28)}
-  .cb-ribbon{width:min(78cqw,330px);right:-2cqw;top:2cqw}
-  .cb-cols{gap:34px}
-  .cb-note{container-type:normal;padding:24px 20px 20px;isolation:isolate;filter:drop-shadow(0 8px 10px rgba(40,20,4,.3))}
-  .cb-paper,.cb-float{display:none}
-  .cb-text{position:static;width:auto;height:auto;overflow:visible}
-  .cb-text h3,.cb-moon .cb-text h3,.cb-swirl .cb-text h3,.cb-grid-note .cb-text h3,.cb-stars .cb-text h3{font-size:24px;line-height:1.1;margin:0 0 10px;padding:0}
-  .cb-text p,.cb-moon .cb-text p,.cb-swirl .cb-text p,.cb-grid-note .cb-text p,.cb-stars .cb-text p{font-size:14px;line-height:24px}
-  /* layers per card (the card itself is transparent): ::after is the paper (z -1), ::before is what sits behind
-     or on it (z -2 behind, z 3 on top), and the text paints over the paper */
-  .cb-note::after{content:"";position:absolute;inset:0;z-index:-1}
-  /* 1: lined beige, red margin, punched holes, on a gingham backing */
-  .cb-moon{padding-left:46px}
-  .cb-moon::after{background:radial-gradient(circle at 15px 34px,#c98e57 5px,transparent 5.5px) 0 0/100% 64px repeat-y,
-      linear-gradient(90deg,transparent 33px,rgba(196,96,96,.65) 33px 34.5px,transparent 34.5px),
-      repeating-linear-gradient(transparent 0 23px,rgba(196,120,120,.38) 23px 24px) 0 23px,#ece5cf}
-  .cb-moon::before{content:"";position:absolute;inset:14px -8px -10px 18px;z-index:-2;rotate:-3deg;
-      background:repeating-conic-gradient(#1b1b1b 0 25%,#7d7d7d 0 50%) 0 0/22px 22px;border:1px solid #111}
-  .cb-moon .cb-pin{width:30px;left:auto;right:16px;top:-26px}
-  /* 2: grid paper under the bulldog clip, torn at the bottom */
-  .cb-grid-note{padding-top:34px;margin-top:22px}
-  .cb-grid-note::after{background:linear-gradient(rgba(120,150,190,.25) 1px,transparent 1px) 0 0/16px 16px,linear-gradient(90deg,rgba(120,150,190,.25) 1px,transparent 1px) 0 0/16px 16px,#fbf8f0;
-      clip-path:polygon(0 0,100% 0,100% 96%,94% 99%,86% 96.5%,77% 99.5%,69% 97%,60% 99.4%,51% 96.8%,42% 99.6%,33% 97%,24% 99.5%,15% 96.6%,7% 99.2%,0 97%)}
-  .cb-grid-note::before{content:"";position:absolute;width:70px;height:60px;left:50%;top:-30px;translate:-50% 0;background:url(/assets/cork/clip-silver.webp) center/contain no-repeat;z-index:3}
-  /* 3: white paper on a black backing, pink pin */
-  .cb-stars::after{background:#f7f5f1}
-  .cb-stars::before{content:"";position:absolute;inset:-12px 14px 22px -8px;z-index:-2;background:#141210;rotate:3deg}
-  .cb-stars .cb-pin{width:30px;left:auto;right:16px;top:-26px}
-  /* 4: lined beige with a grey margin line and a black strip behind the corner, kraft tape */
-  .cb-swirl{padding-left:44px}
-  .cb-swirl::after{background:linear-gradient(90deg,transparent 30px,rgba(110,110,140,.55) 30px 31.5px,transparent 31.5px),
-      repeating-linear-gradient(transparent 0 23px,rgba(110,110,140,.32) 23px 24px) 0 23px,#ece4cf}
-  .cb-swirl::before{content:"";position:absolute;left:-10px;bottom:-12px;width:46%;height:42px;z-index:-2;background:#1c1a18;rotate:-2deg}
-  .cb-swirl .cb-tape{width:28px;right:12px;top:-18px}
-  .cb-ribbon{z-index:1}
+  .cork{padding:28px 10px 34px;box-shadow:6px 6px 0 var(--ink),inset 0 0 0 4px rgba(22,19,16,.12),inset 0 0 40px rgba(60,30,8,.28)}
+  .cb-cols{gap:26px}
+  /* type scales with the note, so every phone width fits the same way (about 12.5px on a 390px phone) */
+  .cb-moon{--cx:1.42;--sy:1.12;--fs:.0244;--ts:.037}
+  .cb-grid-note{--cx:1.2;--sy:1.26;--fs:.0303;--ts:.049}
+  .cb-stars{--cx:1.3;--sy:1.3;--fs:.0271;--ts:.043}
+  .cb-swirl{--cx:1.24;--sy:1.14;--fs:.0284;--ts:.045}
+  .cb-ribbon{width:82%;margin:-18% -4% -20% 0}
   .s-cork{display:none}
+  .cb-moon .cb-pin{--dx:.2;--dy:.03}
 }

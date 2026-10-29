@@ -147,6 +147,8 @@ def pan(href, tone, title, hand, direction):
             '    <span class="pan-track" aria-hidden="true"><span class="pan-run">%s</span><span class="pan-run">%s</span></span>\n'
             '  </a>') % (tone, direction, href, label.replace('"', '&quot;'), run, run)
 
+NO_FLY = {'readings/index.html'}
+
 def doors(out):
     """The closing band on every page: 'See your sky' (cast a chart), then two panning banners to Readings and This Season."""
     html = ['<section class="hero night" id="cast">',
@@ -158,7 +160,8 @@ def doors(out):
             '    <a class="cta" href="/chart/">Cast my chart ' + STAR_ARROW + '</a>',
             '  </div>', '</section>', '',
             '<section class="pans" aria-label="More from Ophi">',
-            '  <img class="pan-art pa-fly" src="/assets/eph/lace-butterfly-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">',
+            # Bri, 28 Oct: no lace butterfly at the bottom of Make It Make Sense (it pulled the eye there)
+            *([] if out in NO_FLY else ['  <img class="pan-art pa-fly" src="/assets/eph/lace-butterfly-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">']),
             '  <img class="pan-art pa-glitter" src="/assets/journal/sparkle-cross.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">']
     for k, (href, tone, title, hand) in enumerate(PANS):
         if PAN_PAGE.get(out) and href.startswith(PAN_PAGE[out]):
