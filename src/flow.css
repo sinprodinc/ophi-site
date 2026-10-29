@@ -1300,3 +1300,129 @@ body.flow .help-go .cta:hover{box-shadow:2px 2px 0 var(--coral)}
 @media(max-width:760px){ .ship{grid-template-columns:1fr} .ship > div + div{border-left:0;border-top:1px solid rgba(22,19,16,.4)} }
 @media(max-width:560px){ .set-card{grid-template-columns:1fr;justify-items:start} .set-tins{margin:4px 0 0 6px} .shop .candle .tin-shot{width:62%} }
 @media(prefers-reduced-motion:reduce){ .shop .candle .tin-shot,.shop .buy{transition:none} }
+
+/* ===================== 28 Oct 2026: Make It Make Sense, newspaper + corkboard (Bri) =====================
+   The primer reads like a newspaper front page (the Client Takeaway's page two): dateline strip, typewriter
+   kickers, Modern Romance headlines, two-column bodies with hairline column rules, a drop cap on the lead story,
+   one pull quote between a thick and a thin rule. No torn title tags. "How a reading can help" is the editor's
+   corkboard: Bri's notes and supplies on cork, black outline and the hard black shadow. */
+body.flow .np{padding:calc(var(--sec) * .6 + var(--lace-h) * .4) var(--pad) var(--sec);isolation:isolate}
+.np-page{max-width:var(--banner);margin:0 auto;text-align:left}
+.np-folio{display:flex;justify-content:space-between;gap:var(--s2);flex-wrap:wrap;margin:0 0 var(--s3);padding:9px 0 8px;
+  border-top:3px solid var(--ink);border-bottom:3px double var(--ink);font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.np-folio b{color:var(--coral);font-weight:400;margin:0 .6em}
+.np-lead{text-align:center;padding:var(--s2) 0 var(--s3);border-bottom:1px solid var(--ink);margin:0 0 var(--s3)}
+.np-h1{font-family:var(--font-title);font-weight:400;font-size:clamp(40px,5.6vw,80px);line-height:.98;letter-spacing:-.02em;color:var(--ink);margin:0}
+.np-h1 em{font-style:italic;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%239a7fd0' fill-opacity='.34' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E") 0 70%/100% 58% no-repeat;padding:0 .06em}
+.np-dek{font-family:var(--font-hand);color:var(--pen);font-size:clamp(22px,2.3vw,30px);line-height:1.25;max-width:34ch;margin:var(--s2) auto 0;text-wrap:balance}
+.np-dek-plain{font-family:inherit;color:var(--ink-2);font-size:15px;line-height:1.65;max-width:52ch}
+.np-k{font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin:0 0 6px}
+.np-h{font-family:var(--font-title);font-weight:400;font-size:clamp(28px,2.8vw,38px);line-height:1.02;color:var(--ink);margin:0 0 var(--s1);padding-bottom:10px;border-bottom:1px solid var(--ink)}
+.np-story p{font-size:15px;line-height:1.7;color:var(--ink);margin:0 0 .8em;text-wrap:pretty}
+.np-story > p:last-child{margin-bottom:0}
+.np-cols{columns:2;column-gap:clamp(26px,3vw,44px);column-rule:1px solid rgba(22,19,16,.3);padding-top:6px}
+.np-cols p{break-inside:auto}
+.np-drop > p:first-child::first-letter{font-family:var(--font-title);float:left;font-size:4.6em;line-height:.8;padding:.06em .08em 0 0;color:var(--ink)}
+.np-lede{font-family:var(--font-title);font-size:clamp(22px,2vw,27px)!important;line-height:1.18!important;margin:6px 0 var(--s2)!important}
+/* the lead story beside a sidebar, then three short stories, each pair split by a hairline */
+.np-top{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(0,1fr);gap:0 clamp(28px,3.4vw,52px);padding-bottom:var(--s3);border-bottom:1px solid var(--ink)}
+.np-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(28px,3.4vw,52px);padding:var(--s3) 0}
+.np-top > .np-story + .np-story,.np-row > .np-story + .np-story{position:relative}
+.np-top > .np-story + .np-story::before,.np-row > .np-story + .np-story::before{content:"";position:absolute;top:0;bottom:0;left:calc(clamp(28px,3.4vw,52px) / -2);border-left:1px solid rgba(22,19,16,.3)}
+.np-top{padding-top:4px}
+.np-fig{float:right;width:clamp(96px,9vw,128px);margin:4px 0 6px var(--s2)}
+.np-fig figcaption{font-size:16px}
+.np-key{list-style:none;display:grid;grid-template-columns:1fr;gap:0;margin:var(--s2) 0 0;padding:0;border-top:1px solid var(--ink)}
+.np-key li{display:grid;grid-template-columns:28px auto 1fr;align-items:baseline;gap:8px;padding:9px 4px 8px;border-bottom:1px solid rgba(22,19,16,.3)}
+.np-key i{font-style:normal;font-family:'Apple Symbols','Segoe UI Symbol','DejaVu Sans',serif;font-size:19px;line-height:1;color:var(--coral)}
+.np-key li:nth-child(3) i{font-family:var(--font-title);font-size:16px}
+.np-key b{font-weight:400;font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.np-key span{font-family:var(--font-hand);color:var(--pen);font-size:18px;line-height:1;text-align:right}
+.np-pull{margin:0;padding:var(--s3) var(--s2) var(--s3);border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);text-align:center}
+.np-pull-k{font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin:0 0 10px}
+.np-pull-q{font-family:var(--font-title);font-size:clamp(30px,3.8vw,52px);line-height:1.08;color:var(--ink);margin:0}
+.np-pull-q em{font-style:italic;background:linear-gradient(transparent 60%,rgba(154,127,208,.34) 60%)}
+.np .flow-next{display:flex;justify-content:center;margin-top:var(--s3)}
+@media(max-width:1000px){
+  .np-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .np-row > .np-story:nth-child(3){grid-column:1 / -1;padding-top:var(--s3);margin-top:var(--s3);border-top:1px solid rgba(22,19,16,.3)}
+  .np-row > .np-story:nth-child(3)::before{display:none}
+}
+@media(max-width:760px){
+  .np-top,.np-row{grid-template-columns:1fr}
+  .np-top > .np-story + .np-story,.np-row > .np-story + .np-story{padding-top:var(--s3);margin-top:var(--s3);border-top:1px solid rgba(22,19,16,.3)}
+  .np-top > .np-story + .np-story::before,.np-row > .np-story + .np-story::before{display:none}
+  .np-row > .np-story:nth-child(3){margin-top:var(--s3)}
+}
+@media(max-width:560px){ .np-cols{columns:1} .np-folio span:last-child{display:none} }
+
+/* ---- the corkboard ---- */
+body.flow .help{padding:var(--sec) var(--pad)}
+.np-help-head{text-align:center;margin-bottom:var(--s4)}
+.np-help-head .np-h1{margin-top:4px}
+.cork{position:relative;max-width:var(--banner);margin:0 auto;padding:clamp(28px,3.6vw,56px) clamp(18px,3.4vw,52px) clamp(32px,4vw,60px);
+  background:#c98e57 url(/assets/cork/cork.webp) center/cover;border:2px solid var(--ink);box-shadow:10px 10px 0 var(--ink),inset 0 0 0 6px rgba(22,19,16,.12),inset 0 0 60px rgba(60,30,8,.28)}
+.cb-deco{position:absolute;pointer-events:none;user-select:none;height:auto;z-index:3}
+.cb-scatter{width:min(30%,300px);right:2%;top:46%;opacity:.95;z-index:1}
+.cb-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,2.6vw,40px) clamp(20px,3vw,48px);align-items:start}
+/* each note is Bri's composed graphic; its text sits in the paper area measured for that graphic */
+.cb-note{position:relative;container-type:inline-size;margin:0;filter:drop-shadow(0 10px 14px rgba(40,20,4,.32))}
+.cb-paper{display:block;width:100%;height:auto}
+.cb-text{position:absolute;left:calc(var(--x) * 100%);top:calc(var(--y) * 100%);width:calc(var(--w) * 100%);height:calc(var(--h) * 100%);
+  padding:2.2cqw 2.4cqw;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.cb-text h3{font-family:var(--font-title);font-weight:400;font-size:clamp(20px,4.4cqw,30px);line-height:1.05;color:var(--ink);margin:0 0 .35em}
+.cb-text p{font-size:clamp(12.5px,2.62cqw,15px);line-height:1.5;color:var(--ink);margin:0}
+.cb-moon{--x:.185;--y:.35;--w:.59;--h:.52}
+.cb-moon .cb-text{padding-top:1.4cqw;padding-bottom:1.4cqw}
+.cb-moon .cb-text p{line-height:1.44}
+.cb-grid-note{--x:.14;--y:.37;--w:.6;--h:.47;margin-top:clamp(10px,3vw,40px)}
+.cb-stars{--x:.145;--y:.338;--w:.665;--h:.43}
+.cb-swirl{--x:.225;--y:.05;--w:.74;--h:.74;margin-top:clamp(0px,1vw,16px)}
+.cb-moon .cb-pin{width:10%;left:13%;top:22%;transform:rotate(-8deg)}
+.cb-stars .cb-pin{width:10%;left:2%;top:28%;transform:rotate(-14deg)}
+.cb-swirl .cb-tape{width:9%;right:3%;top:-3%;transform:rotate(24deg)}
+/* the clipping and the booking card */
+.cb-end{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(24px,3vw,48px);align-items:center;margin-top:clamp(28px,3.4vw,52px)}
+.cb-clipping{position:relative;margin:0;padding:clamp(24px,2.6vw,36px) clamp(22px,2.6vw,38px) clamp(22px,2.4vw,32px);background:#fbf8f0;color:var(--ink);
+  clip-path:polygon(0 1.5%,4% 0,9% 1.2%,15% .2%,22% 1.4%,30% 0,38% 1%,47% .3%,55% 1.3%,63% 0,71% 1.1%,80% .2%,88% 1.4%,95% .1%,100% 1%,99.4% 30%,100% 62%,99.3% 99%,93% 100%,85% 98.8%,76% 100%,67% 98.9%,58% 100%,49% 98.7%,40% 100%,31% 99%,22% 100%,13% 98.8%,5% 100%,0 99%,.6% 64%,0 33%);
+  filter:drop-shadow(0 10px 14px rgba(40,20,4,.32))}
+.cb-clipping::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(22,19,16,.025) 3px 4px);pointer-events:none}
+.cb-clipping .np-k{border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:12px}
+.cb-clip-q{font-family:var(--font-title);font-size:clamp(30px,3.4vw,46px);line-height:1.04;margin:0 0 var(--s2)}
+.cb-clip-q em{font-style:italic;background:linear-gradient(transparent 60%,rgba(154,127,208,.34) 60%)}
+.cb-clip-t{font-size:15px;line-height:1.7;color:var(--ink-2);margin:0;columns:2;column-gap:28px;column-rule:1px solid rgba(22,19,16,.3)}
+.cb-clipping .cb-pin{width:clamp(34px,3.6vw,48px);right:3%;top:-8px;transform:rotate(-6deg)}
+.cb-clipping .cb-tape2{display:none}
+.cb-go{position:relative;display:flex;justify-content:center;align-items:center}
+/* Bri's "change is scary" ribbon rides in the empty top corner of the grid note, clear of its clip and its paper */
+.cb-ribbon{width:34%;right:-3%;top:-5%;transform:rotate(4deg);z-index:1}
+.cb-tagcard{position:relative;z-index:2;background:#fbf8f0;border:2px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:30px 24px 22px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:12px}
+.cb-tagcard .hand{font-size:clamp(22px,2.2vw,28px);color:var(--pen);margin:0}
+.cb-clipper{width:84px;left:50%;top:-34px;transform:translateX(-50%)}
+body.flow .cb-tagcard .cta{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:5px 5px 0 var(--coral)}
+body.flow .cb-tagcard .cta:hover{box-shadow:2px 2px 0 var(--coral)}
+@media(max-width:1180px){
+  .cb-grid{grid-template-columns:minmax(0,1fr);max-width:620px;margin:0 auto}
+  .cb-grid-note,.cb-swirl{margin-top:0}
+  .cb-end{grid-template-columns:1fr}
+  .cb-scatter{display:none}
+}
+/* phones: the composed notes leave too little paper for the text at this width, so each idea becomes a plain
+   pinned card (same cork, same supplies), and the text stays at a readable size */
+@media(max-width:600px){
+  .cork{padding:28px 14px 34px;box-shadow:6px 6px 0 var(--ink),inset 0 0 0 4px rgba(22,19,16,.12),inset 0 0 40px rgba(60,30,8,.28)}
+  .cb-grid{gap:30px}
+  .cb-note{container-type:normal;background:#fbf8f0;padding:26px 20px 20px;filter:drop-shadow(0 8px 10px rgba(40,20,4,.3))}
+  .cb-note:nth-child(2){background:#fbf8f0 linear-gradient(rgba(120,150,190,.22) 1px,transparent 1px) 0 0/16px 16px,linear-gradient(90deg,rgba(120,150,190,.22) 1px,transparent 1px) 0 0/16px 16px}
+  .cb-note:nth-child(4){background:#f3ecd9 repeating-linear-gradient(transparent 0 23px,rgba(110,110,140,.3) 23px 24px)}
+  .cb-paper{display:none}
+  .cb-text{position:static;width:auto;height:auto;padding:0;overflow:visible}
+  .cb-text h3{font-size:24px}
+  .cb-text p{font-size:14px;line-height:1.6}
+  .cb-moon .cb-pin,.cb-stars .cb-pin{width:34px;left:auto;right:16px;top:-14px}
+  .cb-grid-note::before{content:"";position:absolute;width:64px;height:56px;left:50%;top:-30px;transform:translateX(-50%);background:url(/assets/cork/clip-silver.webp) center/contain no-repeat}
+  .cb-swirl .cb-tape{width:28px;right:12px;top:-18px}
+  .cb-clip-t{columns:1}
+  .cb-ribbon{display:none}
+}
