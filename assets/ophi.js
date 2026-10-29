@@ -345,7 +345,9 @@
           var v=(el.getAttribute('data-drift')||'0 0 0').split(/\s+/).map(Number),
               k=Math.max(-1.2,Math.min(1.2,((r.top+r.height/2)-vh/2)/vh)), f=Math.sin(k*5.2);
           el.style.translate=(v[0]*k+f*3).toFixed(1)+'px '+(v[1]*k+Math.cos(k*4.4)*3).toFixed(1)+'px';
-          el.style.rotate=(v[2]*k+f*v[2]*.25).toFixed(2)+'deg'; }); };
+          el.style.rotate=(v[2]*k+f*v[2]*.25).toFixed(2)+'deg';
+          /* optional 4th value: it stretches and squashes, changing shape as it goes */
+          if(v[3]){ var q=Math.sin(k*4.8)*v[3]; el.style.scale=(1+q).toFixed(3)+' '+(1-q*.7).toFixed(3); } }); };
       addEventListener('scroll',function(){ if(!dq){ dq=true; requestAnimationFrame(drift); } },{passive:true});
       addEventListener('resize',drift); drift();
     }

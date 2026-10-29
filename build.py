@@ -130,13 +130,17 @@ def door_preview(href):
 
 # The two panning banners under "See your sky" (Bri, 19 Oct): one slides left, one slides right, with paper showing
 # between them. Each is one big link. (They replace the two door cards.)
+# The two panning banners under "See your sky" (Bri, 19 Oct): one slides left, one slides right. Each is one big link.
+# Bri, 28 Oct: a banner never points to the page it sits on. Each page shows the first two of this list that aren't
+# itself, so the Book banner says "Book a Reading" (it used to say Make It Make Sense while linking to /book/).
 PANS = [
-    ('/book/', 'ink', 'Make It Make <em>Sense</em>', 'Time to Meet Yourself'),
-    ('/this-season/', 'paper', 'This <em>Season</em>', "What's in the sky right now?"),
+    ('/book/', 'Book a <em>Reading</em>', 'Time to Meet Yourself'),
+    ('/this-season/', 'This <em>Season</em>', "What's in the sky right now?"),
+    ('/readings/', 'Make It Make <em>Sense</em>', 'new to astrology? start here'),
+    ('/', 'Awakening <em>Astrology</em>', 'you are written in the stars'),
 ]
-# On its own page a banner is swapped for the Home banner (same colour, same direction).
-HOME_PAN = ('/', 'Awakening <em>Astrology</em>', 'you are written in the stars')
-PAN_PAGE = {'book/index.html': '/book/', 'this-season/index.html': '/this-season/'}
+PAGE_URL = {'index.html': '/', 'readings/index.html': '/readings/', 'book/index.html': '/book/',
+            'this-season/index.html': '/this-season/', 'candles/index.html': '/candles/'}
 
 def pan(href, tone, title, hand, direction):
     unit = ('<span class="pan-i"><span class="pan-t">%s</span><span class="pan-dash">&mdash;</span>'
@@ -147,7 +151,6 @@ def pan(href, tone, title, hand, direction):
             '    <span class="pan-track" aria-hidden="true"><span class="pan-run">%s</span><span class="pan-run">%s</span></span>\n'
             '  </a>') % (tone, direction, href, label.replace('"', '&quot;'), run, run)
 
-NO_FLY = {'readings/index.html', 'index.html'}   # home (Bri, 28 Oct): the butterfly moved up beside Welcome
 
 def doors(out):
     """The closing band on every page: 'See your sky' (cast a chart), then two panning banners to Readings and This Season."""
@@ -161,12 +164,13 @@ def doors(out):
             '  </div>', '</section>', '',
             '<section class="pans" aria-label="More from Ophi">',
             # Bri, 28 Oct: no lace butterfly at the bottom of Make It Make Sense (it pulled the eye there)
-            *([] if out in NO_FLY else ['  <img class="pan-art pa-fly" src="/assets/eph/lace-butterfly-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">']),
-            '  <img class="pan-art pa-glitter" src="/assets/journal/sparkle-cross.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">']
-    for k, (href, tone, title, hand) in enumerate(PANS):
-        if PAN_PAGE.get(out) and href.startswith(PAN_PAGE[out]):
-            href, title, hand = HOME_PAN
-        html.append(pan(href, tone, title, hand, 'left' if k == 0 else 'right'))
+            # Bri, 28 Oct: the same on every page: no lace butterfly here; the star hovers over the "See your sky"
+            # band above and turns, stretches and drifts as you scroll to it
+            '  <img class="pan-art pa-glitter" data-drift="-30 34 70 .22" src="/assets/journal/sparkle-cross.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">']
+    here = PAGE_URL.get(out)
+    picks = [p for p in PANS if p[0] != here][:2]
+    for k, (href, title, hand) in enumerate(picks):
+        html.append(pan(href, 'ink' if k == 0 else 'paper', title, hand, 'left' if k == 0 else 'right'))
     html.append('</section>')
     return '\n'.join(html)
 

@@ -2884,3 +2884,17 @@ body.flow .cw-go .cb-tagcard .cta{white-space:normal;max-width:100%;box-sizing:b
 .wel-fly{position:absolute;right:3%;left:auto;top:clamp(-44px,calc(-3.4 * var(--vw,1vw)),-34px);width:clamp(68px,calc(6.6 * var(--vw,1vw)),100px);transform:rotate(9deg)}
 @media(max-width:600px){ .wel-fly{right:2%;top:-36px;width:62px} }
 @media(min-width:601px) and (max-width:900px){ .words-cork .np-help-head .eph.words-stars{left:auto;right:5%;top:-64px;width:52px} }
+
+/* ===== 28 Oct 2026 (Bri, 22:19): the closing band, the same on every page ===== */
+/* no lace butterfly; the star sticker hovers over the bottom edge of the "See your sky" band, turning, stretching
+   and drifting as you scroll to it (data-drift in build.py) */
+.pa-fly{display:none}
+.pans{z-index:2}
+.pa-glitter{top:clamp(-74px,calc(-5.4 * var(--vw,1vw)),-46px);bottom:auto;right:clamp(28px,calc(7 * var(--vw,1vw)),120px);left:auto;width:clamp(58px,calc(5.6 * var(--vw,1vw)),84px);z-index:5;transform:rotate(9deg)}
+@media(max-width:700px){ .pa-glitter{top:-40px;bottom:auto;right:16px;width:50px} }
+
+/* ===== 28 Oct 2026 (Bri): This Season's rising cards: the subheader in Moms Typewriter, edgier ===== */
+.rising .tagline{font-family:var(--font-button);color:var(--ink);font-size:12.5px;line-height:1.45;letter-spacing:.1em;text-transform:uppercase;margin-top:6px}
+@media(max-width:599px){ .rising .tagline{font-size:11.5px;letter-spacing:.08em} }
+.rising .tagline{text-transform:none;font-size:14.5px;letter-spacing:.02em;line-height:1.42}
+@media(max-width:599px){ .rising .tagline{font-size:13px;letter-spacing:.01em} }

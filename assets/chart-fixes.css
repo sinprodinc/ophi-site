@@ -59,3 +59,12 @@
 /* Bri's pixel arrow cursor, same as the rest of the site */
 html,body{cursor:url(/assets/collage/cursor.png) 1 1,auto}
 a,button,[role=button],label,select,summary,.results li{cursor:url(/assets/collage/cursor.png) 1 1,pointer}
+
+/* Bri, 28 Oct: the same paper as every other page (colour and grain), from src/soft.css */
+:root:root{--bg:#f8f5ef}
+html body{background:#f8f5ef}
+html body::after{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.22;mix-blend-mode:multiply;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.014' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='0.55'/%3E%3C/svg%3E");
+    background-size:180px 180px,520px 520px}
