@@ -2898,3 +2898,98 @@ body.flow .cw-go .cb-tagcard .cta{white-space:normal;max-width:100%;box-sizing:b
 @media(max-width:599px){ .rising .tagline{font-size:11.5px;letter-spacing:.08em} }
 .rising .tagline{text-transform:none;font-size:14.5px;letter-spacing:.02em;line-height:1.42}
 @media(max-width:599px){ .rising .tagline{font-size:13px;letter-spacing:.01em} }
+
+/* ===================== 29 Oct 2026: This Season, the newspaper (Bri) =====================
+   Front: the "In the sky right now" tag, the month and year, the month's theme and a short summary.
+   Paper (below the rising cards): the full story as the lead article beside "Key dates" and "What's going on",
+   later sections as their own articles, Bri's monthly graphics in the story and margins, the closing note. */
+body.flow .ts-front{padding-bottom:calc(var(--sec) * .55)}
+.ts-mast{position:relative;text-align:center;padding:var(--s3) 0 var(--s4);border-bottom:3px double var(--ink)}
+.ts-tag{position:relative;display:inline-block;margin:0 0 var(--s3);padding:11px 18px 9px;background:#fbf8f0;border:1.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+  font-family:var(--font-button);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);transform:rotate(-4deg)}
+.ts-tag-pin{position:absolute;width:22px;height:auto;left:50%;top:-16px;translate:-50% 0;pointer-events:none}
+.ts-month{display:flex;flex-direction:column;align-items:center;margin:0;font-family:var(--font-title);font-weight:400;color:var(--ink);
+  font-size:clamp(84px,calc(13.5 * var(--vw,1vw)),200px);line-height:.84;letter-spacing:-.035em}
+.ts-year{display:flex;align-items:center;gap:16px;margin-top:clamp(12px,calc(1.4 * var(--vw,1vw)),20px);font-family:var(--font-button);font-size:clamp(13px,calc(1.15 * var(--vw,1vw)),16px);line-height:1;letter-spacing:.62em;padding-left:.62em}
+.ts-year::before,.ts-year::after{content:"";width:clamp(40px,calc(7 * var(--vw,1vw)),96px);border-top:1px solid var(--ink)}
+.ts-theme-k{margin:var(--s4) 0 10px}
+.ts-theme{max-width:20ch;margin:0 auto;font-size:clamp(34px,calc(4.4 * var(--vw,1vw)),62px);text-wrap:balance}
+.ts-sum{max-width:64ch;margin:var(--s3) auto 0;font-size:16px;line-height:1.75;color:var(--ink-2);text-wrap:pretty}
+.ts-jump{display:inline-flex;align-items:flex-end;gap:6px;margin-top:var(--s3);color:var(--pen);text-decoration:none}
+.ts-jump span{font-family:var(--font-hand);font-size:clamp(22px,calc(2 * var(--vw,1vw)),27px);line-height:1}
+.ts-jump svg{width:40px;height:31px;fill:none;stroke:var(--coral);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ts-jump:hover span{color:var(--coral)}
+.s-m1{left:4%;top:26%;rotate:-14deg;width:clamp(26px,calc(2.6 * var(--vw,1vw)),38px)} .s-m2{right:6%;top:40%;rotate:18deg} .s-m3{left:15%;bottom:16%;rotate:8deg;width:clamp(18px,calc(1.6 * var(--vw,1vw)),24px)}
+
+/* the paper */
+body.flow .ts-paper{padding-top:calc(var(--sec) + 60px)}
+.ts-paper .np-page{position:relative;border-top:3px solid var(--ink);padding-top:var(--s3)}
+.ts-lead-h{font-size:clamp(30px,calc(3.3 * var(--vw,1vw)),48px);text-wrap:balance}
+.ts-lead-h em,.ts-sec .np-h em{font-style:italic}
+.ts-body p{font-size:15px;line-height:1.72}
+.ts-body .ts-pen{column-span:all;margin:.5em 0 1em!important;padding:14px 4px 12px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  font-family:var(--font-hand);color:var(--pen);font-size:clamp(24px,calc(2.4 * var(--vw,1vw)),32px)!important;line-height:1.2!important;text-align:center}
+.ts-body .sub-h{font-family:var(--font-button);font-weight:400;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin:1.2em 0 .5em}
+.ts-art{float:right;width:clamp(78px,calc(8.4 * var(--vw,1vw)),116px);margin:4px 0 10px 18px}
+.ts-art-l{float:left;margin:4px 18px 10px 0}
+.ts-art img,.ts-fig > img:not(.ts-sticker){display:block;width:100%;height:auto}
+.ts-side{display:flex;flex-direction:column}
+.ts-datelist{list-style:none;margin:6px 0 0;padding:0;border-top:1px solid var(--ink)}
+.ts-datelist li{display:grid;grid-template-columns:62px minmax(0,1fr);gap:12px;align-items:start;padding:12px 0 11px;border-bottom:1px solid rgba(22,19,16,.3)}
+.ts-d{display:flex;flex-direction:column;align-items:flex-start}
+.ts-d b{font-family:var(--font-title);font-weight:400;font-size:42px;line-height:.9;color:var(--ink)}
+.ts-d i{font-style:normal;font-family:var(--font-button);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);margin-top:4px}
+.ts-dt{font-size:14.5px;line-height:1.55;padding-top:2px}
+.ts-tz{font-family:var(--font-button);font-size:9.5px!important;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)!important;margin:8px 0 0!important}
+.ts-what{position:relative;margin-top:var(--s3);padding-top:var(--s2);border-top:3px solid var(--ink)}
+.ts-what-t{font-family:var(--font-title);font-size:clamp(22px,calc(2 * var(--vw,1vw)),28px)!important;line-height:1.18!important;margin:6px 0 0!important;text-wrap:pretty}
+.ts-side-art{position:relative;margin-top:var(--s4);padding:0 6%}
+.ts-side-art > img:first-child{display:block;width:100%;height:auto}
+.ts-more > .ts-sec{position:relative;padding:var(--s4) 0;border-bottom:1px solid var(--ink)}
+.ts-sec.has-fig{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,2fr);gap:0 clamp(28px,calc(3.4 * var(--vw,1vw)),52px);align-items:start}
+.ts-sec .np-h{font-size:clamp(30px,calc(3.2 * var(--vw,1vw)),46px);text-wrap:balance}
+.ts-fig{position:relative;margin:0;padding:var(--s2) 6% 0}
+/* the closing note */
+.ts-close{position:relative;margin-top:var(--s4);padding:var(--s4) var(--s2)}
+.ts-close .np-pull-k{font-family:var(--font-title);font-size:clamp(30px,calc(3.4 * var(--vw,1vw)),48px);line-height:1.05;letter-spacing:-.01em;text-transform:none;margin:0 0 var(--s2)}
+.ts-close .np-pull-k em{font-style:italic;background:linear-gradient(transparent 60%,rgba(154,127,208,.34) 60%)}
+.ts-close-b p{max-width:58ch;margin:0 auto .9em;font-size:16px;line-height:1.75;color:var(--ink);text-wrap:pretty}
+.ts-close-b p:last-child{font-family:var(--font-hand);color:var(--pen);font-size:clamp(24px,calc(2.3 * var(--vw,1vw)),30px);line-height:1.25;margin-bottom:0}
+/* Bri's graphics in the margins: each slot is an open space; they turn and drift as you scroll */
+.ts-sticker{position:absolute;z-index:3;height:auto;pointer-events:none;user-select:none}
+.ts-st1{width:clamp(72px,calc(7 * var(--vw,1vw)),104px);left:3%;top:clamp(-150px,calc(-10 * var(--vw,1vw)),-112px);transform:rotate(-12deg)}
+.ts-st2{width:clamp(96px,calc(9 * var(--vw,1vw)),128px);right:1%;top:clamp(-200px,calc(-13.6 * var(--vw,1vw)),-150px);transform:rotate(8deg)}
+.ts-st3{width:clamp(38px,calc(3.4 * var(--vw,1vw)),50px);right:0;top:-22px}
+.ts-st4{width:clamp(70px,calc(6.6 * var(--vw,1vw)),96px);left:-4%;bottom:-34px;transform:rotate(-10deg)}
+.ts-st5{width:clamp(140px,calc(14 * var(--vw,1vw)),210px);right:1%;top:50%;translate:0 -50%}
+.ts-st6{width:clamp(76px,calc(7 * var(--vw,1vw)),104px);left:3%;top:18%;transform:rotate(-8deg)}
+.ts-st7{width:clamp(58px,calc(5.4 * var(--vw,1vw)),80px);right:-2%;bottom:-30px;transform:rotate(12deg)}
+.ts-st8{width:clamp(22px,calc(2 * var(--vw,1vw)),30px);left:12%;bottom:16%}
+.s-lead1{right:2%;top:-6px;rotate:14deg;width:clamp(18px,calc(1.6 * var(--vw,1vw)),24px)}
+@media(max-width:1180px){ .ts-st5{width:120px;right:-1%} .ts-st6{width:70px;left:0} }
+@media(max-width:900px){
+  .ts-sec.has-fig{grid-template-columns:1fr}
+  .ts-fig{max-width:300px;margin:0 auto var(--s3)}
+  .ts-side-art{max-width:340px;margin-left:auto;margin-right:auto}
+  .ts-close{padding-top:calc(var(--s4) + 50px)}
+  .ts-st5{top:-6px;translate:none;right:2%;width:110px}
+  .ts-st6{top:-16px;left:2%;width:66px}
+  .ts-st8{display:none}
+}
+@media(max-width:600px){
+  .ts-month{font-size:clamp(72px,calc(21 * var(--vw,1vw)),110px)}
+  .ts-year{letter-spacing:.45em;padding-left:.45em}
+  .ts-theme{font-size:clamp(30px,calc(8.6 * var(--vw,1vw)),40px)}
+  .ts-sum{font-size:15px}
+  body.flow .ts-paper{padding-top:calc(var(--sec) + 40px)}
+  .ts-st1{width:62px;top:-96px;left:1%} .ts-st2{width:84px;top:-118px}
+  .s-m1{left:0;top:4%} .s-m2{right:1%;top:24%} .s-m3{display:none}
+  .ts-art{width:76px;margin-left:12px}
+}
+/* fixes: only the article's own graphic fills the figure (the sticker keeps its size); one rule before the closing note */
+
+.ts-more > .ts-sec:last-child{border-bottom:0}
+.ts-close{margin-top:0}
+.ts-art{width:clamp(70px,calc(6.6 * var(--vw,1vw)),92px)}
+.ts-sum{text-wrap:balance}
+@media(max-width:900px){ .ts-st4{bottom:auto;top:0;left:-6%;width:72px} }

@@ -46,6 +46,90 @@
      to its resting size and spot. Stamps on the first screen start growing with the very first scroll; the rest hold their
      size while their section is being read and only start once they pass the upper part of the screen.
      Each also slides and tips a little on the way through. */
+  /* This Season: fill the page from assets/season-data.js for the current month (Pacific time).
+     Bri, 29 Oct: newspaper layout. Front: month, year, theme (post.title), summary (post.summary, else post.takeaway).
+     Paper (below the rising cards): the body's first "## " section is the lead article, later sections follow;
+     "~ " lines are pulled out in Bri's hand; a paragraph that is just [[name]] places that month's graphic
+     (assets/season/<yyyy-mm>/<name>.webp) in the story, or beside the section when it opens the section.
+     post.dates = [{date:"Oct 3", text:"..."}] lists the key dates (post.when is shown when there are none).
+     post.stickers = graphics scattered in the margins (slots 1-8), post.side = a graphic under the sidebar,
+     post.art = {name:{alt:"..."}} for graphics that carry meaning (the rest are decoration). */
+  try{
+    var DATA=window.OPHI_SEASON;
+    if(DATA && document.querySelector('.ts-mast')){
+      var ym=(function(){ try{ var f=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Vancouver',year:'numeric',month:'2-digit'}).formatToParts(new Date());
+        var y,m; f.forEach(function(p){ if(p.type==='year') y=p.value; if(p.type==='month') m=p.value; }); return y+'-'+m; }catch(e){ var d=new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2); } })();
+      var keys=Object.keys(DATA).sort(), key=null;
+      keys.forEach(function(k){ if(k<=ym && DATA[k].post && DATA[k].post.ready) key=k; });  /* the newest finished month; an unfinished month never replaces it */
+      if(!key) key=keys[0];
+      var M=DATA[key], P=M.post||{}, esc=function(t){ return String(t).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+      var rich=function(t){ return esc(t).replace(/\*([^*]+)\*/g,'<em>$1</em>'); };
+      var ART=P.art||{}, side=0;
+      var artSrc=function(n){ return '/assets/season/'+key+'/'+n+'.webp'; };
+      var artImg=function(n,cls){ var a=ART[n]||{}; return '<img class="'+cls+'" src="'+artSrc(n)+'" alt="'+esc(a.alt||'')+'"'+(a.alt?'':' aria-hidden="true"')+' loading="lazy" decoding="async">'; };
+      /* paragraphs are separated by a blank line; "## " is a small heading, "~ " is in Bri's hand, [[name]] is a graphic */
+      var paras=function(t){ return String(t||'').split(/\n\s*\n/).map(function(x){ x=x.trim(); var g=x.match(/^\[\[([\w-]+)\]\]$/);
+        if(g){ side++; return '<figure class="ts-art ts-art-'+(side%2?'r':'l')+' duo-sway">'+artImg(g[1],'')+'</figure>'; }
+        return /^## /.test(x)?'<h4 class="sub-h">'+rich(x.slice(3))+'</h4>':/^~ /.test(x)?'<p class="ts-pen">'+rich(x.slice(2))+'</p>':'<p>'+rich(x)+'</p>'; }).join(''); };
+      var lab=String(M.label||''), mo=lab.replace(/\s*\d{4}\s*$/,''), yr=(lab.match(/\d{4}/)||[''])[0];
+      Array.prototype.forEach.call(document.querySelectorAll('[data-month]'),function(el){ el.textContent=el.textContent.replace(/^[A-Z][a-z]+ \d{4}/,lab); });
+      var q=function(sel){ return document.querySelector(sel); };
+      q('[data-ts-month]').textContent=mo; q('[data-ts-year]').textContent=yr;
+      if(P.ready){
+        q('[data-ts-theme]').innerHTML=rich(P.title);
+        q('[data-ts-sum]').innerHTML=rich(P.summary||P.takeaway||'');
+        /* the paper */
+        var paper=q('[data-ts-paper]'), secs=[], cur=null;
+        String(P.body||'').split(/\n\s*\n/).forEach(function(x){ var h=x.trim().match(/^## (.+)$/);
+          if(h){ cur={h:h[1],t:[]}; secs.push(cur); } else { if(!cur){ cur={h:'',t:[]}; secs.push(cur); } cur.t.push(x); } });
+        if(secs.length){
+          var lead=secs[0];
+          if(lead.h) q('[data-ts-lead-k]').textContent=lead.h.replace(/\*/g,'');
+          q('[data-ts-lead-h]').innerHTML=rich(P.title);
+          q('[data-ts-lead-body]').innerHTML=paras(lead.t.join('\n\n'));
+          q('[data-ts-more]').innerHTML=secs.slice(1).map(function(sc){
+            var first=String(sc.t[0]||'').trim().match(/^\[\[([\w-]+)\]\]$/), rest=first?sc.t.slice(1):sc.t;
+            return '<article class="np-story ts-sec'+(first?' has-fig':'')+'">'+
+              (first?'<figure class="ts-fig duo-sway">'+artImg(first[1],'')+'</figure>':'')+
+              '<div class="ts-sec-in"><h3 class="np-h">'+rich(sc.h)+'</h3><div class="np-cols ts-body">'+paras(rest.join('\n\n'))+'</div></div></article>';
+          }).join('');
+          var dl=q('[data-ts-dates]');
+          if(P.dates && P.dates.length) dl.innerHTML=P.dates.map(function(d){ var m2=String(d.date).match(/^(\D*?)\s*(\d+)$/)||[0,'',d.date];
+            return '<li><span class="ts-d"><b>'+esc(m2[2])+'</b><i>'+esc(m2[1])+'</i></span><span class="ts-dt">'+rich(d.text)+'</span></li>'; }).join('');
+          else dl.outerHTML='<p>'+rich(P.when||'')+'</p>';
+          q('[data-ts-what]').innerHTML=rich(P.what||'');
+          if(P.side) q('[data-ts-side-art]').innerHTML=artImg(P.side,'duo-sway');
+          if(M.closing && M.closing.body){ q('[data-ts-close-k]').innerHTML=rich(M.closing.title||''); q('[data-ts-close-b]').innerHTML=paras(M.closing.body); q('[data-ts-close]').hidden=false; }
+          /* each sticker slot lives in an open space: above the paper (1, 2), the sidebar (3, 7), the corner of the
+             second article's graphic (4) and around the closing note (5, 6, 8) */
+          var HOST=['.ts-paper .np-page','.ts-paper .np-page','.ts-what','.ts-fig','.ts-close','.ts-close','.ts-side-art','.ts-close'],
+              MOVE=[[14,18,40],[-16,14,-44],[10,12,60],[-12,14,-40],[16,16,28],[-18,18,-50],[12,14,36],[-14,16,-70]];
+          (P.stickers||[]).slice(0,8).forEach(function(n,i){
+            var host=q(HOST[i])||q('.ts-paper .np-page');
+            host.insertAdjacentHTML('beforeend',artImg(n,'ts-sticker ts-st'+(i+1)).replace('<img ','<img data-drift="'+MOVE[i].join(' ')+' .1" '));
+          });
+          paper.hidden=false; q('[data-ts-jump]').hidden=false;
+        }
+      }
+      var ri=document.querySelector('[data-rising-intro]');
+      if(ri && M.risingIntro){ ri.innerHTML=rich(M.risingIntro); ri.hidden=false; }
+      Object.keys(M.signs||{}).forEach(function(s){
+        var c=M.signs[s], li=document.querySelector('.rising[data-sign="'+s+'"]'); if(!li||!c) return;
+        if(c.teaser){ var tg=li.querySelector('.tagline'); if(tg) tg.textContent=c.teaser; }   /* the month's teaser replaces the sign's standing tagline */
+        if(!c.ready) return;
+        var ch=li.querySelector('.chapter');
+        ch.querySelector('h4').innerHTML=rich(c.title);
+        Array.prototype.forEach.call(ch.querySelectorAll(':scope > div > p'),function(p){ p.remove(); });
+        ch.querySelector(':scope > div').insertAdjacentHTML('beforeend',paras(c.body));
+        if(c.house){ var mt=ch.querySelector('.meta'); if(mt) mt.textContent=M.label+' ✦ '+c.house; }
+        var ul=ch.querySelector('aside ul'), k=ch.querySelector('aside .k');
+        if(c.note){ k.textContent='Remember'; ul.outerHTML='<p class="note">'+rich(c.note)+'</p>'; }
+        else if(c.tries && c.tries.length) ul.innerHTML=c.tries.map(function(t){ return '<li>'+esc(t)+'</li>'; }).join('');
+        else ch.querySelector('aside').querySelectorAll('.k,ul').forEach(function(n){ n.remove(); });
+      });
+    }
+  }catch(e){ if(window.console) console.error(e); }
+
   try{
     /* All of Bri's doodles (edge doodles, small accents, the testimonial bow, the pink glitter stars, the quote heart) get the same swell; they keep their own tilt (CSS transform)
        because the motion uses the separate translate / rotate / scale properties */
@@ -301,7 +385,7 @@
      and rocks a few degrees as it travels through the screen. They use the separate rotate / translate properties,
      so their resting tilt (CSS transform) stays as designed. */
   try{
-    var papers=Array.prototype.slice.call(document.querySelectorAll('.torn, .sticker, .tour-go, .pan-tag, .strip-go, .duo-sway'));
+    var papers=Array.prototype.slice.call(document.querySelectorAll('.torn, .sticker, .tour-go, .pan-tag, .strip-go, .duo-sway, .ts-tag'));
     if(papers.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var pq=false;
       var sway=function(){ pq=false; var vh=innerHeight;
@@ -532,61 +616,13 @@
       var M2=SD[k2];
       Array.prototype.forEach.call(document.querySelectorAll('[data-season-label]'),function(el){ el.textContent=M2.label; });
       if(M2.post && M2.post.ready){
-        var src=String(M2.post.body||M2.post.takeaway||'').split(/\n\s*\n/).filter(function(x){ return !/^\s*## /.test(x); }).map(function(x){ return x.replace(/^\s*~ /,''); }).join(' ').replace(/\*/g,'').replace(/\s+/g,' ').trim();
+        var src=String(M2.post.body||M2.post.takeaway||'').split(/\n\s*\n/).filter(function(x){ return !/^\s*## /.test(x) && !/^\s*\[\[[\w-]+\]\]\s*$/.test(x); }).map(function(x){ return x.replace(/^\s*~ /,''); }).join(' ').replace(/\*/g,'').replace(/\s+/g,' ').trim();
         var sent=src.match(/[^.!?]+[.!?]+["')\]]*/g)||[src];
         Array.prototype.forEach.call(document.querySelectorAll('[data-season-preview]'),function(el){ el.textContent=sent.slice(0,3).join(' ').trim(); });
       }
     }
   }catch(e){} };
   seasonDoor(); if(!window.OPHI_SEASON) addEventListener('load',seasonDoor);
-
-  /* This Season: fill the page from assets/season-data.js for the current month (Pacific time) */
-  try{
-    var DATA=window.OPHI_SEASON;
-    if(DATA && document.querySelector('.season-now')){
-      var ym=(function(){ try{ var f=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Vancouver',year:'numeric',month:'2-digit'}).formatToParts(new Date());
-        var y,m; f.forEach(function(p){ if(p.type==='year') y=p.value; if(p.type==='month') m=p.value; }); return y+'-'+m; }catch(e){ var d=new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2); } })();
-      var keys=Object.keys(DATA).sort(), key=null;
-      keys.forEach(function(k){ if(k<=ym && DATA[k].post && DATA[k].post.ready) key=k; });  /* the newest finished month; an unfinished month never replaces it */
-      if(!key) key=keys[0];
-      var M=DATA[key], esc=function(t){ return String(t).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
-      var rich=function(t){ return esc(t).replace(/\*([^*]+)\*/g,'<em>$1</em>'); };
-      /* paragraphs are separated by a blank line; a paragraph starting with "## " is a small heading */
-      var paras=function(t){ return String(t||'').split(/\n\s*\n/).map(function(x){ x=x.trim(); return /^## /.test(x)?'<h4 class="sub-h">'+rich(x.slice(3))+'</h4>':/^~ /.test(x)?'<p class="pen">'+rich(x.slice(2))+'</p>':'<p>'+rich(x)+'</p>'; }).join(''); };
-      Array.prototype.forEach.call(document.querySelectorAll('[data-month]'),function(el){ el.textContent=el.textContent.replace(/^[A-Z][a-z]+ \d{4}/,M.label); });
-      var now=document.querySelector('.season-now');
-      if(M.post && M.post.ready){
-        now.querySelector('h3').innerHTML=rich(M.post.title);
-        var dd=now.querySelectorAll('.summary dd'); dd[0].textContent=M.post.when; dd[1].textContent=M.post.what; dd[2].textContent=M.post.takeaway;
-        var old=now.querySelectorAll(':scope > p'); Array.prototype.forEach.call(old,function(p){ p.remove(); });
-        /* a body that opens with "## The story" moves below the rising cards (just above "Before you go");
-           the post keeps a button that jumps down to it, so the cards stay near the top of the page */
-        var body=String(M.post.body||''), m0=body.match(/^\s*## ([^\n]+)\n\s*\n/), home=document.querySelector('[data-full-story]');
-        if(m0 && home){
-          now.insertAdjacentHTML('beforeend','<a class="jump-story" href="#full-story"><span>Jump to the full story</span><svg viewBox="0 0 70 54" aria-hidden="true"><path d="M11 5C34 8 45 22 43 40"/><path d="M32 33 L43 47 L54 33"/></svg></a>');
-          home.querySelector('h3').innerHTML=rich(m0[1]); home.querySelector('.fs-body').innerHTML=paras(body.slice(m0[0].length)); home.hidden=false;
-        } else now.insertAdjacentHTML('beforeend',paras(body));
-      }
-      var ri=document.querySelector('[data-rising-intro]');
-      if(ri && M.risingIntro){ ri.innerHTML=rich(M.risingIntro); ri.hidden=false; }
-      var sc=document.querySelector('[data-season-close]');
-      if(sc && M.closing && M.closing.body){ sc.querySelector('h3').innerHTML=rich(M.closing.title||''); sc.querySelector('div').innerHTML=paras(M.closing.body); sc.hidden=false; }
-      Object.keys(M.signs||{}).forEach(function(s){
-        var c=M.signs[s], li=document.querySelector('.rising[data-sign="'+s+'"]'); if(!li||!c) return;
-        if(c.teaser){ var tg=li.querySelector('.tagline'); if(tg) tg.textContent=c.teaser; }   /* the month's teaser replaces the sign's standing tagline */
-        if(!c.ready) return;
-        var ch=li.querySelector('.chapter');
-        ch.querySelector('h4').innerHTML=rich(c.title);
-        Array.prototype.forEach.call(ch.querySelectorAll(':scope > div > p'),function(p){ p.remove(); });
-        ch.querySelector(':scope > div').insertAdjacentHTML('beforeend',paras(c.body));
-        if(c.house){ var mt=ch.querySelector('.meta'); if(mt) mt.textContent=M.label+' \u2726 '+c.house; }
-        var ul=ch.querySelector('aside ul'), k=ch.querySelector('aside .k');
-        if(c.note){ k.textContent='Remember'; ul.outerHTML='<p class="note">'+rich(c.note)+'</p>'; }
-        else if(c.tries && c.tries.length) ul.innerHTML=c.tries.map(function(t){ return '<li>'+esc(t)+'</li>'; }).join('');
-        else ch.querySelector('aside').querySelectorAll('.k,ul').forEach(function(n){ n.remove(); });
-      });
-    }
-  }catch(e){}
 
   /* This Season: each rising card opens in place to show its chapter; one open at a time */
   try{

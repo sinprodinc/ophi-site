@@ -12,20 +12,24 @@
 </section>
 <div class="lace-edge" aria-hidden="true"></div>
 
-<section class="season">
-  <div class="bleed-at" aria-hidden="true"><img class="bleed l " src="/assets/doodle/cloud.webp" alt="" style="--t:8px" loading="lazy" decoding="async"></div>
-  <article class="season-now">
-    <img class="eph pin" src="/assets/eph/pin-lilac.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-    <div class="relic r-saturn tuck" data-depth="10" aria-hidden="true"><i></i></div>
-    <div class="kick"><b>In the sky right now</b><span data-month>October 2026</span></div>
-    <h3>This month's reading is <em>on its way.</em></h3>
-    <dl class="summary">
-      <dt>When</dt><dd>This month, in Pacific time.</dd>
-      <dt>What</dt><dd>The main movement in the sky.</dd>
-      <dt>Takeaway</dt><dd>Check back soon.</dd>
-    </dl>
-    <p>Find your rising sign below for your own chapter.</p>
-  </article>
+<!-- Bri, 29 Oct 2026: This Season in the newspaper-editor's-room style. The front: the "In the sky right now" tag,
+     the month and year, the month's theme and a short summary. Then the rising cards. Then the paper: the full story
+     as the lead article beside "Key dates" and "What's going on", Bri's monthly graphics in the story and in the
+     margins, and the closing note. Everything is filled in from assets/season-data.js. -->
+<section class="np ts-front flow-sec" id="now">
+  <div class="np-page">
+    <header class="ts-mast">
+      <img class="np-star s-m1" src="/assets/journal/chrome-star-2.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="np-star s-m2" src="/assets/journal/chrome-star-5.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="np-star s-m3" src="/assets/journal/chrome-star-7.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <p class="ts-tag"><img class="ts-tag-pin" src="/assets/cork/pin-silver.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><span>In the sky right now</span></p>
+      <h2 class="ts-month"><span data-ts-month>October</span><span class="ts-year" data-ts-year>2026</span></h2>
+      <p class="np-k ts-theme-k">This month's theme</p>
+      <h3 class="np-h1 ts-theme" data-ts-theme>This month's reading is <em>on its way.</em></h3>
+      <p class="ts-sum" data-ts-sum>Find your rising sign below for your own chapter.</p>
+      <a class="ts-jump" href="#full-story" data-ts-jump hidden><span>jump to the full story</span><svg viewBox="0 0 70 54" aria-hidden="true"><path d="M11 5C34 8 45 22 43 40"/><path d="M32 33 L43 47 L54 33"/></svg></a>
+    </header>
+  </div>
 </section>
 
 <section class="season-sec" id="by-rising">
@@ -289,9 +293,38 @@
         </div>
       </li>
   </ul>
-  <section class="full-story" id="full-story" data-full-story hidden><h3></h3><div class="fs-body"></div></section>
-  <aside class="season-close" data-season-close hidden><h3></h3><div></div><img class="ink-stamp close-stamp" src="/assets/stamps/telescope.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></aside>
   <a class="season-cast" href="/chart/">Don't know your rising sign? Cast your chart <span aria-hidden="true">&#x2192;</span></a>
+</section>
+
+<section class="np ts-paper flow-sec" id="full-story" data-ts-paper hidden>
+  <div class="np-page">
+    <div class="np-top ts-top">
+      <article class="np-story ts-lead">
+        <img class="np-star s-lead1" src="/assets/journal/chrome-star-1.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <p class="np-k" data-ts-lead-k>The full story</p>
+        <h2 class="np-h ts-lead-h" data-ts-lead-h></h2>
+        <div class="np-cols np-drop ts-body" data-ts-lead-body></div>
+      </article>
+      <aside class="np-story ts-side">
+        <section class="ts-dates" aria-labelledby="ts-dates-k">
+          <p class="np-k" id="ts-dates-k">Key dates<img class="np-star s-k" src="/assets/journal/chrome-star-6.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></p>
+          <ol class="ts-datelist" data-ts-dates></ol>
+          <p class="ts-tz">All times Pacific.</p>
+        </section>
+        <section class="ts-what" aria-labelledby="ts-what-k">
+          <p class="np-k" id="ts-what-k">What's going on</p>
+          <p class="ts-what-t" data-ts-what></p>
+        </section>
+        <div class="ts-side-art" data-ts-side-art></div>
+      </aside>
+    </div>
+    <div class="ts-more" data-ts-more></div>
+    <aside class="np-pull ts-close" data-ts-close hidden>
+      <img class="np-star s-pull-l" src="/assets/journal/chrome-star-3.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <p class="np-pull-k" data-ts-close-k></p>
+      <div class="ts-close-b" data-ts-close-b></div>
+    </aside>
+  </div>
 </section>
 
 <script src="/assets/season-data.js"></script>
