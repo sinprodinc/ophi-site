@@ -1767,3 +1767,9 @@ body.flow .cw-go .cb-tagcard .cta{white-space:normal;max-width:100%;box-sizing:b
 /* testimonial papers stacked below 1100px: one column, at a comfortable reading size */
 @media(max-width:1099px){ .cork-words{grid-template-columns:1fr} .cw-note{max-width:600px;margin:0 auto} .cw-go{padding-top:var(--s2)} .cw-safety{display:none} }
 @media(max-width:600px){ .cw-note{max-width:440px} }
+/* round 3 (Bri, 28 Oct 22:06): the two headings side by side on one line; the butterfly smaller, hovering over the
+   line under "take what you need" */
+@media(min-width:901px){ .duo-bri{padding-top:0} }
+.wel-fly{position:absolute;right:3%;left:auto;top:clamp(-44px,-3.4vw,-34px);width:clamp(68px,6.6vw,100px);transform:rotate(9deg)}
+@media(max-width:600px){ .wel-fly{right:2%;top:-36px;width:62px} }
+@media(min-width:601px) and (max-width:900px){ .words-cork .np-help-head .eph.words-stars{left:auto;right:5%;top:-64px;width:52px} }

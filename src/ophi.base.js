@@ -309,9 +309,10 @@
           var k=((r.top+r.height/2)-vh/2)/vh;   /* -1..1 as it crosses the screen */
           var lean=(i%2?2.2:-2.6);   /* its resting lean, alternating */
           /* the big pieces on the home page (photo, plate, notes) and the strip's tags move more gently */
-          var a=el.classList.contains('duo-sway')?.45:el.classList.contains('strip-go')?.35:1;
+          var big=el.classList.contains('duo-big'), a=big?.5:el.classList.contains('duo-sway')?1:el.classList.contains('strip-go')?.35:1,
+              m=big?1.1:a;   /* how far it travels */
           el.style.rotate=((lean+Math.sin(k*2.6+i*1.3)*6.5)*a).toFixed(2)+'deg';
-          el.style.translate=(Math.sin(k*2.1+i*.7)*6*a).toFixed(1)+'px '+(Math.sin(k*1.8+i)*13*a).toFixed(1)+'px'; }); };
+          el.style.translate=(Math.sin(k*2.1+i*.7)*7*m).toFixed(1)+'px '+(Math.sin(k*1.8+i)*14*m).toFixed(1)+'px'; }); };
       addEventListener('scroll',function(){ if(!pq){ pq=true; requestAnimationFrame(sway); } },{passive:true});
       addEventListener('resize',sway); sway();
     }
@@ -320,15 +321,33 @@
   /* Push pins rock very slightly as they scroll by, like the stickers on the rituals page (19 Oct).
      rotate adds to each pin's own tilt (CSS transform), so their resting angles stay as designed. */
   try{
-    var pins=Array.prototype.slice.call(document.querySelectorAll('.eph.pin, .pan-art, .duo-rock, .cw-bow, .wel-fly'));
+    var pins=Array.prototype.slice.call(document.querySelectorAll('.eph.pin, .pan-art, .duo-rock'));
     if(pins.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var nq=false;
       var rock=function(){ nq=false; var vh=innerHeight;
         pins.forEach(function(el,i){ var r=BOX(el); if(r.bottom<-40||r.top>vh+40) return;
-          var k=((r.top+r.height/2)-vh/2)/vh, amp=el.classList.contains('pan-art')?9:4;   /* the banner pieces turn a little more */
+          var k=((r.top+r.height/2)-vh/2)/vh, amp=el.classList.contains('pan-art')?9:el.classList.contains('duo-rock')?14:4;   /* the banner pieces and the home pins turn more */
           el.style.rotate=(Math.sin(k*2.6+i*1.7)*amp).toFixed(2)+'deg'; }); };
       addEventListener('scroll',function(){ if(!nq){ nq=true; requestAnimationFrame(rock); } },{passive:true});
       addEventListener('resize',rock); rock();
+    }
+  }catch(e){}
+
+  /* Drift (Bri, 28 Oct): the lace butterfly and the lace bow turn and travel as they cross the screen.
+     data-drift="x y turn" = pixels and degrees over one screen of scrolling, plus a little flutter. Scrolling down,
+     a positive x carries the piece toward the left. Separate translate / rotate properties keep each resting tilt. */
+  try{
+    var drifters=Array.prototype.slice.call(document.querySelectorAll('[data-drift]'));
+    if(drifters.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      var dq=false;
+      var drift=function(){ dq=false; var vh=innerHeight;
+        drifters.forEach(function(el){ var r=BOX(el); if(r.bottom<-120||r.top>vh+120) return;
+          var v=(el.getAttribute('data-drift')||'0 0 0').split(/\s+/).map(Number),
+              k=Math.max(-1.2,Math.min(1.2,((r.top+r.height/2)-vh/2)/vh)), f=Math.sin(k*5.2);
+          el.style.translate=(v[0]*k+f*3).toFixed(1)+'px '+(v[1]*k+Math.cos(k*4.4)*3).toFixed(1)+'px';
+          el.style.rotate=(v[2]*k+f*v[2]*.25).toFixed(2)+'deg'; }); };
+      addEventListener('scroll',function(){ if(!dq){ dq=true; requestAnimationFrame(drift); } },{passive:true});
+      addEventListener('resize',drift); drift();
     }
   }catch(e){}
 
@@ -386,10 +405,13 @@
           if(k!==cur&&k>=0&&k<N){ cur=k; mark(); }
         },110);
       },{passive:true});
-      car.addEventListener('mouseenter',function(){ held=true; clearTimeout(timer); });
-      car.addEventListener('mouseleave',function(){ held=false; plan(); });
-      car.addEventListener('focusin',function(){ held=true; clearTimeout(timer); });
-      car.addEventListener('focusout',function(){ held=false; plan(); });
+      /* the testimonials hold still under the pointer; the fixed-beat strip keeps moving (Bri, 28 Oct) */
+      if(!every){
+        car.addEventListener('mouseenter',function(){ held=true; clearTimeout(timer); });
+        car.addEventListener('mouseleave',function(){ held=false; plan(); });
+        car.addEventListener('focusin',function(){ held=true; clearTimeout(timer); });
+        car.addEventListener('focusout',function(){ held=false; plan(); });
+      }
       addEventListener('resize',function(){ go(cur,true); });
       if('IntersectionObserver' in window){
         new IntersectionObserver(function(en){ onScreen=en[0].isIntersecting; plan(); },{threshold:.45}).observe(car);

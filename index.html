@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/ophi.css?v=112192bf">
-<script src="/assets/menu.js?v=112192bf" defer></script>
+<link rel="stylesheet" href="/assets/ophi.css?v=b80bb624">
+<script src="/assets/menu.js?v=b80bb624" defer></script>
 <script>(function(){var d=document.documentElement;function f(){var w=d.clientWidth||innerWidth,z=w>1280?Math.min(w/1280,2):1;d.style.setProperty('--z',z);d.style.setProperty('--vw',innerWidth/z/100+'px');d.style.setProperty('--vh',innerHeight/z/100+'px');window.OPHI_Z=z;K=0}var K=0;function k(){if(K)return K;var z=window.OPHI_Z||1;if(z==1||!document.body)return 1;var p=document.getElementById('ophi-probe');if(!p){p=document.createElement('div');p.id='ophi-probe';p.style.cssText='position:absolute;left:0;top:0;width:100px;height:1px;visibility:hidden;pointer-events:none';document.body.appendChild(p)}var w=p.getBoundingClientRect().width;K=w?z/(w/100):1;return K}window.OPHI_BOX=function(el){var r=el.getBoundingClientRect(),s=k();if(s>.99&&s<1.01)return r;return{left:r.left*s,top:r.top*s,right:r.right*s,bottom:r.bottom*s,width:r.width*s,height:r.height*s,x:r.left*s,y:r.top*s}};f();addEventListener('resize',f)})();</script>
 </head>
 <body class="flow">
@@ -93,7 +93,7 @@
 <section class="np np-home flow-sec" id="welcome">
   <div class="np-page">
     <div class="strip">
-      <div class="tq-carousel strip-car" data-every="2500" role="region" aria-roledescription="carousel" aria-label="Pages on this site">
+      <div class="tq-carousel strip-car" data-every="2000" role="region" aria-roledescription="carousel" aria-label="Pages on this site">
         <div class="tq-track" tabindex="0">
           <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="Your Chart"><a class="strip-a hl-air" href="/chart/"><span class="strip-t">Your <em>Chart</em></span><span class="strip-go">Visit &rarr;</span></a></div>
           <div class="tq-slide" role="group" aria-roledescription="slide" aria-label="This Season"><a class="strip-a hl-water" href="/this-season/"><span class="strip-t">This <em>Season</em></span><span class="strip-go">Visit &rarr;</span></a></div>
@@ -117,10 +117,9 @@
 
     <div class="np-top np-home-top">
       <article class="np-story np-welcome">
-        <img class="wel-fly" src="/assets/eph/lace-butterfly-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <h2 class="np-h1 np-h1-left"><span class="nw">Welcome<em>.</em></span></h2>
         <p class="np-hand">take what you need</p>
-        <p class="np-k np-k-rule">What is Ophi?</p>
+        <p class="np-k np-k-rule">What is Ophi?<img class="wel-fly" data-drift="56 10 24" src="/assets/eph/lace-butterfly-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></p>
         <p class="np-lede">Ophi is Awakening Astrology for the curious, the questioning, the daring, and anyone standing at the edge of a new chapter.</p>
         <p class="np-wel-body">Get curious about yourself. You might be surprised it's been there all along.</p>
       </article>
@@ -148,7 +147,7 @@
           <p>While it doesn't belong to astrology's traditional twelve zodiac signs, I like what it represents: there's always more to the story than what we first see. And sometimes, the most interesting discoveries come from what's been overlooked for too long.</p>
         </div>
         <figure class="duo-plate">
-          <div class="plate-print duo-sway">
+          <div class="plate-print duo-sway duo-big">
             <img class="plate-img" src="/assets/ophiuchus-plate.webp" width="820" height="462" loading="lazy" alt="Old star-atlas illustration of Ophiuchus: a figure holding a long serpent, surrounded by stars.">
             <img class="plate-tape" src="/assets/eph/tape-cream.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
             <img class="plate-pin duo-rock" src="/assets/cork/pin-red.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
@@ -160,7 +159,7 @@
       <article class="np-story duo-bri" id="bri">
         <img class="np-star s-bri" src="/assets/journal/chrome-star-3.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <figure class="duo-photo">
-          <div class="photo-print duo-sway">
+          <div class="photo-print duo-sway duo-big">
             <img class="photo-clip" src="/assets/cork/binder-gold.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
             <img class="photo-img" src="/assets/bri-portrait.webp" width="880" height="1100" loading="lazy" decoding="async" alt="Bri, the astrologer behind Ophi: a black-and-white portrait.">
           </div>
@@ -195,7 +194,7 @@
   </div>
 
   <div class="cork cork-words">
-    <img class="cw-bow" src="/assets/eph/lace-bow-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="cw-bow" data-drift="10 26 22" src="/assets/eph/lace-bow-ink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <img class="np-star s-cw1" src="/assets/journal/chrome-star-1.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <img class="np-star s-cw2" src="/assets/journal/chrome-star-4.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <img class="cb-deco cw-safety" src="/assets/cork/safety-gold.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
@@ -278,6 +277,6 @@
   <svg class="sound-play" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 3.5v17l14-8.5z"/></svg>
   <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i></span>
 </button>
-<script src="/assets/ophi.js?v=112192bf"></script>
+<script src="/assets/ophi.js?v=b80bb624"></script>
 </body>
 </html>
