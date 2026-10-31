@@ -62,6 +62,23 @@
       var keys=Object.keys(DATA).sort(), key=null;
       keys.forEach(function(k){ if(k<=ym && DATA[k].post && DATA[k].post.ready) key=k; });  /* the newest finished month; an unfinished month never replaces it */
       if(!key) key=keys[0];
+      /* Bri, 30 Oct: arrows either side of the month. The page always opens on the current month (Pacific time);
+         ?m=yyyy-mm shows another one. Back goes up to six months before the current month, ahead goes as far as
+         there are finished months ("ready: true"). A month outside that range falls back to the current one. */
+      var addM=function(k,n){ var y=+k.slice(0,4), m=+k.slice(5,7)-1+n; y+=Math.floor(m/12); m=((m%12)+12)%12; return y+'-'+('0'+(m+1)).slice(-2); };
+      var home=key, oldest=addM(ym,-6),
+          open=keys.filter(function(k){ return DATA[k].post && DATA[k].post.ready && k>=oldest; });
+      if(open.indexOf(home)<0) open.push(home), open.sort();
+      var asked=(location.search.match(/[?&]m=(\d{4}-\d{2})/)||[])[1];
+      if(asked && open.indexOf(asked)>-1) key=asked;
+      var idx=open.indexOf(key), nm=function(k){ return String(DATA[k].label||'').replace(/\s*\d{4}\s*$/,''); },
+          flip=function(sel,k,word){ var a=document.querySelector('[data-ts-'+sel+']'); if(!a||!k) return;
+            a.href=(k===home?location.pathname:location.pathname+'?m='+k)+'#now'; a.hidden=false;
+            a.setAttribute('aria-label',word+': '+DATA[k].label); a.querySelector('[data-ts-'+sel+'-l]').textContent=nm(k); };
+      flip('prev',open[idx-1],'Previous month'); flip('next',open[idx+1],'Next month');
+      var tagEl=document.querySelector('[data-ts-tag]');
+      if(tagEl && key!==home) tagEl.textContent=key<home?'Looking back':'Coming up';
+      if(key!==home){ var tk=document.querySelector('.ts-theme-k'); if(tk) tk.textContent=key<home?"That month's theme":"The month ahead"; }
       var M=DATA[key], P=M.post||{}, esc=function(t){ return String(t).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
       var rich=function(t){ return esc(t).replace(/\*([^*]+)\*/g,'<em>$1</em>'); };
       var ART=P.art||{}, side=0;
