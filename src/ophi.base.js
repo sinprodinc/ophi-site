@@ -149,17 +149,16 @@
         ch.querySelector(':scope > div').insertAdjacentHTML('beforeend',paras(c.body));
         if(c.house){ var mt=ch.querySelector('.meta'); if(mt) mt.textContent=M.label+' ✦ '+c.house; }
         var ul=ch.querySelector('aside ul'), k=ch.querySelector('aside .k');
-        /* Bri, 31 Oct: the takeaway is its own little piece of paper, a different paper and fastener for each sign,
-           set big in her hand; the chapter beside it stays plain and easy to read */
+        /* Bri, 31 Oct: the takeaway sits on one of her clipboards / notepads (assets/notes/note-NN.webp), a different
+           one for each sign, like the corkboards on the other pages. The words sit inside the paper's writing area
+           (NB: image width, height, then the area as x, y, w, h in percent) and shrink to fit it.
+           Body font by default (legibility first); ?notes=hand shows the handwriting version for comparison. */
         if(c.note){
           var si=Array.prototype.indexOf.call(li.parentNode.children,li),
-              PAPERS=['grid','note','dot','clip','crumple','lilac'],
-              ACC=['clip-silver','tape-pink','pin-red','','tape-kraft','','pin-teal','safety-gold','tape-rose','','pin-black','pin-pink'],   /* the clipped paper (Cancer, Capricorn) brings its own clip */
-              pp=PAPERS[si%6], ac=ACC[si%12];
+              NB=[[689, 717, 22, 26, 62, 48, 1], [685, 642, 28, 33, 54, 44, 2], [666, 637, 23, 31, 54, 48, 3], [760, 708, 13, 30, 58, 50, 4], [865, 795, 22, 25, 60, 48, 5], [670, 900, 19, 30, 61, 55, 6], [731, 724, 29, 32, 56, 50, 7], [656, 753, 24, 22, 66, 40, 8], [843, 900, 16, 36, 60, 38, 9], [900, 890, 14, 38, 60, 46, 10], [900, 791, 23, 14, 70, 60, 15], [900, 684, 20, 38, 54, 44, 12]], nb=NB[si%NB.length], nn=('0'+nb[6]).slice(-2);   /* [w, h, x, y, w%, h%, note number] */
           k.remove();
-          ul.outerHTML='<div class="ts-note p-'+pp+(ac?' a-'+ac:'')+'" style="--tilt:'+((si%2?1:-1)*(1+si%3*.6)).toFixed(1)+'deg">'+
-            (ac?'<img class="acc" src="/assets/cork/'+ac+'.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">':'')+
-            '<span class="k">Remember</span><p class="note">'+rich(c.note)+'</p></div>';
+          ul.outerHTML='<div class="ts-note" style="aspect-ratio:'+nb[0]+'/'+nb[1]+';background-image:url(/assets/notes/note-'+nn+'.webp)">'+
+            '<div class="ts-note-in" style="left:'+nb[2]+'%;top:'+nb[3]+'%;width:'+nb[4]+'%;height:'+nb[5]+'%"><span class="k">Remember</span><p class="note">'+rich(c.note)+'</p></div></div>';
           ch.querySelector('aside').classList.add('has-note');
         }
         else if(c.tries && c.tries.length) ul.innerHTML=c.tries.map(function(t){ return '<li>'+esc(t)+'</li>'; }).join('');
@@ -505,6 +504,18 @@
       addEventListener('scroll',function(){ if(!spq){ spq=true; requestAnimationFrame(spreadOut); } },{passive:true});
       addEventListener('resize',spreadOut); addEventListener('load',spreadOut); spreadOut();
     }
+  }catch(e){}
+
+  /* the takeaway notes: the words shrink until they fit the paper's writing area (they're measured when a card opens) */
+  try{
+    if(/[?&]notes=hand\b/.test(location.search)) document.documentElement.classList.add('notes-hand');
+    var fitNotes=function(){ Array.prototype.forEach.call(document.querySelectorAll('.ts-note-in'),function(n){
+      if(!n.offsetParent) return; var hand=document.documentElement.classList.contains('notes-hand'),
+          fs=hand?22:15, min=hand?14:11.5, p=n.querySelector('.note'); p.style.fontSize=fs+'px';
+      while(n.scrollHeight>n.clientHeight+1 && fs>min){ fs-=.5; p.style.fontSize=fs+'px'; } }); };
+    document.addEventListener('click',function(e){ if(e.target.closest('.rising > button')) setTimeout(fitNotes,30); });
+    addEventListener('resize',fitNotes); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitNotes);
+    window.OPHI_FIT_NOTES=fitNotes;
   }catch(e){}
 
   /* testimonial carousel */

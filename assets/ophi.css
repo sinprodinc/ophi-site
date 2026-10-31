@@ -3094,3 +3094,14 @@ body.flow .ts-paper{padding-top:calc(var(--sec) + 60px)}
 .ts-note.p-lilac .note{color:var(--ink)}
 .ts-note.a-paperclip-red .acc{width:30px;left:14%;top:-12px}
 .ts-note.a-pin-black .acc{width:28px;left:46%;top:-14px}
+/* Bri, 31 Oct (later): the takeaway sits on one of her clipboards / notepads (supersedes the plain papers above).
+   Body font first for legibility, the handwriting only as an accent; ?notes=hand shows the handwriting version. */
+.chapter aside.has-note .ts-note{position:relative;width:100%;max-width:420px;margin:4px 0 8px;padding:0;rotate:none;filter:none;
+  background:center/100% 100% no-repeat}
+.ts-note-in{position:absolute;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.ts-note-in .k{font-family:var(--font-button);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin:0 0 6px}
+.chapter aside .ts-note-in .note{font-family:var(--font-body);color:var(--ink);font-size:15px;line-height:1.45;margin:0;text-wrap:pretty}
+html.notes-hand .chapter aside .ts-note-in .note{font-family:var(--font-hand);color:var(--pen);line-height:1.18}
+.ts-note .acc{display:none}
+/* phones: the notepad runs edge to edge of the open card so the words have room */
+@media(max-width:700px){ .chapter aside.has-note .ts-note{width:calc(100% + 44px);max-width:none;margin-left:-22px} }
