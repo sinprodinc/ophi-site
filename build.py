@@ -204,10 +204,12 @@ def main():
     ch = re.sub(r'<script src="/assets/menu\.js[^"]*" defer></script>\n?', '', ch)
     ch = re.sub(r'<script src="/assets/trail\.js[^"]*" defer></script>\n?', '', ch)
     ch = re.sub(r'<script src="/assets/chart-music\.js[^"]*" defer></script>\n?', '', ch)
+    ch = re.sub(r'<script src="/assets/chart-stars\.js[^"]*" defer></script>\n?', '', ch)
+    ch = ch.replace('</head>', '<script src="/assets/chart-stars.js?v=%s" defer></script>\n</head>' % hashlib.sha1(rd('assets/chart-stars.js').encode()).hexdigest()[:8], 1)   # Bri, 31 Oct: chrome stars
     ch = ch.replace('</head>', '<script src="/assets/chart-music.js?v=%s" defer></script>\n</head>' % hashlib.sha1(rd('assets/chart-music.js').encode()).hexdigest()[:8], 1)
     ch = ch.replace('</head>', '<script src="/assets/trail.js?v=%s" defer></script>\n</head>' % v, 1)
     ch = re.sub(r'<link rel="stylesheet" href="/assets/chart-fixes\.css[^"]*">\n?', '', ch)
-    ch = ch.replace('</head>', '<link rel="stylesheet" href="/assets/chart-fixes.css?v=%s">\n</head>' % v, 1)
+    ch = ch.replace('</head>', '<link rel="stylesheet" href="/assets/chart-fixes.css?v=%s">\n</head>' % hashlib.sha1(rd('assets/chart-fixes.css').encode()).hexdigest()[:8], 1)   # its own hash, so a change to it is never cached
     ch = ch.replace('</head>', '<link rel="icon" type="image/png" href="/assets/favicon.png">\n<script src="/assets/menu.js?v=%s" defer></script>\n</head>' % v, 1) \
         if '/assets/favicon.png' not in ch else ch.replace('</head>', '<script src="/assets/menu.js?v=%s" defer></script>\n</head>' % v, 1)
     wr('chart/index.html', ch)

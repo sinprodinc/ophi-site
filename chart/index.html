@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ophi Natal Chart</title>
 <link rel="icon" type="image/png" href="/assets/favicon.png">
+<script src="/assets/chart-stars.js?v=6236744b" defer></script>
 <script src="/assets/chart-music.js?v=be48deab" defer></script>
-<script src="/assets/trail.js?v=7e302808" defer></script>
-<link rel="stylesheet" href="/assets/chart-fixes.css?v=7e302808">
-<script src="/assets/menu.js?v=7e302808" defer></script>
+<script src="/assets/trail.js?v=36c14866" defer></script>
+<link rel="stylesheet" href="/assets/chart-fixes.css?v=888fd555">
+<script src="/assets/menu.js?v=36c14866" defer></script>
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -153,11 +154,10 @@ textarea{min-height:11rem;resize:vertical;line-height:1.5}
 :is(#wheel,#boothWheel) .pl:hover text,:is(#wheel,#boothWheel) .pl.on text{fill:var(--paper)}
 :is(#wheel,#boothWheel) .pl:focus-visible{outline:none}:is(#wheel,#boothWheel) .pl:focus-visible circle{stroke:var(--lilac-deep)}
 :is(#wheel,#boothWheel) .pl.dim{opacity:.28}
-:is(#wheel,#boothWheel) .pl.diu text{stroke:var(--paper-hi);stroke-width:.6px}
-:is(#wheel,#boothWheel) .pl.diu[data-id=sun] text{stroke-width:.2px}
-:is(#wheel,#boothWheel) .pl.noc[data-id=moon] text{stroke:var(--ink);stroke-width:.7px}
-:is(#wheel,#boothWheel) .pl.diu:hover text,:is(#wheel,#boothWheel) .pl.diu.on text{stroke:var(--ink)}
-:is(#wheel,#boothWheel) .pl.noc[data-id=moon]:hover text,:is(#wheel,#boothWheel) .pl.noc[data-id=moon].on text{stroke:var(--paper)}
+/* Bri, 31 Oct: every glyph the same weight, day or night: solid, with a fine ink stroke so they read bold and clean
+   (supersedes the thin outlined day planets) */
+:is(#wheel,#boothWheel) .pl text{stroke:var(--ink);stroke-width:.6px}
+:is(#wheel,#boothWheel) .pl:hover text,:is(#wheel,#boothWheel) .pl.on text{stroke:var(--paper)}
 :is(#wheel,#boothWheel) .pl.static:hover circle{fill:var(--paper-hi)}:is(#wheel,#boothWheel) .pl.static:hover text{fill:var(--ink)}
 #wheel .hot{cursor:pointer;pointer-events:all}#wheel circle.dot.hot{stroke:transparent;stroke-width:14}#wheel circle.dot.hot:hover{fill:var(--coral)}#wheel text.hot{pointer-events:all}#wheel text.hot:hover,#wheel text.hot:focus-visible{fill:var(--coral);outline:none}#wheel circle.hot.on{fill:var(--ink)}
 :is(#wheel,#boothWheel) .asp{fill:none;stroke-linecap:round;transition:opacity .25s,stroke-width .2s}
@@ -1545,12 +1545,12 @@ function init() {
   function openZoom() {
     if (state.zoomed) return; state.zoomed = true;
     col.style.minHeight = col.offsetHeight + 'px'; stage.classList.add('zoomed');
-    $('#zoomClose').hidden = false; $('#zoomOpen').hidden = true; document.documentElement.style.overflow = 'hidden'; $('#zoomClose').focus();
+    $('#zoomClose').hidden = false; $('#zoomOpen').hidden = true; document.documentElement.style.overflow = 'hidden'; document.documentElement.classList.add('chart-zoomed'); $('#zoomClose').focus();
   }
   function closeZoom() {
     if (!state.zoomed) return; state.zoomed = false;
     stage.classList.remove('zoomed'); col.style.minHeight = '';
-    $('#zoomClose').hidden = true; $('#zoomOpen').hidden = false; document.documentElement.style.overflow = ''; $('#zoomOpen').focus();
+    $('#zoomClose').hidden = true; $('#zoomOpen').hidden = false; document.documentElement.style.overflow = ''; document.documentElement.classList.remove('chart-zoomed'); $('#zoomOpen').focus();
   }
   $('#zoomOpen').addEventListener('click', openZoom);
   $('#zoomClose').addEventListener('click', closeZoom);

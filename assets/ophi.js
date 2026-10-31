@@ -86,7 +86,7 @@
       var artImg=function(n,cls){ var a=ART[n]||{}; return '<img class="'+cls+'" src="'+artSrc(n)+'" alt="'+esc(a.alt||'')+'"'+(a.alt?'':' aria-hidden="true"')+' loading="lazy" decoding="async">'; };
       /* paragraphs are separated by a blank line; "## " is a small heading, "~ " is in Bri's hand, [[name]] is a graphic */
       var paras=function(t){ return String(t||'').split(/\n\s*\n/).map(function(x){ x=x.trim(); var g=x.match(/^\[\[([\w-]+)\]\]$/);
-        if(g){ side++; return '<figure class="ts-art ts-art-'+(side%2?'r':'l')+' duo-sway ts-calm">'+artImg(g[1],'')+'</figure>'; }
+        if(g){ side++; return '<figure class="ts-art ts-art-'+(side%2?'r':'l')+' ts-inart">'+artImg(g[1],'')+'</figure>'; }
         return /^## /.test(x)?'<h4 class="sub-h">'+rich(x.slice(3))+'</h4>':/^~ /.test(x)?'<p class="ts-pen">'+rich(x.slice(2))+'</p>':'<p>'+rich(x)+'</p>'; }).join(''); };
       var lab=String(M.label||''), mo=lab.replace(/\s*\d{4}\s*$/,''), yr=(lab.match(/\d{4}/)||[''])[0];
       Array.prototype.forEach.call(document.querySelectorAll('[data-month]'),function(el){ el.textContent=el.textContent.replace(/^[A-Z][a-z]+ \d{4}/,lab); });
@@ -107,7 +107,7 @@
           q('[data-ts-more]').innerHTML=secs.slice(1).map(function(sc){
             var first=String(sc.t[0]||'').trim().match(/^\[\[([\w-]+)\]\]$/), rest=first?sc.t.slice(1):sc.t;
             return '<article class="np-story ts-sec'+(first?' has-fig':'')+'">'+
-              (first?'<figure class="ts-fig duo-sway ts-calm">'+artImg(first[1],'')+'</figure>':'')+
+              (first?'<figure class="ts-fig ts-inart">'+artImg(first[1],'')+'</figure>':'')+
               '<div class="ts-sec-in"><h3 class="np-h">'+rich(sc.h)+'</h3><div class="np-cols ts-body">'+paras(rest.join('\n\n'))+'</div></div></article>';
           }).join('');
           var dl=q('[data-ts-dates]');
@@ -115,7 +115,7 @@
             return '<li><span class="ts-d"><b>'+esc(m2[2])+'</b><i>'+esc(m2[1])+'</i></span><span class="ts-dt">'+rich(d.text)+'</span></li>'; }).join('');
           else dl.outerHTML='<p>'+rich(P.when||'')+'</p>';
           q('[data-ts-what]').innerHTML=rich(P.what||'');
-          if(P.side) q('[data-ts-side-art]').innerHTML=artImg(P.side,'duo-sway ts-calm');
+          if(P.side) q('[data-ts-side-art]').innerHTML=artImg(P.side,'ts-inart');
           if(M.closing && M.closing.body){ q('[data-ts-close-k]').innerHTML=rich(M.closing.title||''); q('[data-ts-close-b]').innerHTML=paras(M.closing.body); q('[data-ts-close]').hidden=false; }
           /* each sticker slot lives in an open space: above the paper (1, 2), the sidebar (3, 7), the corner of the
              second article's graphic (4) and around the closing note (5, 6, 8) */
@@ -400,12 +400,15 @@
      and rocks a few degrees as it travels through the screen. They use the separate rotate / translate properties,
      so their resting tilt (CSS transform) stays as designed. */
   try{
-    var papers=Array.prototype.slice.call(document.querySelectorAll('.torn, .sticker, .tour-go, .pan-tag, .strip-go, .duo-sway, .ts-tag'));
+    var papers=Array.prototype.slice.call(document.querySelectorAll('.torn, .sticker, .tour-go, .pan-tag, .strip-go, .duo-sway, .ts-tag, .ts-inart'));
     if(papers.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var pq=false;
       var sway=function(){ pq=false; var vh=innerHeight;
         papers.forEach(function(el,i){ var r=BOX(el); if(r.bottom<-80||r.top>vh+80) return;
           var k=((r.top+r.height/2)-vh/2)/vh;   /* -1..1 as it crosses the screen */
+          /* Bri, 31 Oct: a graphic that belongs to a This Season article stays inside the article's lines. It doesn't
+             travel or turn; it only breathes a little smaller and back, so it never reaches a rule. */
+          if(el.classList.contains('ts-inart')){ el.style.scale=(1-.045*Math.abs(Math.sin(k*2.2+i))).toFixed(3); return; }
           var lean=(i%2?2.2:-2.6);   /* its resting lean, alternating */
           /* the big pieces on the home page (photo, plate, notes) and the strip's tags move more gently */
           var calm=el.classList.contains('ts-calm'), big=el.classList.contains('duo-big'),
@@ -433,14 +436,15 @@
     }
   }catch(e){}
 
-  /* Drift (Bri, 28 Oct): the lace butterfly and the lace bow turn and travel as they cross the screen.
+  /* (31 Oct: this used to be called drift too, which replaced the floating stamps' own drift and froze them site-wide.)
+     Drift (Bri, 28 Oct): the lace butterfly and the lace bow turn and travel as they cross the screen.
      data-drift="x y turn" = pixels and degrees over one screen of scrolling, plus a little flutter. Scrolling down,
      a positive x carries the piece toward the left. Separate translate / rotate properties keep each resting tilt. */
   try{
     var drifters=Array.prototype.slice.call(document.querySelectorAll('[data-drift]'));
     if(drifters.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
       var dq=false;
-      var drift=function(){ dq=false; var vh=innerHeight;
+      var driftBy=function(){ dq=false; var vh=innerHeight;
         drifters.forEach(function(el){ var r=BOX(el); if(r.bottom<-120||r.top>vh+120) return;
           var v=(el.getAttribute('data-drift')||'0 0 0').split(/\s+/).map(Number);
           /* Bri, 31 Oct: on a wide screen This Season's graphics barely seemed to move, so there they travel and zoom
@@ -453,8 +457,8 @@
           /* optional 4th value: it stretches and squashes, changing shape as it goes */
           if(v[3]>0){ var q=Math.sin(k*4.8)*v[3]; el.style.scale=(1+q).toFixed(3)+' '+(1-q*.7).toFixed(3); }
           else if(v[3]<0){ el.style.scale=(1-v[3]*Math.cos(k*2.4)).toFixed(3); }   /* negative: a slow zoom in and out */ }); };
-      addEventListener('scroll',function(){ if(!dq){ dq=true; requestAnimationFrame(drift); } },{passive:true});
-      addEventListener('resize',drift); drift();
+      addEventListener('scroll',function(){ if(!dq){ dq=true; requestAnimationFrame(driftBy); } },{passive:true});
+      addEventListener('resize',driftBy); driftBy();
     }
   }catch(e){}
 
