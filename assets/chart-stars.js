@@ -14,17 +14,19 @@
       if(!t.width) return;
       if(getComputedStyle(hd).position==='static') hd.style.position='relative';
       var size=Math.round(Math.max(22,Math.min(32,innerWidth*.022))), gap=Math.max(18,innerWidth*.03);
-      [[t.left-b.left-gap-size, -.15],[t.right-b.left+gap, .35]].forEach(function(spot,k){
-        var x=spot[0], y=t.top-b.top+t.height*spot[1]+(k?6:-4);
-        var im=new Image(); im.src=SRC[(i*2+k)%SRC.length]; im.alt=''; im.setAttribute('aria-hidden','true');
+      /* Bri, 31 Oct: symmetrical, one on each side of the title, the same size and distance, centred on the title's line */
+      [t.left-b.left-gap-size, t.right-b.left+gap].forEach(function(x,k){
+        var y=t.top-b.top+t.height/2-size/2;
+        var im=new Image(); im.src=SRC[i%SRC.length];   /* the same star on both sides */ im.alt=''; im.setAttribute('aria-hidden','true');
         im.className='np-star cs-star'; im.decoding='async';
-        im.style.cssText='position:absolute;left:'+x.toFixed(0)+'px;top:'+y.toFixed(0)+'px;width:'+size+'px;height:'+size+'px;object-fit:contain;rotate:'+(k?16:-12)+'deg';
+        im.style.cssText='position:absolute;left:'+x.toFixed(0)+'px;top:'+y.toFixed(0)+'px;width:'+size+'px;height:'+size+'px;object-fit:contain;rotate:'+(k?14:-14)+'deg';
         hd.appendChild(im); stars.push(im);
       });
     });
     /* leave out any star that lands on text, the wheel, a card or a button, or runs off the screen */
     var blocks=Array.prototype.filter.call(document.querySelectorAll(BLOCK),function(e){ return e.offsetParent && !e.classList.contains('cs-star'); });
-    stars=stars.filter(function(s){
+    var bad_=[];
+    stars.forEach(function(s,idx){
       var a=s.getBoundingClientRect(), pad=6, bad=a.left<4||a.right>document.documentElement.clientWidth-4;
       for(var j=0;!bad&&j<blocks.length;j++){
         var e=blocks[j], rs;
@@ -38,9 +40,11 @@
         if(parseFloat(cs.borderLeftWidth)>0 && cs.borderLeftStyle!=='none' && parseFloat(cs.borderRightWidth)>0){
           var fb=box.getBoundingClientRect(); if(a.left<fb.left+14||a.right>fb.right-14||a.top<fb.top+10) bad=true; break; }
       }
-      if(bad) s.remove();
-      return !bad;
+      if(bad) bad_.push(idx);
     });
+    /* a pair stays a pair: if either side can't be placed, neither is */
+    var drop={}; bad_.forEach(function(idx){ drop[idx]=1; drop[idx^1]=1; });
+    stars=stars.filter(function(s,idx){ if(drop[idx]){ s.remove(); return false; } return true; });
     spin();
   }
   var dir=function(i){ return i%2?-1:1; }, queued=false;

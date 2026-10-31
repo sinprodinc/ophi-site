@@ -125,7 +125,16 @@
             var host=q(HOST[i]); if(!host || (i===6 && !P.side)) return;   /* no sidebar graphic this month: that slot stays empty */
             /* post.stickerW = {name: px} gives a wide piece (a word sticker) its own width on desktop, scaled down on smaller screens */
             var sw=(P.stickerW||{})[n], wst=sw?' style="width:clamp('+Math.round(sw*.55)+'px,'+(sw/12.8).toFixed(2)+'vw,'+sw+'px)"':'';
-            host.insertAdjacentHTML('beforeend',artImg(n,'ts-sticker ts-st'+(i+1)).replace('<img ','<img data-drift="'+MOVE[i].join(' ')+' -.09"'+wst+' '));
+            /* post.scatter[name] (Bri, 31 Oct): the graphic is rebuilt from single pieces (each sequin on its own) that sit
+               together low on the screen and drift apart from each other as it scrolls up. {piece, size:[w,h], dots:[[x,y,r]]} */
+            var SC=(P.scatter||{})[n];
+            if(SC){ var W0=SC.size[0], H0=SC.size[1];
+              host.insertAdjacentHTML('beforeend','<span class="ts-sticker ts-st'+(i+1)+' ts-scatter" data-spread="'+(SC.spread||.32)+'" aria-hidden="true" style="aspect-ratio:'+W0+'/'+H0+(sw?';width:clamp('+Math.round(sw*.55)+'px,'+(sw/12.8).toFixed(2)+'vw,'+sw+'px)':'')+'">'+
+                SC.dots.map(function(d,k){ return '<img class="sp" src="'+artSrc(SC.piece)+'" alt="" loading="lazy" decoding="async" style="left:'+((d[0]-d[2])/W0*100).toFixed(2)+'%;top:'+((d[1]-d[2])/H0*100).toFixed(2)+'%;width:'+(d[2]*2/W0*100).toFixed(2)+'%;rotate:'+((k*137)%360)+'deg">'; }).join('')+'</span>');
+              return; }
+            /* post.onLine = names that start centred on the divider line above the story and move away from it */
+            var onl=(P.onLine||[]).indexOf(n)>-1;
+            host.insertAdjacentHTML('beforeend',artImg(n,'ts-sticker ts-st'+(i+1)+(onl?' ts-online':'')).replace('<img ','<img data-drift="'+MOVE[i].join(' ')+' -.09"'+(onl?' data-drift-from=".45"':'')+wst+' '));
           });
           paper.hidden=false; q('[data-ts-jump]').hidden=false;
         }
@@ -140,7 +149,19 @@
         ch.querySelector(':scope > div').insertAdjacentHTML('beforeend',paras(c.body));
         if(c.house){ var mt=ch.querySelector('.meta'); if(mt) mt.textContent=M.label+' ✦ '+c.house; }
         var ul=ch.querySelector('aside ul'), k=ch.querySelector('aside .k');
-        if(c.note){ k.textContent='Remember'; ul.outerHTML='<p class="note">'+rich(c.note)+'</p>'; }
+        /* Bri, 31 Oct: the takeaway is its own little piece of paper, a different paper and fastener for each sign,
+           set big in her hand; the chapter beside it stays plain and easy to read */
+        if(c.note){
+          var si=Array.prototype.indexOf.call(li.parentNode.children,li),
+              PAPERS=['grid','note','dot','clip','crumple','lilac'],
+              ACC=['clip-silver','tape-pink','pin-red','','tape-kraft','','pin-teal','safety-gold','tape-rose','','pin-black','pin-pink'],   /* the clipped paper (Cancer, Capricorn) brings its own clip */
+              pp=PAPERS[si%6], ac=ACC[si%12];
+          k.remove();
+          ul.outerHTML='<div class="ts-note p-'+pp+(ac?' a-'+ac:'')+'" style="--tilt:'+((si%2?1:-1)*(1+si%3*.6)).toFixed(1)+'deg">'+
+            (ac?'<img class="acc" src="/assets/cork/'+ac+'.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">':'')+
+            '<span class="k">Remember</span><p class="note">'+rich(c.note)+'</p></div>';
+          ch.querySelector('aside').classList.add('has-note');
+        }
         else if(c.tries && c.tries.length) ul.innerHTML=c.tries.map(function(t){ return '<li>'+esc(t)+'</li>'; }).join('');
         else ch.querySelector('aside').querySelectorAll('.k,ul').forEach(function(n){ n.remove(); });
       });
@@ -454,6 +475,9 @@
           if(el.classList.contains('ts-sticker') && innerWidth>900){ var g=Math.min(2.6,innerWidth/560); v=[v[0]*g,v[1]*g,v[2],v[3]*1.8]; }
           var
               k=Math.max(-1.2,Math.min(1.2,((r.top+r.height/2)-vh/2)/vh)), f=Math.sin(k*5.2);
+          /* optional data-drift-from="k0": the piece sits exactly where it is placed when it enters low on the screen (k0)
+             and only travels away from there as it rises (Plot Twist starts on the divider line, Bri 31 Oct) */
+          var k0=el.getAttribute('data-drift-from'); if(k0!==null){ k=Math.min(0,k-(+k0)); f=Math.sin(k*5.2)*.4; }
           el.style.translate=(v[0]*k+f*3).toFixed(1)+'px '+(v[1]*k+Math.cos(k*4.4)*3).toFixed(1)+'px';
           el.style.rotate=(v[2]*k+f*v[2]*.25).toFixed(2)+'deg';
           /* optional 4th value: it stretches and squashes, changing shape as it goes */
@@ -461,6 +485,25 @@
           else if(v[3]<0){ el.style.scale=(1-v[3]*Math.cos(k*2.4)).toFixed(3); }   /* negative: a slow zoom in and out */ }); };
       addEventListener('scroll',function(){ if(!dq){ dq=true; requestAnimationFrame(driftBy); } },{passive:true});
       addEventListener('resize',driftBy); driftBy();
+    }
+  }catch(e){}
+
+  /* Spread (Bri, 31 Oct): a group marked data-spread="k" keeps its pieces (.sp) together while it sits low on the screen;
+     as it scrolls up they move apart, each straight away from the group's centre (k = how far, as a share of its distance). */
+  try{
+    var groups=Array.prototype.slice.call(document.querySelectorAll('[data-spread]'));
+    if(groups.length && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      var spq=false;
+      var spreadOut=function(){ spq=false; var vh=innerHeight;
+        groups.forEach(function(g){ var r=BOX(g); if(r.bottom<-200||r.top>vh+200||!r.width) return;
+          var k=+g.getAttribute('data-spread')||.3, cy=r.top+r.height/2,
+              t=Math.max(0,Math.min(1,(vh*.85-cy)/(vh*.7))); t=t*t*(3-2*t);   /* 0 near the bottom of the screen, 1 near the top */
+          var z=window.OPHI_Z||1;
+          Array.prototype.forEach.call(g.querySelectorAll('.sp'),function(p){
+            var dx=(p.offsetLeft+p.offsetWidth/2)-g.offsetWidth/2, dy=(p.offsetTop+p.offsetHeight/2)-g.offsetHeight/2;
+            p.style.translate=(dx*k*t).toFixed(1)+'px '+(dy*k*t).toFixed(1)+'px'; }); }); };
+      addEventListener('scroll',function(){ if(!spq){ spq=true; requestAnimationFrame(spreadOut); } },{passive:true});
+      addEventListener('resize',spreadOut); addEventListener('load',spreadOut); spreadOut();
     }
   }catch(e){}
 
