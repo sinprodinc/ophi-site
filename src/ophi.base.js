@@ -86,7 +86,7 @@
       var artImg=function(n,cls){ var a=ART[n]||{}; return '<img class="'+cls+'" src="'+artSrc(n)+'" alt="'+esc(a.alt||'')+'"'+(a.alt?'':' aria-hidden="true"')+' loading="lazy" decoding="async">'; };
       /* paragraphs are separated by a blank line; "## " is a small heading, "~ " is in Bri's hand, [[name]] is a graphic */
       var paras=function(t){ return String(t||'').split(/\n\s*\n/).map(function(x){ x=x.trim(); var g=x.match(/^\[\[([\w-]+)\]\]$/);
-        if(g){ side++; return '<figure class="ts-art ts-art-'+(side%2?'r':'l')+' ts-inart">'+artImg(g[1],'')+'</figure>'; }
+        if(g){ side++; return '<figure class="ts-art ts-art-'+(side%2?'r':'l')+((ART[g[1]]||{}).wide?' ts-art-wide':'')+' ts-inart">'+artImg(g[1],'')+'</figure>'; }   /* art.wide: a wide graphic (the lion) gets more room */
         return /^## /.test(x)?'<h4 class="sub-h">'+rich(x.slice(3))+'</h4>':/^~ /.test(x)?'<p class="ts-pen">'+rich(x.slice(2))+'</p>':'<p>'+rich(x)+'</p>'; }).join(''); };
       var lab=String(M.label||''), mo=lab.replace(/\s*\d{4}\s*$/,''), yr=(lab.match(/\d{4}/)||[''])[0];
       Array.prototype.forEach.call(document.querySelectorAll('[data-month]'),function(el){ el.textContent=el.textContent.replace(/^[A-Z][a-z]+ \d{4}/,lab); });
@@ -111,7 +111,7 @@
               '<div class="ts-sec-in"><h3 class="np-h">'+rich(sc.h)+'</h3><div class="np-cols ts-body">'+paras(rest.join('\n\n'))+'</div></div></article>';
           }).join('');
           var dl=q('[data-ts-dates]');
-          if(P.dates && P.dates.length) dl.innerHTML=P.dates.map(function(d){ var m2=String(d.date).match(/^(\D*?)\s*(\d+)$/)||[0,'',d.date];
+          if(P.dates && P.dates.length) dl.innerHTML=P.dates.map(function(d){ var m2=String(d.date).match(/^(\D*?)\s*(\d+(?:\s*[–-]\s*\d+)?)$/)||[0,'',d.date];   /* "Nov 14–15" keeps the range */
             return '<li><span class="ts-d"><b>'+esc(m2[2])+'</b><i>'+esc(m2[1])+'</i></span><span class="ts-dt">'+rich(d.text)+'</span></li>'; }).join('');
           else dl.outerHTML='<p>'+rich(P.when||'')+'</p>';
           q('[data-ts-what]').innerHTML=rich(P.what||'');
@@ -122,8 +122,10 @@
           var HOST=['.ts-paper .np-page','.ts-paper .np-page','.ts-what','.ts-fig','.ts-close','.ts-close','.ts-side-art','.ts-close'],
               MOVE=[[22,34,6],[-24,30,-5],[10,16,8],[-18,26,-6],[26,30,4],[-24,28,-7],[16,24,6],[-14,20,-8]];   /* Bri, 29 Oct: they travel and zoom; only the little chrome stars spin */
           (P.stickers||[]).slice(0,8).forEach(function(n,i){
-            var host=q(HOST[i])||q('.ts-paper .np-page');
-            host.insertAdjacentHTML('beforeend',artImg(n,'ts-sticker ts-st'+(i+1)).replace('<img ','<img data-drift="'+MOVE[i].join(' ')+' -.09" '));
+            var host=q(HOST[i]); if(!host || (i===6 && !P.side)) return;   /* no sidebar graphic this month: that slot stays empty */
+            /* post.stickerW = {name: px} gives a wide piece (a word sticker) its own width on desktop, scaled down on smaller screens */
+            var sw=(P.stickerW||{})[n], wst=sw?' style="width:clamp('+Math.round(sw*.55)+'px,'+(sw/12.8).toFixed(2)+'vw,'+sw+'px)"':'';
+            host.insertAdjacentHTML('beforeend',artImg(n,'ts-sticker ts-st'+(i+1)).replace('<img ','<img data-drift="'+MOVE[i].join(' ')+' -.09"'+wst+' '));
           });
           paper.hidden=false; q('[data-ts-jump]').hidden=false;
         }

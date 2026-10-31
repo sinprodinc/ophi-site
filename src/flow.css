@@ -1930,3 +1930,9 @@ body.flow .ts-paper{padding-top:calc(var(--sec) + 60px)}
 .ts-flip-l{font-size:10px;letter-spacing:.18em}
 @media(max-width:600px){ .ts-flip-b,.ts-prev .ts-flip-b,.ts-next .ts-flip-b{width:30px;height:auto} .ts-flipwrap{gap:6px 0} }
 @media(max-width:600px){ .s-m2{top:9%;right:3%} }
+/* key dates: a range ("14–15") widens the day column instead of spilling */
+.ts-datelist li{grid-template-columns:minmax(62px,max-content) minmax(0,1fr)}
+.ts-d b{white-space:nowrap}
+.ts-art.ts-art-wide{width:clamp(130px,13vw,190px)}
+@media(max-width:600px){ .ts-art.ts-art-wide{width:120px} }
+@media(min-width:601px) and (max-width:900px){ .s-m1{top:3%;left:3%} }
