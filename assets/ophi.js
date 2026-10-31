@@ -410,7 +410,7 @@
           /* the big pieces on the home page (photo, plate, notes) and the strip's tags move more gently */
           var calm=el.classList.contains('ts-calm'), big=el.classList.contains('duo-big'),
               a=calm?.18:big?.5:el.classList.contains('duo-sway')?1:el.classList.contains('strip-go')?.35:1,
-              m=calm?1.3:big?1.1:a;   /* how far it travels; This Season's graphics barely turn (Bri, 29 Oct) */
+              m=calm?(innerWidth>900 && !el.classList.contains('ts-art')?Math.min(3.4,innerWidth/430):1.3):big?1.1:a;   /* how far it travels; This Season's graphics barely turn (Bri, 29 Oct) */
           el.style.rotate=((lean+Math.sin(k*2.6+i*1.3)*6.5)*a).toFixed(2)+'deg';
           el.style.translate=(Math.sin(k*2.1+i*.7)*7*m).toFixed(1)+'px '+(Math.sin(k*1.8+i)*14*m).toFixed(1)+'px'; }); };
       addEventListener('scroll',function(){ if(!pq){ pq=true; requestAnimationFrame(sway); } },{passive:true});
@@ -442,7 +442,11 @@
       var dq=false;
       var drift=function(){ dq=false; var vh=innerHeight;
         drifters.forEach(function(el){ var r=BOX(el); if(r.bottom<-120||r.top>vh+120) return;
-          var v=(el.getAttribute('data-drift')||'0 0 0').split(/\s+/).map(Number),
+          var v=(el.getAttribute('data-drift')||'0 0 0').split(/\s+/).map(Number);
+          /* Bri, 31 Oct: on a wide screen This Season's graphics barely seemed to move, so there they travel and zoom
+             further (the turn stays the same) */
+          if(el.classList.contains('ts-sticker') && innerWidth>900){ var g=Math.min(2.6,innerWidth/560); v=[v[0]*g,v[1]*g,v[2],v[3]*1.8]; }
+          var
               k=Math.max(-1.2,Math.min(1.2,((r.top+r.height/2)-vh/2)/vh)), f=Math.sin(k*5.2);
           el.style.translate=(v[0]*k+f*3).toFixed(1)+'px '+(v[1]*k+Math.cos(k*4.4)*3).toFixed(1)+'px';
           el.style.rotate=(v[2]*k+f*v[2]*.25).toFixed(2)+'deg';
