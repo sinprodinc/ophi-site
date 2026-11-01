@@ -704,7 +704,7 @@
   :root{
     --bone:#f8f5ef;
     --blush:#efd3cc; --sage:#d6dcc7; --butter:#f2e5b8; --powder:#d2dde6;
-    --pen:#2f3d7c;                 /* ballpoint blue: only ever the handwriting */
+    --pen:#2b2927;                 /* charcoal (Bri, 31 Oct): only ever the handwriting */
     --hair:rgba(22,19,16,.55);     /* hairline card edges */
     --soft-shadow:0 18px 34px -24px rgba(22,19,16,.55);
     --font-hand:'Ophi Hand','Segoe Script','Bradley Hand',cursive;
@@ -2240,7 +2240,7 @@ body.flow .night-inner .night-sub{margin:0}
 }
 
 /* Handwriting ink is the brand's dark purple (19 Oct); on dark bands it stays the light cream */
-body.flow{--pen:#4f3a8c}
+body.flow{--pen:#2b2927}   /* Bri, 31 Oct: handwriting in charcoal (was purple #4f3a8c) */
 .pan-paper{box-shadow:none;border-width:2px}
 /* the lace bow is tied onto the left end of the black banner; the armillary peeks out from behind the paper one */
 .pa-bow{width:clamp(120px,calc(12 * var(--vw,1vw)),170px);left:calc(-1 * clamp(18px,calc(2 * var(--vw,1vw)),30px));top:calc(clamp(56px,calc(6 * var(--vw,1vw)),80px) - clamp(34px,calc(3.4 * var(--vw,1vw)),48px));rotate:-10deg;z-index:3}

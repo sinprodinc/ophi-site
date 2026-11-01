@@ -9,7 +9,7 @@
   :root{
     --bone:#f8f5ef;
     --blush:#efd3cc; --sage:#d6dcc7; --butter:#f2e5b8; --powder:#d2dde6;
-    --pen:#2f3d7c;                 /* ballpoint blue: only ever the handwriting */
+    --pen:#2b2927;                 /* charcoal (Bri, 31 Oct): only ever the handwriting */
     --hair:rgba(22,19,16,.55);     /* hairline card edges */
     --soft-shadow:0 18px 34px -24px rgba(22,19,16,.55);
     --font-hand:'Ophi Hand','Segoe Script','Bradley Hand',cursive;

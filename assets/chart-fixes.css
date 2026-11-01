@@ -32,7 +32,7 @@
 
 /* Aspects stay closed until a planet is chosen */
 #aspList .pick-hint{list-style:none;padding:1.4rem 1rem;border:1.5px dashed rgba(22,19,16,.45);text-align:center;
-  font-family:'Ophi Hand',cursive;font-size:1.5rem;line-height:1.2;color:#2f3d7c}
+  font-family:'Ophi Hand',cursive;font-size:1.5rem;line-height:1.2;color:#2b2927}
 
 /* Desktop: placements on the left, the Serpent Bearer beside them; phones keep the stacked layout */
 @media(min-width:1100px){
@@ -55,7 +55,7 @@
 .card,.rd-grid .card{background:#fffdf8!important}
 
 
-.empty-row{text-align:center;font-family:"Ophi Hand",cursive;font-size:1.3rem;color:#2f3d7c;padding:1.4rem .5rem!important}
+.empty-row{text-align:center;font-family:"Ophi Hand",cursive;font-size:1.3rem;color:#2b2927;padding:1.4rem .5rem!important}
 /* Bri's pixel arrow cursor, same as the rest of the site */
 html,body{cursor:url(/assets/collage/cursor.png) 1 1,auto}
 a,button,[role=button],label,select,summary,.results li{cursor:url(/assets/collage/cursor.png) 1 1,pointer}

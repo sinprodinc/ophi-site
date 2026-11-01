@@ -1129,7 +1129,7 @@ body.flow .night-inner .night-sub{margin:0}
 }
 
 /* Handwriting ink is the brand's dark purple (19 Oct); on dark bands it stays the light cream */
-body.flow{--pen:#4f3a8c}
+body.flow{--pen:#2b2927}   /* Bri, 31 Oct: handwriting in charcoal (was purple #4f3a8c) */
 .pan-paper{box-shadow:none;border-width:2px}
 /* the lace bow is tied onto the left end of the black banner; the armillary peeks out from behind the paper one */
 .pa-bow{width:clamp(120px,12vw,170px);left:calc(-1 * clamp(18px,2vw,30px));top:calc(clamp(56px,6vw,80px) - clamp(34px,3.4vw,48px));rotate:-10deg;z-index:3}
