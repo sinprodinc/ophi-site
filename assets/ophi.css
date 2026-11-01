@@ -3105,3 +3105,12 @@ html.notes-hand .chapter aside .ts-note-in .note{font-family:var(--font-hand);co
 .ts-note .acc{display:none}
 /* phones: the notepad runs edge to edge of the open card so the words have room */
 @media(max-width:700px){ .chapter aside.has-note .ts-note{width:calc(100% + 44px);max-width:none;margin-left:-22px} }
+/* notes, evening 31 Oct: handwriting by default; ruled papers put every line on a printed line */
+.chapter aside .ts-note-in .note{font-family:var(--font-hand);color:var(--pen);line-height:1.18}
+html.notes-body .chapter aside .ts-note-in .note{font-family:var(--font-body);color:var(--ink);line-height:1.45}
+.ts-note-in .k,.ts-note-in .note{position:relative}
+.ts-note-in.ruled{overflow:visible;transform-origin:0 50%}
+.ts-note-in.ruled .k{display:block}
+/* handwriting colour previews (?ink=charcoal / gray / purple) */
+html.ink-charcoal body.flow{--pen:#2b2927}
+html.ink-gray body.flow{--pen:#4d4a46}
