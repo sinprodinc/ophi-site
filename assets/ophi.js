@@ -139,6 +139,21 @@
           paper.hidden=false; q('[data-ts-jump]').hidden=false;
         }
       }
+      /* Bri's notepads (assets/notes): per note the image w, h, clear writing area x, y, w, h (%), note number, first
+         ruled line y % (0 = unruled), line spacing %, tilt deg. Each month the longest takeaways go to the roomiest
+         papers so every one fits at a readable size; every sign still gets a different notepad. */
+      var NB=[[689, 717, 22, 37, 62, 34, 1, 0, 0, 0], [685, 642, 28, 27, 48, 56, 2, 34.0, 6.91, 0], [666, 637, 24, 35, 40, 51, 3, 33.4, 3.914, 0], [760, 708, 13, 30, 55, 50, 4, 0, 0, 0], [865, 795, 24, 33, 54, 43, 5, 28.95, 5.2, -1.93], [670, 900, 19, 30, 61, 55, 6, 0, 0, 0], [731, 724, 29, 31, 56, 54, 7, 35.67, 4.66, 0.95], [656, 753, 24, 24, 66, 40, 8, 28.6, 5.67, 0], [843, 900, 16, 36, 60, 38, 9, 0, 0, 0], [900, 890, 14, 38, 58, 46, 10, 42.54, 4.1, 0], [900, 791, 23, 12, 70, 64, 15, 13.6, 6.47, 0], [900, 684, 28, 43, 50, 43, 12, 31.41, 5.25, -1.1]], NOTEFOR={};
+      (function(){
+        var cap=function(n){ var W=420, H=W*n[1]/n[0], bw=W*n[4]/100, bh=H*n[5]/100, sp=n[8]/100*H, fs, lines;
+          fs=16;   /* compare every paper at the same writing size */
+          if(n[7]){ if(sp<18 && sp*2*.92>=fs) sp*=2; lines=Math.max(1,Math.floor(bh/sp)-1); }
+          else lines=Math.floor((bh-20)/(fs*1.18));
+          return lines*bw/(fs*.42); };
+        var want=Object.keys(M.signs||{}).filter(function(s){ return M.signs[s].note; })
+              .sort(function(a,b){ return String(M.signs[b].note).length-String(M.signs[a].note).length; });
+        var notes=NB.slice().sort(function(a,b){ return cap(b)-cap(a); });
+        want.forEach(function(s,i){ NOTEFOR[s]=notes[i%notes.length]; });
+      })();
       Object.keys(M.signs||{}).forEach(function(s){
         var c=M.signs[s], li=document.querySelector('.rising[data-sign="'+s+'"]'); if(!li||!c) return;
         if(c.teaser){ var tg=li.querySelector('.tagline'); if(tg) tg.textContent=c.teaser; }   /* the month's teaser replaces the sign's standing tagline */
@@ -154,8 +169,7 @@
            (NB: image width, height, then the area as x, y, w, h in percent) and shrink to fit it.
            Body font by default (legibility first); ?notes=hand shows the handwriting version for comparison. */
         if(c.note){
-          var si=Array.prototype.indexOf.call(li.parentNode.children,li),
-              NB=[[689, 717, 22, 26, 62, 48, 1, 0, 0, 0], [685, 642, 28, 30, 48, 52, 2, 34.0, 6.91, 0], [666, 637, 24, 35, 40, 51, 3, 33.4, 3.914, 0], [760, 708, 13, 30, 55, 50, 4, 0, 0, 0], [865, 795, 22, 33, 56, 43, 5, 28.95, 5.2, -1.93], [670, 900, 19, 30, 61, 55, 6, 0, 0, 0], [731, 724, 29, 31, 56, 54, 7, 35.67, 4.66, 0.95], [656, 753, 24, 24, 66, 40, 8, 28.6, 5.67, 0], [843, 900, 16, 36, 60, 38, 9, 0, 0, 0], [900, 890, 14, 38, 58, 46, 10, 42.54, 4.1, 0], [900, 791, 23, 12, 70, 64, 15, 13.6, 6.47, 0], [900, 684, 28, 43, 50, 43, 12, 31.41, 5.25, -1.1]], nb=NB[si%NB.length], nn=('0'+nb[6]).slice(-2);   /* [w, h, x, y, w%, h%, note number] */
+          var nb=NOTEFOR[s], nn=('0'+nb[6]).slice(-2);   /* [w, h, x, y, w%, h%, note number] */
           k.remove();
           ul.outerHTML='<div class="ts-note" style="aspect-ratio:'+nb[0]+'/'+nb[1]+';background-image:url(/assets/notes/note-'+nn+'.webp)">'+
             '<div class="ts-note-in'+(nb[7]?' ruled':'')+'" data-box="'+nb.slice(2,6).join(' ')+'" data-rule="'+nb.slice(7,10).join(' ')+'" style="left:'+nb[2]+'%;top:'+nb[3]+'%;width:'+nb[4]+'%;height:'+nb[5]+'%"><span class="k">Remember</span><p class="note">'+rich(c.note)+'</p></div></div>';
@@ -524,7 +538,7 @@
           rl=(n.getAttribute('data-rule')||'0 0 0').split(' ').map(Number);
       p.style.top=k.style.top=''; n.style.transform='';
       if(!rl[0]){   /* plain paper: fit inside the clear writing area */
-        var fs=body?15:21, min=body?11.5:14; p.style.fontSize=fs+'px'; p.style.lineHeight='';
+        var fs=body?15:21, min=body?11.5:12; p.style.fontSize=fs+'px'; p.style.lineHeight='';
         while(n.scrollHeight>n.clientHeight+1 && fs>min){ fs-=.5; p.style.fontSize=fs+'px'; }
         return; }
       /* ruled paper: one line of writing per printed line */
