@@ -63,11 +63,11 @@ FAQ = [
      "The [free chart](/chart/) on this site works entirely in your browser: the birth details you type there are not "
      "sent to me or stored. The [Privacy Policy](/privacy/) has the details."),
     ('faq-gift', 'Can I gift a reading?',
-     "Yes. When you buy a gift reading, I'll need the birth details of the person receiving it: their date, time and "
-     "place of birth.\n\n"
-     "Not sure of their birth time? Ask in a low-key way: cast your own chart on the [chart page](/chart/) and compare "
-     "charts with each other. If they don't know it, their birth certificate or the hospital they were born in can "
-     "usually tell them. If the time can't be found, the reading still goes ahead and we cover everything we can."),
+     "Yes. Buy the gift, and the person receiving it gets a gift card by email with their own gift number and a "
+     "link to book. They choose a time that suits them and enter their birth details when they book, so you don't "
+     "need to know their birth time.\n\n"
+     "If they don't know their own birth time, their birth certificate or the hospital they were born in can usually "
+     "tell them. If it can't be found, the reading still goes ahead and we cover everything we can."),
 ]
 
 POLICY_TITLE = 'Cancelling or rescheduling'

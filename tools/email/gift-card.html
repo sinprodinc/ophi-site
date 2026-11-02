@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="color-scheme" content="light only">
+<title>A reading, just for you</title>
+<!--
+  Ophi by Bri gift card email (2 Nov 2026).
+  Subject line:  {{recipient_first_name}}, you've been gifted a reading
+  Fill these in by hand or map them in the automation:
+    {{recipient_first_name}}  {{buyer_name}}  {{gift_message}}  {{reading_name}}  {{reading_length}}
+    {{gift_code}}  {{expiry_date}}  {{booking_link}}
+  No gift message? Delete the whole "MESSAGE" block below.
+  Built for email: tables, inline styles, system fonts. The title is an image because email apps can't load
+  Modern Romance; the image needs ophibybri.com to be live with /assets/email/ published.
+-->
+<style>
+  body{margin:0;padding:0}
+  a{color:#161310}
+  @media (max-width:620px){
+    .wrap{width:100%!important}
+    .pad{padding-left:20px!important;padding-right:20px!important}
+    .code{font-size:26px!important;letter-spacing:4px!important}
+    .reading{font-size:30px!important}
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#eeeae3;">
+<!-- preview text shown in the inbox list -->
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">{{buyer_name}} gifted you a {{reading_name}} reading with Bri. Your gift number and booking link are inside.&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#eeeae3;">
+<tr><td align="center" style="padding:24px 0 40px;">
+
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
+
+  <!-- masthead -->
+  <tr><td style="background:#161310;border-top:7px solid #161310;">
+    <a href="https://ophibybri.com/" style="text-decoration:none;"><img src="https://ophibybri.com/assets/email/gift-header.png" width="600" alt="Ophi by Bri gift card: A reading, just for you. Awakening Astrology, readings by Bri Godard." style="display:block;width:100%;max-width:600px;height:auto;border:0;color:#ece7dc;font-family:Georgia,serif;font-size:28px;background:#161310;"></a>
+  </td></tr>
+  <tr><td style="line-height:0;font-size:0;"><img src="https://ophibybri.com/assets/email/lace.png" width="600" alt="" style="display:block;width:100%;max-width:600px;height:auto;border:0;"></td></tr>
+
+  <!-- greeting -->
+  <tr><td class="pad" style="padding:26px 44px 6px;font-family:'Courier New',Courier,monospace;font-size:16px;line-height:1.65;color:#161310;">
+    <p style="margin:0 0 14px;">Hi {{recipient_first_name}},</p>
+    <p style="margin:0;">{{buyer_name}} has gifted you a one-on-one astrology reading with Bri Godard of Ophi by Bri. It's a conversation about you: your chart, your patterns and what's moving in your life right now.</p>
+  </td></tr>
+
+  <!-- MESSAGE (delete this row if there is no gift message) -->
+  <tr><td class="pad" style="padding:18px 44px 4px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td style="border-left:3px solid #ef5334;padding:4px 0 4px 16px;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:19px;line-height:1.45;color:#161310;">
+        &ldquo;{{gift_message}}&rdquo;
+        <div style="font-family:'Courier New',Courier,monospace;font-style:normal;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-top:8px;color:#413b32;">From {{buyer_name}}</div>
+      </td>
+    </tr></table>
+  </td></tr>
+  <!-- /MESSAGE -->
+
+  <!-- the gift card -->
+  <tr><td class="pad" style="padding:26px 44px 8px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-right:6px solid #161310;border-bottom:6px solid #161310;">
+    <tr><td style="background:#fffdf8;border:2px solid #161310;padding:26px 26px 24px;text-align:center;">
+      <div style="font-family:'Courier New',Courier,monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#161310;">Your gift <span style="color:#ef5334;">&#x2726;</span> One reading</div>
+      <div class="reading" style="font-family:Georgia,'Times New Roman',serif;font-size:36px;line-height:1.1;color:#161310;margin:12px 0 6px;">{{reading_name}}</div>
+      <div style="font-family:'Courier New',Courier,monospace;font-size:13px;letter-spacing:1px;color:#413b32;">{{reading_length}}</div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:20px 0 0;"><tr><td style="border-top:3px double #161310;font-size:0;line-height:0;height:4px;">&nbsp;</td></tr></table>
+      <div style="font-family:'Courier New',Courier,monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#161310;margin:16px 0 10px;">Gift number</div>
+      <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td class="code" style="border:2px dashed #161310;padding:12px 20px;font-family:'Courier New',Courier,monospace;font-weight:bold;font-size:30px;letter-spacing:6px;color:#161310;background:#f8f5ef;">{{gift_code}}</td>
+      </tr></table>
+      <div style="font-family:'Courier New',Courier,monospace;font-size:13px;color:#413b32;margin-top:12px;">Valid until {{expiry_date}}</div>
+    </td></tr>
+    </table>
+  </td></tr>
+
+  <!-- button -->
+  <tr><td align="center" style="padding:28px 44px 6px;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-right:4px solid #ef5334;border-bottom:4px solid #ef5334;"><tr>
+      <td style="background:#161310;border:2px solid #161310;">
+        <a href="{{booking_link}}" style="display:inline-block;padding:15px 30px;font-family:'Courier New',Courier,monospace;font-weight:bold;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#ece7dc;text-decoration:none;">Book your reading &rarr;</a>
+      </td>
+    </tr></table>
+  </td></tr>
+
+  <!-- how to book -->
+  <tr><td class="pad" style="padding:28px 44px 4px;font-family:'Courier New',Courier,monospace;color:#161310;">
+    <div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;border-bottom:1px solid #161310;padding-bottom:8px;margin-bottom:14px;">How to book</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:15px;line-height:1.6;">
+      <tr><td valign="top" style="width:34px;font-family:Georgia,serif;font-size:22px;line-height:1.1;color:#ef5334;">1</td><td style="padding-bottom:12px;">Tap <b>Book your reading</b> and choose a time that suits you. Times show in your own time zone.</td></tr>
+      <tr><td valign="top" style="width:34px;font-family:Georgia,serif;font-size:22px;line-height:1.1;color:#ef5334;">2</td><td style="padding-bottom:12px;">Enter your <b>gift number</b> and your <b>birth details</b>: date, time and place of birth.</td></tr>
+      <tr><td valign="top" style="width:34px;font-family:Georgia,serif;font-size:22px;line-height:1.1;color:#ef5334;">3</td><td style="padding-bottom:4px;">Join from the link in your confirmation email. Bri records the session and sends you the recording and your takeaways afterward.</td></tr>
+    </table>
+  </td></tr>
+
+  <!-- birth time note -->
+  <tr><td class="pad" style="padding:20px 44px 6px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td style="background:#fffdf8;border:1px solid #161310;padding:16px 18px;font-family:'Courier New',Courier,monospace;font-size:14px;line-height:1.6;color:#161310;">
+        <b>Not sure of your birth time?</b> Check your birth certificate or call the hospital where you were born. An exact time gives the most detailed reading, and if it can't be found, the reading still goes ahead.
+        <div style="margin-top:10px;">Curious before you book? <a href="https://ophibybri.com/chart/" style="color:#161310;text-decoration:underline;">Cast your free chart</a>.</div>
+      </td>
+    </tr></table>
+  </td></tr>
+
+  <!-- sign-off -->
+  <tr><td class="pad" style="padding:26px 44px 10px;font-family:'Courier New',Courier,monospace;font-size:15px;line-height:1.6;color:#161310;">
+    Questions? Just reply to this email.
+    <div style="font-family:Georgia,serif;font-style:italic;font-size:22px;margin-top:14px;">Bri</div>
+  </td></tr>
+
+  <!-- footer -->
+  <tr><td class="pad" style="padding:22px 44px 0;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:3px double #161310;padding-top:14px;font-family:'Courier New',Courier,monospace;font-size:12px;line-height:1.7;color:#413b32;text-align:center;">
+      <span style="font-family:Georgia,serif;font-size:18px;color:#161310;">Ophi <i style="font-size:12px;">by Bri</i></span><br>
+      <span style="letter-spacing:2px;text-transform:uppercase;">Awakening Astrology</span><br>
+      <a href="https://ophibybri.com/" style="color:#161310;">ophibybri.com</a> &nbsp;&#x2726;&nbsp; <a href="https://www.instagram.com/brigodard/" style="color:#161310;">@brigodard</a><br><br>
+      This gift is for one {{reading_name}} reading and is valid until {{expiry_date}}. Gift number {{gift_code}}.<br>
+      Reflective, spiritual guidance. Not a substitute for therapy or medical advice.
+    </td></tr></table>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>
