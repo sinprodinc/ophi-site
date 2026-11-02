@@ -33,10 +33,10 @@ SIGNS = [
 
 # Bri's notepads: image w, h, writing area x, y, w, h (%), note number, first ruled line y %, spacing %, tilt.
 # Same table as NB in src/ophi.base.js; keep the two in step.
-NB = [[689, 717, 22, 37, 62, 34, 1, 0, 0, 0], [685, 642, 28, 27, 48, 56, 2, 34.0, 6.91, 0], [666, 637, 24, 35, 40, 51, 3, 33.4, 3.914, 0],
-      [760, 708, 13, 30, 55, 50, 4, 0, 0, 0], [865, 795, 24, 33, 54, 43, 5, 28.95, 5.2, -1.93], [670, 900, 19, 30, 61, 55, 6, 0, 0, 0],
-      [731, 724, 29, 31, 56, 54, 7, 35.67, 4.66, 0.95], [656, 753, 24, 24, 66, 40, 8, 28.6, 5.67, 0], [843, 900, 16, 36, 60, 38, 9, 0, 0, 0],
-      [900, 890, 14, 38, 58, 46, 10, 42.54, 4.1, 0], [900, 791, 23, 12, 70, 64, 15, 13.6, 6.47, 0], [900, 684, 28, 43, 50, 43, 12, 31.41, 5.25, -1.1]]
+NB = [[689, 717, 16, 33, 66, 36, 1, 0, 0, 0], [685, 642, 24, 26, 56, 56, 2, 34.0, 6.91, 0], [666, 637, 14, 37, 50, 49, 3, 33.4, 3.914, 0],
+      [760, 708, 15, 27, 53, 52, 4, 0, 0, 0], [865, 795, 22, 26, 55, 50, 5, 28.95, 5.2, -1.93], [670, 900, 22, 37, 57, 49, 6, 0, 0, 0],
+      [731, 724, 29, 31, 56, 54, 7, 35.67, 4.66, 0.95], [656, 753, 24, 24, 66, 40, 8, 28.6, 5.67, 0], [843, 900, 14, 34, 64, 44, 9, 0, 0, 0],
+      [900, 890, 15, 34, 60, 44, 10, 0, 0, 0], [900, 791, 23, 12, 70, 64, 15, 13.6, 6.47, 0], [900, 684, 24, 34, 58, 52, 12, 31.41, 5.25, -1.1]]
 
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
@@ -164,7 +164,7 @@ def rising(D, key):
             meta = '%s &#x2726; %s' % (esc(label), esc(c.get('house') or name + ' Rising'))
             head = rich(c.get('title') or '')
             body = paras(c.get('body'), key, {}, [0])
-            note = note_for_html = note_html(c['note'], nf[s]) if c.get('note') else ''
+            note = note_html(c['note'], nf[s]) if c.get('note') else ''
             tries = '' if note else ''.join('<li>%s</li>' % esc(t) for t in (c.get('tries') or []))
             aside_cls = ' class="has-note"' if note else ''
             aside_in = note or ('<span class="k">Try this month</span><ul>%s</ul>' % tries if tries else '')

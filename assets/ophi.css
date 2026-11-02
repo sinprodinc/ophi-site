@@ -3038,3 +3038,24 @@ html.ink-gray body.flow{--pen:#4d4a46}
 .nf-links a:hover{translate:-2px -3px;box-shadow:7px 8px 0 var(--ink)}
 .nf-links span{display:block;margin-top:6px;font-family:var(--font-button);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 @media(max-width:599px){ .nf-links{grid-template-columns:1fr} .legal-body p,.legal-body li{font-size:16px} }
+
+/* Bri, 2 Nov (round 2): the notepad sits centred in the right-hand space, larger, with Close at the bottom centre */
+.ed-ch{grid-template-columns:minmax(0,1fr) minmax(260px,360px)}
+.ed-ch aside{align-items:center;justify-content:space-between;align-self:stretch}
+.ed-ch aside.has-note .ts-note{margin:auto 0;max-width:360px}
+.ed-ch aside .close,.ed-ch.chapter aside.has-note .close{align-self:center;margin-top:18px}
+@media(max-width:1024px){ .ed-ch{grid-template-columns:minmax(0,1fr) minmax(240px,320px)} }
+@media(max-width:640px){ .ed-ch{grid-template-columns:1fr} .ed-ch aside.has-note .ts-note{margin:4px 0 8px} }
+/* This Season front: the month's summary sits under the big month name, two or three lines, centred */
+@media(min-width:901px){ .ts-front .ts-sum{max-width:600px;margin-left:auto;margin-right:auto;text-align:center;text-wrap:balance} }
+@media(max-width:900px){ .ts-front .ts-sum{text-align:center;text-wrap:balance} }
+
+/* Bri, 2 Nov (round 2): Book a Reading intro, the small Pacific Time line, FAQ questions in Modern Romance */
+.book-intro{max-width:720px;margin:clamp(10px,calc(1.4 * var(--vw,1vw)),16px) auto clamp(30px,calc(4 * var(--vw,1vw)),48px);padding:0 var(--pad);text-align:center;font-size:clamp(15px,calc(1.25 * var(--vw,1vw)),17px);line-height:1.7;color:var(--ink);text-wrap:pretty}
+.tz-fine{margin:8px auto 0;text-align:center;font-size:12.5px;line-height:1.6;color:var(--ink-2)}
+.tz-fine a{margin-left:.8em;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.faq-h{text-align:center}
+.faq .sec-row{margin-bottom:clamp(20px,calc(3 * var(--vw,1vw)),32px)}
+.faq-q summary{font-family:var(--font-title);font-size:clamp(20px,calc(1.8 * var(--vw,1vw)),24px);letter-spacing:0;line-height:1.15}
+.faq-q summary i{font-family:var(--font-button);font-size:18px}
+@media(max-width:599px){ .faq-q summary{font-size:19px} .tz-fine a{display:block;margin:4px 0 0} }

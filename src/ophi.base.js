@@ -147,7 +147,7 @@
       /* Bri's notepads (assets/notes): per note the image w, h, clear writing area x, y, w, h (%), note number, first
          ruled line y % (0 = unruled), line spacing %, tilt deg. Each month the longest takeaways go to the roomiest
          papers so every one fits at a readable size; every sign still gets a different notepad. */
-      var NB=[[689, 717, 22, 37, 62, 34, 1, 0, 0, 0], [685, 642, 28, 27, 48, 56, 2, 34.0, 6.91, 0], [666, 637, 24, 35, 40, 51, 3, 33.4, 3.914, 0], [760, 708, 13, 30, 55, 50, 4, 0, 0, 0], [865, 795, 24, 33, 54, 43, 5, 28.95, 5.2, -1.93], [670, 900, 19, 30, 61, 55, 6, 0, 0, 0], [731, 724, 29, 31, 56, 54, 7, 35.67, 4.66, 0.95], [656, 753, 24, 24, 66, 40, 8, 28.6, 5.67, 0], [843, 900, 16, 36, 60, 38, 9, 0, 0, 0], [900, 890, 14, 38, 58, 46, 10, 42.54, 4.1, 0], [900, 791, 23, 12, 70, 64, 15, 13.6, 6.47, 0], [900, 684, 28, 43, 50, 43, 12, 31.41, 5.25, -1.1]], NOTEFOR={};
+      var NB=[[689, 717, 16, 33, 66, 36, 1, 0, 0, 0], [685, 642, 24, 26, 56, 56, 2, 34.0, 6.91, 0], [666, 637, 14, 37, 50, 49, 3, 33.4, 3.914, 0], [760, 708, 15, 27, 53, 52, 4, 0, 0, 0], [865, 795, 22, 26, 55, 50, 5, 28.95, 5.2, -1.93], [670, 900, 22, 37, 57, 49, 6, 0, 0, 0], [731, 724, 29, 31, 56, 54, 7, 35.67, 4.66, 0.95], [656, 753, 24, 24, 66, 40, 8, 28.6, 5.67, 0], [843, 900, 14, 34, 64, 44, 9, 0, 0, 0], [900, 890, 15, 34, 60, 44, 10, 0, 0, 0], [900, 791, 23, 12, 70, 64, 15, 13.6, 6.47, 0], [900, 684, 24, 34, 58, 52, 12, 31.41, 5.25, -1.1]], NOTEFOR={};
       (function(){
         var cap=function(n){ var W=420, H=W*n[1]/n[0], bw=W*n[4]/100, bh=H*n[5]/100, sp=n[8]/100*H, fs, lines;
           fs=16;   /* compare every paper at the same writing size */
@@ -546,8 +546,12 @@
           rl=(n.getAttribute('data-rule')||'0 0 0').split(' ').map(Number);
       p.style.top=k.style.top=''; n.style.transform='';
       if(!rl[0]){   /* plain paper: fit inside the clear writing area */
-        var fs=body?15:21, min=body?11.5:12; p.style.fontSize=fs+'px'; p.style.lineHeight='';
-        while(n.scrollHeight>n.clientHeight+1 && fs>min){ fs-=.5; p.style.fontSize=fs+'px'; }
+        /* Bri, 2 Nov: the writing grows to fill the clear area (largest size that fits), not just shrinks to fit */
+        var lo=body?11.5:12, hi=body?19:32, fits=function(f){ p.style.fontSize=f+'px'; return n.scrollHeight<=n.clientHeight+1 && n.scrollWidth<=n.clientWidth+1; };
+        p.style.lineHeight='';
+        if(fits(hi)) return;
+        while(hi-lo>.25){ var mid=(lo+hi)/2; if(fits(mid)) lo=mid; else hi=mid; }
+        fits(lo);
         return; }
       /* ruled paper: one line of writing per printed line */
       /* tightly ruled paper writes on every other line; if the takeaway is too long for that, on every line */
@@ -557,14 +561,26 @@
         var lines=0; while(first+lines*sp<=bot+.01) lines++;        /* lines inside the clear area */
         n.style.top=(first-sp)+'%'; n.style.height=(lines*sp)+'%'; n.style.justifyContent='flex-start';
         k.style.lineHeight=p.style.lineHeight=pitch+'px'; k.style.margin='0'; p.style.margin='0';
-        var fs=Math.min(body?15:23, pitch*(body?.62:.92)), min=body?11:12.5;
+        var fs=Math.min(body?19:32, pitch*(body?.62:.92)), min=body?11:12.5;
         p.style.fontSize=fs+'px';
         while(p.offsetHeight>pitch*(lines-1)+1 && fs>min){ fs-=.5; p.style.fontSize=fs+'px'; }
         return {sp:sp, pitch:pitch, fs:fs, ok:p.offsetHeight<=pitch*(lines-1)+1};
       };
       /* tightly ruled: try every other line and every line, keep whichever lets the writing be bigger */
-      var L=lay(rl[1]);
-      if(rl[1]/100*H<18){ var L2=lay(rl[1]*2); if(!(L2.ok && L2.fs>L.fs)) L=lay(rl[1]); else L=L2; }
+      /* Bri, 2 Nov: write on every line, every other line or every third, whichever lets the writing be biggest */
+      var best=null;
+      [1,2,3].forEach(function(m){ var sp=rl[1]*m; if(sp/100*H<15||sp/100*H>52) return;
+        var T=lay(sp); if(T.ok && (!best || T.fs>best.fs)) best=T; });
+      /* if no spacing of the printed lines lets the writing reach a comfortable size, write freely in the clear area instead */
+      if(!best || best.fs<(body?13:17)){
+        n.style.top=bx[1]+'%'; n.style.height=bx[3]+'%'; n.style.justifyContent='';
+        k.style.lineHeight=p.style.lineHeight=k.style.margin=p.style.margin='';
+        var lo2=body?11.5:12, hi2=body?19:32, fit2=function(f){ p.style.fontSize=f+'px'; return n.scrollHeight<=n.clientHeight+1 && n.scrollWidth<=n.clientWidth+1; };
+        if(!fit2(hi2)){ while(hi2-lo2>.25){ var md=(lo2+hi2)/2; if(fit2(md)) lo2=md; else hi2=md; } fit2(lo2); }
+        if(rl[2]) n.style.transform='rotate('+rl[2]+'deg)';
+        return;
+      }
+      var L=lay(best.sp);
       var pitch=L.pitch;
       /* drop each baseline onto its printed line (a hair above it) */
       var t0=n.getBoundingClientRect().top;
@@ -808,6 +824,10 @@
     var faqHash=function(){ var d=location.hash&&document.getElementById(location.hash.slice(1));
       if(d && d.tagName==='DETAILS'){ d.open=true; d.scrollIntoView({block:'start'}); } };
     faqHash(); addEventListener('hashchange',faqHash);
+    /* Bri, 2 Nov: one answer open at a time; a click anywhere else closes it */
+    var qs=Array.prototype.slice.call(document.querySelectorAll('.faq-q'));
+    qs.forEach(function(d){ d.addEventListener('toggle',function(){ if(d.open) qs.forEach(function(o){ if(o!==d) o.open=false; }); }); });
+    if(qs.length) document.addEventListener('click',function(e){ if(!e.target.closest('.faq-q')) qs.forEach(function(o){ o.open=false; }); });
   }catch(e){}
 
   /* Bri, 28 Oct: the little chrome stars on Make It Make Sense turn as they travel up the screen, about half a turn from bottom to top (Bri: make it obvious); no growing. */

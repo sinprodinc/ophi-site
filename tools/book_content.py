@@ -9,25 +9,24 @@ import html, re
 SITE = 'https://ophibybri.com'
 
 # The three readings as they are sold today (Cal.com + Stripe). Prices before GST, in CAD.
-# TOPIC: Bri, 2 Nov: a $99 topic reading (Saturn return, a breakup, a job loss...) replaces Here To Help once it has
-# its name, length and Cal.com event. Until then this row describes what is live.
+# Bri, 2 Nov: Plot Twist ($99, 45 min + 5 min Q&A) replaces Here To Help.
 READINGS = [
     ('Meet Yourself', 129, 'Your foundational natal chart reading: Sun, Moon and Rising, your chart ruler, your major aspects and the patterns that tie them together.',
      'https://cal.com/sin-prod-entertainment-inc-djqrpb/meet-yourself'),
     ('Quickie', 69, 'A short, focused natal chart reading on a few key placements, with time for your questions.',
      'https://cal.com/sin-prod-entertainment-inc-djqrpb/quickie'),
-    ('Here To Help', 89, 'A focused session on one or two specific challenges, read through your chart.',
-     'https://cal.com/sin-prod-entertainment-inc-djqrpb/here-to-help'),
+    ('Plot Twist', 99, 'A focused reading for a major change you are navigating right now, such as a Saturn return, a breakup, a job loss or a career change: your birth chart and current transits, read for the timing, patterns and possibilities at play.',
+     'https://cal.com/ophibybri/plot-twist'),
 ]
-TOPIC = 'Here To Help'   # becomes the new topic reading's name
+TOPIC = 'Plot Twist'
 
 # (anchor, question, answer). Paragraphs in an answer are separated by a blank line.
 FAQ = [
     ('faq-which', 'Which reading should I book?',
      "Start with Meet Yourself if you've never had your chart read. It's the full foundation: your Sun, Moon and Rising, "
      "your chart ruler, your major aspects and the patterns that tie them together.\n\n"
-     "Book {topic} when one thing is on your mind, like a Saturn return, a breakup or a job loss, and you want your chart "
-     "read through that one lens.\n\n"
+     "Book {topic} when you're navigating a major change, like a Saturn return, a breakup, a job loss or a career change, "
+     "and want your chart and current transits read through that lens.\n\n"
      "Book a Quickie when you want a short, focused look at a few placements."),
     ('faq-birth-time', "I don't know my birth time. Now what?",
      "Check your birth certificate first, or call the hospital where you were born. Either one can usually give you the "
@@ -39,7 +38,8 @@ FAQ = [
      "You'll enter them when you book. Booking a {topic}? Add the topic you'd like to focus on in the booking notes."),
     ('faq-session', 'How does the session work?',
      "Every reading is one-on-one and virtual. Pick a time on the booking page and you'll receive a link to join by email. "
-     "Meet Yourself is a 50-minute reading plus 10 minutes for your questions. The Quickie is 25 minutes plus 5. "
+     "Meet Yourself is a 50-minute reading plus 10 minutes for your questions. Plot Twist is 45 minutes plus 5. "
+     "The Quickie is 25 minutes plus 5. "
      "Come as you are, with any questions you'd like to bring."),
     ('faq-record', 'Can I record it?',
      "Please don't record the session yourself. I record every reading and send you the full recording afterward, "
@@ -72,10 +72,11 @@ FAQ = [
 
 POLICY_TITLE = 'Cancelling or rescheduling'
 POLICY = (
-    "You can cancel or reschedule free of charge up to 24 hours before your reading.\n\n"
-    "If you cancel with less than 24 hours' notice, Ophi by Bri may keep 50% of the payment.\n\n"
-    "Need to reschedule? Book your new time within 3 months to keep your credit. After 3 months without rescheduling, "
-    "the credit expires."
+    "Rescheduling is free up to 24 hours before your reading.\n\n"
+    "Cancelling more than 24 hours before your reading? You choose. If you're not planning to book with Ophi for a "
+    "while, you'll get a full refund. If you'd like to rebook within the next 3 months, your reading stays credited to "
+    "your account so your next booking is processed quicker. A credit that isn't used within 3 months expires.\n\n"
+    "Cancelling with less than 24 hours' notice? Ophi by Bri may keep 50% of the payment."
 )
 
 
@@ -101,11 +102,10 @@ def faq_items():
 
 def faq_html():
     items = ''.join(
-        '<details class="faq-q" id="%s"><summary><span>%s</span><i aria-hidden="true">+</i></summary>'
+        '<details class="faq-q" id="%s" name="faq"><summary><span>%s</span><i aria-hidden="true">+</i></summary>'
         '<div class="faq-a">%s</div></details>' % (a, _esc(q), _paras(ans)) for a, q, ans in faq_items())
     return ('<section class="faq flow-sec" id="faq" aria-labelledby="faq-h">\n'
-            '  <div class="sec-row center"><h2 class="flow-h" id="faq-h">Questions, <em>answered.</em></h2></div>\n'
-            '  <p class="faq-lede">Everything people usually ask before they book.</p>\n'
+            '  <div class="sec-row center"><h2 class="flow-h faq-h" id="faq-h">FAQ</h2></div>\n'
             '  <div class="faq-list">%s</div>\n'
             '  <aside class="faq-policy" id="cancellation" aria-labelledby="pol-h">\n'
             '    <h3 id="pol-h">%s</h3>%s\n'
