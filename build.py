@@ -18,21 +18,33 @@ def wr(p, s):
     p = os.path.join(ROOT, p); os.makedirs(os.path.dirname(p), exist_ok=True)
     open(p, 'w', encoding='utf-8').write(s)
 
+SITE = 'https://ophibybri.com'
 PAGES = {
-    # out path            source page           <title>                         description
-    'index.html':             ('home.html',        'Ophi by Bri | Awakening Astrology',
-                               'Awakening Astrology: readings by Bri Godard. Meet yourself through your natal chart.'),
-    'readings/index.html':    ('readings.html',    'Make It Make Sense | Ophi by Bri',
-                               'Astrology, a way back to yourself: what a natal chart is, and how a reading with Bri Godard can help.'),
-    'book/index.html':        ('book.html',        'Book a Reading | Ophi by Bri',
-                               'Meet Yourself, Quickie and Here To Help: book a one-on-one virtual astrology reading with Bri Godard.'),
-    'this-season/index.html': ('this-season.html', 'This Season | Ophi by Bri',
-                               'The current astrological weather and how it lands for each rising sign, by Bri Godard.'),
+    # out path            source page           <title> (about 50-60 characters)               description (about 140-160)
+    # Bri, 2 Nov 2026: titles and descriptions written for search results and link previews.
+    'index.html':             ('home.html',        'Ophi by Bri | Awakening Astrology with Bri Godard',
+                               'Awakening Astrology by Bri Godard: one-on-one natal chart readings, a free birth chart calculator and a monthly forecast for every rising sign.'),
+    'readings/index.html':    ('readings.html',    'What Is a Natal Chart? Astrology Explained | Ophi by Bri',
+                               'New to astrology? A plain-language guide to your natal chart, your Sun, Moon and Rising, and how a reading with Bri Godard can help you see yourself.'),
+    'book/index.html':        ('book.html',        'Book an Astrology Reading with Bri Godard | Ophi by Bri',
+                               'One-on-one virtual natal chart readings with Bri Godard. Choose your reading, pick a time in your own time zone and pay securely online.'),
+    'this-season/index.html': ('this-season.html', 'This Season | Ophi by Bri',    # filled in per month by tools/season_build.py
+                               'The sky this month, read for each rising sign by astrologer Bri Godard.'),
     'rituals/index.html':     ('rituals.html',     'Burn Rituals | Ophi by Bri',
                                'The burn ritual for each Ophi pocket candle: Fire, Earth, Air and Water Moons.'),
     'candles/index.html':     ('candles.html',     'Moon Candles | Ophi by Bri',
                                'Hand-poured pocket candles for every Moon element: Fire, Earth, Air and Water. Ships within Canada.'),
+    'privacy/index.html':     ('privacy.html',     'Privacy Policy | Ophi by Bri',
+                               'How Ophi by Bri collects, uses and protects your personal information, including birth details, bookings, session recordings and email.'),
+    '404.html':               ('404.html',         'Page Not Found | Ophi by Bri',
+                               'This page has moved or never existed. Find This Season, your free birth chart or a reading instead.'),
 }
+
+# Pages kept out of search: the secret rituals page (reached only by the candle QR codes) and the 404 page.
+NOINDEX = {'rituals/index.html', '404.html'}
+# Pages listed in sitemap.xml (the This Season archive pages are added by the build).
+OG_IMAGE = '/assets/og/ophi-share.jpg'   # 1200x630 link preview (tools/og_image.js)
+SITEMAP = ['index.html', 'readings/index.html', 'book/index.html', 'this-season/index.html', 'chart/index.html', 'privacy/index.html']
 
 # Shelved pages: kept in src/ exactly as designed, but not published or linked anywhere.
 # To bring one back, take it out of this set and run the build: its page, menu entry, footer link,
@@ -54,7 +66,22 @@ HEAD = '''<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
+{robots}<link rel="canonical" href="{canon}">
+<meta property="og:site_name" content="Ophi by Bri">
+<meta property="og:type" content="{ogtype}">
+<meta property="og:title" content="{ogtitle}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{canon}">
+<meta property="og:image" content="{ogimg}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ophi by Bri, Awakening Astrology">
+<meta property="og:locale" content="en_CA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{ogtitle}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{ogimg}">
+{ld}<link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/modern-romance.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/kin668.woff2" as="font" type="font/woff2" crossorigin>
@@ -185,20 +212,75 @@ def main():
     wr('assets/ophi.js', js)
     parts = {k: rd('src/partials/%s.html' % k) for k in ('top', 'nav', 'footer-lite', 'readings')}
     import shutil
+    import json, sys
+    sys.path.insert(0, os.path.join(ROOT, 'tools'))
+    import season_build as SB
+    from book_content import faq_html, ld_faq, ld_offers, ld_article, ld_crumbs, LD_PERSON, LD_BUSINESS
+    D = SB.load(ROOT)
+    home = SB.home_key(D) if D else None
+    archive = SB.archive_keys(D) if D else []
+    # the month arrows reach back six months and ahead as far as Bri has written (same rule as the page script)
+    def addm(k, n):
+        y, m = int(k[:4]), int(k[5:7]) - 1 + n
+        y += m // 12; m %= 12
+        return '%04d-%02d' % (y, m + 1)
+    open_keys = sorted(k for k in (D or {}) if SB.ready(D, k) and k >= addm(SB.this_month(), -6)) if D else []
+    if home and home not in open_keys: open_keys = sorted(open_keys + [home])
+    sitemap = list(SITEMAP)
+
+    def page(out, src, title, desc, canon, extra_ld=(), season_key=None, ogtype='website'):
+        body = rd('src/pages/' + src)
+        for k, val in parts.items(): body = body.replace('{{%s}}' % k, val)
+        body = body.replace('{{doors}}', doors('this-season/index.html' if season_key else out))
+        if season_key is not None or src == 'this-season.html':
+            body = SB.fill(body, D, season_key or home, home, open_keys)
+        if src == 'book.html':
+            body = body.replace('{{faq}}', faq_html())
+        body = shelf(body)
+        # the season file changes every month: give it its own version so browsers never keep an old reading
+        body = re.sub(r'/assets/season-data\.js(\?v=\w+)?', '/assets/season-data.js?v=' + sv, body)
+        assert '{{' not in body, (src, re.findall(r'\{\{[\w-]+\}\}', body))
+        bc = ' class="flow%s"' % BODY_EXTRA.get(out, '')
+        body = re.sub(r'style="[^"]*"', lambda m: fluid(m.group(0)), body)
+        ld = ''.join('<script type="application/ld+json">%s</script>\n' % json.dumps(x, ensure_ascii=False) for x in extra_ld)
+        robots = '<meta name="robots" content="noindex">\n' if out in NOINDEX else ''
+        ogtitle = title.split(' | ')[0] if title.count(' | ') else title
+        wr(out, HEAD.format(title=title, desc=desc, v=v, bodyclass=bc, fit=FIT, robots=robots, canon=canon, ogtype=ogtype,
+                            ogtitle=ogtitle.replace('"', '&quot;'), ogimg=SITE + OG_IMAGE, ld=ld) + body + TAIL.format(v=v))
+
     for out, (src, title, desc) in PAGES.items():
         if out.split('/')[0] in SHELVED:   # not published: remove any old copy of the built page
             shutil.rmtree(os.path.join(ROOT, os.path.dirname(out)), ignore_errors=True)
             continue
-        body = rd('src/pages/' + src)
-        for k, val in parts.items(): body = body.replace('{{%s}}' % k, val)
-        body = body.replace('{{doors}}', doors(out))
-        body = shelf(body)
-        # the season file changes every month: give it its own version so browsers never keep an old reading
-        body = re.sub(r'/assets/season-data\.js(\?v=\w+)?', '/assets/season-data.js?v=' + sv, body)
-        assert '{{' not in body, (src, re.findall(r'\{\{\w+\}\}', body))
-        bc = ' class="flow%s"' % BODY_EXTRA.get(out, '')
-        body = re.sub(r'style="[^"]*"', lambda m: fluid(m.group(0)), body)
-        wr(out, HEAD.format(title=title, desc=desc, v=v, bodyclass=bc, fit=FIT) + body + TAIL.format(v=v))
+        canon = SITE + '/' + (out[:-len('index.html')] if out.endswith('index.html') else out)
+        lds, ogtype = [], 'website'
+        if out == 'index.html': lds = [LD_PERSON, LD_BUSINESS]
+        if out == 'book/index.html': lds = [LD_BUSINESS] + ld_offers() + [ld_faq()]
+        if out == 'this-season/index.html' and D:
+            title, desc = SB.meta(D, home, home)
+            lds = [ld_article(D, home, canon, desc), ld_crumbs([('This Season', SITE + '/this-season/')])]
+            ogtype = 'article'
+        page(out, src, title, desc, canon, lds, ogtype=ogtype)
+
+    # This Season: a permanent page for every finished month (/this-season/2026/11/), kept as the archive
+    for d in os.listdir(os.path.join(ROOT, 'this-season')):
+        if re.match(r'^\d{4}$', d): shutil.rmtree(os.path.join(ROOT, 'this-season', d), ignore_errors=True)
+    for k in archive:
+        out = 'this-season/%s/%s/index.html' % (k[:4], k[5:7])
+        canon = SITE + '/' + out[:-len('index.html')]
+        title, desc = SB.meta(D, k, home)
+        lab = D[k].get('label')
+        page(out, 'this-season.html', title, desc, canon,
+             [ld_article(D, k, canon, desc), ld_crumbs([('This Season', SITE + '/this-season/'), (lab, canon)])], season_key=k, ogtype='article')
+        sitemap.append(out)
+
+    # sitemap.xml and robots.txt
+    locs = []
+    for out in sitemap:
+        if out.split('/')[0] in SHELVED: continue
+        locs.append('  <url><loc>%s/%s</loc></url>' % (SITE, out[:-len('index.html')]))
+    wr('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % '\n'.join(locs))
+    wr('robots.txt', 'User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n' % SITE)
     # chart page: add the shared menu once
     ch = rd('chart/index.html')
     ch = re.sub(r'<script src="/assets/menu\.js[^"]*" defer></script>\n?', '', ch)
@@ -212,6 +294,16 @@ def main():
     ch = ch.replace('</head>', '<link rel="stylesheet" href="/assets/chart-fixes.css?v=%s">\n</head>' % hashlib.sha1(rd('assets/chart-fixes.css').encode()).hexdigest()[:8], 1)   # its own hash, so a change to it is never cached
     ch = ch.replace('</head>', '<link rel="icon" type="image/png" href="/assets/favicon.png">\n<script src="/assets/menu.js?v=%s" defer></script>\n</head>' % v, 1) \
         if '/assets/favicon.png' not in ch else ch.replace('</head>', '<script src="/assets/menu.js?v=%s" defer></script>\n</head>' % v, 1)
+    # Bri, 2 Nov: the chart page's title, description and link preview (the chart itself is edited directly)
+    ct, cd = 'Free Birth Chart Calculator, Whole Sign Houses | Ophi by Bri', \
+        'Cast your natal chart free: planets, houses and aspects in whole sign houses, with Ophiuchus. Tap any planet to see how the parts of you get along.'
+    ch = re.sub(r'<!--seo-->.*?<!--/seo-->\n?', '', ch, flags=re.S)
+    ch = re.sub(r'<title>[^<]*</title>', '<title>%s</title>' % ct, ch, count=1)
+    ch = ch.replace('</head>', ('<!--seo--><meta name="description" content="%s">\n<link rel="canonical" href="%s/chart/">\n'
+        '<meta property="og:site_name" content="Ophi by Bri"><meta property="og:type" content="website"><meta property="og:title" content="Free Birth Chart Calculator">'
+        '<meta property="og:description" content="%s"><meta property="og:url" content="%s/chart/"><meta property="og:image" content="%s%s">'
+        '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">'
+        '<!--/seo-->\n</head>') % (cd, SITE, cd, SITE, SITE, OG_IMAGE), 1)
     wr('chart/index.html', ch)
     print('built', ', '.join(o for o in PAGES if o.split('/')[0] not in SHELVED), '+ chart menu; shelved:', ', '.join(sorted(SHELVED)) or 'none', '; version', v)
 

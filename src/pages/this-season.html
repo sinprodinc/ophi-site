@@ -18,20 +18,20 @@
      margins, and the closing note. Everything is filled in from assets/season-data.js. -->
 <section class="np ts-front flow-sec" id="now">
   <div class="np-page">
-    <header class="ts-mast">
+    <header class="ts-mast" data-ts-key="{{ts-key}}">
       <img class="np-star s-m1" src="/assets/journal/chrome-star-2.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
       <img class="np-star s-m2" src="/assets/journal/chrome-star-5.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <p class="ts-tag"><img class="ts-tag-pin" src="/assets/cork/pin-silver.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><span data-ts-tag>In the sky right now</span></p>
+      <p class="ts-tag"><img class="ts-tag-pin" src="/assets/cork/pin-silver.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><span data-ts-tag>{{ts-tag}}</span></p>
       <!-- Bri, 30 Oct: arrows either side of the month step back (up to six months) and ahead (as far as she has written) -->
       <div class="ts-flipwrap">
-        <a class="ts-flip ts-prev" data-ts-prev hidden href="#"><span class="ts-flip-b"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M44 17C32 15 19 16 6 16"/><path d="M15 6 L5 16 L15 26"/></svg></span><span class="ts-flip-l" data-ts-prev-l></span></a>
-        <h2 class="ts-month"><img class="np-star s-m3" src="/assets/journal/chrome-star-7.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><span data-ts-month>October</span><span class="ts-year" data-ts-year>2026</span></h2>
-        <a class="ts-flip ts-next" data-ts-next hidden href="#"><span class="ts-flip-b"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 15C16 17 29 16 42 16"/><path d="M33 6 L43 16 L33 26"/></svg></span><span class="ts-flip-l" data-ts-next-l></span></a>
+        <a class="ts-flip ts-prev" data-ts-prev {{ts-prev-attr}}><span class="ts-flip-b"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M44 17C32 15 19 16 6 16"/><path d="M15 6 L5 16 L15 26"/></svg></span><span class="ts-flip-l" data-ts-prev-l>{{ts-prev-l}}</span></a>
+        <h2 class="ts-month"><img class="np-star s-m3" src="/assets/journal/chrome-star-7.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><span data-ts-month>{{ts-month}}</span><span class="ts-year" data-ts-year>{{ts-year}}</span></h2>
+        <a class="ts-flip ts-next" data-ts-next {{ts-next-attr}}><span class="ts-flip-b"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M4 15C16 17 29 16 42 16"/><path d="M33 6 L43 16 L33 26"/></svg></span><span class="ts-flip-l" data-ts-next-l>{{ts-next-l}}</span></a>
       </div>
-      <p class="np-k ts-theme-k">This month's theme</p>
-      <h3 class="np-h1 ts-theme" data-ts-theme>This month's reading is <em>on its way.</em></h3>
-      <p class="ts-sum" data-ts-sum>Find your rising sign below for your own chapter.</p>
-      <a class="ts-jump" href="#full-story" data-ts-jump hidden><span>jump to the full story</span><svg viewBox="0 0 70 54" aria-hidden="true"><path d="M11 5C34 8 45 22 43 40"/><path d="M32 33 L43 47 L54 33"/></svg></a>
+      <p class="np-k ts-theme-k">{{ts-theme-k}}</p>
+      <h3 class="np-h1 ts-theme" data-ts-theme>{{ts-theme}}</h3>
+      <p class="ts-sum" data-ts-sum>{{ts-sum}}</p>
+      <a class="ts-jump" href="#full-story" data-ts-jump {{ts-jump-attr}}><span>jump to the full story</span><svg viewBox="0 0 70 54" aria-hidden="true"><path d="M11 5C34 8 45 22 43 40"/><path d="M32 33 L43 47 L54 33"/></svg></a>
     </header>
   </div>
 </section>
@@ -43,291 +43,41 @@
     <h2><span class="h2-in">By your <em>rising.</em></span></h2>
     <p class="byline">Your monthly forecast by rising signs</p>
   </div>
-  <ul class="rising-grid">
-      <li class="rising fire" id="aries-rising" data-sign="aries">
-        <img class="eph pin" src="/assets/eph/pin-pink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="aries-chapter">
-          <span class="gl" aria-hidden="true">♈&#xFE0E;</span><span class="el">Fire</span>
-          <h3>Aries <em>Rising</em></h3>
-          <span class="tagline">First in, asks questions later</span>
-          <span class="open-hint"><span>The Initiator</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="aries-chapter" role="region" aria-label="Aries Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Aries Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Aries Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising earth" id="taurus-rising" data-sign="taurus">
-        <img class="eph pin" src="/assets/eph/pin-green.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="taurus-chapter">
-          <span class="gl" aria-hidden="true">♉&#xFE0E;</span><span class="el">Earth</span>
-          <h3>Taurus <em>Rising</em></h3>
-          <span class="tagline">Slow to start, impossible to move</span>
-          <span class="open-hint"><span>The Stabilizer</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="taurus-chapter" role="region" aria-label="Taurus Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Taurus Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Taurus Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising air" id="gemini-rising" data-sign="gemini">
-        <img class="eph pin" src="/assets/eph/pin-butter.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="gemini-chapter">
-          <span class="gl" aria-hidden="true">♊&#xFE0E;</span><span class="el">Air</span>
-          <h3>Gemini <em>Rising</em></h3>
-          <span class="tagline">Two tabs open, always</span>
-          <span class="open-hint"><span>The Communicator</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="gemini-chapter" role="region" aria-label="Gemini Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Gemini Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Gemini Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising water" id="cancer-rising" data-sign="cancer">
-        <img class="eph pin" src="/assets/eph/pin-lilac.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="cancer-chapter">
-          <span class="gl" aria-hidden="true">♋&#xFE0E;</span><span class="el">Water</span>
-          <h3>Cancer <em>Rising</em></h3>
-          <span class="tagline">Soft shell, long memory</span>
-          <span class="open-hint"><span>The Homemaker</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="cancer-chapter" role="region" aria-label="Cancer Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Cancer Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Cancer Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising fire" id="leo-rising" data-sign="leo">
-        <img class="eph pin" src="/assets/eph/pin-pink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="leo-chapter">
-          <span class="gl" aria-hidden="true">♌&#xFE0E;</span><span class="el">Fire</span>
-          <h3>Leo <em>Rising</em></h3>
-          <span class="tagline">Walks in like the lights came on</span>
-          <span class="open-hint"><span>The Performer</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="leo-chapter" role="region" aria-label="Leo Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Leo Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Leo Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising earth" id="virgo-rising" data-sign="virgo">
-        <img class="eph pin" src="/assets/eph/pin-green.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="virgo-chapter">
-          <span class="gl" aria-hidden="true">♍&#xFE0E;</span><span class="el">Earth</span>
-          <h3>Virgo <em>Rising</em></h3>
-          <span class="tagline">Notices the typo, fixes it quietly</span>
-          <span class="open-hint"><span>The Refiner</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="virgo-chapter" role="region" aria-label="Virgo Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Virgo Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Virgo Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising air" id="libra-rising" data-sign="libra">
-        <img class="eph pin" src="/assets/eph/pin-butter.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="libra-chapter">
-          <span class="gl" aria-hidden="true">♎&#xFE0E;</span><span class="el">Air</span>
-          <h3>Libra <em>Rising</em></h3>
-          <span class="tagline">Charming on arrival</span>
-          <span class="open-hint"><span>The Harmonizer</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="libra-chapter" role="region" aria-label="Libra Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Libra Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Libra Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising water" id="scorpio-rising" data-sign="scorpio">
-        <img class="eph pin" src="/assets/eph/pin-lilac.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="scorpio-chapter">
-          <span class="gl" aria-hidden="true">♏&#xFE0E;</span><span class="el">Water</span>
-          <h3>Scorpio <em>Rising</em></h3>
-          <span class="tagline">Reads the room before you speak</span>
-          <span class="open-hint"><span>The Deep Diver</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="scorpio-chapter" role="region" aria-label="Scorpio Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Scorpio Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Scorpio Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising fire" id="sagittarius-rising" data-sign="sagittarius">
-        <img class="eph pin" src="/assets/eph/pin-pink.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="sagittarius-chapter">
-          <span class="gl" aria-hidden="true">♐&#xFE0E;</span><span class="el">Fire</span>
-          <h3>Sagittarius <em>Rising</em></h3>
-          <span class="tagline">Passport in the back pocket</span>
-          <span class="open-hint"><span>The Explorer</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="sagittarius-chapter" role="region" aria-label="Sagittarius Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Sagittarius Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Sagittarius Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising earth" id="capricorn-rising" data-sign="capricorn">
-        <img class="eph pin" src="/assets/eph/pin-green.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="capricorn-chapter">
-          <span class="gl" aria-hidden="true">♑&#xFE0E;</span><span class="el">Earth</span>
-          <h3>Capricorn <em>Rising</em></h3>
-          <span class="tagline">Old soul, five-year plan</span>
-          <span class="open-hint"><span>The Accomplisher</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="capricorn-chapter" role="region" aria-label="Capricorn Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Capricorn Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Capricorn Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising air" id="aquarius-rising" data-sign="aquarius">
-        <img class="eph pin" src="/assets/eph/pin-butter.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="aquarius-chapter">
-          <span class="gl" aria-hidden="true">♒&#xFE0E;</span><span class="el">Air</span>
-          <h3>Aquarius <em>Rising</em></h3>
-          <span class="tagline">Friendly, slightly from the future</span>
-          <span class="open-hint"><span>The Change Maker</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="aquarius-chapter" role="region" aria-label="Aquarius Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Aquarius Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Aquarius Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-      <li class="rising water" id="pisces-rising" data-sign="pisces">
-        <img class="eph pin" src="/assets/eph/pin-lilac.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <button type="button" aria-expanded="false" aria-controls="pisces-chapter">
-          <span class="gl" aria-hidden="true">♓&#xFE0E;</span><span class="el">Water</span>
-          <h3>Pisces <em>Rising</em></h3>
-          <span class="tagline">Half here, half dreaming</span>
-          <span class="open-hint"><span>The Dreamer</span><i aria-hidden="true">+</i></span>
-        </button>
-        <div class="chapter" id="pisces-chapter" role="region" aria-label="Pisces Rising this month">
-          <div>
-            <span class="meta" data-month>October 2026 ✦ Pisces Rising</span>
-            <h4>Your chapter is <em>being written.</em></h4>
-            <p>The Pisces Rising chapter for this month is being written.</p>
-          </div>
-          <aside>
-            <span class="k">Try this month</span>
-            <ul></ul>
-            <button type="button" class="close">Close</button>
-          </aside>
-        </div>
-      </li>
-  </ul>
+  <div class="ed-paper">
+{{ts-rising}}
+  </div>
   <a class="season-cast" href="/chart/">Don't know your rising sign? Cast your chart <span aria-hidden="true">&#x2192;</span></a>
 </section>
 
-<section class="np ts-paper flow-sec" id="full-story" data-ts-paper hidden>
+<section class="np ts-paper flow-sec" id="full-story" data-ts-paper {{ts-paper-attr}}>
   <div class="np-page">
     <div class="np-top ts-top">
       <article class="np-story ts-lead">
         <img class="np-star s-lead1" src="/assets/journal/chrome-star-1.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-        <p class="np-k" data-ts-lead-k>The full story</p>
-        <h2 class="np-h ts-lead-h" data-ts-lead-h></h2>
-        <div class="np-cols np-drop ts-body" data-ts-lead-body></div>
+        <p class="np-k" data-ts-lead-k>{{ts-lead-k}}</p>
+        <h2 class="np-h ts-lead-h" data-ts-lead-h>{{ts-lead-h}}</h2>
+        <div class="np-cols np-drop ts-body" data-ts-lead-body>{{ts-lead-body}}</div>
       </article>
       <aside class="np-story ts-side">
         <section class="ts-dates" aria-labelledby="ts-dates-k">
           <p class="np-k" id="ts-dates-k">Key dates<img class="np-star s-k" src="/assets/journal/chrome-star-6.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"></p>
-          <ol class="ts-datelist" data-ts-dates></ol>
+          {{ts-dates}}
           <p class="ts-tz">All times Pacific.</p>
         </section>
         <section class="ts-what" aria-labelledby="ts-what-k">
           <p class="np-k" id="ts-what-k">What's going on</p>
-          <p class="ts-what-t" data-ts-what></p>
+          <p class="ts-what-t" data-ts-what>{{ts-what}}</p>
         </section>
-        <div class="ts-side-art" data-ts-side-art></div>
+        <div class="ts-side-art" data-ts-side-art>{{ts-side-art}}</div>
       </aside>
     </div>
-    <div class="ts-more" data-ts-more></div>
-    <aside class="np-pull ts-close" data-ts-close hidden>
+    <div class="ts-more" data-ts-more>{{ts-more}}</div>
+    <aside class="np-pull ts-close" data-ts-close {{ts-close-attr}}>
       <img class="np-star s-pull-l" src="/assets/journal/chrome-star-3.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <p class="np-pull-k" data-ts-close-k></p>
-      <div class="ts-close-b" data-ts-close-b></div>
+      <p class="np-pull-k" data-ts-close-k>{{ts-close-k}}</p>
+      <div class="ts-close-b" data-ts-close-b>{{ts-close-b}}</div>
     </aside>
+    {{ts-byline}}
   </div>
 </section>
 

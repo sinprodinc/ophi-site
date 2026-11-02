@@ -2,3 +2,5 @@
 *.zip
 private/
 studio/
+_mock/
+__pycache__/

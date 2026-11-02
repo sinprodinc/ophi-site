@@ -70,10 +70,14 @@
           open=keys.filter(function(k){ return DATA[k].post && DATA[k].post.ready && k>=oldest; });
       if(open.indexOf(home)<0) open.push(home), open.sort();
       var asked=(location.search.match(/[?&]m=(\d{4}-\d{2})/)||[])[1];
+      /* Bri, 2 Nov: each finished month has its own page (/this-season/2026/11/); that page always shows its month */
+      var fixed=(document.querySelector('.ts-mast')||{}).getAttribute && document.querySelector('.ts-mast').getAttribute('data-ts-key');
+      if(fixed && /\/this-season\/\d{4}\/\d{2}\//.test(location.pathname) && DATA[fixed]) asked=fixed;
+      if(asked && open.indexOf(asked)<0 && asked<=home && DATA[asked] && DATA[asked].post && DATA[asked].post.ready) open.push(asked), open.sort();
       if(asked && open.indexOf(asked)>-1) key=asked;
       var idx=open.indexOf(key), nm=function(k){ return String(DATA[k].label||'').replace(/\s*\d{4}\s*$/,''); },
           flip=function(sel,k,word){ var a=document.querySelector('[data-ts-'+sel+']'); if(!a||!k) return;
-            a.href=(k===home?location.pathname:location.pathname+'?m='+k)+'#now'; a.hidden=false;
+            a.href=(k===home?'/this-season/':k<=home?'/this-season/'+k.slice(0,4)+'/'+k.slice(5,7)+'/':'/this-season/?m='+k)+'#now'; a.hidden=false;
             a.setAttribute('aria-label',word+': '+DATA[k].label); a.querySelector('[data-ts-'+sel+'-l]').textContent=nm(k); };
       flip('prev',open[idx-1],'Previous month'); flip('next',open[idx+1],'Next month');
       var tagEl=document.querySelector('[data-ts-tag]');
@@ -116,6 +120,7 @@
           else dl.outerHTML='<p>'+rich(P.when||'')+'</p>';
           q('[data-ts-what]').innerHTML=rich(P.what||'');
           if(P.side) q('[data-ts-side-art]').innerHTML=artImg(P.side,'ts-inart');
+          var bl=q('.ts-byline time'); if(bl){ bl.textContent=mo+' 1, '+yr; bl.setAttribute('datetime',key+'-01'); }   /* Bri, 2 Nov: byline under the main article */
           if(M.closing && M.closing.body){ q('[data-ts-close-k]').innerHTML=rich(M.closing.title||''); q('[data-ts-close-b]').innerHTML=paras(M.closing.body); q('[data-ts-close]').hidden=false; }
           /* each sticker slot lives in an open space: above the paper (1, 2), the sidebar (3, 7), the corner of the
              second article's graphic (4) and around the closing note (5, 6, 8) */
@@ -155,14 +160,17 @@
         want.forEach(function(s,i){ NOTEFOR[s]=notes[i%notes.length]; });
       })();
       Object.keys(M.signs||{}).forEach(function(s){
-        var c=M.signs[s], li=document.querySelector('.rising[data-sign="'+s+'"]'); if(!li||!c) return;
-        if(c.teaser){ var tg=li.querySelector('.tagline'); if(tg) tg.textContent=c.teaser; }   /* the month's teaser replaces the sign's standing tagline */
+        /* Bri, 2 Nov: the readings are editorial articles (built into the page by tools/season_build.py);
+           this refills them for a month picked with ?m= */
+        var c=M.signs[s], li=document.querySelector('.ed-sign[data-sign="'+s+'"]'); if(!li||!c) return;
+        if(c.teaser){ var tg=li.querySelector('.tagline'); if(tg) tg.textContent=c.teaser; }   /* the month's teaser is the deck */
         if(!c.ready) return;
-        var ch=li.querySelector('.chapter');
+        var ch=document.getElementById(s+'-chapter'); if(!ch) return;
         ch.querySelector('h4').innerHTML=rich(c.title);
-        Array.prototype.forEach.call(ch.querySelectorAll(':scope > div > p'),function(p){ p.remove(); });
-        ch.querySelector(':scope > div').insertAdjacentHTML('beforeend',paras(c.body));
+        ch.querySelector('.ed-cols').innerHTML=paras(c.body);
         if(c.house){ var mt=ch.querySelector('.meta'); if(mt) mt.textContent=M.label+' ✦ '+c.house; }
+        var asd=ch.querySelector('aside'), old=asd.querySelector('.ts-note,.k,ul'); while(old){ old.remove(); old=asd.querySelector('.ts-note,.k,ul'); }
+        asd.insertAdjacentHTML('afterbegin','<span class="k"></span><ul></ul>');
         var ul=ch.querySelector('aside ul'), k=ch.querySelector('aside .k');
         /* Bri, 31 Oct: the takeaway sits on one of her clipboards / notepads (assets/notes/note-NN.webp), a different
            one for each sign, like the corkboards on the other pages. The words sit inside the paper's writing area
@@ -564,7 +572,7 @@
       p.style.top=((2*pitch-2)-(baseline(p)-t0)).toFixed(1)+'px';
       if(rl[2]) n.style.transform='rotate('+rl[2]+'deg)';
     }); };
-    document.addEventListener('click',function(e){ if(e.target.closest('.rising > button')) setTimeout(fitNotes,30); });
+    document.addEventListener('click',function(e){ if(e.target.closest('.rising > button, .ed-sign')) setTimeout(fitNotes,30); });
     addEventListener('resize',fitNotes); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitNotes);
     window.OPHI_FIT_NOTES=fitNotes;
   }catch(e){}
@@ -756,37 +764,50 @@
   }catch(e){} };
   seasonDoor(); if(!window.OPHI_SEASON) addEventListener('load',seasonDoor);
 
-  /* This Season: each rising card opens in place to show its chapter; one open at a time */
+  /* This Season (Bri, 2 Nov): each rising article opens its chapter under its row; one open at a time.
+     Links to #leo and the older #leo-rising both open Leo. */
   try{
-    var cards=Array.prototype.slice.call(document.querySelectorAll('.rising'));
-    var shut=function(li){ li.classList.remove('open'); li.querySelector('button').setAttribute('aria-expanded','false'); };
-    cards.forEach(function(li){
-      var b=li.querySelector('button'), x=li.querySelector('.close');
-      b.addEventListener('click',function(){
-        var was=li.classList.contains('open');
-        cards.forEach(shut);
-        if(!was){
-          li.classList.add('open'); b.setAttribute('aria-expanded','true');
-          if(history.replaceState) history.replaceState(null,'','#'+li.id);
-          var top=BOX(li).top;
-          if(top<70||top>innerHeight*.6) li.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'});
-        }
-      });
-      if(x) x.addEventListener('click',function(){ shut(li); b.focus(); });
+    var eds=Array.prototype.slice.call(document.querySelectorAll('.ed-sign'));
+    var chOf=function(a){ return document.getElementById(a.getAttribute('data-sign')+'-chapter'); };
+    var shut=function(a){ a.classList.remove('open'); var c=chOf(a); if(c) c.classList.remove('open'); a.querySelector('.ed-btn').setAttribute('aria-expanded','false'); };
+    var show=function(a,scroll){
+      var was=a.classList.contains('open');
+      eds.forEach(shut);
+      if(was) return;
+      a.classList.add('open'); var c=chOf(a); if(c) c.classList.add('open');
+      a.querySelector('.ed-btn').setAttribute('aria-expanded','true');
+      if(history.replaceState) history.replaceState(null,'','#'+a.id);
+      if(window.OPHI_FIT_NOTES) setTimeout(window.OPHI_FIT_NOTES,30);
+      if(scroll!==false){ var top=BOX(a).top;
+        if(top<70||top>innerHeight*.6) a.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'}); }
+    };
+    eds.forEach(function(a){
+      a.addEventListener('click',function(e){ if(e.target.closest('a')) return; show(a); });
+      var c=chOf(a), x=c&&c.querySelector('.close');
+      if(x) x.addEventListener('click',function(){ shut(a); a.querySelector('.ed-btn').focus(); });
     });
-    /* a click anywhere outside the open card (or Esc) closes it */
-    if(cards.length){
-      document.addEventListener('click',function(e){
-        cards.forEach(function(li){ if(li.classList.contains('open') && !li.contains(e.target)) shut(li); });
-      });
+    if(eds.length){
       document.addEventListener('keydown',function(e){
         if(e.key!=='Escape') return;
-        cards.forEach(function(li){ if(li.classList.contains('open')){ shut(li); li.querySelector('button').focus(); } });
+        eds.forEach(function(a){ if(a.classList.contains('open')){ shut(a); a.querySelector('.ed-btn').focus(); } });
       });
+      /* the "Find your sign" index opens the sign it jumps to */
+      Array.prototype.forEach.call(document.querySelectorAll('.ed-index a'),function(l){
+        l.addEventListener('click',function(e){ var a=document.getElementById(l.getAttribute('href').slice(1)); if(!a) return;
+          e.preventDefault(); if(!a.classList.contains('open')) show(a,false);
+          a.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'}); });
+      });
+      var openHash=function(){ var id=location.hash.slice(1).replace(/-rising$/,''), a=id&&document.getElementById(id);
+        if(a && a.classList.contains('ed-sign') && !a.classList.contains('open')) show(a); };
+      openHash(); addEventListener('hashchange',openHash);
     }
-    /* a link straight to a sign (ophibybri.com/this-season/#leo-rising) opens that card */
-    var h=location.hash && document.getElementById(location.hash.slice(1));
-    if(h && h.classList.contains('rising')) h.querySelector('button').click();
+  }catch(e){}
+
+  /* Book a Reading FAQ (2 Nov): a link to one answer (/book/#faq-birth-time) opens it */
+  try{
+    var faqHash=function(){ var d=location.hash&&document.getElementById(location.hash.slice(1));
+      if(d && d.tagName==='DETAILS'){ d.open=true; d.scrollIntoView({block:'start'}); } };
+    faqHash(); addEventListener('hashchange',faqHash);
   }catch(e){}
 
   /* Bri, 28 Oct: the little chrome stars on Make It Make Sense turn as they travel up the screen, about half a turn from bottom to top (Bri: make it obvious); no growing. */

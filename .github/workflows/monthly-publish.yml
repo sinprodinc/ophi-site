@@ -1,0 +1,45 @@
+# This Season: publish the new month on the 1st (Bri, 2 Nov 2026).
+# The page script already switches months in the browser at midnight Pacific; this rebuild puts the new month into
+# the page HTML (for search engines and link previews), adds its permanent page (/this-season/yyyy/mm/) and the
+# sitemap entry, then pushes to main so Cloudflare Pages republishes. Runs on GitHub's servers: no Claude usage.
+# The month only goes live if its block in assets/season-data.js is on main with post.ready: true.
+# Run it by hand any time: GitHub > Actions > "Monthly This Season publish" > Run workflow.
+name: Monthly This Season publish
+on:
+  schedule:
+    - cron: '5 8 1 * *'   # 08:05 UTC on the 1st = 00:05 Pacific (winter) / 01:05 Pacific (summer)
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: monthly-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build the site for this month
+        env:
+          TZ: America/Vancouver
+        run: python3 build.py
+      - name: Commit and push to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          MONTH=$(TZ=America/Vancouver date +%Y-%m)
+          if git diff --cached --quiet; then
+            git commit --allow-empty -m "Monthly publish $MONTH (no file changes)"
+          else
+            git commit -m "Monthly publish $MONTH: This Season pre-rendered for the new month"
+          fi
+          git push origin HEAD:main
