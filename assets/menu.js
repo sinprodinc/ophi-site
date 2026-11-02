@@ -7,7 +7,7 @@
     { href: '/', title: 'Home' },
     { href: '/readings/', title: 'Make It Make Sense' },
     { href: '/book/', title: 'Book a Reading' },
-    { href: '/chart/', title: 'Your Chart' },
+    { href: '/chart/', title: 'Cast My Chart' },
     { href: '/this-season/', title: 'This Season' },
     { href: '/candles/', title: 'Moon Candles' }
   ];

@@ -3059,3 +3059,29 @@ html.ink-gray body.flow{--pen:#4d4a46}
 .faq-q summary{font-family:var(--font-title);font-size:clamp(20px,calc(1.8 * var(--vw,1vw)),24px);letter-spacing:0;line-height:1.15}
 .faq-q summary i{font-family:var(--font-button);font-size:18px}
 @media(max-width:599px){ .faq-q summary{font-size:19px} .tz-fine a{display:block;margin:4px 0 0} }
+/* Bri, 2 Nov (round 3): a larger notepad so lined paper can be written on at a readable size */
+@media(min-width:1025px){ .ed-ch{grid-template-columns:minmax(0,1fr) minmax(280px,400px)} .ed-ch aside.has-note .ts-note{max-width:400px} }
+
+/* Bri, 2 Nov (round 3): the lilac highlighter stays only on the menu, "How did you know that?", "Astrology: a way
+   back to yourself.", "How a reading can help." and the chart page (which has its own styles). Everywhere else the
+   words keep their italic but lose the highlight: page titles, section titles, the home page strip, the banners. */
+em:not(.keep-hl),.strip-t{background:none!important}
+.pan-t em{background:none!important}
+
+/* ===== 2 Nov 2026 (Bri, round 3): every page's masthead matches the Your Natal Chart page =====
+   The nav sits inside the content width with a fine rule under it; the logo reads "Ophi by Bri"; Music, Book a
+   reading and Menu are small filled chips in the paper colour with ink text (Book a reading keeps its coral shadow). */
+.hero:has(> nav) > nav{max-width:var(--banner);margin:0 auto;width:calc(100% - 2 * var(--pad));padding:24px 0 12px;
+  border-bottom:1px solid rgba(236,231,220,.35)}
+.hero > nav .brand{display:inline-flex;align-items:baseline;font-size:28px;letter-spacing:.01em}
+.hero > nav .brand .by{font-style:italic;font-size:.44em;margin-left:.2em;color:inherit}
+.hero > nav .nav-links{gap:14px}
+.hero > nav .sound,.hero > nav .om-btn{background:var(--paper)!important;color:var(--ink)!important;border:1px solid var(--ink)!important;height:34px}
+.hero > nav .sound svg,.hero > nav .om-btn svg{color:var(--ink)}
+.hero > nav .sound-bars i,.hero > nav .om-btn i{background:var(--ink)}
+.hero > nav .nav-cta{background:#f5f1e8!important;color:var(--ink)!important;border:2px solid var(--ink)!important;box-shadow:3px 3px 0 var(--coral)!important;padding:8px 12px 6px}
+.hero > nav .nav-cta:hover{box-shadow:4px 4px 0 var(--coral)!important;translate:-1px -1px}
+@media(max-width:700px){ .hero:has(> nav) > nav{padding:16px 0 10px} .hero > nav .brand{font-size:24px} }
+/* the home masthead: same title size and height as the other pages (its floating graphics stay) */
+body.flow .hero:not(.mini):has(> nav) .headline h1{font-size:clamp(42px,calc(7 * var(--vw,1vw)),92px)!important;white-space:normal}
+@media(min-width:701px){ body.flow .hero:not(.mini):has(> nav){min-height:0} }

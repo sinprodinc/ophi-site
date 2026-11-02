@@ -147,7 +147,7 @@
       /* Bri's notepads (assets/notes): per note the image w, h, clear writing area x, y, w, h (%), note number, first
          ruled line y % (0 = unruled), line spacing %, tilt deg. Each month the longest takeaways go to the roomiest
          papers so every one fits at a readable size; every sign still gets a different notepad. */
-      var NB=[[689, 717, 16, 33, 66, 36, 1, 0, 0, 0], [685, 642, 24, 26, 56, 56, 2, 34.0, 6.91, 0], [666, 637, 14, 37, 50, 49, 3, 33.4, 3.914, 0], [760, 708, 15, 27, 53, 52, 4, 0, 0, 0], [865, 795, 22, 26, 55, 50, 5, 28.95, 5.2, -1.93], [670, 900, 22, 37, 57, 49, 6, 0, 0, 0], [731, 724, 29, 31, 56, 54, 7, 35.67, 4.66, 0.95], [656, 753, 24, 24, 66, 40, 8, 28.6, 5.67, 0], [843, 900, 14, 34, 64, 44, 9, 0, 0, 0], [900, 890, 15, 34, 60, 44, 10, 0, 0, 0], [900, 791, 23, 12, 70, 64, 15, 13.6, 6.47, 0], [900, 684, 24, 34, 58, 52, 12, 31.41, 5.25, -1.1]], NOTEFOR={};
+      var NB=[[689, 717, 16, 33, 66, 36, 1, 0, 0, 0], [685, 642, 28, 32, 52, 44, 2, 34.0, 6.91, 0], [666, 637, 18, 35, 68, 33, 3, 33.4, 3.914, 0], [760, 708, 15, 27, 53, 52, 4, 0, 0, 0], [865, 795, 28, 26, 50, 50, 5, 28.95, 5.2, -1.93], [670, 900, 22, 37, 57, 49, 6, 0, 0, 0], [731, 724, 29, 31, 56, 54, 7, 35.67, 4.66, 0.95], [656, 753, 24, 24, 66, 40, 8, 28.6, 5.67, 0], [843, 900, 14, 34, 64, 44, 9, 0, 0, 0], [900, 890, 15, 34, 60, 44, 10, 0, 0, 0], [900, 791, 23, 12, 70, 64, 15, 13.6, 6.47, 0], [900, 684, 27, 36, 54, 46, 12, 31.41, 5.25, -1.1]], NOTEFOR={};
       (function(){
         var cap=function(n){ var W=420, H=W*n[1]/n[0], bw=W*n[4]/100, bh=H*n[5]/100, sp=n[8]/100*H, fs, lines;
           fs=16;   /* compare every paper at the same writing size */
@@ -571,8 +571,8 @@
       var best=null;
       [1,2,3].forEach(function(m){ var sp=rl[1]*m; if(sp/100*H<15||sp/100*H>52) return;
         var T=lay(sp); if(T.ok && (!best || T.fs>best.fs)) best=T; });
-      /* if no spacing of the printed lines lets the writing reach a comfortable size, write freely in the clear area instead */
-      if(!best || best.fs<(body?13:17)){
+      /* Bri, 2 Nov: on lined paper the writing always sits on the printed lines; it only writes freely if no spacing fits at all */
+      if(!best){
         n.style.top=bx[1]+'%'; n.style.height=bx[3]+'%'; n.style.justifyContent='';
         k.style.lineHeight=p.style.lineHeight=k.style.margin=p.style.margin='';
         var lo2=body?11.5:12, hi2=body?19:32, fit2=function(f){ p.style.fontSize=f+'px'; return n.scrollHeight<=n.clientHeight+1 && n.scrollWidth<=n.clientWidth+1; };
