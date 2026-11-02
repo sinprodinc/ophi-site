@@ -17,21 +17,16 @@
   body.flow .hero.light .nav-links a.nav-cta{background:var(--ink);color:var(--paper);border-color:var(--ink)}
   body.flow .hero.light .om-btn{background:var(--bone);color:var(--ink);border-color:var(--ink)}
   body.flow .hero.light .relic i{filter:none}
-  .mb-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:var(--s4);align-items:end;
-    max-width:1240px;margin:0 auto;padding:var(--s4) var(--pad) var(--sec)}
+  
   .folio{font-family:var(--font-button);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin:0 0 var(--s2)}
   .folio b{color:var(--coral);font-weight:400;margin:0 .7em}
-  .mb-title h1{font-family:var(--font-title);font-weight:400;font-size:clamp(58px,9.4vw,138px);line-height:.9;letter-spacing:-.025em;color:var(--ink);margin:0}
-  .mb-title h1 em{font-style:italic}
-  body.flow .mb-title .hand-line{color:var(--pen);margin:var(--s3) 0 0;font-size:clamp(26px,3vw,36px)}
-  .mb-side{position:relative;padding-top:var(--s3);border-top:3px double var(--ink)}
-  .mb-side .sub{font-size:15px;line-height:1.65;color:var(--ink-2);margin:0 0 var(--s3);max-width:44ch;text-align:left}
-  .mb-side .relic{display:block;--w:clamp(90px,10vw,140px);--tilt:10deg;right:0;top:calc(var(--w) * -.95);z-index:0}
-  body.flow .mb-side .cta{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:5px 5px 0 var(--coral)}
-  @media(max-width:860px){
-    .mb-grid{grid-template-columns:1fr;gap:var(--s3);padding-top:var(--s3)}
-    .mb-side .relic{--w:84px;top:calc(var(--w) * -.85)}
-  }
+  
+  
+  
+  
+  
+  
+  
 
   /* section openings: folio + left-aligned title, small gap to content (proximity) */
   .flow-sec{position:relative;padding:var(--sec) var(--pad) 0;border-top:0}
@@ -41,7 +36,7 @@
   .sec-row.center{text-align:center}
   .flow-h{font-family:var(--font-title);font-weight:400;font-size:clamp(40px,6vw,76px);line-height:.98;letter-spacing:-.02em;color:var(--ink);margin:0}
   .flow-h em{font-style:italic;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%239a7fd0' fill-opacity='.34' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E") 0 70%/100% 58% no-repeat;padding:0 .06em}
-  body.flow .story .story-cols{padding-top:var(--s3);border-top:1px solid var(--ink)}
+  
 
   /* the hand-drawn arrow that leads to the next section */
   .flow-next{display:flex;align-items:center;gap:6px;width:max-content;margin:var(--s4) auto 0;text-decoration:none}
@@ -49,17 +44,17 @@
   .flow-next svg{width:44px;height:34px;fill:none;stroke:var(--coral);stroke-width:2;stroke-linecap:round;transform:rotate(-20deg)}
 
   /* testimonial: title on the left, the note on the right, one band */
-  .words-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:var(--s4);align-items:center;max-width:var(--banner);margin:0 auto}
-  .words-grid .sec-row{margin:0}
-  .words-note{font-size:14px;line-height:1.6;color:var(--ink-2);margin-top:var(--s2);max-width:30ch}
+  
+  
+  
   .note-card{position:relative;margin:0;background:var(--blush);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:var(--s4) var(--s4) var(--s3);transform:rotate(1deg)}
-  .note-card .tape-a{position:absolute;width:140px;left:12%;top:-22px;transform:rotate(-6deg)}
+  
   .note-card blockquote{margin:0;font-size:13.5px;line-height:1.65;color:var(--ink)}
   .note-card blockquote p + p{margin-top:.8em}
   .note-card figcaption{display:flex;justify-content:space-between;align-items:baseline;margin-top:var(--s3);padding-top:var(--s2);border-top:1px dashed rgba(22,19,16,.45)}
   .note-card figcaption b{font-family:var(--font-title);font-style:italic;font-weight:400;font-size:24px}
   .note-card figcaption span{font-family:var(--font-button);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
-  @media(max-width:860px){ .words-grid{grid-template-columns:1fr;gap:var(--s3)} .note-card{padding:var(--s4) var(--s3) var(--s3)} }
+  @media(max-width:860px){ .note-card{padding:var(--s4) var(--s3) var(--s3)} }
 
   /* the one dark band: an invitation, sized to its content */
   body.flow .hero.night{min-height:0;background:var(--ink);color:var(--paper);border-top:0;overflow:clip}
@@ -72,13 +67,11 @@
 
   /* two small doors to the other pages */
   .more{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);max-width:var(--banner);margin:0 auto;padding-bottom:var(--sec)}
-  .more-card{position:relative;display:block;text-decoration:none;color:var(--ink);background:var(--paper);border:2px solid var(--ink);padding:var(--s3);
-    box-shadow:6px 6px 0 var(--lilac);transition:top .4s cubic-bezier(.2,.8,.2,1),left .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s;top:0;left:0}
-  .more-card + .more-card{box-shadow:6px 6px 0 var(--coral)}
-  .more-card h3{font-family:var(--font-title);font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.05;margin:0 0 var(--s1)}
-  .more-card h3 em{font-style:italic}
-  .more-card .hand{font-size:22px}
-  @media(hover:hover){ .more-card:hover{top:-3px;left:-2px} }
+  
+  
+  
+  
+  
   @media(max-width:700px){ .more{grid-template-columns:1fr} }
 
   /* small light footer */
@@ -95,7 +88,6 @@
   @media(max-width:700px){ .fl-row{flex-direction:column;align-items:flex-start} }
   footer.foot-lite{background:transparent;color:var(--ink)}
   .foot-lite .logo{color:var(--ink)}
-  @media(max-width:860px){ .mb-side .relic{display:none} }
 
   /* =====================================================================================
      ROUND 6 (14 Oct): flow layout becomes the site
@@ -110,18 +102,12 @@
   body.flow .lace-edge + .story{padding-top:calc(var(--sec) * .7 + var(--lace-h) * .4)}
 
   /* Ophiuchus: three columns; the plate sits flush right inside the third (wider) column, text wrapping round it */
-  @media(min-width:1000px){ body.flow .story-cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)} }
-  body.flow .story-col:nth-child(3) .story-fig{float:right;width:52%;margin:2px 0 10px 16px}
-  @media(max-width:999px) and (min-width:641px){
-    body.flow .story-cols{grid-template-columns:repeat(2,minmax(0,1fr))}
-    body.flow .story-col:nth-child(3) .story-fig{width:min(44%,260px)}
-  }
-  @media(max-width:640px){ body.flow .story-col:nth-child(3) .story-fig{width:48%;margin-left:14px} }
+  
   .story .flow-next{margin-top:var(--s4)}
 
   /* testimonials: title on the left, a carousel of notes on the right */
-  .words-grid{align-items:start}
-  .words-grid .sec-row{position:relative;padding-top:var(--s3)}
+  
+  
   .eph.words-stars{position:absolute;width:clamp(56px,6vw,84px);right:4%;top:-8px;transform:rotate(10deg)}
   .words-car{position:relative;min-width:0}
   .words-car .tq-track{width:100%;margin-left:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -152,22 +138,15 @@
   @media(max-width:599px){ .rising-grid .rising.rising:nth-child(n){box-shadow:4px 4px 0 var(--ink)!important} .rising .gl{width:36px;height:36px} }
 
   /* "In the sky right now": no box; laid out like a journal page, a date column and ruled entries */
-  body.flow .season-now{background:none;border:0;box-shadow:none!important;padding:0;max-width:var(--banner);margin:0 auto;
-    display:grid;grid-template-columns:minmax(150px,.32fr) minmax(0,1fr);gap:0 var(--s4);text-align:left}
-  body.flow .season-now .eph.pin{left:auto;right:6px;margin:0;top:-6px;width:30px;transform:rotate(18deg)}
-  body.flow .season-now > .r-saturn{display:none}
-  body.flow .season-now .kick{grid-column:1;grid-row:1/5;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:10px;
-    border:0;border-right:1px solid var(--ink);padding:4px var(--s3) 0 0}
-  body.flow .season-now .kick span{font-family:var(--font-title);font-size:clamp(34px,3.6vw,48px);letter-spacing:-.01em;text-transform:none;line-height:1}
-  body.flow .season-now h3{grid-column:2;margin:0 0 var(--s2);font-size:clamp(30px,3.6vw,44px)}
-  body.flow .season-now .summary{grid-column:2;grid-template-columns:110px 1fr;margin:0 0 var(--s2);border-top:3px double var(--ink);border-bottom:0;padding:0}
-  body.flow .season-now .summary dt,body.flow .season-now .summary dd{padding:12px 0;border-bottom:1px solid rgba(22,19,16,.25)}
-  body.flow .season-now > p{grid-column:2}
-  @media(max-width:700px){
-    body.flow .season-now{grid-template-columns:1fr}
-    body.flow .season-now .kick{grid-row:auto;border-right:0;border-bottom:1px solid var(--ink);padding:0 0 12px;margin-bottom:var(--s2);flex-direction:row;justify-content:space-between;align-items:baseline}
-    body.flow .season-now h3,body.flow .season-now .summary,body.flow .season-now > p{grid-column:1}
-  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
   body.flow .season{padding-bottom:var(--sec)}
   body.flow .season-sec{border-top:0;padding-top:0}
   body.flow .season-sec .headline{text-align:left;width:min(100%,var(--banner))}
@@ -180,69 +159,59 @@
 
   /* a small tour of the site: one page at a time, a line about it, and a button */
   .tour{max-width:var(--banner);margin:0 auto;padding:calc(var(--sec) * .55 + var(--lace-h) * .4) var(--pad) 0!important}
-  .tour-car{position:relative;min-width:0}
-  .tour-car .tq-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;width:100%;margin:0}
-  .tour-car .tq-track::-webkit-scrollbar{display:none}
-  .tour-car .tq-slide{flex:0 0 100%;scroll-snap-align:center;display:block;padding:0}
-  .tour-card{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;align-items:baseline;gap:var(--s1) var(--s3);
-    padding:var(--s2) 0 14px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);color:var(--ink);text-decoration:none}
-  .tour-n{font-family:var(--font-button);font-size:11px;letter-spacing:.1em;color:var(--coral)}
-  .tour-t{font-family:var(--font-title);font-size:clamp(26px,3.2vw,38px);line-height:1;white-space:nowrap}
-  .tour-t em{font-style:italic}
-  .tour-d{font-size:14px;line-height:1.5;color:var(--ink-2)}
+  
+  
+  
+  
+  
+  
+  
+  
+  
   .tour-go{font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:7px 11px 6px;border:1.5px solid var(--ink);
     background:var(--paper);white-space:nowrap;transition:background .2s,color .2s}
-  .tour-card:hover .tour-go{background:var(--ink);color:var(--paper)}
-  .tour-card:hover .tour-t{color:var(--coral)}
-  .tour-car .tq-foot{display:flex;justify-content:flex-end;min-height:0;margin-top:6px}
-  .tour-car .tq-nav{display:flex;align-items:center;gap:var(--s1)}
-  .tour-car .tq-btn{width:auto;height:auto;padding:0 6px;border:0;background:none;box-shadow:none;font-family:var(--font-hand);font-size:28px;line-height:1;color:var(--pen);cursor:pointer;transition:color .2s}
-  .tour-car .tq-btn:hover{color:var(--coral);transform:none;box-shadow:none}
-  .tour-car .tq-dots{display:flex;gap:2px}
-  .tour-car .tq-dots button{width:20px;height:20px;display:grid;place-items:center;padding:0;border:0;background:none;cursor:pointer}
-  .tour-car .tq-dots button::before{content:"";width:6px;height:6px;border-radius:50%;border:1.5px solid var(--ink);transition:background .2s,transform .2s}
-  .tour-car .tq-dots button[aria-current]::before{background:var(--coral);border-color:var(--coral);transform:scale(1.2)}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   @media(max-width:700px){
-    .tour-card{grid-template-columns:auto minmax(0,1fr) auto;row-gap:6px}
-    .tour-d{grid-column:1/-1;grid-row:2}
+    
+    
     .tour-go{grid-column:3;grid-row:1;align-self:center}
   }
 
   /* welcome: a paper card with a folder tab, Bri's words on the left and a Moon note on the right */
   .welcome{max-width:var(--banner);margin:0 auto;padding:calc(var(--sec) * .7) var(--pad) 0}
-  .welcome-card{position:relative;background:var(--paper);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:var(--s4) var(--s4) var(--s3);margin-top:30px}
-  .welcome-tab{position:absolute;left:-2px;top:-32px;margin:0;padding:8px 18px 6px;background:var(--paper);border:2px solid var(--ink);border-bottom:0;
-    font-family:var(--font-button);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
-  .welcome-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--s4);align-items:start}
-  .welcome-lead{font-family:var(--font-title);font-size:clamp(24px,2.7vw,34px);line-height:1.18;margin:0 0 var(--s2);text-wrap:pretty}
-  .welcome-hand{font-family:var(--font-hand);color:var(--pen);font-size:clamp(22px,2.4vw,28px);line-height:1.2;margin:0 0 var(--s2)}
-  .welcome-main > p:last-child{font-size:15px;line-height:1.65;color:var(--ink-2);margin:0;max-width:52ch}
-  .moon-note{border-left:1px solid var(--ink);padding-left:var(--s3)}
-  .moon-note .folio{margin:0 0 var(--s1)}
-  .moon-note h3{font-family:var(--font-title);font-weight:400;font-size:clamp(22px,2.2vw,28px);line-height:1.1;margin:0 0 var(--s1)}
-  .moon-note h3 em{font-style:italic}
-  .moon-note p{font-size:14px;line-height:1.6;color:var(--ink-2);margin:0 0 var(--s2)}
-  .moon-link,.words-submit{font-family:var(--font-button);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
-    text-decoration:none;border-bottom:1.5px solid var(--ink);padding-bottom:3px;transition:color .2s,border-color .2s}
-  .moon-link:hover,.words-submit:hover{color:var(--coral);border-color:var(--coral)}
-  .welcome-small{margin:var(--s4) 0 0;padding-top:var(--s2);border-top:1px dashed rgba(22,19,16,.45);font-size:12px;line-height:1.55;color:var(--ink-2)}
-  @media(max-width:760px){
-    .welcome-card{padding:var(--s3) var(--s3) var(--s2);box-shadow:6px 6px 0 var(--ink)}
-    .welcome-grid{grid-template-columns:1fr;gap:var(--s3)}
-    .moon-note{border-left:0;border-top:1px solid var(--ink);padding:var(--s2) 0 0}
-    .welcome-small{margin-top:var(--s3)}
-  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   /* Why Ophiuchus: a smaller section now that the welcome leads */
   body.flow .lace-edge + .tour + .welcome + .story,body.flow .story{padding-top:calc(var(--sec) * .8)}
   body.flow .story .flow-h{font-size:clamp(34px,4.4vw,56px)}
-  body.flow .story-col p{font-size:14px;line-height:1.65}
+  
   body.flow .story .drop::first-letter{font-size:3.6em}
-  body.flow .story .story-cols{max-width:var(--banner)}
-  @media(min-width:1000px){ body.flow .story-col:nth-child(3) .story-fig{width:44%} }
+  
 
   /* testimonial: the submit link sits under the carousel */
-  .words-car .words-submit{display:inline-block;margin-top:var(--s2)}
+  
 
   /* every hard shadow is black */
   body.flow .price-card,body.flow .price-card.rd-card{box-shadow:9px 9px 0 var(--ink),var(--lift)}
@@ -250,19 +219,19 @@
   body.flow .note-card,body.flow .tq-slide:nth-child(even) .note-card{box-shadow:8px 8px 0 var(--ink)}
   body.flow .candle.candle:nth-child(n),body.flow .ritual.ritual:nth-child(n){box-shadow:7px 7px 0 var(--ink)}
   body.flow .candle.candle:nth-child(n):hover,body.flow .ritual.ritual:nth-child(n):hover{box-shadow:9px 9px 0 var(--ink)}
-  body.flow .more-card,body.flow .more-card + .more-card{box-shadow:6px 6px 0 var(--ink)}
-  body.flow .more-card:hover{box-shadow:8px 8px 0 var(--ink)}
-  body.flow .story-fig{box-shadow:6px 6px 0 var(--ink)}
+  
+  
+  
 
   /* This Season: the pin holds the top of the date column, clear of the month at every width */
-  body.flow .season-now{padding-top:34px}
-  body.flow .season-now .eph.pin{left:-4px;right:auto;top:-4px;width:30px;transform:rotate(-14deg);z-index:2}
+  
+  
   .tour,.welcome{max-width:calc(var(--banner) + var(--pad) * 2)}
   body.flow .words{padding-bottom:var(--sec)}
-  .words-car .words-submit{margin-left:4px}
-  .tour-car .tq-slide{overflow:hidden;min-width:0}
-  .tour-card{min-width:0}
-  @media(max-width:700px){ .tour-t{white-space:normal;font-size:26px} .tour-go{padding:6px 9px 5px} }
+  
+  
+  
+  @media(max-width:700px){ .tour-go{padding:6px 9px 5px} }
 
   /* =====================================================================================
      ROUND 8 (14 Oct): Bri's crayon doodles, cue-card tour, agenda layouts with torn-paper titles,
@@ -279,41 +248,41 @@
   .torn.t-butter{--tp:var(--butter)} .torn.t-powder{--tp:var(--powder);--tilt:1.8deg} .torn.t-blush{--tp:var(--blush);--tilt:-1.6deg} .torn.t-sage{--tp:var(--sage);--tilt:2.2deg}
 
   /* agenda: a date-style side column and ruled entries, like "In the sky right now" */
-  .agenda{position:relative;max-width:var(--banner);margin:0 auto;display:grid;grid-template-columns:minmax(200px,.36fr) minmax(0,1fr);gap:0 var(--s4);text-align:left}
-  .ag-side{position:relative;border-right:1px solid var(--ink);padding:4px var(--s3) var(--s3) 0}
-  .ag-side .folio{margin:0 0 var(--s2)}
-  .ag-title{font-family:var(--font-title);font-weight:400;font-size:clamp(44px,5.4vw,72px);line-height:.95;letter-spacing:-.02em;margin:0;hyphens:manual}
-  .ag-title em{font-style:italic}
-  .ag-hand{font-family:var(--font-hand);color:var(--pen);font-size:clamp(22px,2.3vw,28px);line-height:1.2;margin:var(--s2) 0 0}
-  .ag-side .ag-d1{position:relative;display:block;width:clamp(70px,8vw,104px);margin:var(--s3) 0 0 auto;transform:rotate(8deg)}
-  .ag-rows{border-top:3px double var(--ink)}
-  .ag-row{position:relative;padding:var(--s3) 0 var(--s3);border-bottom:1px solid rgba(22,19,16,.25)}
-  .ag-row:last-child{border-bottom:0}
-  .ag-txt{position:relative}
-  .ag-txt p{font-size:15px;line-height:1.7;color:var(--ink-2);margin:0 0 .8em;max-width:62ch}
-  .ag-txt p:last-child{margin-bottom:0}
-  .ag-txt b{font-weight:400;color:var(--ink);background:linear-gradient(transparent 58%,rgba(154,127,208,.3) 58%)}
-  .ag-lead{font-family:var(--font-title);font-size:clamp(22px,2.4vw,30px)!important;line-height:1.2!important;color:var(--ink)!important;text-wrap:pretty}
-  .ag-pen{font-family:var(--font-hand);color:var(--pen)!important;font-size:clamp(21px,2.2vw,26px)!important;line-height:1.25!important}
-  .ag-fine .ag-txt p{font-size:12.5px;line-height:1.6}
-  .ag-plane{width:clamp(64px,7vw,92px);right:0;top:-34px;transform:rotate(-6deg)}
-  .ag-cloud{width:clamp(70px,7.4vw,100px);right:0;top:-46px}
-  .moon-link{display:inline-block;margin-top:2px}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   @media(max-width:760px){
-    .agenda{grid-template-columns:1fr}
-    .ag-side{border-right:0;padding:0 0 var(--s3)}
-    .ag-side .ag-d1{position:absolute;right:0;top:0;margin:0;width:64px}
+    
+    
+    
     .torn{margin-left:-10px}
-    .ag-plane,.ag-cloud{width:58px;top:-30px}
+    
   }
 
   /* Home welcome */
   .welcome{max-width:calc(var(--banner) + var(--pad) * 2);margin:0 auto;padding:var(--sec) var(--pad) 0}
 
   /* door cards: compact, each with a preview of what's behind it */
-  .more-card{padding:var(--s3) var(--s3) 18px}
-  .more-card h3{font-size:clamp(24px,2.6vw,32px)}
-  .more-card .folio b{color:var(--coral);font-weight:400;margin:0 .6em}
+  
+  
+  
   .door-checks{list-style:none;margin:var(--s1) 0 var(--s2);padding:0}
   .door-checks li{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.45;color:var(--ink-2);padding:4px 0;border-top:1px dashed rgba(22,19,16,.25)}
   .door-checks svg{flex:0 0 15px;width:15px;height:15px;margin-top:2px;fill:none;stroke:var(--coral);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
@@ -329,23 +298,23 @@
 
   /* Candles doodles */
   .candles{position:relative}
-  .cd-spark{width:clamp(64px,7vw,100px);right:calc(50% - min(44vw,560px));top:clamp(30px,5vh,60px);transform:rotate(10deg)}
-  .cd-swirls{width:clamp(56px,6vw,84px);left:calc(50% - min(46vw,600px));top:clamp(60px,9vh,110px)}
+  
+  
   .rt-fire{width:clamp(80px,9vw,128px);right:calc(50% - min(44vw,560px));top:clamp(30px,5vh,56px)}
   .rt-star{width:clamp(60px,6vw,86px);left:calc(50% - min(45vw,580px));top:clamp(40px,6vh,80px);transform:rotate(-10deg)}
   .care{position:relative}
-  .care-heart{width:52px;right:-14px;bottom:-22px;transform:rotate(12deg)}
+  
   .find-moon{position:relative}
   .fm-cloud{position:relative;width:56px;margin-right:-6px}
-  .rituals .eph.swan,.rituals .eph.seal{display:none}
-  @media(max-width:700px){ .cd-swirls,.rt-star{display:none} .cd-spark,.rt-fire{width:56px;right:8px;top:18px} }
+  
+  @media(max-width:700px){ .rt-star{display:none} .rt-fire{width:56px;right:8px;top:18px} }
 
   /* Readings primer */
   .intro{max-width:calc(var(--banner) + var(--pad) * 2);margin:0 auto;padding-bottom:var(--s3)}
-  .ag-long .ag-stick{position:sticky;top:var(--s4)}
-  .ag-long .ag-title{font-size:clamp(38px,4.4vw,58px)}
-  .ag-long .ag-d1{width:clamp(70px,7vw,96px)}
-  .ag-long .ag-d2{position:relative;display:block;width:clamp(60px,6vw,80px);margin:-20px 0 0 var(--s2)}
+  
+  
+  
+  
   .horizon{float:right;width:clamp(120px,16vw,170px);margin:4px 0 var(--s2) var(--s3);text-align:center}
   .horizon svg{display:block;width:100%;height:auto;fill:none;stroke:var(--ink);stroke-width:1.4}
   .horizon .hz{stroke:var(--coral);stroke-width:2;stroke-dasharray:5 4}
@@ -361,49 +330,47 @@
   .pull .pull-k{font-family:var(--font-button);font-size:10.5px!important;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)!important;margin:0 0 6px}
   .pull .pull-q{font-family:var(--font-title);font-size:clamp(28px,3.4vw,42px)!important;line-height:1.08!important;color:var(--ink)!important;max-width:18ch}
   .pull .pull-q em{font-style:italic;background:linear-gradient(transparent 60%,rgba(154,127,208,.34) 60%)}
-  .pull-heart{width:clamp(56px,6vw,80px);right:4%;top:6px;transform:rotate(10deg)}
-  .ag-close{font-family:var(--font-title);font-size:clamp(22px,2.4vw,30px)!important;line-height:1.2!important;color:var(--ink)!important;margin-top:var(--s3)!important}
-  .ag-close em{font-style:italic}
+  
+  
+  
   .intro .flow-next{display:flex;justify-content:center;margin-top:var(--s3)}
   @media(max-width:760px){
-    .ag-long .ag-stick{position:static}
-    .ag-long .ag-d2{display:none}
+    
+    
     .legend{grid-template-columns:repeat(2,minmax(0,1fr))}
     .horizon{width:120px;margin-left:var(--s2)}
-    .pull-heart{width:48px;right:0;top:-10px}
+    
   }
   .tour .tq-foot{margin-top:2px}
   .door-orbs span::before,.candle .el span:first-child::before,.ritual .el span:first-child::before{filter:blur(.6px);background:radial-gradient(circle,var(--orb) 0 50%,transparent 74%)}
   .candle .el span:first-child::before,.ritual .el span:first-child::before{width:20px;height:20px}
   .door-orbs span::before{width:18px;height:18px}
   .pull{padding-bottom:var(--s2)}
-  @media(max-width:760px){ .ag-plane,.ag-cloud{width:50px;top:-62px} }
 
   /* =====================================================================================
      ROUND 9 (14 Oct): doodles placed with purpose and kept out of the text; three equal reading cards
      ===================================================================================== */
   /* doodles that sit in the flow of a heading, so they move with it and never land on words */
   .dd-in{display:inline-block;height:auto;pointer-events:none;user-select:none;vertical-align:middle}
-  .ag-title .in-title{width:.62em;margin:-.5em 0 0 .08em;vertical-align:top;transform:rotate(12deg)}
-  .ag-head{display:flex;align-items:center;flex-wrap:wrap;gap:0 6px;margin:0 0 var(--s2) calc(-1 * var(--s4) - 14px)}
-  .ag-head .torn{margin:0}
-  .ag-head .trail{width:clamp(54px,8vw,110px);height:auto;fill:none;stroke:var(--ink);stroke-width:1.4;stroke-dasharray:3 5;stroke-linecap:round;opacity:.7}
-  .in-plane{width:clamp(46px,5vw,64px);margin-left:-6px;transform:translateY(-10px) rotate(-8deg)}
-  .in-cloud{width:clamp(52px,5.4vw,70px);margin-left:6px;transform:translateY(-6px)}
+  
+  
+  
+  
+  
+  
   .pull .in-heart{width:.95em;margin-left:.18em;transform:rotate(10deg) translateY(-.12em)}
   .find-moon .fm-cloud{width:52px;margin-right:-4px}
   .care .k .in-k{width:30px;margin:-10px 0 -8px 8px;transform:rotate(10deg)}
-  @media(max-width:760px){ .ag-head{margin-left:-10px} }
 
   /* section heads on Candles: the doodle grows out of the bold rule, at its right end */
   .has-dd h2{padding-inline:clamp(56px,9vw,120px)}
   .has-dd .byline{position:relative}
   .on-rule{position:absolute;right:2%;bottom:calc(100% - 6px);width:clamp(52px,6.4vw,86px)}
-  .on-rule.rule-fw{width:clamp(80px,10vw,140px);right:0;bottom:calc(100% - 12px)}
+  
   /* the pink star sits behind the Fire ritual's top-left corner */
-  .ritual-grid{position:relative}
-  .ritual-grid > .ritual{z-index:1}
-  .behind-fire{position:absolute;left:clamp(-70px,-5vw,-28px);top:clamp(-66px,-5vw,-34px);width:clamp(96px,11vw,150px);z-index:0;transform:rotate(-12deg)}
+  
+  
+  
   .rituals{overflow-x:clip}
 
   /* three reading cards, the same width; Meet Yourself simply runs taller */
@@ -430,58 +397,54 @@
   }
   @media(min-width:900px){ .rd-trio{margin-top:clamp(70px,8vw,110px)} }
   .nw{white-space:nowrap}
-  .welcome .ag-title{font-size:clamp(40px,4.6vw,62px)}
+  
   /* tour: back to simple ruled lines, each page glowing over its own colour orb */
-  .tour-car .tq-slide{padding:18px 4px}
-  .tour-card{position:relative;isolation:isolate;padding:var(--s3) var(--s2) 20px}
-  .tour-card::before,.tour-card::after{content:"";position:absolute;z-index:-1;border-radius:50%;pointer-events:none;filter:blur(10px)}
-  .tour-card::before{left:-10px;top:50%;width:clamp(200px,24vw,300px);height:clamp(90px,10vw,120px);translate:0 -50%;
-    background:radial-gradient(ellipse,var(--o1) 0 34%,transparent 70%);opacity:.85}
-  .tour-card::after{right:-6px;top:50%;width:clamp(120px,12vw,160px);height:clamp(70px,7vw,90px);translate:0 -50%;
-    background:radial-gradient(ellipse,var(--o2) 0 30%,transparent 70%);opacity:.7}
-  .tour-card.orb-lilac{--o1:#c9b8ec;--o2:var(--blush)} .tour-card.orb-air{--o1:var(--air);--o2:#c9b8ec}
-  .tour-card.orb-water{--o1:var(--water);--o2:var(--earth)} .tour-card.orb-fire{--o1:var(--fire);--o2:var(--air)}
-  @media(max-width:700px){ .tour-card::before{width:220px;top:36%} .tour-card::after{top:30%} }
+  
+  
+  
+  
+  
+  
+  
 
   /* doodles in titles: small, raised just enough, never into the line above */
-  .ag-title .in-title{width:.42em;margin:0 0 0 .06em;vertical-align:baseline;transform:translateY(-.32em) rotate(12deg)}
+  
   .eph.words-stars{top:-46px;right:0}
   @media(max-width:700px){
     .has-dd h2{padding-inline:44px}
     .on-rule{width:40px;right:0}
-    .on-rule.rule-fw{width:62px}
-    .behind-fire{width:80px;left:-16px;top:-30px}
+    
+    
   }
   @media(max-width:700px){ .has-dd h2{white-space:normal;text-wrap:balance} }
-  .tour-card::before{opacity:1;background:radial-gradient(ellipse,var(--o1) 0 40%,transparent 72%)}
-  .tour-card::after{opacity:.9}
+  
+  
   /* tour: no orbs; each page title gets a coloured marker highlight, and its Visit button wears the same colour */
-  .tour-card::before,.tour-card::after{display:none}
-  .tour-card{--hl:#c9b8ec}
-  .tour-card.orb-air{--hl:#f0d98a} .tour-card.orb-water{--hl:#b9cbe0} .tour-card.orb-fire{--hl:#f0bdb1}
-  .tour-t{padding:0 .12em;margin:0 -.04em;background:linear-gradient(transparent 52%,var(--hl) 52%,var(--hl) 92%,transparent 92%)}
+  
+  
+  
+  
   .tour-go{background:var(--hl);border-color:var(--ink)}
-  .tour-card:hover .tour-go{background:var(--ink);color:var(--paper)}
+  
 
   /* =====================================================================================
      ROUND 10 (14 Oct): lock-in pass
      ===================================================================================== */
   /* tour: the top and bottom rules stay put; only the line between them slides */
-  .tour-car .tq-track{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
-  .tour-car .tq-slide{padding:0}
-  .tour-card{border:0!important}
+  
+  
+  
   /* the same hand-drawn highlighter stroke used across the site, one colour per page, hugging the words */
-  .tour-t{padding:0 .1em;margin:0 -.04em;-webkit-box-decoration-break:clone;box-decoration-break:clone;
-    background:var(--hls) 0 70%/100% 58% no-repeat!important}
-  .tour-card{--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%239a7fd0' fill-opacity='.38' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
-  .tour-card.orb-air{--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%23e2c46a' fill-opacity='.6' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
-  .tour-card.orb-water{--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%2393acc6' fill-opacity='.6' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
-  .tour-card.orb-fire{--hls:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%23e9a597' fill-opacity='.7' d='M4 12C22 8 48 10 70 8S120 6 146 9 184 7 197 11L196 18 199 26 195 33C170 36 140 33 112 35S58 37 30 34 8 36 3 32L5 24 2 17Z'/%3E%3C/svg%3E")}
+  
+  
+  
+  
+  
 
   /* Readings quote: two fixed lines; the size follows the column width so "ever-changing conversation." never breaks */
   .pull{container-type:inline-size}
   .pull .pull-q{max-width:none!important;font-size:clamp(18px,6.4cqi,44px)!important}
-  .pull .pq-1,.pull .pq-2{display:block;white-space:nowrap}
+  
 
   /* reading prices: back in Modern Romance, in front of a lighter orb */
   .rd-trio .price-amount .val,.rd-trio .price-amount .cur,.rd-trio .price-amount .cents{font-family:var(--font-title)}
@@ -496,36 +459,33 @@
   /* =====================================================================================
      ROUND 11 (14 Oct)
      ===================================================================================== */
-  .welcome .ag-title .in-title{width:.66em;transform:translateY(-.22em) rotate(12deg)}
+  
 
   /* Why Ophiuchus: one story flowing through the columns, no section heads */
-  .story-flow{max-width:var(--banner);margin:0 auto;padding-top:var(--s3);border-top:1px solid var(--ink);
-    columns:3;column-gap:clamp(26px,3.6vw,48px);column-rule:1px solid rgba(22,19,16,.3)}
-  .story-flow p{font-size:14px;line-height:1.65;color:var(--ink);margin:0 0 .8em;hyphens:manual;text-wrap:pretty}
-  .story-flow .story-fig{float:none;width:100%;margin:4px 0 16px;break-inside:avoid}
-  .story-flow .story-hand{font-family:var(--font-hand);color:var(--pen);font-size:clamp(24px,2.4vw,30px);line-height:1.15;margin:.2em 0 .5em;break-after:avoid}
+  
+  
+  
+  
   .story .drop::first-letter{font-family:var(--font-title);float:left;font-size:3.6em;line-height:.82;padding:.08em .08em 0 0}
-  @media(max-width:999px){ .story-flow{columns:2} }
-  @media(max-width:640px){ .story-flow{columns:1} }
 
   /* reading cards: the same lighter paper as the Planets / Signs / Houses / Aspects tiles */
   .rd-trio .price-card{background:#fffdf8}
-  .welcome .ag-title{font-size:clamp(38px,4.1vw,56px)}
+  
 
   /* the tour highlight hugs the title words at every width */
-  .tour-t{justify-self:start;width:fit-content;max-width:100%}
+  
 
   /* title doodles: bigger, tucked behind the top-left corner of the words */
-  .ag-title,.pull .pull-q{position:relative;isolation:isolate}
-  .ag-title .in-title,.welcome .ag-title .in-title,.pull .in-heart{position:absolute;z-index:-1;margin:0;vertical-align:baseline}
-  .ag-title .in-title,.welcome .ag-title .in-title{left:-.32em;top:-.3em;width:.95em;transform:rotate(-12deg)}
+  .pull .pull-q{position:relative;isolation:isolate}
+  .pull .in-heart{position:absolute;z-index:-1;margin:0;vertical-align:baseline}
+  
   .pull .in-heart{left:-.42em;top:-.5em;width:1.25em;transform:rotate(-10deg);opacity:.85}
   .pull{padding-left:calc(var(--s3) + 8px)}
-  .ag-title .nw{white-space:normal}
+  
 
   /* testimonial card on the lighter paper */
   body.flow .note-card{background:#fffdf8}
-  .ag-title .in-title,.welcome .ag-title .in-title{left:-.42em;top:-.42em;width:1.35em;opacity:.9}
+  
   .pull .in-heart{width:max(1.4em,46px);left:-.55em;top:-.62em}
   .pull .in-heart{top:-.2em;left:-.6em}
 
@@ -546,32 +506,27 @@
   @media(max-width:700px){ .bleed{--bw:clamp(84px,24vw,120px);--out:.45} }
 
   .accent{position:absolute;pointer-events:none;width:clamp(32px,3vw,42px);height:auto;z-index:1}
-  .ag-side{position:relative}
-  .ag-side > .on-vline{right:-19px;bottom:18%;transform:rotate(-8deg)}
-  .ag-txt > .on-vline.q{left:calc(-1 * var(--s4) - 19px);top:auto;margin-top:18px;transform:rotate(10deg)}
-  body.flow .season-now .kick{position:relative}
-  .kick > .on-vline.k{right:-17px;bottom:-6px;width:32px;transform:rotate(-12deg)}
-  @media(max-width:760px){ .accent.on-vline{display:none} }
-  @media(max-width:700px){ .kick > .on-vline.k{display:none} }
-  body.flow .season-now > p + p{margin-top:.9em}
+  
+  
+  
+  
+  
+  
 
   /* This Season: Bri's full monthly reading */
-  body.flow .season-now .sub-h{grid-column:2;font-family:var(--font-title);font-weight:400;font-size:clamp(22px,2.2vw,28px);line-height:1.15;margin:1.3em 0 .5em}
-  @media(max-width:700px){ body.flow .season-now .sub-h{grid-column:1} }
-  .rising-intro{max-width:62ch;margin:calc(-1 * var(--s3)) auto var(--s4);text-align:center;font-size:14.5px;line-height:1.65;color:var(--ink-2)}
+  
+  
   .chapter aside .note{font-family:var(--font-hand);color:var(--pen);font-size:clamp(21px,2vw,25px);line-height:1.25;margin:4px 0 16px}
-  .season-close{position:relative;max-width:var(--banner);margin:var(--sec) auto 0;padding:var(--s4) 0 0;border-top:3px double var(--ink);
-    display:grid;grid-template-columns:minmax(200px,.36fr) minmax(0,1fr);gap:var(--s1) var(--s4);text-align:left}
-  .season-close .folio{grid-column:1;margin:0}
-  .season-close h3{grid-column:1;font-family:var(--font-title);font-weight:400;font-size:clamp(30px,3.4vw,44px);line-height:1.02;margin:0}
-  .season-close h3 em{font-style:italic}
-  .season-close > div{grid-column:2;grid-row:1/3}
-  .season-close p{font-size:15px;line-height:1.7;color:var(--ink-2);margin:0 0 .9em;max-width:62ch}
-  .season-close p:last-child{font-family:var(--font-hand);color:var(--pen);font-size:clamp(22px,2.2vw,27px);line-height:1.25;margin-top:.4em}
-  @media(max-width:760px){ .season-close{grid-template-columns:1fr} .season-close > div{grid-column:1;grid-row:auto;margin-top:var(--s2)} }
-  .season-close{grid-template-rows:auto 1fr;align-items:start}
-  body.flow .season-now > p.pen{font-family:var(--font-hand);color:var(--pen);font-size:clamp(21px,2vw,25px);line-height:1.3;max-width:52ch}
-  body.flow .season-now > .sub-h:first-of-type{margin-top:var(--s3)}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   .rising .tagline{text-wrap:pretty}
 
   /* our cursor is the only cursor: no rule anywhere can bring the computer's pointer back on top of it */
@@ -594,117 +549,95 @@
   @media(max-width:600px){ .eph.car-bow{--bw:84px;width:var(--bw);right:calc(14px - var(--bw) * .62);top:calc(22px - var(--bw) * .3)} }
   .accent,.eph.car-bow,.eph.words-stars,.in-heart{transform-origin:50% 50%}
   /* Welcome: "Get curious about yourself…" in the body typeface (KIN668) */
-  .welcome .ag-txt .ag-body{font-family:var(--font-body);font-size:16px;line-height:1.7;color:var(--ink-2);margin-top:var(--s2)}
+  
 
   /* Ophiuchus plate: a small inset the story wraps around, never the full width */
-  .story-flow .story-fig{float:right;width:min(58%,190px);margin:4px 0 10px 16px;break-inside:avoid}
-  .story-flow .story-fig figcaption{font-size:8.5px;padding:5px 7px 4px}
-  @media(max-width:640px){ .story-flow .story-fig{width:min(46%,160px);margin-left:14px} }
+  
+  
 
   /* This Season: the story uses the full width of its column, like the summary above it */
-  body.flow .season-now > p,body.flow .season-now > p.pen,body.flow .season-now > .sub-h{max-width:none}
+  
 
   /* testimonials: smaller heart at the left edge */
   .bleed.heart-sm{--bw:clamp(72px,9vw,138px)}
   @media(max-width:700px){ .bleed.heart-sm{--bw:clamp(52px,14vw,72px)} }
 
   /* a black stamp below the testimonial title column, in the open space above the dark band */
-  .words-grid{position:relative}
-  .words-stamp{position:absolute;left:clamp(10px,3vw,48px);top:calc(100% - 10px);width:clamp(110px,10vw,140px);height:auto;transform:rotate(-8deg);transform-origin:50% 50%;opacity:.92;pointer-events:none}
+  
+  
   body.flow .words{padding-bottom:calc(var(--sec) + clamp(40px,5vw,72px))}
-  @media(max-width:860px){ .words-stamp{display:none} body.flow .words{padding-bottom:var(--sec)} }
-  .words-grid > .words-stamp{top:auto;bottom:clamp(-150px,-11vw,-110px);left:clamp(40px,7vw,110px)}
+  @media(max-width:860px){ body.flow .words{padding-bottom:var(--sec)} }
+  
 
   /* lace pieces at the page edge (testimonials: bow; Readings primer: butterfly) */
-  .bleed.lacey{--bw:clamp(110px,12vw,180px);opacity:.95}
-  @media(max-width:700px){ .bleed.lacey{--bw:clamp(76px,22vw,104px)} }
+  
 
   /* telescope under "A final thought": bottom-left on tablet and desktop, bottom-right on phones */
-  .season-close{position:relative}
-  .season-close > div{grid-row:1/4}
-  .close-stamp{grid-column:1;grid-row:3;align-self:end;justify-self:start;width:clamp(110px,11vw,150px);height:auto;margin:var(--s3) 0 0;transform:rotate(-6deg);transform-origin:50% 50%;opacity:.92;pointer-events:none}
-  @media(max-width:760px){ .close-stamp{position:absolute;right:0;bottom:-6px;width:92px;margin:0} .season-close{padding-bottom:var(--s3)} .season-close > div{padding-right:0} }
-  @media(max-width:760px){ .season-close > div{grid-row:auto} }
+  
+  
+  
   /* dark lace sits further off the edge on phones so it never darkens the titles */
-  @media(max-width:700px){ .bleed.lacey{--bw:clamp(70px,20vw,96px);--out:.62} }
-  @media(max-width:760px){ .close-stamp{position:static;display:block;justify-self:end;margin:var(--s2) 4px 0 auto;width:92px} .season-close{padding-bottom:0} }
-  @media(min-width:701px) and (max-width:1180px){ .bleed.lacey{--out:.55} }
-  @media(max-width:760px){ .close-stamp{grid-row:auto;grid-column:1} }
-  @media(min-width:701px) and (max-width:1180px){ .intro .bleed.lacey{--out:.7} }
 
   /* Readings: light-grey lace butterfly, mostly on the page, behind the title */
-  .bleed.lacey.fly{--bw:clamp(130px,14vw,200px);--out:.12;opacity:1}
-  @media(max-width:1180px){ .bleed.lacey.fly{--bw:clamp(110px,18vw,150px);--out:.12} }
-  @media(max-width:700px){ .bleed.lacey.fly{--bw:110px;--out:.18} }
+  
 
   /* Home: more of the dark lace bow, at the top-left of the testimonial title */
-  .bleed.lacey.bow{--bw:clamp(120px,12vw,170px);--out:.18;margin-top:-40px}
-  @media(max-width:1180px){ .bleed.lacey.bow{--out:.3} }
-  @media(max-width:700px){ .bleed.lacey.bow{--bw:96px;--out:.35;margin-top:-30px} }
+  
 
   /* This Season: fireworks rise off the rule, just past "By your rising." */
   .season-sec .headline .byline{position:relative}
-  .accent.on-rule.rule-fw2{position:absolute;display:block;left:34%;bottom:calc(100% - 4px);width:clamp(90px,9vw,130px);transform:none}
-  @media(max-width:700px){ .accent.on-rule.rule-fw2{left:auto;right:0;width:72px} }
+  
 
   /* Home: bigger hand-over-chart stamp, its bottom tenth tucked under the dark band */
   .words{position:relative}
   .hero.night{position:relative;z-index:2}
-  .words > .words-stamp{position:absolute;left:max(16px,calc(50% - 600px));bottom:calc(var(--sw) * -.12);top:auto;--sw:clamp(170px,15vw,220px);width:var(--sw);z-index:0}
+  
   body.flow .words{padding-bottom:calc(var(--sec) + clamp(60px,7vw,110px))}
-  @media(max-width:860px){ .words > .words-stamp{display:none} body.flow .words{padding-bottom:var(--sec)} }
-  .accent.on-rule.rule-fw2{left:46%;bottom:calc(100% + 2px)}
-  @media(max-width:1180px){ .accent.on-rule.rule-fw2{left:auto;right:6%} }
-  @media(max-width:700px){ .accent.on-rule.rule-fw2{right:0} }
+  @media(max-width:860px){ body.flow .words{padding-bottom:var(--sec)} }
+  
   /* Readings butterfly: soft enough that the title always reads clearly over it, sitting beside the title rather than the small label */
-  .bleed.lacey.fly{margin-top:20px}
+  
 
   /* =====================================================================================
      ROUND 14 (15 Oct)
      ===================================================================================== */
   /* every card and text box on the lighter paper */
-  body.flow .more-card,body.flow .rising,body.flow .rising.rising,body.flow .candle,body.flow .candle.candle,body.flow .ritual,body.flow .care,
-  body.flow .welcome-card,body.flow .price-card,body.flow .note-card,body.flow .tq .paper,body.flow .legend li{background:#fffdf8!important}
+  body.flow .rising,body.flow .rising.rising,body.flow .candle,body.flow .candle.candle,body.flow .ritual,body.flow .care,body.flow .price-card,body.flow .note-card,body.flow .tq .paper,body.flow .legend li{background:#fffdf8!important}
 
   /* This Season: the story folds away under "The story" */
-  body.flow .season-now > .story-fold{grid-column:2;margin-top:var(--s3);border-top:1px solid rgba(22,19,16,.25)}
-  @media(max-width:700px){ body.flow .season-now > .story-fold{grid-column:1} }
-  .story-fold > summary{list-style:none;display:flex;align-items:center;flex-wrap:wrap;gap:4px 18px;padding:var(--s2) 0 var(--s1)}
-  .story-fold > summary::-webkit-details-marker{display:none}
-  .story-fold .sf-t{font-family:var(--font-title);font-size:clamp(26px,2.8vw,34px);line-height:1.1}
-  .story-fold .sf-hint{display:inline-flex;align-items:center;gap:6px;color:var(--pen)}
-  .story-fold .sf-hint .hand{font-family:var(--font-hand);font-size:clamp(20px,2vw,24px)}
-  .story-fold .sf-hint svg{width:38px;height:30px;fill:none;stroke:var(--coral);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transform:rotate(-30deg);transition:transform .35s}
-  .story-fold[open] .sf-hint .hand{opacity:.6}
-  .story-fold[open] .sf-hint svg{transform:rotate(150deg)}
+  
+  
+  
+  
+  
+  
+  
+  
+  
   .story-fold:not([open]) > summary:hover .sf-t{color:var(--coral)}
-  .story-fold .sf-body > p{font-size:15px;line-height:1.7;color:var(--ink-2);margin:0 0 .9em}
-  .story-fold .sf-body > p.pen{font-family:var(--font-hand);color:var(--pen);font-size:clamp(21px,2vw,25px);line-height:1.3}
-  .story-fold .sf-body > .sub-h{font-family:var(--font-title);font-weight:400;font-size:clamp(22px,2.2vw,28px);margin:1.3em 0 .5em}
+  
+  
+  
   body.flow .season{padding-bottom:calc(var(--sec) * .6)}
 
   /* "By your rising." centred, the fireworks just left of the B */
   body.flow .season-sec .headline{text-align:center;margin-left:auto;margin-right:auto}
   .season-sec .headline h2 .h2-in{position:relative;display:inline-block}
-  .accent.h2-fw{position:absolute;right:calc(100% + 6px);bottom:.12em;width:clamp(64px,7vw,104px);height:auto;transform:none}
-  @media(max-width:520px){ .accent.h2-fw{width:48px;right:calc(100% - 4px)} }
+  
 
   /* This Season: a button in the post jumps to the full story, which sits under the rising cards */
-  body.flow .season-now > .jump-story{grid-column:2;justify-self:start;display:inline-flex;align-items:center;gap:8px;margin-top:var(--s3);padding:10px 16px 9px;
-    font-family:var(--font-button);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;
-    background:#fffdf8;border:1.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);transition:top .3s,left .3s,box-shadow .3s;position:relative;top:0;left:0}
-  body.flow .season-now > .jump-story:hover{top:-2px;left:-2px;box-shadow:6px 6px 0 var(--ink)}
-  .jump-story svg{width:26px;height:22px;fill:none;stroke:var(--coral);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-  @media(max-width:700px){ body.flow .season-now > .jump-story{grid-column:1} }
+  
+  
+  
   .full-story{position:relative;max-width:var(--banner);margin:var(--sec) auto 0;padding-top:var(--s4);border-top:3px double var(--ink);
     display:grid;grid-template-columns:minmax(200px,.36fr) minmax(0,1fr);grid-template-rows:auto 1fr;gap:var(--s1) var(--s4);text-align:left;scroll-margin-top:24px}
   .full-story > .folio{grid-column:1;margin:0}
   .full-story > h3{grid-column:1;font-family:var(--font-title);font-weight:400;font-size:clamp(34px,4vw,52px);line-height:1;margin:0}
-  .full-story > .fs-body{grid-column:2;grid-row:1/3}
-  .full-story .fs-body > p{font-size:15px;line-height:1.7;color:var(--ink-2);margin:0 0 .9em;max-width:66ch}
-  .full-story .fs-body > p.pen{font-family:var(--font-hand);color:var(--pen);font-size:clamp(21px,2vw,25px);line-height:1.3}
-  .full-story .fs-body > .sub-h{font-family:var(--font-title);font-weight:400;font-size:clamp(22px,2.2vw,28px);margin:1.3em 0 .5em}
-  @media(max-width:760px){ .full-story{grid-template-columns:1fr} .full-story > .fs-body{grid-column:1;grid-row:auto;margin-top:var(--s2)} }
+  
+  
+  
+  
+  @media(max-width:760px){ .full-story{grid-template-columns:1fr} }
   html{scroll-behavior:smooth}
   @media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
 
@@ -746,30 +679,6 @@ body.secret .lace-edge{filter:drop-shadow(0 6px 14px rgba(201,184,236,.28))}
 body.secret .rituals{border-top:0;background:transparent;padding-top:clamp(40px,6vw,72px)}
 body.secret .rituals .sub{color:rgba(236,231,220,.72)}
 
-/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
-   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
-@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
-body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
-/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
-   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
-@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
-body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
-/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
-   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
-@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
-body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
-/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
-   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
-@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
-body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
-/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
-   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
-@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
-body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
-/* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
-   Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
-@font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
-body.secret{--font-hand:'Ophi Cedarville','Ophi Hand',cursive}
 /* Handwriting on the rituals page: Cedarville Cursive (free, OFL; licence in /assets/fonts/hand/). Bri picked it 21 Oct.
    Fixed metrics (ascent 80% / descent 20% after sizing) so the reflection writing lands on the card's ruled lines. */
 @font-face{font-family:'Ophi Cedarville';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2');size-adjust:89.2%;ascent-override:89.7%;descent-override:22.4%;line-gap-override:0%}
@@ -1047,46 +956,43 @@ body.flow{zoom:var(--z,1)}
 /* Home "Inside Ophi" carousel, round 2 (19 Oct): one long strip that slides sideways like Chani's hero,
    each slide with an ink stamp and a doodle at the right end and its Visit tag on torn paper.
    The rules sit on the slides (not the scrolling track) so the art can rise over them without being cut off. */
-.tour-car .tq-track{border:0!important;padding:clamp(26px,3vw,38px) 0}
-.tour-car .tq-slide{overflow:visible!important;padding:0!important}
-.tour-card{display:flex!important;align-items:center;gap:var(--s3);padding:14px var(--s2)!important;min-height:clamp(84px,8vw,104px);
-  border-top:1px solid var(--ink)!important;border-bottom:1px solid var(--ink)!important}
-.tour-txt{display:flex;align-items:baseline;gap:var(--s1) var(--s3);flex:1 1 auto;min-width:0}
-.tour-n{flex:0 0 auto}
-.tour-t{flex:0 0 auto}
-.tour-d{flex:1 1 auto;min-width:0}
+
+
+
+
+
+
+
 .tour-go{position:relative;flex:0 0 auto;border:0!important;box-shadow:none!important;background:var(--hl)!important;color:var(--ink)!important;
   padding:9px 18px 7px!important;rotate:-3deg;filter:drop-shadow(2px 3px 0 rgba(22,19,16,.18));
   clip-path:polygon(0.0% 4.1%,4.5% 5.0%,9.1% 8.3%,13.6% 4.2%,18.2% 4.6%,22.7% 5.3%,27.3% 1.7%,31.8% 4.6%,36.4% 5.7%,40.9% 7.1%,45.5% 0.8%,50.0% 2.7%,54.5% 0.8%,59.1% 7.3%,63.6% 6.2%,68.2% 0.4%,72.7% 8.8%,77.3% 8.7%,81.8% 5.9%,86.4% 5.5%,90.9% 1.4%,95.5% 0.1%,100.0% 4.8%,98.1% 25.0%,100.0% 50.0%,99.5% 74.0%,100.0% 94.6%,95.5% 97.9%,90.9% 91.6%,86.4% 93.6%,81.8% 93.1%,77.3% 93.8%,72.7% 97.4%,68.2% 98.6%,63.6% 100.0%,59.1% 100.0%,54.5% 93.5%,50.0% 95.1%,45.5% 97.0%,40.9% 95.5%,36.4% 96.8%,31.8% 95.7%,27.3% 98.6%,22.7% 95.0%,18.2% 95.2%,13.6% 91.3%,9.1% 93.2%,4.5% 92.7%,0.0% 91.5%,2.1% 78.0%,0.9% 55.0%,1.9% 30.0%)}
-.tour-card:hover .tour-go{background:var(--ink)!important;color:var(--paper)!important}
-.tour-art{position:relative;flex:0 0 auto;display:block;width:clamp(120px,12vw,160px);height:clamp(84px,8vw,104px);pointer-events:none}
-.tour-art > img:first-child{position:absolute;left:0;right:0;top:50%;height:clamp(130px,13vw,170px);width:100%;object-fit:contain;translate:0 -50%;
-  transition:rotate .5s cubic-bezier(.2,.8,.2,1),scale .5s cubic-bezier(.2,.8,.2,1)}
-.tour-card:hover .tour-art > img:first-child{rotate:-4deg;scale:1.05}
-.tour-dood{position:absolute;width:clamp(34px,3.4vw,46px);height:auto;right:-8%;top:calc(-1 * clamp(22px,2.6vw,34px));rotate:12deg}
-.tq-slide:nth-child(2) .tour-dood{top:auto;right:auto;left:-14%;bottom:calc(-1 * clamp(14px,1.6vw,22px));rotate:-10deg}
-.tq-slide:nth-child(3) .tour-dood{right:auto;left:-6%;rotate:-6deg}
-.tq-slide:nth-child(4) .tour-dood{right:-10%;top:auto;bottom:calc(-1 * clamp(14px,1.6vw,22px))}
+
+
+
+
+
+
+
+
 @media(min-width:701px){
   /* arrows at the strip's ends, as on Chani; the dots stay underneath */
-  .tour-car .tq-btn{position:absolute;top:50%;translate:0 -70%;font-size:34px;z-index:2}
-  .tour-car .tq-btn.prev{left:calc(-1 * min(var(--pad),56px))} .tour-car .tq-btn.next{right:calc(-1 * min(var(--pad),56px))}
-  .tour-car .tq-foot{justify-content:center;margin-top:-14px!important}
+  
+  
+  
 }
 @media(max-width:700px){
-  .tour-card{flex-wrap:wrap;row-gap:8px;padding:12px 4px!important}
-  .tour-txt{flex:1 1 calc(100% - 110px);flex-wrap:wrap}
-  .tour-d{flex-basis:100%}
-  .tour-art{order:2;width:90px;height:64px}
-  .tour-art > img:first-child{height:96px}
+  
+  
+  
+  
+  
   .tour-go{order:3}
-  .tour-dood{display:none}
+  
 }
-.tour-txt{gap:var(--s1) var(--s4)}
-.tour-d{max-width:44ch;font-size:14.5px}
+
+
 .tour-go{font-size:12px!important;padding:11px 22px 9px!important}
-.tour-dood{width:clamp(44px,4.4vw,60px)}
-@media(min-width:701px){ .tour-car .tq-foot{margin-top:-8px!important} .tour-art{width:clamp(140px,14vw,180px)} .tour-art > img:first-child{height:clamp(140px,14vw,184px)} }
+
 
 /* "See your sky" hugs its text (19 Oct) */
 body.flow .night-inner{padding-top:clamp(28px,3.2vw,40px);padding-bottom:clamp(28px,3.2vw,40px);gap:10px var(--s4)}
@@ -1118,35 +1024,27 @@ body.flow .night-inner .night-sub{margin:0}
 .pan-paper .pan-t em{padding:0 .08em;background:linear-gradient(transparent 55%,#d9cdf2 55%,#d9cdf2 90%,transparent 90%)}
 .pan:focus-visible{outline:2px solid var(--lilac);outline-offset:4px}
 .pan-art{position:absolute;z-index:2;height:auto;pointer-events:none}
-.pa-bow{width:clamp(110px,12vw,170px);left:calc(-1 * clamp(26px,3vw,44px));top:calc(clamp(56px,6vw,80px) - clamp(70px,7.4vw,104px));rotate:-14deg}
-.pa-plane{width:clamp(64px,6.4vw,92px);left:clamp(90px,14vw,220px);top:calc(50% - clamp(30px,3.2vw,44px));rotate:-6deg}
-.pa-swirls{width:clamp(40px,4vw,56px);left:calc(clamp(90px,14vw,220px) + clamp(80px,8vw,116px));top:calc(50% - clamp(36px,3.8vw,52px));opacity:.9}
-.pa-armillary{width:clamp(96px,9vw,132px);right:clamp(-20px,-1.4vw,-10px);bottom:clamp(-26px,-2vw,-12px);rotate:8deg;z-index:0}
-.pa-glitter{width:clamp(30px,3vw,42px);right:clamp(120px,14vw,200px);top:calc(50% - clamp(22px,2.4vw,32px))}
-@media(max-width:700px){
-  .pa-bow{width:96px;top:-20px;left:-24px} .pa-plane{width:56px;left:auto;right:28%} .pa-swirls{display:none}
-  .pa-armillary{width:84px} .pa-glitter{right:auto;left:18%}
-}
+
+
+
+
+
 
 /* Handwriting ink is the brand's dark purple (19 Oct); on dark bands it stays the light cream */
 body.flow{--pen:#2b2927}   /* Bri, 31 Oct: handwriting in charcoal (was purple #4f3a8c) */
 .pan-paper{box-shadow:none;border-width:2px}
 /* the lace bow is tied onto the left end of the black banner; the armillary peeks out from behind the paper one */
-.pa-bow{width:clamp(120px,12vw,170px);left:calc(-1 * clamp(18px,2vw,30px));top:calc(clamp(56px,6vw,80px) - clamp(34px,3.4vw,48px));rotate:-10deg;z-index:3}
-.pa-plane{top:calc(50% - clamp(26px,2.8vw,40px));left:clamp(150px,18vw,280px)}
-.pa-swirls{left:calc(clamp(150px,18vw,280px) + clamp(84px,8vw,118px))}
-.pa-armillary{right:clamp(16px,4vw,70px);bottom:clamp(0px,1vw,16px);rotate:6deg;z-index:0}
-@media(max-width:700px){ .pa-bow{width:92px;top:30px;left:-14px} .pa-plane{left:auto;right:22%} .pa-armillary{width:78px;bottom:4px} }
+
+
+
+
 /* replacement edge pieces (19 Oct, fewer repeats) */
-.bleed.sticker-fly{--bw:clamp(110px,11vw,160px);--out:.3;rotate:-12deg}
+
 .bleed.ink-bow{--bw:clamp(100px,10vw,140px);--out:.28}
-@media(max-width:700px){ .bleed.sticker-fly{--bw:84px;--out:.4} .bleed.ink-bow{--bw:80px;--out:.4} }
+@media(max-width:700px){ .bleed.ink-bow{--bw:80px;--out:.4} }
 /* home testimonials: the ink lace butterfly hangs off the left edge below the title, never over it */
-.bleed.lacey.fly.words-fly{--bw:clamp(120px,12vw,170px);--out:.42;margin-top:0;rotate:-8deg}
-@media(max-width:1180px){ .bleed.lacey.fly.words-fly{--out:.55} }
-@media(max-width:700px){ .bleed.lacey.fly.words-fly{--bw:90px;--out:.5} }
-.bleed.lacey.fly.words-fly{top:clamp(210px,19vw,250px)}
-@media(max-width:860px){ .bleed.lacey.fly.words-fly{display:none} }
+
+
 /* the hand-over-chart stamp moved to the top carousel, so the testimonials no longer keep room for it */
 body.flow .words{padding-bottom:var(--sec)!important}
 
@@ -1160,27 +1058,20 @@ body.flow .words{padding-bottom:var(--sec)!important}
 .pan-dash{font-size:clamp(18px,1.9vw,24px)}
 .pans{gap:clamp(56px,6.4vw,88px)}
 /* the ink lace butterfly sits where the bow was, on the black banner's left end */
-.pa-fly{width:clamp(110px,11vw,160px);left:calc(-1 * clamp(14px,1.6vw,26px));top:calc(clamp(56px,6vw,80px) - clamp(40px,4vw,56px));rotate:-12deg;z-index:3}
+
 /* the paper star sticker: bigger, further right, overlapping the black banner's lower edge */
-.pa-glitter{width:clamp(70px,7vw,100px);right:clamp(40px,7vw,120px);left:auto;top:calc(clamp(56px,6vw,80px) + clamp(18px,2vw,28px));rotate:-8deg;z-index:3}
+
 /* the armillary is big enough to read, still tucked behind the paper banner */
-.pa-armillary{width:clamp(150px,14vw,200px);bottom:calc(-1 * clamp(10px,1.4vw,22px))}
+
 .pans{padding-bottom:clamp(96px,10vw,140px)}
-@media(max-width:700px){
-  .pa-fly{width:88px;top:30px;left:-12px}
-  .pa-glitter{width:58px;right:18px;top:calc(56px + 22px)}
-  .pa-armillary{width:110px}
-}
 /* top strip: the black doodled stars on This Season, bigger */
-.tq-slide:nth-child(3) .tour-dood{width:clamp(66px,6.6vw,90px);top:calc(-1 * clamp(30px,3.4vw,46px));left:-14%}
+
 /* Readings, "Choose your reading": the curved arrows ~12% smaller and about 2 cm further in from the edge */
 .bleed.r.arrows{--bw:clamp(105px,13vw,200px);margin-right:clamp(40px,5.6vw,76px)}
 @media(max-width:700px){ .bleed.r.arrows{--bw:76px;margin-right:12px} }
 /* This Season: the blue star on the date column's rule, bigger and higher up the line */
-.kick > .on-vline.k{width:46px;right:-24px;bottom:34px}
-.pa-fly{width:clamp(130px,13vw,180px);top:calc(clamp(56px,6vw,80px) - clamp(22px,2.4vw,34px));left:calc(-1 * clamp(20px,2.2vw,34px));rotate:-16deg}
-@media(max-width:700px){ .pa-fly{width:96px;top:40px;left:-16px} }
-@media(max-width:700px){ .pa-glitter{top:calc(56px + 36px);right:10px} }
+
+
 /* cursor: Bri's pixel arrow (19 Oct), at a normal cursor size, tip on the pointer */
 .cursor-dot img{position:absolute;left:-1px;top:-1px;width:20px;height:27px;max-width:none;display:block}
 body.cur-hover .cursor-dot img{transform:scale(.9);transform-origin:0 0}
@@ -1189,27 +1080,20 @@ body.cur-hover .cursor-dot img{transform:scale(.9);transform-origin:0 0}
 /* "Your rising is your story." with room to breathe before the intro, which runs wider (about three lines on desktop) */
 #by-rising{position:relative}
 #by-rising .byline{margin-bottom:0}
-body.flow .rising-intro{max-width:min(92ch,100%);margin:var(--s4) auto var(--s4);padding:0 var(--pad);font-size:15px;line-height:1.7}
+
 /* Bri's black star trail, on the right, well clear of the title */
 .rise-stars{position:absolute;z-index:0;pointer-events:none;width:clamp(64px,7vw,104px);height:auto;right:max(12px,calc(50% - var(--banner) / 2 - clamp(10px,2vw,40px)));top:calc(-1 * clamp(10px,1.6vw,26px));rotate:6deg}
 @media(max-width:700px){ .rise-stars{width:54px;right:10px;top:-14px} }
 /* "The story": a newspaper spread like the top of the page: title on the left, a rule, then the text in columns on the right */
 @media(min-width:761px){
   body.flow .full-story{display:grid;grid-template-columns:minmax(200px,.36fr) minmax(0,1fr);gap:0 var(--s4);align-items:start}
-  body.flow .full-story > .fs-body{grid-column:2;grid-row:1/3;border-left:1px solid var(--ink);padding-left:var(--s4)}
-  body.flow .full-story .fs-body > p{max-width:none}
-}
-@media(min-width:1000px){
-  body.flow .full-story > .fs-body{columns:2;column-gap:var(--s4);column-rule:1px solid rgba(22,19,16,.25)}
-  body.flow .full-story .fs-body > *{break-inside:avoid-column}
-  body.flow .full-story .fs-body > .sub-h{break-after:avoid-column}
-  body.flow .full-story .fs-body > p:first-child{margin-top:0}
+  
+  
 }
 /* banners: the globe is gone; the paper star sticker now sits on the paper banner's top edge, right side */
-.pa-armillary{display:none}
+
 .pans{padding-bottom:clamp(64px,7vw,96px)}
-.pa-glitter{top:auto;bottom:calc(clamp(64px,7vw,96px) + clamp(22px,2.4vw,34px));right:clamp(30px,6vw,110px);rotate:9deg}
-@media(max-width:700px){ .pa-glitter{top:auto;bottom:calc(64px + 30px);right:12px} }
+
 @media(max-width:700px){ .rise-stars{width:40px;right:4px;top:-46px} }
 
 /* =====================================================================================
@@ -1217,33 +1101,25 @@ body.flow .rising-intro{max-width:min(92ch,100%);margin:var(--s4) auto var(--s4)
    "How a reading can help": four light cards with torn-strip titles, then a pull line and the way to book.
    ===================================================================================== */
 body.flow .help{padding:var(--sec) var(--pad) var(--sec);isolation:isolate}
-.help-sub{max-width:52ch;margin:var(--s2) auto 0;font-size:15px;line-height:1.65;color:var(--ink-2)}
-.help-grid{position:relative;max-width:var(--banner);margin:var(--s4) auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(var(--s4) + 8px) var(--s4)}
-.help-card{position:relative;background:#fffdf8;border:2px solid var(--ink);box-shadow:9px 9px 0 var(--ink);padding:var(--s3) var(--s4) var(--s4);text-align:left;
-  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
-.help-card:nth-child(2){transform:translateY(var(--s3))}
-.help-card:nth-child(4){transform:translateY(var(--s3))}
-.help-card .torn{margin:calc(-1 * var(--s3) - 22px) 0 var(--s2) calc(-1 * var(--s4) - 12px)}
-.help-card p{font-size:15px;line-height:1.7;color:var(--ink-2);margin:0;max-width:56ch}
-.help-card:hover{box-shadow:11px 11px 0 var(--ink),0 28px 44px -22px rgba(22,19,16,.5)}
-.help-end{max-width:var(--banner);margin:calc(var(--s4) * 1.6) auto 0;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:var(--s4);align-items:center}
-.help-pull{margin:0;text-align:left}
-.help-pull .pull-q{max-width:none!important}
-.help-pull .pq-1,.help-pull .pq-2{display:block}
-.help-pull-t{font-size:15px;line-height:1.7;color:var(--ink-2);margin:var(--s2) 0 0;max-width:58ch}
-.help-go{display:flex;flex-direction:column;align-items:center;gap:var(--s2);margin:0}
-.help-go .hand{font-size:clamp(22px,2.4vw,28px);color:var(--pen);margin:0}
-body.flow .help-go .cta{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:5px 5px 0 var(--coral)}
-body.flow .help-go .cta:hover{box-shadow:2px 2px 0 var(--coral)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .book-back{margin-top:var(--s4)}
-@media(max-width:760px){
-  .help-grid{grid-template-columns:1fr;gap:calc(var(--s4) + 4px)}
-  .help-card:nth-child(2),.help-card:nth-child(4){transform:none}
-  .help-card{padding:var(--s3) var(--s3) var(--s3)}
-  .help-card .torn{margin-left:calc(-1 * var(--s3) - 8px)}
-  .help-end{grid-template-columns:1fr}
-}
-.help-pull .pull-q{font-size:clamp(30px,9cqi,48px)!important}
+
 @media(max-width:700px){ .help .bleed.r.arrows{display:none} }
    MOON CANDLES SHOP (Bri, 27 Oct 2026). /candles/ un-shelved as a shop: the tin lids are the product pictures,
    light paper cards (pastel fills were rejected), black outlines and hard black shadows. Page copy and stock come
@@ -1308,9 +1184,8 @@ body.flow .help-go .cta:hover{box-shadow:2px 2px 0 var(--coral)}
    corkboard: Bri's notes and supplies on cork, black outline and the hard black shadow. */
 body.flow .np{padding:calc(var(--sec) * .6 + var(--lace-h) * .4) var(--pad) var(--sec);isolation:isolate}
 .np-page{max-width:var(--banner);margin:0 auto;text-align:left}
-.np-folio{display:flex;justify-content:space-between;gap:var(--s2);flex-wrap:wrap;margin:0 0 var(--s3);padding:9px 0 8px;
-  border-top:3px solid var(--ink);border-bottom:3px double var(--ink);font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
-.np-folio b{color:var(--coral);font-weight:400;margin:0 .6em}
+
+
 .np-lead{position:relative;text-align:center;padding:var(--s2) 0 var(--s3);border-bottom:1px solid var(--ink);margin:0 0 var(--s3)}
 /* the dek takes exactly the headline's width (Bri: as wide as the title above it) */
 .np-lead-in{display:inline-block;max-width:100%;vertical-align:top}
@@ -1359,7 +1234,7 @@ body.flow .np{padding:calc(var(--sec) * .6 + var(--lace-h) * .4) var(--pad) var(
   .np-top > .np-story + .np-story::before,.np-row > .np-story + .np-story::before{display:none}
   .np-row > .np-story:nth-child(3){margin-top:var(--s3)}
 }
-@media(max-width:560px){ .np-cols{columns:1} .np-folio span:last-child{display:none} }
+@media(max-width:560px){ .np-cols{columns:1} }
 
 /* ---- silver stars, scattered (Bri, 28 Oct): Bri's chrome stars in open space only. Each turns gently as it travels
    up the screen (ophi.base.js sets --spin); no growing. ---- */
@@ -1492,9 +1367,8 @@ body.flow .cb-tagcard .cta:hover{box-shadow:2px 2px 0 var(--coral)}
 .pan-star{font-size:clamp(12px,1.2vw,15px)}
 .pans{gap:clamp(14px,1.6vw,22px)}
 /* the star sticker sits at the right end, between the two banners, half off the page */
-.pa-glitter{width:clamp(48px,4.6vw,66px);right:clamp(-22px,-1.4vw,-12px);bottom:calc(clamp(64px,7vw,96px) + clamp(10px,1.4vw,22px))}
-.pa-fly{width:clamp(84px,8vw,118px)}
-@media(max-width:700px){ .pa-glitter{width:46px;bottom:calc(64px + 12px)} .pa-fly{width:72px} }
+
+
 
 /* ===================== 28 Oct 2026: Home in the Make It Make Sense language (Bri) =====================
    Front page: the Welcome lead story beside an "Inside this edition" index, then "Why Ophiuchus?" as the second
@@ -1519,9 +1393,9 @@ body.flow .cb-tagcard .cta:hover{box-shadow:2px 2px 0 var(--coral)}
 .np-index a:hover .ix-go,.np-index a:focus-visible .ix-go{color:var(--coral);border-color:var(--coral)}
 .np-index a:hover .ix-t em{background:linear-gradient(transparent 60%,rgba(154,127,208,.34) 60%)}
 /* Why Ophiuchus as the second story */
-.np-why{position:relative;padding:var(--s4) 0 var(--s3)}
+
 .np-h-big{font-size:clamp(40px,4.6vw,64px);line-height:1;padding-bottom:14px}
-body.flow .np-why .story-flow{border-top:0;padding-top:var(--s2);max-width:none}
+
 .np-home .np-pull{margin-top:var(--s2)}
 /* the stars on the home front page */
 .s-wel{right:6%;top:2%;rotate:16deg}
@@ -1571,9 +1445,9 @@ body.flow .np-why .story-flow{border-top:0;padding-top:var(--s2);max-width:none}
   .s-wel{right:0;top:-6px}
 }
 .np-story .np-hand{font-family:var(--font-hand);color:var(--pen);font-size:clamp(24px,2.5vw,32px);line-height:1.2}
-.np-why .drop::first-letter{font-family:var(--font-title);float:left;font-size:4.4em;line-height:.82;padding:.08em .08em 0 0;color:var(--ink)}
-.np-why .pron{white-space:nowrap}
-.np-why .pron i{display:inline-block;width:.24em;height:.24em;border-radius:50%;background:currentColor;margin:0 .2em;vertical-align:.3em}
+
+
+
 .cw-go .cb-tagcard .cta{white-space:nowrap}
 @media(min-width:601px) and (max-width:640px){ .words-cork .np-help-head .eph.words-stars{left:auto;right:4%;top:-62px;width:46px} }
 
@@ -1777,10 +1651,9 @@ body.flow .cw-go .cb-tagcard .cta{white-space:normal;max-width:100%;box-sizing:b
 /* ===== 28 Oct 2026 (Bri, 22:19): the closing band, the same on every page ===== */
 /* no lace butterfly; the star sticker hovers over the bottom edge of the "See your sky" band, turning, stretching
    and drifting as you scroll to it (data-drift in build.py) */
-.pa-fly{display:none}
+
 .pans{z-index:2}
-.pa-glitter{top:clamp(-74px,-5.4vw,-46px);bottom:auto;right:clamp(28px,7vw,120px);left:auto;width:clamp(58px,5.6vw,84px);z-index:5;transform:rotate(9deg)}
-@media(max-width:700px){ .pa-glitter{top:-40px;bottom:auto;right:16px;width:50px} }
+
 
 /* ===== 28 Oct 2026 (Bri): This Season's rising cards: the subheader in Moms Typewriter, edgier ===== */
 .rising .tagline{font-family:var(--font-button);color:var(--ink);font-size:12.5px;line-height:1.45;letter-spacing:.1em;text-transform:uppercase;margin-top:6px}
@@ -1960,29 +1833,29 @@ body.flow .ts-paper{padding-top:calc(var(--sec) + 60px)}
   filter:drop-shadow(4px 5px 0 rgba(22,19,16,.16));padding:12% 10% 12% 10%}
 .ts-note .k{font-family:var(--font-button);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);display:block;margin:0 0 8px}
 .ts-note .note,.chapter aside .ts-note .note{font-family:var(--font-hand);color:var(--pen);font-size:clamp(23px,2.1vw,29px);line-height:1.22;margin:0;text-wrap:pretty}
-.ts-note.p-grid{background-image:url(/assets/journal/paper-grid.webp);padding:11% 9% 17% 15%}
-.ts-note.p-note{background-image:url(/assets/journal/paper-note.webp);padding:10% 11% 15% 9%}
-.ts-note.p-dot{background-image:url(/assets/journal/paper-dot.webp);padding:11% 11% 11% 10%}
-.ts-note.p-clip{background-image:url(/assets/journal/paper-clip.webp);padding:15% 11% 13% 10%}
-.ts-note.p-crumple{background-image:url(/assets/journal/paper.webp);padding:11% 11% 12% 10%}
-.ts-note.p-lilac{background-image:url(/assets/journal/paper-lilac.webp);padding:12% 12% 13% 11%}
+
+
+
+
+
+
 .ts-note .acc{position:absolute;z-index:2;pointer-events:none;height:auto}
-.ts-note.a-clip-silver .acc{width:62px;left:50%;top:-30px;translate:-50% 0}
-.ts-note.a-binder-gold .acc{width:46px;left:50%;top:-36px;translate:-50% 0}
-.ts-note.a-peg .acc{width:30px;left:18%;top:-34px;rotate:-8deg}
-.ts-note.a-tape-pink .acc,.ts-note.a-tape-rose .acc{width:84px;left:-14px;top:-16px;rotate:-24deg}
-.ts-note.a-tape-kraft .acc{width:32px;right:18%;top:-26px;rotate:12deg}
-.ts-note.a-pin-red .acc,.ts-note.a-pin-teal .acc,.ts-note.a-pin-pink .acc{width:28px;left:46%;top:-14px}
-.ts-note.a-safety-gold .acc{width:58px;right:-8px;top:-14px;rotate:30deg}
-.ts-note.a-paperclip-red .acc{width:26px;left:14%;top:-18px;rotate:-6deg}
+
+
+
+
+
+
+
+
 .chapter aside.has-note .close{align-self:flex-start}
 @media(max-width:700px){ .chapter aside.has-note{border-top:1px solid rgba(22,19,16,.35);padding-top:16px} .ts-note{max-width:420px} }
-.ts-note.p-grid{padding:13% 9% 18% 20%}
-.ts-note.p-note{padding:10% 12% 22% 14%}
-.ts-note.p-lilac{background-image:url(/assets/journal/lilac-torn.webp);padding:13% 12% 14% 11%}
-.ts-note.p-lilac .note{color:var(--ink)}
-.ts-note.a-paperclip-red .acc{width:30px;left:14%;top:-12px}
-.ts-note.a-pin-black .acc{width:28px;left:46%;top:-14px}
+
+
+
+
+
+
 /* Bri, 31 Oct (later): the takeaway sits on one of her clipboards / notepads (supersedes the plain papers above).
    Body font first for legibility, the handwriting only as an accent; ?notes=hand shows the handwriting version. */
 .chapter aside.has-note .ts-note{position:relative;width:100%;max-width:420px;margin:4px 0 8px;padding:0;rotate:none;filter:none;
@@ -1990,7 +1863,7 @@ body.flow .ts-paper{padding-top:calc(var(--sec) + 60px)}
 .ts-note-in{position:absolute;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
 .ts-note-in .k{font-family:var(--font-button);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin:0 0 6px}
 .chapter aside .ts-note-in .note{font-family:var(--font-body);color:var(--ink);font-size:15px;line-height:1.45;margin:0;text-wrap:pretty}
-html.notes-hand .chapter aside .ts-note-in .note{font-family:var(--font-hand);color:var(--pen);line-height:1.18}
+
 .ts-note .acc{display:none}
 /* phones: the notepad runs edge to edge of the open card so the words have room */
 @media(max-width:700px){ .chapter aside.has-note .ts-note{width:calc(100% + 44px);max-width:none;margin-left:-22px} }

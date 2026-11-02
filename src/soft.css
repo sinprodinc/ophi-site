@@ -3,9 +3,7 @@
      THE SOFTER EDITION (approved 14 Oct 2026)
      Loud masthead, quiet pages. Loaded after the base styles and overrides them.
      ===================================================================================== */
-  /* Handwriting: Cedarville Cursive site-wide (Bri, 23 Oct; replaces Ophi Script) */@font-face{font-family:'Ophi Hand';font-display:swap;src:url(fonts/hand/cedarville.woff2) format('woff2')}
-  /* The handwriting font. Cedarville Cursive (free, OFL) stands in until Bri has the Biro Script web licence;
-     to switch, drop biro-script.woff2 into assets/fonts and change the src above. */
+  /* Handwriting: Cedarville Cursive site-wide (Bri, 23 Oct), charcoal (31 Oct). An accent, never body copy. */@font-face{font-family:'Ophi Hand';font-display:swap;src:url(fonts/hand/cedarville.woff2) format('woff2')}
   :root{
     --bone:#f8f5ef;
     --blush:#efd3cc; --sage:#d6dcc7; --butter:#f2e5b8; --powder:#d2dde6;
@@ -24,7 +22,7 @@
   .hand{font-family:var(--font-hand);color:var(--pen);font-weight:400;letter-spacing:0}
 
   /* ---------- lighter chrome ---------- */
-  .why,.feat,.hiw,.price,.season-sec{border-top:1px solid var(--ink)}
+  .why,.price,.season-sec{border-top:1px solid var(--ink)}
   .byline{border-bottom-width:1px}
   .sec-head{margin-bottom:clamp(30px,4.5vh,46px)}
   /* section titles at about half the masthead size; the masthead keeps the big one */
@@ -81,27 +79,27 @@
 
   /* ---------- testimonials: pastel notes with washi tape ---------- */
   .tq .paper{background:var(--blush);border:0;box-shadow:var(--soft-shadow)!important;padding:34px 34px 24px}
-  .tq-1 .paper{padding:36px 40px 26px}
-  .tq-2 .paper{background:var(--powder)} .tq-3 .paper{background:var(--butter)}
+  
+  
   .tq .tape{background:rgba(214,220,199,.88)!important;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.4) 0 6px,transparent 6px 12px)!important}
-  .tq-mark{display:none}
-  .tq-pull{font-family:var(--font-hand);color:var(--pen);font-size:clamp(28px,3.4vw,40px);line-height:1.05;margin:0 0 16px;column-span:all}
+  
+  
   .tq blockquote{font-size:13.5px;color:var(--ink-2)}
   .tq figcaption{border-top:1px dashed rgba(22,19,16,.4);padding-top:10px;flex-direction:row;justify-content:space-between;align-items:baseline}
-  .tq-name{font-size:24px}
-  .tq-doodle{font-family:var(--font-hand);font-style:normal;color:var(--pen);font-size:24px}
+  
+  
   .tq-carousel.single .tq-nav{display:none}
   .tq-btn{background:var(--bone);box-shadow:3px 3px 0 var(--ink)}
 
   /* ---------- readings: ticket stubs ---------- */
-  .tickets{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:clamp(22px,2.6vw,34px);align-items:start;max-width:1180px;margin:0 auto;text-align:left}
+  
   .tk{position:relative;padding:24px 26px 0;border:1px solid var(--hair);box-shadow:var(--soft-shadow);background:var(--butter)}
   .tk::before{content:"";position:absolute;inset:10px;border:1px dashed rgba(22,19,16,.32);pointer-events:none}
   .tk.t1{transform:rotate(-.8deg)} .tk.t2{background:var(--blush);transform:rotate(1deg);margin-top:28px} .tk.t3{background:var(--sage);transform:rotate(-.5deg);margin-top:10px}
-  .tk-no{display:flex;justify-content:space-between;gap:10px;font-family:var(--font-button);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid rgba(22,19,16,.4)}
+  
   .tk h3{font-family:var(--font-title);font-weight:400;font-size:clamp(34px,3.4vw,44px);line-height:1;margin:18px 0 6px;color:var(--ink)}
   .tk h3 em{font-style:italic}
-  .tk .hand-note{position:absolute;right:26px;top:62px;font-family:var(--font-hand);color:var(--pen);font-size:26px;transform:rotate(-6deg)}
+  
   .tk .price-amount{justify-content:flex-start;margin:6px 0 4px}
   .tk .price-amount .val{font-size:clamp(52px,5.4vw,66px)}
   .tk .price-amount .cur,.tk .price-amount .cents{font-size:22px;margin-top:8px}
@@ -120,30 +118,30 @@
   .tk.t1 .book{background:var(--coral);color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
   .tk.t1 .book:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
   .tk .book:focus-visible{outline:2px solid var(--lilac);outline-offset:3px}
-  .tickets .relic{z-index:-1}
+  
   .tk.t1 > .r-pegasus{display:block;--w:clamp(92px,10vw,140px);--tilt:-6deg;left:-6%;top:calc(var(--w) * -.92)}
   .tk.t2 > .r-hourglass{display:block;--w:clamp(80px,8vw,112px);--tilt:8deg;right:6%;top:calc(var(--w) * -.6)}
   .tk.t3 > .r-potion{display:block;--w:clamp(60px,6vw,84px);--tilt:-10deg;right:8%;top:calc(var(--w) * -1)}
-  .tk-foot{max-width:1180px;margin:clamp(40px,6vh,60px) auto 0;padding-top:16px;border-top:3px double var(--ink);display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,48px);text-align:left}
-  .tk-foot .k{display:block;font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
-  .tk-foot p{font-size:13px;line-height:1.6;color:var(--ink-2)}
+  
+  
+  
   .price .headline{margin-bottom:clamp(64px,9vh,96px)}
   @media(max-width:980px){
-    .tickets{grid-template-columns:1fr;max-width:560px;row-gap:clamp(70px,10vw,96px)}
+    
     .tk.t2,.tk.t3{margin-top:0}
-    .tk-foot{grid-template-columns:1fr}
+    
   }
-  @media(max-width:479px){ .tk{padding:22px 20px 0} .tk .stub{margin:18px -20px 0;padding:12px 20px 14px} .tk .hand-note{right:18px;top:58px;font-size:22px} }
+  @media(max-width:479px){ .tk{padding:22px 20px 0} .tk .stub{margin:18px -20px 0;padding:12px 20px 14px} }
 
   /* ---------- the closing band ---------- */
   .cta-final .hand-line{margin:6px 0 22px}
 
   /* ---------- This Season ---------- */
   .season{padding-top:calc(clamp(48px,7vh,90px) + var(--lace-h) * .4)}
-  .season-now{border:1px solid var(--ink);box-shadow:var(--soft-shadow);background:var(--bone)}
-  .season-now .summary{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:16px 0 4px;padding:12px 0;border-top:1px solid rgba(22,19,16,.25);border-bottom:1px solid rgba(22,19,16,.25);font-size:13.5px;line-height:1.5}
-  .season-now .summary dt{font-family:var(--font-button);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding-top:3px}
-  .season-now .summary dd{color:var(--ink-2)}
+  
+  
+  
+  
   .rising-grid{gap:20px}
   .rising{display:block;min-height:0;padding:0;border:0;box-shadow:var(--soft-shadow)!important;cursor:pointer;transition:transform .2s}
   .rising:nth-child(odd){transform:rotate(-.6deg)} .rising:nth-child(even){transform:rotate(.6deg)}
@@ -202,7 +200,7 @@
   .find-moon a{font-family:var(--font-button);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);border-bottom:1.5px solid var(--ink);padding-bottom:3px;text-decoration:none}
   .find-moon a:hover{color:var(--coral);border-color:var(--coral)}
   .rituals{position:relative;padding:clamp(56px,8vh,104px) var(--pad);border-top:1px solid var(--ink)}
-  .ritual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,40px);max-width:1084px;margin:0 auto}
+  
   .ritual{position:relative;background:var(--bone);border:1px solid var(--ink);padding:clamp(20px,3vw,32px)}
   .ritual::after{content:"";position:absolute;left:0;top:0;bottom:0;width:6px}
   .ritual.fire::after{background:var(--blush)} .ritual.earth::after{background:var(--sage)} .ritual.air::after{background:var(--butter)} .ritual.water::after{background:var(--powder)}
@@ -216,7 +214,6 @@
   .care{max-width:1084px;margin:clamp(34px,5vh,50px) auto 0;padding:18px 20px;background:var(--butter);border-left:3px solid var(--coral);font-size:13px;line-height:1.6}
   .care .k{display:block;font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
   @media(max-width:1100px){ .candle-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
-  @media(max-width:700px){ .ritual-grid{grid-template-columns:1fr} }
   @media(max-width:520px){ .candle-grid{grid-template-columns:1fr;max-width:420px} }
 
   /* =====================================================================================
@@ -226,24 +223,23 @@
      ===================================================================================== */
   .eph{position:absolute;pointer-events:none;user-select:none;height:auto;z-index:2}
   .eph.faint{opacity:.16;z-index:0}
-  .eph.wide-only{display:none}
-  @media(min-width:1100px){ .eph.wide-only{display:block} }
+  
 
   /* testimonials: real tape and a pin replace the drawn tape */
   .tq .tape{display:none}
-  .tq .eph.tq-tape-a{width:150px;left:8%;top:-22px;transform:rotate(-6deg)}
-  .tq .eph.tq-tape-b{width:130px;right:6%;bottom:-20px;transform:rotate(4deg)}
-  .tq-sec .eph.tq-stars{width:clamp(70px,8vw,110px);right:calc(50% - min(46vw,560px));top:clamp(40px,6vh,70px)}
+  
+  
+  
 
   /* tickets: clipped, sealed and taped */
   .tk .eph.binder{width:96px;left:50%;top:-34px;margin-left:-48px;z-index:3}
-  .tk .eph.seal{width:78px;right:-34px;top:132px;transform:rotate(-12deg);z-index:3}
+  
   .tk .eph.clip{width:30px;left:-12px;top:34px;transform:rotate(-14deg);z-index:3}
-  .tk .eph.tapex{width:96px;left:-22px;top:-14px;transform:rotate(-24deg);z-index:3}
+  
 
   /* This Season */
-  .season .eph.doily-bg{opacity:.09;width:min(300px,34vw);left:calc(50% - 470px);top:calc(var(--sw,120px) * .6 + 120px);transform:rotate(-8deg)}
-  .season-now .eph.pin{width:34px;left:50%;top:-20px;margin-left:-17px;z-index:3}
+  
+  
   .rising .eph.pin{width:22px;left:50%;top:-13px;margin-left:-11px;z-index:3;transition:transform .2s}
   .rising:hover .eph.pin{transform:translateY(-2px) rotate(-6deg)}
   .rising.open .eph.pin{display:none}
@@ -252,16 +248,16 @@
   /* Candles & Rituals */
   .candle .eph.pin{width:30px;left:50%;top:-18px;margin-left:-15px;z-index:3}
   .candles .eph.flower{width:clamp(80px,8vw,116px);right:calc(50% - min(47vw,600px));top:clamp(30px,5vh,60px);transform:rotate(10deg)}
-  .rituals .eph.swan{width:clamp(110px,11vw,160px);right:calc(50% - min(48vw,620px));top:clamp(20px,4vh,50px)}
-  .rituals .eph.seal{width:70px;left:calc(50% - min(46vw,590px));top:clamp(50px,7vh,90px);transform:rotate(-14deg)}
+  
+  
   .care{position:relative}
   .care .eph.tape{width:96px;left:-46px;top:-24px;transform:rotate(-14deg)}
 
   /* faint lace in the margins */
   .why .eph.lace-bow{width:clamp(150px,13vw,220px);left:-30px;top:clamp(30px,5vh,60px);transform:rotate(-10deg)}
-  .price .eph.lace-fly{width:clamp(120px,10vw,170px);right:2vw;top:clamp(40px,6vh,80px);transform:rotate(12deg)}
-  .lace-rule{display:block;height:28px;max-width:1240px;margin:0 auto;background:url(eph/lace-trim-ink.webp) center/auto 100% repeat-x;opacity:.22}
-  .price,.season,.season-sec,.candles,.rituals,.tq-sec{overflow-x:clip}
+  
+  
+  .price,.season,.season-sec,.candles,.rituals{overflow-x:clip}
 
   /* =====================================================================================
      ROUND 3 (14 Oct): one card language everywhere, a shorter home masthead,
@@ -278,32 +274,24 @@
 
   /* ---------- Why Ophiuchus: a two-column article, the plate set into the right column ---------- */
   .story{position:relative;padding:calc(clamp(48px,7vh,88px) + var(--lace-h) * .4) var(--pad) clamp(56px,8vh,96px)}
-  .story-cols{max-width:var(--banner);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(26px,3.6vw,48px);
-    padding-top:4px;text-align:left;position:relative}
-  .story-cols::before{content:"";position:absolute;left:50%;top:4px;bottom:0;border-left:1px solid rgba(22,19,16,.3)}
-  .story-col p{font-size:15px;line-height:1.7;color:var(--ink);margin:0 0 .8em;hyphens:manual;text-wrap:pretty}
+  
+  
+  
   .story .pron{white-space:nowrap}
   .story .pron i{display:inline-block;width:.24em;height:.24em;border-radius:50%;background:currentColor;margin:0 .2em;vertical-align:.3em}
   .story .drop::first-letter{font-family:var(--font-title);float:left;font-size:4.4em;line-height:.82;padding:.08em .08em 0 0;color:var(--ink)}
-  .story-fig{float:right;width:min(50%,280px);margin:5px 0 12px 20px;border:2px solid var(--ink);background:var(--ink);
-    box-shadow:6px 6px 0 var(--lilac),0 18px 34px -22px rgba(22,19,16,.55)}
-  .story-fig img{display:block;width:100%;height:auto}
-  .story-fig figcaption{background:var(--paper);border-top:2px solid var(--ink);padding:7px 9px 6px;font-family:var(--font-button);font-size:9.5px;
-    letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
-  .story-fig figcaption b{color:var(--coral);font-weight:400;margin:0 .5em}
-  @media(max-width:760px){
-    .story-cols{grid-template-columns:1fr}
-    .story-cols::before{display:none}
-    .story-fig{width:min(50%,240px);margin-left:16px}
-  }
+  
+  
+  
+  
 
   /* ---------- one card language: paper, a 2px ink edge, a hard offset shadow, a soft lift behind it.
                  On hover the card rises toward you a little. Pastel tints stay on the real objects only (pins, tape). ---------- */
   :root{--lift:0 20px 36px -22px rgba(22,19,16,.5)}
-  .price-card,.tq .paper,.rising,.season-now,.candle,.ritual{
+  .price-card,.tq .paper,.rising,.candle,.ritual{
     transition:translate .22s cubic-bezier(.2,.8,.2,1),scale .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease}
   @media(hover:hover) and (prefers-reduced-motion:no-preference){
-    .price-card:hover,.tq .paper:hover,.rising:not(.open):hover,.season-now:hover,.candle:hover,.ritual:hover{translate:-3px -4px;scale:1.015}
+    .price-card:hover,.tq .paper:hover,.rising:not(.open):hover,.candle:hover,.ritual:hover{translate:-3px -4px;scale:1.015}
   }
   .price-card{box-shadow:9px 9px 0 var(--lilac),var(--lift)}
   .price-card.rd-card{box-shadow:7px 7px 0 var(--ink),var(--lift)}
@@ -312,12 +300,12 @@
 
   /* testimonial: the same outlined note as the reading cards */
   .tq .paper{background:var(--paper)!important;border:2px solid var(--ink)!important;box-shadow:8px 8px 0 var(--lilac),var(--lift)!important}
-  .tq-2 .paper{box-shadow:8px 8px 0 var(--coral),var(--lift)!important}
-  .tq-3 .paper{box-shadow:8px 8px 0 var(--ink),var(--lift)!important}
+  
+  
   .tq .paper:hover{box-shadow:11px 11px 0 var(--lilac),0 28px 44px -22px rgba(22,19,16,.5)!important}
 
   /* This Season: post card and rising cards in the same boxes as the chart page and the readings */
-  .season-now{border:2px solid var(--ink);background:var(--paper);box-shadow:8px 8px 0 var(--lilac),var(--lift)}
+  
   .rising,.rising.fire,.rising.earth,.rising.air,.rising.water{background:var(--paper);border:2px solid var(--ink)}
   .rising{box-shadow:6px 6px 0 var(--ink),var(--lift)!important}
   .rising:nth-child(3n+2){box-shadow:6px 6px 0 var(--lilac),var(--lift)!important}
@@ -346,42 +334,27 @@
   /* Why Ophiuchus: three newspaper columns, each with a small typewriter head.
      Tablet: two columns, the plate floating in the second with text wrapping around it.
      Phone: three short blocks ruled off from each other, the plate between the first and second. */
-  .story-cols{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .story-cols::before{display:none}
-  .story-col{position:relative}
-  .story-col + .story-col::before{content:"";position:absolute;left:calc(clamp(26px,3.6vw,48px) / -2);top:0;bottom:0;border-left:1px solid rgba(22,19,16,.3)}
-  .story-k{font-family:var(--font-button);font-weight:400;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
-    padding:0 0 8px;margin:0 0 14px;border-bottom:1px solid var(--ink)}
-  .story-k b{color:var(--coral);font-weight:400;margin:0 .6em}
-  .story-fig{float:none;width:100%;margin:0 0 20px}
-  @media(max-width:999px) and (min-width:641px){
-    .story-cols{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .story-col:nth-child(3){grid-column:1/-1;margin-top:10px}
-    .story-col:nth-child(3)::before{display:none}
-    .story-col:nth-child(3) .story-k{margin-top:4px}
-    .story-fig{float:right;width:min(56%,240px);margin:0 0 12px 16px}
-  }
-  @media(max-width:640px){
-    .story-cols{grid-template-columns:1fr;gap:0}
-    .story-col + .story-col::before{display:none}
-    .story-col + .story-col{margin-top:18px;padding-top:18px;border-top:3px double var(--ink)}
-    .story-fig{float:none;width:min(100%,360px);margin:0 auto 18px}
-    .story-col p{font-size:14.5px}
-  }
+  
+  
+  
+  
+  
+  
+  
 
   /* Hovering cards: lift by moving the card (top/left), not transform, so the stamps tucked behind it stay behind it.
      Slow and soft. The testimonial and the This Season post don't move. */
   .price-card,.rising,.candle,.ritual{transition:top .45s cubic-bezier(.2,.8,.2,1),left .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease;top:0;left:0}
   @media(hover:hover) and (prefers-reduced-motion:no-preference){
-    .price-card:hover,.tq .paper:hover,.rising:not(.open):hover,.season-now:hover,.candle:hover,.ritual:hover{translate:none;scale:none}
+    .price-card:hover,.tq .paper:hover,.rising:not(.open):hover,.candle:hover,.ritual:hover{translate:none;scale:none}
     .price-card:hover,.rising:not(.open):hover,.candle:hover,.ritual:hover{top:-3px;left:-2px}
   }
   .price-cta:hover{transform:translate(2px,2px)}
 
   /* testimonials: no hover, no extra shadow; coloured paper inside the ink outline */
   .tq .paper,.tq .paper:hover{box-shadow:8px 8px 0 var(--ink)!important;background:var(--blush)!important}
-  .tq-2 .paper,.tq-2 .paper:hover{background:var(--powder)!important;box-shadow:8px 8px 0 var(--ink)!important}
-  .tq-3 .paper,.tq-3 .paper:hover{background:var(--butter)!important;box-shadow:8px 8px 0 var(--ink)!important}
+  
+  
 
   /* element shadows: the hard shadow takes the element's colour (deepened a step so it reads as a shadow) */
   :root{--fire:#e9a597;--earth:#a9b58d;--air:#e2c46a;--water:#93acc6}
@@ -396,21 +369,17 @@
   .ritual::after{display:none}
   .candle.fire,.candle.fire:nth-child(n){box-shadow:7px 7px 0 var(--fire)} .candle.earth,.candle.earth:nth-child(n){box-shadow:7px 7px 0 var(--earth)}
   .candle.air,.candle.air:nth-child(n){box-shadow:7px 7px 0 var(--air)} .candle.water,.candle.water:nth-child(n){box-shadow:7px 7px 0 var(--water)}
-  .season-now,.season-now:hover{box-shadow:8px 8px 0 var(--lilac)}
+  
 
   /* readings on tablet and phone: Quickie and Here To Help stay side by side down to 600px, with tighter padding */
   @media(max-width:820px){
-    .rd-pair{grid-template-columns:1fr 1fr;gap:20px}
-    .rd-pair .price-card{padding:26px 20px}
+    
+    
     .rd-card p:not(.rd-tag){font-size:14px;margin-bottom:20px}
     .rd-card .rd-tag{font-size:18px}
     .rd-card .rd-len{font-size:10.5px}
-    .rd-pair .price-cta{padding:14px 16px;font-size:12.5px}
-  }
-  @media(max-width:599px){
-    .rd-pair{grid-template-columns:1fr;max-width:440px;margin:0 auto}
-    .rd-pair .price-card{padding:24px 20px}
+    
   }
   /* Bri's pink hand-drawn stars beside the readings title */
-  .price .eph.pink-stars{width:clamp(64px,7vw,96px);right:calc(50% - min(44vw,560px));top:clamp(36px,5vh,64px);transform:rotate(8deg)}
-  .price .eph.pink-star{width:clamp(30px,3vw,42px);left:calc(50% - min(44vw,540px));top:clamp(110px,14vh,170px);transform:rotate(-12deg)}
+  
+  

@@ -4,7 +4,7 @@
 .wheel-stage:not(.zoomed) .zoom-x{display:none!important}
 
 /* Masthead: the same minimal dark band as the other pages, with the cursor star trail and Bri's lace under it */
-/* Handwriting: Cedarville Cursive site-wide (Bri, 23 Oct; replaces Ophi Script) */@font-face{font-family:'Ophi Hand';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2')}
+/* Handwriting: Cedarville Cursive site-wide (Bri, 23 Oct) */@font-face{font-family:'Ophi Hand';font-display:swap;src:url(/assets/fonts/hand/cedarville.woff2) format('woff2')}
 .chart-mast{position:relative;overflow:clip;z-index:3;padding-block:1rem clamp(1.8rem,4.4vw,3rem)}
 .chart-mast > .wrap{position:relative;z-index:1}
 .chart-mast canvas.stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}

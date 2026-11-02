@@ -183,7 +183,7 @@ def main():
     sv = hashlib.sha1(rd('assets/season-data.js').encode()).hexdigest()[:8]   # cache-buster: changes whenever the shared files do
     wr('assets/ophi.css', css)
     wr('assets/ophi.js', js)
-    parts = {k: rd('src/partials/%s.html' % k) for k in ('top', 'nav', 'footer', 'footer-lite', 'readings')}
+    parts = {k: rd('src/partials/%s.html' % k) for k in ('top', 'nav', 'footer-lite', 'readings')}
     import shutil
     for out, (src, title, desc) in PAGES.items():
         if out.split('/')[0] in SHELVED:   # not published: remove any old copy of the built page
