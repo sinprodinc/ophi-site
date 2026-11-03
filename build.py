@@ -128,7 +128,7 @@ def fluid(css):
                    for x in parts)
 
 DOOR_CARDS = [
-    ('readings/index.html', '/readings/', 'Make It Make Sense', 'Meet Yourself, Quickie, <em>Plot Twist.</em>', 'pick your reading'),
+    ('readings/index.html', '/readings/', 'Make It Make Sense', 'Meet Yourself, Quickie, <em>Growth &amp; Redirection.</em>', 'pick your reading'),
     ('this-season/index.html', '/this-season/', 'This Season', 'The sky right now, <em>by rising sign.</em>', 'read your chapter'),
     ('candles/index.html', '/candles/', 'Moon Candles', 'A pocket candle for <em>your Moon.</em>', 'shop your element'),
     ('index.html#why', '/#why', 'The story', 'Why <em>Ophiuchus?</em>', 'read the story'),

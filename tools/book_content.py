@@ -9,16 +9,16 @@ import html, re
 SITE = 'https://ophibybri.com'
 
 # The three readings as they are sold today (Cal.com + Stripe). Prices before GST, in CAD.
-# Bri, 2 Nov: Plot Twist ($99, 45 min + 5 min Q&A) replaces Here To Help.
+# Bri, 2 Nov: Growth & Redirection ($99, 45 min + 5 min Q&A) replaces Here To Help.
 READINGS = [
     ('Meet Yourself', 129, 'Your foundational natal chart reading: Sun, Moon and Rising, your chart ruler, your major aspects and the patterns that tie them together.',
      'https://cal.com/sin-prod-entertainment-inc-djqrpb/meet-yourself'),
     ('Quickie', 69, 'A short, focused natal chart reading on a few key placements, with time for your questions.',
      'https://cal.com/sin-prod-entertainment-inc-djqrpb/quickie'),
-    ('Plot Twist', 99, 'A focused reading for a major change you are navigating right now, such as a Saturn return, a breakup, a job loss or a career change: your birth chart and current transits, read for the timing, patterns and possibilities at play.',
+    ('Growth & Redirection', 99, 'A focused reading to help you navigate growth and big changes, such as a Saturn return, a breakup, a job loss or a career change: your birth chart and current transits, read for the timing and possibilities at play.',
      'https://cal.com/ophibybri/plot-twist'),
 ]
-TOPIC = 'Plot Twist'
+TOPIC = 'Growth & Redirection'
 
 # (anchor, question, answer). Paragraphs in an answer are separated by a blank line.
 FAQ = [
@@ -38,7 +38,7 @@ FAQ = [
      "You'll enter them when you book. Booking a {topic}? Add the topic you'd like to focus on in the booking notes."),
     ('faq-session', 'How does the session work?',
      "Every reading is one-on-one and virtual. Pick a time on the booking page and you'll receive a link to join by email. "
-     "Meet Yourself is a 50-minute reading plus 10 minutes for your questions. Plot Twist is 45 minutes plus 5. "
+     "Meet Yourself is a 50-minute reading plus 10 minutes for your questions. Growth & Redirection is 45 minutes plus 5. "
      "The Quickie is 25 minutes plus 5. "
      "Come as you are, with any questions you'd like to bring."),
     ('faq-record', 'Can I record it?',
