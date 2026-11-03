@@ -16,7 +16,7 @@ READINGS = [
     ('Quickie', 69, 'A short, focused natal chart reading on a few key placements, with time for your questions.',
      'https://cal.com/sin-prod-entertainment-inc-djqrpb/quickie'),
     ('Growth & Redirection', 99, 'A focused reading to help you navigate growth and big changes, such as a Saturn return, a breakup, a job loss or a career change: your birth chart and current transits, read for the timing and possibilities at play.',
-     'https://cal.com/ophibybri/plot-twist'),
+     'https://cal.com/ophibybri/growth-redirection'),
 ]
 TOPIC = 'Growth & Redirection'
 

@@ -1,0 +1,7 @@
+# Cloudflare Pages response headers (Bri, 2 Nov 2026)
+# The site's fonts can load inside emails (Apple Mail) and other origins.
+/assets/fonts/*
+  Access-Control-Allow-Origin: *
+# Build tools and email templates are not pages: keep them out of search.
+/tools/*
+  X-Robots-Tag: noindex

@@ -11,7 +11,11 @@
   Subject line:  {{recipient_first_name}}, you've been gifted a reading
   Fill these in by hand or map them in the automation:
     {{recipient_first_name}}  {{buyer_name}}  {{gift_message}}  {{reading_name}}  {{reading_length}}
-    {{gift_code}}  {{expiry_date}}  {{booking_link}}
+    {{gift_code}}  {{expiry_date}}  {{booking_link}}  {{business_address}}
+  Booking links (hidden gift pages on Cal.com):
+    Meet Yourself         https://cal.com/ophibybri/gift-meet-yourself
+    Growth & Redirection  https://cal.com/ophibybri/gift-growth-redirection
+    Quickie               https://cal.com/ophibybri/gift-quickie
   No gift message? Delete the whole "MESSAGE" block below.
   Built for email: tables, inline styles, system fonts. The title is an image because email apps can't load
   Modern Romance; the image needs ophibybri.com to be live with /assets/email/ published.
@@ -118,6 +122,7 @@
       <span style="letter-spacing:2px;text-transform:uppercase;">Awakening Astrology</span><br>
       <a href="https://ophibybri.com/" style="color:#161310;">ophibybri.com</a> &nbsp;&#x2726;&nbsp; <a href="https://www.instagram.com/brigodard/" style="color:#161310;">@brigodard</a><br><br>
       This gift is for one {{reading_name}} reading and is valid until {{expiry_date}}. Gift number {{gift_code}}.<br>
+      SIN PROD ENTERTAINMENT INC. &middot; {{business_address}}<br>
       Reflective, spiritual guidance. Not a substitute for therapy or medical advice.
     </td></tr></table>
   </td></tr>
