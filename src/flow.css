@@ -2058,7 +2058,7 @@ body.flow .hero.mini > .hero-key{--tilt:-14deg;left:calc(var(--key) * -.18);bott
 }
 
 /* ----- Gift a reading (Bri, 3 Nov 2026): book page section + homepage gift tag ----- */
-.gift-sec{padding-top:clamp(40px,6vw,80px)}
+.price.flow-sec.gift-sec{padding-top:clamp(12px,2vw,28px)}
 .gift-trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.4vw,32px);max-width:1084px;margin:0 auto;padding:0 var(--pad)}
 .gift-card{margin:0;display:flex;flex-direction:column;align-items:center;text-align:center}
 .gift-card img{width:100%;height:auto;aspect-ratio:760/578;object-fit:contain;object-position:center bottom;display:block;transition:transform .3s}
