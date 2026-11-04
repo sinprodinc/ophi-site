@@ -3085,3 +3085,15 @@ em:not(.keep-hl),.strip-t{background:none!important}
 /* the home masthead: same title size and height as the other pages (its floating graphics stay) */
 body.flow .hero:not(.mini):has(> nav) .headline h1{font-size:clamp(42px,calc(7 * var(--vw,1vw)),92px)!important;white-space:normal}
 @media(min-width:701px){ body.flow .hero:not(.mini):has(> nav){min-height:0} }
+
+/* Bri, 3 Nov 2026: the home masthead is now the same compact header as every other page.
+   The hourglass and moon key are smaller here and hang off the page edges beside the title, so they never sit on the rules. */
+body.flow .hero.mini{--hg:clamp(58px,calc(8.6 * var(--vw,1vw)),118px);--key:clamp(46px,calc(6.4 * var(--vw,1vw)),84px)}
+body.flow .hero.mini .headline .r-hourglass{bottom:auto;top:calc(var(--hg) * -.06);right:calc(var(--hg) * -.42 - var(--pad) * .5)}
+body.flow .hero.mini > .hero-key{--tilt:-14deg;left:calc(var(--key) * -.18);bottom:calc(var(--key) * -.62)}
+@media(max-width:900px){body.flow .hero.mini .headline .r-hourglass{right:calc(var(--hg) * -.22);top:calc(var(--hg) * -.62)}}
+/* Bri, 3 Nov 2026: on phones the pegasus is smaller and perches on the first card's corner, clear of the intro text above */
+@media(max-width:700px){
+  .rd-trio{padding-top:clamp(56px,calc(16 * var(--vw,1vw)),72px)}
+  .rd-trio > .rd-card > .r-pegasus.tuck{--w:clamp(78px,calc(22 * var(--vw,1vw)),96px);left:2%;top:calc(var(--w) * -.72)}
+}
