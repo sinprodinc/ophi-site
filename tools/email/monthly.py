@@ -141,7 +141,7 @@ def build(key, preview_sign=None):
     open(os.path.join(out, 'monthly-%s-kit.html' % key), 'w').write(kit)
     sign = preview_sign or 'leo'
     block = dict(rows_signs).get(sign) or collective_block(D, key)
-    prev = page(block, 'Maya', '#', 'SIN PROD ENTERTAINMENT INC. &middot; [your mailing address]')
+    prev = page(block, 'Maya', '#', 'Ophi by Bri &middot; [your mailing address]')
     open(os.path.join(out, 'monthly-%s-%s.html' % (key, sign)), 'w').write(prev)
     render_header(key, mo, lab)
     render_signs(key)
