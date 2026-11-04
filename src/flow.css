@@ -2091,3 +2091,4 @@ body.flow .hero.mini > .hero-key{--tilt:-14deg;left:calc(var(--key) * -.18);bott
 :is(.np-pull-q,.pull-q,.cb-clip-q,.np-pull-k) :is(em,i){font-style:normal!important}
 .om-title,.om-title *{font-style:normal!important}
 body.secret .rr-n{font-style:normal!important}
+:is(.wg-t,[class$="-t"],[class*="-t "],[class$="-h"],[class*="-h "]) :is(em,i){font-style:normal!important}
