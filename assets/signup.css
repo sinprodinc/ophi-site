@@ -1,0 +1,97 @@
+/* Ophi monthly letter sign-up (Bri, 4 Nov 2026). Shared by Home, This Season and the chart page.
+   Light card on #fffdf8, black outline, hard black shadow; Modern Romance heading, KIN668 body, Mom's Typewriter labels
+   and button. EmailOctopus ships its own styles (and inline styles from its builder), so the form rules below are
+   scoped to the card and marked !important where they have to win. No vw/vh here: the chart page isn't zoomed. */
+
+.ophi-signup{
+  --su-ink:var(--ink,#161310);--su-card:#fffdf8;--su-field:#f8f5ef;--su-coral:var(--coral,#ef5334);--su-pen:var(--pen,#2b2927);
+  --su-title:var(--font-title,'Modern Romance',Georgia,serif);--su-body:var(--font-body,'KIN668','Courier New',monospace);
+  --su-label:var(--font-button,'Moms Typewriter','Courier New',monospace);
+  position:relative;z-index:2;display:block;width:min(100%,640px);margin:0 auto;box-sizing:border-box;
+  word-spacing:normal;text-align:left;color:var(--su-ink)}
+.ophi-signup *,.ophi-signup *::before,.ophi-signup *::after{box-sizing:border-box}
+.ophi-signup .su-card{background:var(--su-card);border:2px solid var(--su-ink);box-shadow:8px 8px 0 var(--su-ink);
+  padding:clamp(24px,5%,40px) clamp(20px,6%,44px) clamp(20px,4%,28px)}
+
+.ophi-signup .su-h{font-family:var(--su-title);font-weight:400;font-style:normal;font-size:42px;
+  line-height:1.02;letter-spacing:-.02em;margin:0 0 12px;color:var(--su-ink);text-wrap:balance;white-space:normal}
+.ophi-signup .su-lede{font-family:var(--su-body);font-size:15px;line-height:1.55;margin:0 0 18px;color:var(--su-ink);max-width:46ch}
+
+/* the link to /chart/: sits under the rising-sign dropdown once the form is in (signup.js moves it there) */
+.ophi-signup .su-find{display:inline-flex;align-items:center;gap:6px;margin:10px 0 0;font-family:var(--su-label);font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;line-height:1.3;color:var(--su-ink);text-decoration:none;
+  border-bottom:1.5px solid var(--su-ink);padding-bottom:2px;transition:color .15s,border-color .15s}
+.ophi-signup .su-find:hover,.ophi-signup .su-find:focus-visible{color:var(--su-coral);border-color:var(--su-coral)}
+.ophi-signup .su-find.su-in{margin:8px 0 2px}
+
+.ophi-signup .su-legal{font-family:var(--su-body);font-size:11px;line-height:1.5;color:var(--su-pen);opacity:.8;margin:18px 0 0;
+  padding-top:12px;border-top:1px dashed rgba(22,19,16,.4)}
+.ophi-signup .su-legal a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.ophi-signup .su-legal a:hover{color:var(--su-coral)}
+
+/* Google lets the floating badge be hidden when the notice above is shown */
+.grecaptcha-badge{visibility:hidden !important}
+
+/* ---------- the EmailOctopus form ---------- */
+.ophi-signup .su-form{min-height:150px}
+.ophi-signup.su-ready .su-form{min-height:0}
+.ophi-signup .su-form .inline-container,.ophi-signup .su-form .form-container,.ophi-signup .su-form .emailoctopus-form-wrapper{
+  margin:0 !important;padding:0 !important;max-width:none !important;width:100% !important;background:none !important;border:0 !important;box-shadow:none !important}
+.ophi-signup .su-form [eo-block-container]:empty{display:none}
+.ophi-signup .su-form .emailoctopus-form{margin:0 !important}
+.ophi-signup .su-form .emailoctopus-form-row{margin:0 0 10px !important;padding:0 !important}
+.ophi-signup .su-form label,.ophi-signup .su-form .form-label,.ophi-signup .su-form legend{
+  display:block;font-family:var(--su-label) !important;font-size:11px !important;font-weight:400 !important;letter-spacing:.12em !important;
+  text-transform:uppercase !important;color:var(--su-ink) !important;margin:0 0 6px !important;line-height:1.3 !important}
+
+.ophi-signup .su-form input[type=email],.ophi-signup .su-form input[type=text],.ophi-signup .su-form input[type=date],
+.ophi-signup .su-form input[type=number],.ophi-signup .su-form select,.ophi-signup .su-form .form-control{
+  display:block;width:100% !important;max-width:none !important;height:50px !important;margin:0 !important;padding:0 14px !important;
+  font-family:var(--su-body) !important;font-size:16px !important;line-height:1.2 !important;color:var(--su-ink) !important;
+  background-color:var(--su-field) !important;border:1.5px solid var(--su-ink) !important;border-radius:0 !important;box-shadow:none !important;
+  -webkit-appearance:none;appearance:none;transition:box-shadow .15s,background-color .15s}
+.ophi-signup .su-form select{padding-right:40px !important;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23161310' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat:no-repeat !important;background-position:right 12px center !important;background-size:18px 18px !important}
+.ophi-signup .su-form ::placeholder{color:rgba(22,19,16,.55) !important;opacity:1}
+.ophi-signup .su-form input:focus,.ophi-signup .su-form select:focus,.ophi-signup .su-form .form-control:focus{
+  outline:none !important;background-color:#fff !important;box-shadow:3px 3px 0 var(--su-coral) !important}
+
+.ophi-signup .su-form input[type=checkbox],.ophi-signup .su-form input[type=radio]{accent-color:var(--su-ink);width:16px;height:16px;margin:0 8px 0 0}
+.ophi-signup .su-form .form-check,.ophi-signup .su-form .emailoctopus-form-row--checkbox{font-family:var(--su-body);font-size:13px;line-height:1.5}
+
+.ophi-signup .su-form button,.ophi-signup .su-form input[type=submit],.ophi-signup .su-form .btn,.ophi-signup .su-form [type=submit]{
+  display:inline-flex !important;align-items:center;justify-content:center;width:100% !important;height:auto !important;min-height:52px;
+  margin:6px 0 0 !important;padding:14px 24px !important;font-family:var(--su-label) !important;font-size:13px !important;font-weight:400 !important;
+  letter-spacing:.14em !important;text-transform:uppercase !important;line-height:1.2 !important;color:var(--paper,#ece7dc) !important;
+  background:var(--su-ink) !important;border:2px solid var(--su-ink) !important;border-radius:0 !important;box-shadow:5px 5px 0 var(--su-coral) !important;
+  cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s}
+.ophi-signup .su-form button:hover,.ophi-signup .su-form [type=submit]:hover{transform:translate(-1px,-1px);box-shadow:7px 7px 0 var(--su-coral) !important}
+.ophi-signup .su-form button:active,.ophi-signup .su-form [type=submit]:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--su-coral) !important}
+.ophi-signup .su-form button:focus-visible,.ophi-signup .su-form [type=submit]:focus-visible{outline:2px solid var(--su-coral);outline-offset:3px}
+
+/* EmailOctopus's own small print and logo: the card has its own notice */
+.ophi-signup .su-form .emailoctopus-referral,.ophi-signup .su-form [eo-block="referral"],.ophi-signup .su-form .powered-by-eo,
+.ophi-signup .su-form .eo-referral{display:none !important}
+
+.ophi-signup .su-form .emailoctopus-success-message:not(:empty),.ophi-signup .su-form .emailoctopus-error-message:not(:empty){
+  font-family:var(--su-body);font-size:15px;line-height:1.5;margin:0 0 12px !important;padding:12px 14px;border:1.5px solid var(--su-ink);background:var(--su-field)}
+.ophi-signup .su-form .emailoctopus-error-message:not(:empty){border-color:var(--su-coral);color:var(--coral-deep,#c2361a)}
+
+/* ---------- where it sits ---------- */
+/* Home: a light band above the footer */
+.su-band{padding:clamp(56px,8%,96px) var(--pad,20px);position:relative}
+/* This Season: after the twelve rising cards */
+.su-season{margin:clamp(40px,6%,64px) auto 0;padding:0}
+/* Your Chart: right under the wheel and aspects */
+.su-chart{padding-top:clamp(8px,2%,24px)}
+
+@media (max-width:560px){
+  .ophi-signup .su-card{box-shadow:6px 6px 0 var(--su-ink);padding:24px 18px 18px}
+  .ophi-signup .su-h{font-size:32px}
+  .ophi-signup .su-lede{font-size:14.5px}
+  .ophi-signup .su-find{font-size:10.5px;letter-spacing:.07em}
+}
+@media (prefers-reduced-motion:reduce){
+  .ophi-signup .su-form button,.ophi-signup .su-form [type=submit],.ophi-signup .su-find{transition:none}
+}

@@ -1,0 +1,15 @@
+<!-- Bri, 4 Nov 2026: the monthly letter sign-up (EmailOctopus). One source for Home, This Season and the chart page;
+     build.py drops it in. EmailOctopus injects its form where the script tag sits. -->
+<aside class="ophi-signup" aria-labelledby="su-h-{{su-id}}">
+  <div class="su-card">
+    <h2 class="su-h" id="su-h-{{su-id}}">Get your sign&rsquo;s reading on the&nbsp;1st.</h2>
+    <p class="su-lede">The month&rsquo;s overview plus your rising sign&rsquo;s section, once a month. Free.</p>
+    <div class="su-form">
+      <script async src="https://eomail5.com/form/246a440a-d889-11f1-b4fe-036fb995253d.js" data-form="246a440a-d889-11f1-b4fe-036fb995253d"></script>
+    </div>
+    <a class="su-find" href="{{su-find}}">Don&rsquo;t know it? Find your rising sign <span aria-hidden="true">&#x2192;</span></a>
+    <p class="su-legal">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.</p>
+  </div>
+</aside>
+<link rel="stylesheet" href="/assets/signup.css?v={{su-v}}">
+<script src="/assets/signup.js?v={{su-v}}" defer></script>

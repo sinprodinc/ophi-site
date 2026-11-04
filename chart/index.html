@@ -351,6 +351,26 @@ tr.pick{cursor:pointer}tr.pick:hover td,tr.pick.on td{background:var(--paper-2)}
 
 </div></div>
 
+
+
+<!--signup--><div class="band su-chart">
+<!-- Bri, 4 Nov 2026: the monthly letter sign-up (EmailOctopus). One source for Home, This Season and the chart page;
+     build.py drops it in. EmailOctopus injects its form where the script tag sits. -->
+<aside class="ophi-signup" aria-labelledby="su-h-chart">
+  <div class="su-card">
+    <h2 class="su-h" id="su-h-chart">Get your sign&rsquo;s reading on the&nbsp;1st.</h2>
+    <p class="su-lede">The month&rsquo;s overview plus your rising sign&rsquo;s section, once a month. Free.</p>
+    <div class="su-form">
+      <script async src="https://eomail5.com/form/246a440a-d889-11f1-b4fe-036fb995253d.js" data-form="246a440a-d889-11f1-b4fe-036fb995253d"></script>
+    </div>
+    <a class="su-find" href="#top">Don&rsquo;t know it? Find your rising sign <span aria-hidden="true">&#x2192;</span></a>
+    <p class="su-legal">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.</p>
+  </div>
+</aside>
+<link rel="stylesheet" href="/assets/signup.css?v=246f4fe8">
+<script src="/assets/signup.js?v=246f4fe8" defer></script>
+</div><!--/signup-->
+
 <div class="pl-serp">
 <div class="band" id="placements"><div class="wrap">
   <div class="headline sec-head" data-hl="b"><h2>The <em>Placements</em></h2><div class="byline">Where everything sat when you arrived</div></div>
@@ -1296,6 +1316,8 @@ function renderAll(fresh) {
   state.aspects = E.aspects(state.chart, { orbScale: state.orbScale });
   var v = visibleAspects(); state.selected = state.focus && v.length ? v[0].key : null; state.userSel = false;
   drawMeta(); drawToggles(); drawWheel(fresh); drawAspects(); drawTable(); drawSerpent();
+  /* Bri, 4 Nov: tell the monthly sign-up which rising sign to pre-select */
+  try { document.dispatchEvent(new CustomEvent('ophi:cast', { detail: { ascSign: state.chart.ascSign, example: state.example } })); } catch (e) { }
   
 }
 function cast(input, isExample, fresh) {

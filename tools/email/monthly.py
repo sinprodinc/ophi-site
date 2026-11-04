@@ -249,7 +249,7 @@ body{margin:0;padding:0}a{color:%(ink)s}
   <table role="presentation" width="100%%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:3px double %(ink)s;padding-top:14px;font-family:%(mono)s;font-size:12px;line-height:1.7;color:%(muted)s;text-align:center;">
     <span style="font-family:%(serif)s;font-size:18px;color:%(ink)s;">Ophi <i style="font-size:12px;">by Bri</i></span><br>
     <span style="letter-spacing:2px;text-transform:uppercase;">Awakening Astrology</span><br>
-    <a href="%(site)s/" style="color:%(ink)s;">ophibybri.com</a> &nbsp;&#x2726;&nbsp; <a href="https://www.instagram.com/brigodard/" style="color:%(ink)s;">@brigodard</a> &nbsp;&#x2726;&nbsp; <a href="mailto:ophibybri@gmail.com" style="color:%(ink)s;">ophibybri@gmail.com</a><br><br>
+    <a href="%(site)s/" style="color:%(ink)s;">ophibybri.com</a> &nbsp;&#x2726;&nbsp; <a href="https://www.instagram.com/brigodard/" style="color:%(ink)s;">@brigodard</a> &nbsp;&#x2726;&nbsp; <a href="mailto:hello@ophibybri.com" style="color:%(ink)s;">hello@ophibybri.com</a><br><br>
     You&#x2019;re receiving this because you signed up for the monthly reading at ophibybri.com.<br>
     %(address)s<br>
     <a href="%(unsub)s" style="color:%(ink)s;">Unsubscribe</a> &nbsp;&#x2726;&nbsp; <a href="%(site)s/privacy/" style="color:%(ink)s;">Privacy</a><br>

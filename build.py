@@ -199,6 +199,13 @@ def doors(out):
     html.append('</section>')
     return '\n'.join(html)
 
+def signup(su_id, find, cls):
+    """Bri, 4 Nov 2026: the EmailOctopus monthly sign-up, the same card on Home, This Season and the chart page."""
+    import hashlib
+    v = hashlib.sha1((rd('assets/signup.css') + rd('assets/signup.js')).encode()).hexdigest()[:8]
+    card = rd('src/partials/signup.html').replace('{{su-id}}', su_id).replace('{{su-find}}', find).replace('{{su-v}}', v)
+    return '<!--signup--><div class="%s">\n%s</div><!--/signup-->' % (cls, card)
+
 def main():
     css = fluid(rd('src/ophi.base.css') + rd('src/site.css') + rd('src/soft.css') + rd('src/flow.css'))
     js = rd('src/ophi.base.js')
@@ -234,6 +241,8 @@ def main():
         body = body.replace('{{doors}}', doors('this-season/index.html' if season_key else out))
         if season_key is not None or src == 'this-season.html':
             body = SB.fill(body, D, season_key or home, home, open_keys)
+        body = body.replace('{{signup-home}}', '<section class="su-band" aria-label="Monthly reading by email">' + signup('home', '/chart/', 'su-wrap') + '</section>')
+        body = body.replace('{{signup-season}}', signup('season', '/chart/', 'su-season'))
         if src == 'book.html':
             body = body.replace('{{faq}}', faq_html())
         body = shelf(body)
@@ -304,6 +313,10 @@ def main():
         '<meta property="og:description" content="%s"><meta property="og:url" content="%s/chart/"><meta property="og:image" content="%s%s">'
         '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">'
         '<!--/seo-->\n</head>') % (cd, SITE, cd, SITE, SITE, OG_IMAGE), 1)
+    # Bri, 4 Nov: the monthly sign-up right under the chart result (the wheel and aspects band)
+    ch = re.sub(r'\n?<!--signup-->.*?<!--/signup-->\n?', '\n', ch, flags=re.S)
+    ch = ch.replace('\n<div class="pl-serp">', '\n' + signup('chart', '#top', 'band su-chart') + '\n\n<div class="pl-serp">', 1)
+    assert '<!--signup-->' in ch, 'chart: sign-up anchor not found'
     wr('chart/index.html', ch)
     print('built', ', '.join(o for o in PAGES if o.split('/')[0] not in SHELVED), '+ chart menu; shelved:', ', '.join(sorted(SHELVED)) or 'none', '; version', v)
 
