@@ -88,7 +88,6 @@ def page():
       <h1>Moon <em>Candles</em></h1>
       <p class="byline">Pocket candles%(star)sBy Moon element%(star)sPoured by Bri</p>
     </div>
-    <p class="hand-line">light the one your Moon asks for</p>
   </div>
 </section>
 <div class="lace-edge" aria-hidden="true"></div>
