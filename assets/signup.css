@@ -120,7 +120,8 @@
 }
 
 /* EmailOctopus's dropdown panel: keep it the width of the field, inside the card */
-.ophi-signup .su-form [eo-label="Rising sign"] [class*="_dropdown_"]{width:100% !important;max-width:100% !important;left:0 !important;right:auto !important}
+.ophi-signup .su-form [eo-label="Rising sign"] [role=combobox] > [class*="_wrap_"]{width:100% !important;max-width:100% !important;left:0 !important;right:auto !important;z-index:30 !important}
+.ophi-signup .su-form [eo-label="Rising sign"] [class*="_dropdown_"]{width:100% !important;max-width:100% !important}
 .ophi-signup .su-form [eo-label="Rising sign"] [role=listbox]{width:100% !important;max-width:100% !important}
 /* the link keeps its own typeface (and arrow) inside the rising-sign row */
 .ophi-signup .su-form [eo-label="Rising sign"] .su-find,.ophi-signup .su-form [eo-label="Rising sign"] .su-find *{font-family:var(--su-label) !important}
