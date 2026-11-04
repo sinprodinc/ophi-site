@@ -12,9 +12,9 @@ SITE = 'https://ophibybri.com'
 # Bri, 2 Nov: Growth & Redirection ($99, 45 min + 5 min Q&A) replaces Here To Help.
 READINGS = [
     ('Meet Yourself', 129, 'Your foundational natal chart reading: Sun, Moon and Rising, your chart ruler, your major aspects and the patterns that tie them together.',
-     'https://cal.com/sin-prod-entertainment-inc-djqrpb/meet-yourself'),
+     'https://cal.com/ophibybri/meet-yourself'),
     ('Quickie', 69, 'A short, focused natal chart reading on a few key placements, with time for your questions.',
-     'https://cal.com/sin-prod-entertainment-inc-djqrpb/quickie'),
+     'https://cal.com/ophibybri/quickie'),
     ('Growth & Redirection', 99, 'A focused reading to help you navigate growth and big changes, such as a Saturn return, a breakup, a job loss or a career change: your birth chart and current transits, read for the timing and possibilities at play.',
      'https://cal.com/ophibybri/growth-redirection'),
 ]
@@ -63,7 +63,7 @@ FAQ = [
      "The [free chart](/chart/) on this site works entirely in your browser: the birth details you type there are not "
      "sent to me or stored. The [Privacy Policy](/privacy/) has the details."),
     ('faq-gift', 'Can I gift a reading?',
-     "Yes. Buy the gift, and the person receiving it gets a gift card by email with their own gift number and a "
+     "Yes. Buy the gift, and the person receiving it gets a gift card by email with their own private "
      "link to book. They choose a time that suits them and enter their birth details when they book, so you don't "
      "need to know their birth time.\n\n"
      "If they don't know their own birth time, their birth certificate or the hospital they were born in can usually "
