@@ -3127,3 +3127,8 @@ body.flow .hero.mini > .hero-key{--tilt:-14deg;left:calc(var(--key) * -.18);bott
 .wg-go{grid-area:go;justify-self:start;margin-top:6px;font-family:var(--font-button);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1.5px solid var(--ink);padding-bottom:2px;transition:color .2s,border-color .2s}
 .wel-gift:hover .wg-go,.wel-gift:focus-visible .wg-go{color:var(--coral);border-color:var(--coral)}
 @media(max-width:520px){.wel-gift{grid-template-columns:44px minmax(0,1fr);padding:12px 16px 12px 12px;column-gap:12px}.wg-art{transform:scale(.85);transform-origin:left center}.wg-q{font-size:17px}}
+/* Bri, 3 Nov 2026: no italics in any title or heading. Highlights she approved stay; only the slant goes. */
+:is(h1,h2,h3,h4,h5,h6,.np-h1,.np-h1-left,.flow-h,.pan-t,.ix-t,.strip-t,.np-h,.np-h-big,.ts-lead-h,.rr-sheet-head,.rr-moon-h) :is(em,i){font-style:normal!important}
+:is(.np-pull-q,.pull-q,.cb-clip-q,.np-pull-k) :is(em,i){font-style:normal!important}
+.om-title,.om-title *{font-style:normal!important}
+body.secret .rr-n{font-style:normal!important}
