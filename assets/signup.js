@@ -1,47 +1,39 @@
 /* Ophi monthly letter sign-up (Bri, 4 Nov 2026).
-   EmailOctopus builds its form after the page loads. Once it appears:
-   - the "Don't know it? Find your rising sign" link moves in right under the rising-sign dropdown;
-   - on the chart page, the dropdown is set to the rising sign of the chart just cast. */
+   EmailOctopus builds its form after the page loads, and draws the rising-sign dropdown a moment later. Once it's in:
+   - the "Don't know it? Find your rising sign" link moves in right under the dropdown;
+   - on the chart page, the dropdown is set to the rising sign of the chart just cast (through EmailOctopus's own
+     options, so its form registers the choice). */
 (function () {
   'use strict';
   var SIGNS = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
   var rising = null;
 
-  function risingSelect(box) {
-    var row = box.querySelector('[eo-label="Rising sign"]');
-    var sel = row && row.querySelector('select');
-    if (!sel) {
-      var all = box.querySelectorAll('.emailoctopus-form select');
-      for (var i = 0; i < all.length; i++) if (/aries/i.test(all[i].textContent)) { sel = all[i]; break; }
-    }
-    return sel;
-  }
+  function row(box) { return box.querySelector('[eo-label="Rising sign"]'); }
+  function combo(box) { var r = row(box); return r && r.querySelector('[role=combobox]'); }
 
-  function pick(sel) {
-    if (!sel || rising === null) return;
-    var name = SIGNS[rising].toLowerCase();
-    for (var i = 0; i < sel.options.length; i++) {
-      var o = sel.options[i];
-      if (o.text.trim().toLowerCase() === name || o.value.trim().toLowerCase() === name) {
-        if (sel.selectedIndex !== i) { sel.selectedIndex = i; sel.dispatchEvent(new Event('change', { bubbles: true })); }
-        return;
-      }
-    }
+  function pick(box) {
+    var cb = combo(box);
+    if (!cb || rising === null) return;
+    var name = SIGNS[rising];
+    if (cb.textContent.trim() === name) return;
+    var y = window.scrollY;
+    cb.click();
+    setTimeout(function () {
+      var opts = row(box).querySelectorAll('[role=option]'), hit = null;
+      for (var i = 0; i < opts.length; i++) if (opts[i].textContent.trim() === name) { hit = opts[i]; break; }
+      if (hit) hit.click(); else if (cb.getAttribute('aria-expanded') === 'true') cb.click();
+      if (window.scrollY !== y) window.scrollTo(0, y);
+    }, 60);
   }
 
   function settle(box) {
     var card = box.closest('.ophi-signup');
-    var form = box.querySelector('.emailoctopus-form');
-    if (!form) return false;
-    card.classList.add('su-ready');
-    var sel = risingSelect(box);
+    if (box.querySelector('.emailoctopus-form')) card.classList.add('su-ready');
+    var cb = combo(box);
+    if (!cb) return false;
     var find = card.querySelector('.su-find');
-    if (sel && find && !find.classList.contains('su-in')) {
-      var row = sel.closest('.emailoctopus-form-row') || sel.parentNode;
-      row.appendChild(find);
-      find.classList.add('su-in');
-    }
-    pick(sel);
+    if (find && !find.classList.contains('su-in')) { row(box).appendChild(find); find.classList.add('su-in'); }
+    pick(box);
     return true;
   }
 
@@ -49,6 +41,7 @@
     if (settle(box)) return;
     var mo = new MutationObserver(function () { if (settle(box)) mo.disconnect(); });
     mo.observe(box, { childList: true, subtree: true });
+    setTimeout(function () { mo.disconnect(); }, 30000);
   }
 
   // the chart page announces each chart it draws
@@ -56,7 +49,7 @@
     var d = e.detail || {};
     rising = (d.example || d.ascSign === null || d.ascSign === undefined) ? null : d.ascSign;
     var boxes = document.querySelectorAll('.ophi-signup .su-form');
-    for (var i = 0; i < boxes.length; i++) pick(risingSelect(boxes[i]));
+    for (var i = 0; i < boxes.length; i++) pick(boxes[i]);
   });
 
   function init() {

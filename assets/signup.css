@@ -40,39 +40,62 @@
 .ophi-signup .su-form [eo-block-container]:empty{display:none}
 .ophi-signup .su-form .emailoctopus-form{margin:0 !important}
 .ophi-signup .su-form .emailoctopus-form-row{margin:0 0 10px !important;padding:0 !important}
-.ophi-signup .su-form label,.ophi-signup .su-form .form-label,.ophi-signup .su-form legend{
-  display:block;font-family:var(--su-label) !important;font-size:11px !important;font-weight:400 !important;letter-spacing:.12em !important;
-  text-transform:uppercase !important;color:var(--su-ink) !important;margin:0 0 6px !important;line-height:1.3 !important}
+/* the form's parts, in reading order: fields, consent, button, small print */
+.ophi-signup .su-form .emailoctopus-form{display:flex !important;flex-direction:column}
+.ophi-signup .su-form .main-form{display:contents}
+.ophi-signup .su-form [eo-form-fields-container]{order:1}
+.ophi-signup .su-form .emailoctopus-form-row-consent{order:2}
+.ophi-signup .su-form .main-form > [type=submit],.ophi-signup .su-form .main-form > button{order:3}
+.ophi-signup .su-form .emailoctopus-form > div:last-child{order:4}
 
-.ophi-signup .su-form input[type=email],.ophi-signup .su-form input[type=text],.ophi-signup .su-form input[type=date],
-.ophi-signup .su-form input[type=number],.ophi-signup .su-form select,.ophi-signup .su-form .form-control{
-  display:block;width:100% !important;max-width:none !important;height:50px !important;margin:0 !important;padding:0 14px !important;
+.ophi-signup .su-form [eo-form-fields-container] > .emailoctopus-form-row > input,
+.ophi-signup .su-form [eo-form-fields-container] > .emailoctopus-form-row > select,
+.ophi-signup .su-form [eo-form-fields-container] [class*="_select-input_"]{
+  display:flex;align-items:center;width:100% !important;max-width:none !important;height:50px !important;min-height:50px !important;margin:0 !important;padding:0 14px !important;
   font-family:var(--su-body) !important;font-size:16px !important;line-height:1.2 !important;color:var(--su-ink) !important;
   background-color:var(--su-field) !important;border:1.5px solid var(--su-ink) !important;border-radius:0 !important;box-shadow:none !important;
   -webkit-appearance:none;appearance:none;transition:box-shadow .15s,background-color .15s}
-.ophi-signup .su-form select{padding-right:40px !important;cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23161310' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
-  background-repeat:no-repeat !important;background-position:right 12px center !important;background-size:18px 18px !important}
-.ophi-signup .su-form ::placeholder{color:rgba(22,19,16,.55) !important;opacity:1}
-.ophi-signup .su-form input:focus,.ophi-signup .su-form select:focus,.ophi-signup .su-form .form-control:focus{
+.ophi-signup .su-form ::placeholder,.ophi-signup .su-form [class*="_placeholder_"]{color:rgba(22,19,16,.55) !important;opacity:1;font-family:var(--su-body) !important;font-size:16px !important}
+.ophi-signup .su-form [eo-form-fields-container] > .emailoctopus-form-row > input:focus,
+.ophi-signup .su-form [role=combobox]:focus [class*="_select-input_"],.ophi-signup .su-form [role=combobox][aria-expanded=true] [class*="_select-input_"]{
   outline:none !important;background-color:#fff !important;box-shadow:3px 3px 0 var(--su-coral) !important}
+.ophi-signup .su-form [role=combobox]{outline:none !important;border:0 !important;box-shadow:none !important;background:none !important}
 
-.ophi-signup .su-form input[type=checkbox],.ophi-signup .su-form input[type=radio]{accent-color:var(--su-ink);width:16px;height:16px;margin:0 8px 0 0}
-.ophi-signup .su-form .form-check,.ophi-signup .su-form .emailoctopus-form-row--checkbox{font-family:var(--su-body);font-size:13px;line-height:1.5}
+/* the rising-sign dropdown (EmailOctopus draws its own; its native select stays hidden) */
+.ophi-signup .su-form [eo-label="Rising sign"] *{font-family:var(--su-body) !important}
+.ophi-signup .su-form [eo-label="Rising sign"] [class*="_label_"],.ophi-signup .su-form [eo-label="Rising sign"] [class*="_description_"]:empty{
+  position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ophi-signup .su-form [eo-label="Rising sign"] [class*="_detail_"]{margin:0 !important;padding:0 !important;min-height:0 !important}
+.ophi-signup .su-form [eo-label="Rising sign"] [class*="_content_"]{font-size:16px !important;color:var(--su-ink) !important}
+.ophi-signup .su-form [eo-label="Rising sign"] [class*="_chevron_"]{color:var(--su-ink) !important}
+.ophi-signup .su-form [role=listbox]{margin-top:6px !important;padding:4px 0 !important;background:var(--su-card) !important;border:1.5px solid var(--su-ink) !important;
+  border-radius:0 !important;box-shadow:5px 5px 0 var(--su-ink) !important;max-height:260px;overflow:auto;z-index:20}
+.ophi-signup .su-form [role=option]{padding:9px 14px !important;font-size:15px !important;color:var(--su-ink) !important;background:none !important;border-radius:0 !important;cursor:pointer}
+.ophi-signup .su-form [role=option][class*="_highlight_"],.ophi-signup .su-form [role=option]:hover{background:var(--su-field) !important}
+.ophi-signup .su-form [role=option][aria-selected=true]{background:var(--su-ink) !important;color:var(--paper,#ece7dc) !important}
+.ophi-signup .su-form [role=option] *{color:inherit !important;background:none !important;font-weight:400 !important}
+
+/* consent */
+.ophi-signup .su-form .emailoctopus-form-row-consent{display:flex !important;align-items:flex-start;gap:10px;margin:6px 0 4px !important}
+.ophi-signup .su-form .emailoctopus-form-row-consent input[type=checkbox]{flex:none;width:18px;height:18px;margin:2px 0 0 !important;accent-color:var(--su-ink);cursor:pointer}
+.ophi-signup .su-form .emailoctopus-form-row-consent label{font-family:var(--su-body) !important;font-size:13px !important;line-height:1.5 !important;
+  text-transform:none !important;letter-spacing:0 !important;color:var(--su-ink) !important;margin:0 !important;cursor:pointer}
 
 .ophi-signup .su-form button,.ophi-signup .su-form input[type=submit],.ophi-signup .su-form .btn,.ophi-signup .su-form [type=submit]{
   display:inline-flex !important;align-items:center;justify-content:center;width:100% !important;height:auto !important;min-height:52px;
-  margin:6px 0 0 !important;padding:14px 24px !important;font-family:var(--su-label) !important;font-size:13px !important;font-weight:400 !important;
+  margin:12px 0 0 !important;padding:14px 24px !important;font-family:var(--su-label) !important;font-size:13px !important;font-weight:400 !important;
   letter-spacing:.14em !important;text-transform:uppercase !important;line-height:1.2 !important;color:var(--paper,#ece7dc) !important;
   background:var(--su-ink) !important;border:2px solid var(--su-ink) !important;border-radius:0 !important;box-shadow:5px 5px 0 var(--su-coral) !important;
-  cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s}
-.ophi-signup .su-form button:hover,.ophi-signup .su-form [type=submit]:hover{transform:translate(-1px,-1px);box-shadow:7px 7px 0 var(--su-coral) !important}
-.ophi-signup .su-form button:active,.ophi-signup .su-form [type=submit]:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--su-coral) !important}
-.ophi-signup .su-form button:focus-visible,.ophi-signup .su-form [type=submit]:focus-visible{outline:2px solid var(--su-coral);outline-offset:3px}
+  cursor:pointer;-webkit-appearance:none;appearance:none;transition:transform .15s,box-shadow .15s,background .15s}
+.ophi-signup .su-form [role=combobox] [class*="_chevron_"],.ophi-signup .su-form [role=listbox] *{min-height:0}
+.ophi-signup .su-form [type=submit]:hover{transform:translate(-1px,-1px);box-shadow:7px 7px 0 var(--su-coral) !important}
+.ophi-signup .su-form [type=submit]:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--su-coral) !important}
+.ophi-signup .su-form [type=submit]:focus-visible{outline:2px solid var(--su-coral);outline-offset:3px}
 
-/* EmailOctopus's own small print and logo: the card has its own notice */
-.ophi-signup .su-form .emailoctopus-referral,.ophi-signup .su-form [eo-block="referral"],.ophi-signup .su-form .powered-by-eo,
-.ophi-signup .su-form .eo-referral{display:none !important}
+/* "Powered by EmailOctopus": kept, quiet */
+.ophi-signup .su-form .mastfoot{margin:14px 0 0 !important;padding:0 !important;background:none !important}
+.ophi-signup .su-form .mastfoot p{margin:0 !important;font-family:var(--su-body) !important;font-size:11px !important;color:var(--su-pen) !important;opacity:.7}
+.ophi-signup .su-form .mastfoot img{height:14px !important;width:auto !important;vertical-align:middle;filter:grayscale(1)}
 
 .ophi-signup .su-form .emailoctopus-success-message:not(:empty),.ophi-signup .su-form .emailoctopus-error-message:not(:empty){
   font-family:var(--su-body);font-size:15px;line-height:1.5;margin:0 0 12px !important;padding:12px 14px;border:1.5px solid var(--su-ink);background:var(--su-field)}
