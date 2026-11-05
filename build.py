@@ -66,6 +66,7 @@ HEAD = '''<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+<meta name="p:domain_verify" content="c73348a5982ac70b3dd984815026aa64">
 {robots}<link rel="canonical" href="{canon}">
 <meta property="og:site_name" content="Ophi by Bri">
 <meta property="og:type" content="{ogtype}">
