@@ -1,3 +1,5 @@
+/* Bri, 4 Nov 2026: ?quiet in the address keeps the music off for that tab (used for Claude's previews) */
+try{ if(/[?&]quiet(=|&|$)/.test(location.search)){ sessionStorage.setItem('ophi-music-off','1'); sessionStorage.removeItem('ophi-music'); } }catch(e){}
 /* Music on the chart page.
    The chart page is its own app and doesn't load the site's main script, so the music used to stop here.
    This adds the same Music chip to the chart's nav and shares the site's memory of the track

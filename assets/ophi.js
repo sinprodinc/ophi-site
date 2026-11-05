@@ -1,3 +1,5 @@
+/* Bri, 4 Nov 2026: ?quiet in the address keeps the music off for that tab (used for Claude's previews) */
+try{ if(/[?&]quiet(=|&|$)/.test(location.search)){ sessionStorage.setItem('ophi-music-off','1'); sessionStorage.removeItem('ophi-music'); } }catch(e){}
 
 (function(){
   /* boxes in real screen pixels in every browser (see OPHI_BOX in the page head) */
