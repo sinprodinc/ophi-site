@@ -199,11 +199,14 @@ def doors(out):
     html.append('</section>')
     return '\n'.join(html)
 
-def signup(su_id, find, cls):
-    """Bri, 4 Nov 2026: the EmailOctopus monthly sign-up, the same card on Home, This Season and the chart page."""
+def signup(su_id, find, cls, anchor='', art=()):
+    """Bri, 4 Nov 2026: the EmailOctopus monthly sign-up, the same card on Home, This Season and the chart page.
+    art: (image path, spot) pairs from the graphic bank; spot is tl, tr, br or bl (a corner of the card)."""
     import hashlib
     v = hashlib.sha1((rd('assets/signup.css') + rd('assets/signup.js')).encode()).hexdigest()[:8]
-    card = rd('src/partials/signup.html').replace('{{su-id}}', su_id).replace('{{su-find}}', find).replace('{{su-v}}', v)
+    imgs = '\n'.join('    <img class="su-g su-g-%s" src="%s" alt="" aria-hidden="true" loading="lazy" decoding="async">' % (spot, src) for src, spot in art)
+    card = rd('src/partials/signup.html').replace('{{su-id}}', su_id).replace('{{su-find}}', find).replace('{{su-v}}', v) \
+        .replace('{{su-anchor}}', anchor or 'signup-' + su_id).replace('{{su-art}}', imgs)
     return '<!--signup--><div class="%s">\n%s</div><!--/signup-->' % (cls, card)
 
 def main():
@@ -241,8 +244,8 @@ def main():
         body = body.replace('{{doors}}', doors('this-season/index.html' if season_key else out))
         if season_key is not None or src == 'this-season.html':
             body = SB.fill(body, D, season_key or home, home, open_keys)
-        body = body.replace('{{signup-home}}', '<section class="su-band" aria-label="Monthly reading by email">' + signup('home', '/chart/', 'su-wrap') + '</section>')
-        body = body.replace('{{signup-season}}', signup('season', '/chart/', 'su-season'))
+        body = body.replace('{{signup-home}}', '<section class="su-band" aria-label="Monthly reading by email">' + signup('home', '/chart/', 'su-wrap', 'newsletter', [('/assets/doodle/pink-star.webp', 'tl'), ('/assets/journal/chrome-star-3.webp', 'br')]) + '</section>')
+        body = body.replace('{{signup-season}}', signup('season', '/chart/', 'su-season', '', [('/assets/doodle/sparkles.webp', 'tl'), ('/assets/journal/black-stars.webp', 'br')]))
         if src == 'book.html':
             body = body.replace('{{faq}}', faq_html())
         body = shelf(body)
@@ -315,7 +318,8 @@ def main():
         '<!--/seo-->\n</head>') % (cd, SITE, cd, SITE, SITE, OG_IMAGE), 1)
     # Bri, 4 Nov: the monthly sign-up right under the chart result (the wheel and aspects band)
     ch = re.sub(r'\n?<!--signup-->.*?<!--/signup-->\n?', '\n', ch, flags=re.S)
-    ch = ch.replace('\n<div class="pl-serp">', '\n' + signup('chart', '#top', 'band su-chart') + '\n\n<div class="pl-serp">', 1)
+    # Bri, 4 Nov evening: it lives in Go Deeper, as the fourth card, as wide as Meet Yourself
+    ch = ch.replace('<!--signup-slot-->', '<!--signup-slot-->\n' + signup('chart', '#top', 'su-grid', '', [('/assets/journal/chrome-star-5.webp', 'tr'), ('/assets/journal/chrome-star-2.webp', 'bl')]), 1)
     assert '<!--signup-->' in ch, 'chart: sign-up anchor not found'
     wr('chart/index.html', ch)
     print('built', ', '.join(o for o in PAGES if o.split('/')[0] not in SHELVED), '+ chart menu; shelved:', ', '.join(sorted(SHELVED)) or 'none', '; version', v)

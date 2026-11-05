@@ -1,13 +1,18 @@
 <!-- Bri, 4 Nov 2026: the monthly letter sign-up (EmailOctopus). One source for Home, This Season and the chart page;
-     build.py drops it in. EmailOctopus injects its form where the script tag sits. -->
-<aside class="ophi-signup" aria-labelledby="su-h-{{su-id}}">
+     build.py drops it in with each place's own doodles. Slim and wide: the words on the left, the form on the right
+     (stacked on phones). EmailOctopus injects its form where the script tag sits. -->
+<aside class="ophi-signup" id="{{su-anchor}}" aria-labelledby="su-h-{{su-id}}">
   <div class="su-card">
-    <h2 class="su-h" id="su-h-{{su-id}}">Get your sign&rsquo;s reading on the&nbsp;1st.</h2>
-    <p class="su-lede">The month&rsquo;s overview plus your rising sign&rsquo;s section, once a month. Free.</p>
+{{su-art}}
+    <div class="su-words">
+      <h2 class="su-h" id="su-h-{{su-id}}">Get your sign&rsquo;s reading on the&nbsp;1st.</h2>
+      <p class="su-lede">Join the best newsletter that gives you personalized readings on the 1st of every month. <span class="nw">Totally free!</span></p>
+      <svg class="su-arrow" viewBox="0 0 120 60" aria-hidden="true"><path d="M6 40C30 54 66 50 92 26"/><path d="M80 22L95 24L92 39"/></svg>
+    </div>
     <div class="su-form">
       <script async src="https://eomail5.com/form/246a440a-d889-11f1-b4fe-036fb995253d.js" data-form="246a440a-d889-11f1-b4fe-036fb995253d"></script>
     </div>
-    <a class="su-find" href="{{su-find}}">Don&rsquo;t know it? Find your rising sign <span aria-hidden="true">&#x2192;</span></a>
+    <a class="su-find" href="{{su-find}}">Don&rsquo;t know it? Find your rising <span class="nw">sign&nbsp;<span aria-hidden="true">&#x2192;</span></span></a>
     <p class="su-legal">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.</p>
   </div>
 </aside>
