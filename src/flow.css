@@ -1434,6 +1434,9 @@ body.flow .cb-tagcard .cta:hover{box-shadow:2px 2px 0 var(--coral)}
 .s-cw2{right:3%;top:4%;rotate:20deg;z-index:3}
 @media(max-width:900px){
   .np-home .np-top{grid-template-columns:1fr}
+  /* Bri, 4 Nov: once the front page stacks, Inside this edition starts below the gift tag with a full rule, not a side line */
+  .np-home .np-top > .np-story + .np-story{padding-top:var(--s4);margin-top:var(--s4);border-top:1px solid rgba(22,19,16,.3)}
+  .np-home .np-top > .np-story + .np-story::before{display:none}
   .cork-words{grid-template-columns:1fr}
   .cw-safety{display:none}
 }
