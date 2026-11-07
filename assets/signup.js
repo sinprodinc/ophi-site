@@ -2,11 +2,15 @@
    EmailOctopus builds its form after the page loads, and draws the rising-sign dropdown a moment later. Once it's in:
    - the "Don't know it? Find your rising sign" link moves in right under the dropdown;
    - on the chart page, the dropdown is set to the rising sign of the chart just cast (through EmailOctopus's own
-     options, so its form registers the choice). */
+     options, so its form registers the choice).
+   Bri, 6 Nov 2026: after a successful sign-up the form starts over, empty, so the next person (a friend on the same
+   phone) can sign up too. EmailOctopus's form can't be cleared from outside (its dropdown keeps the sign), so the card
+   draws a fresh copy of the form and keeps EmailOctopus's success message above it until someone starts typing. */
 (function () {
   'use strict';
   var SIGNS = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
   var rising = null;
+  var FORM_ID = '246a440a-d889-11f1-b4fe-036fb995253d';   // the EmailOctopus form "Basic" (same as src/partials/signup.html)
 
   function row(box) { return box.querySelector('[eo-label="Rising sign"]'); }
   function combo(box) { var r = row(box); return r && r.querySelector('[role=combobox]'); }
@@ -53,10 +57,56 @@
   }
 
   function watch(box) {
+    watchDone(box);
     if (settle(box)) return;
     var mo = new MutationObserver(function () { if (settle(box)) mo.disconnect(); });
     mo.observe(box, { childList: true, subtree: true });
     setTimeout(function () { mo.disconnect(); }, 30000);
+  }
+
+  // EmailOctopus writes its success message into this paragraph once a sign-up goes through
+  function doneText(box) {
+    var p = box.querySelector('.emailoctopus-success-message:not(.su-done)');
+    return p ? p.textContent.trim() : '';
+  }
+
+  function watchDone(box) {
+    if (box._suDone) return;
+    box._suDone = new MutationObserver(function () {
+      var msg = doneText(box);
+      if (!msg) return;
+      box._suDone.disconnect(); box._suDone = null;
+      fresh(box, msg);
+    });
+    box._suDone.observe(box, { childList: true, subtree: true, characterData: true });
+  }
+
+  // a clean copy of the form, with the success message kept on top
+  function fresh(box, msg) {
+    var card = box.closest('.ophi-signup');
+    var id = FORM_ID;
+    var find = card.querySelector('.su-find');
+    if (find) { find.classList.remove('su-in'); box.parentNode.insertBefore(find, box.nextSibling); }   // back to its spot in the card
+    rising = null;                                    // the next person picks their own sign
+    box.style.minHeight = box.offsetHeight + 'px';    // no jump while the new copy loads
+    while (box.firstChild) box.removeChild(box.firstChild);
+    var note = document.createElement('p');
+    note.className = 'emailoctopus-success-message su-done';
+    note.setAttribute('role', 'status');
+    note.textContent = msg;
+    box.appendChild(note);
+    var s = document.createElement('script');
+    s.async = true; s.src = 'https://eomail5.com/form/' + id + '.js'; s.setAttribute('data-form', id);
+    box.appendChild(s);
+    var gone = function () { if (note.parentNode) note.parentNode.removeChild(note); box.removeEventListener('input', gone); };
+    box.addEventListener('input', gone);
+    var ready = new MutationObserver(function () {
+      if (!box.querySelector('.emailoctopus-form')) return;
+      ready.disconnect(); box.style.minHeight = '';
+    });
+    ready.observe(box, { childList: true, subtree: true });
+    setTimeout(function () { ready.disconnect(); box.style.minHeight = ''; }, 15000);
+    watch(box);
   }
 
   // the chart page announces each chart it draws
